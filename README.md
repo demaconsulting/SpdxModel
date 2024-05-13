@@ -1,0 +1,2 @@
+# SpdxModel
+SPDX Model Library
