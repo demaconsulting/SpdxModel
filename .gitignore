@@ -1,0 +1,6 @@
+.vs
+*.bak
+
+bin/
+obj/
+/TestResults
