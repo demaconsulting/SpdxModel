@@ -125,6 +125,32 @@ public class SpdxPackage : SpdxElement
     public string[] Attributions { get; set; } = Array.Empty<string>();
 
     /// <summary>
+    /// Primary Package Purpose Field (optional)
+    /// </summary>
+    public string? PrimaryPackagePurpose { get; set; }
+
+    /// <summary>
+    /// Release Date Field (optional)
+    /// </summary>
+    public string? ReleaseDate { get; set; }
+
+    /// <summary>
+    /// Build Date Field (optional)
+    /// </summary>
+    public string? BuildDate { get; set; }
+
+    /// <summary>
+    /// Valid Until Date Field (optional)
+    /// </summary>
+    public string? ValidUntilDate { get; set; }
+
+
+    /// <summary>
+    /// Annotations
+    /// </summary>
+    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

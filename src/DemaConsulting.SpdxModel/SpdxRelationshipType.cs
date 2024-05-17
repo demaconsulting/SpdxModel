@@ -128,7 +128,8 @@ public static class SpdxRelationshipTypeExtensions
     {
         return relationshipType switch
         {
-            SpdxRelationshipType.Missing => throw new InvalidOperationException("Attempt to serialize missing SPDX Relationship Type"),
+            SpdxRelationshipType.Missing => throw new InvalidOperationException(
+                "Attempt to serialize missing SPDX Relationship Type"),
             SpdxRelationshipType.Describes => "DESCRIBES",
             SpdxRelationshipType.DescribedBy => "DESCRIBED_BY",
             SpdxRelationshipType.Contains => "CONTAINS",

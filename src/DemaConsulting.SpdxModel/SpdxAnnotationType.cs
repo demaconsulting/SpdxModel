@@ -7,7 +7,7 @@ public enum SpdxAnnotationType
 {
     Missing = -1,
     Review,
-    Other,
+    Other
 }
 
 /// <summary>
@@ -42,7 +42,8 @@ public static class SpdxAnnotationTypeExtensions
     {
         return annotationType switch
         {
-            SpdxAnnotationType.Missing => throw new InvalidOperationException("Attempt to serialize missing SPDX Annotation Type"),
+            SpdxAnnotationType.Missing => throw new InvalidOperationException(
+                "Attempt to serialize missing SPDX Annotation Type"),
             SpdxAnnotationType.Review => "REVIEW",
             SpdxAnnotationType.Other => "OTHER",
             _ => throw new InvalidOperationException($"Unsupported SPDX Annotation Type {annotationType}")

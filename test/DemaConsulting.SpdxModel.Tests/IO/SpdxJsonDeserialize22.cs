@@ -1,7 +1,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class JsonDeserialize22
+public class SpdxJsonDeserialize22
 {
     [TestMethod]
     public void TestParse22()
@@ -10,7 +10,7 @@ public class JsonDeserialize22
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.2.spdx.json");
 
         // Deserialize the document
-        var doc = SpdxModel.IO.JsonDeserializer.Deserialize(json22Example);
+        var doc = SpdxModel.IO.SpdxJsonDeserializer.Deserialize(json22Example);
         Assert.IsNotNull(doc);
 
         // Validate the document
@@ -21,7 +21,8 @@ public class JsonDeserialize22
         // Verify document
         Assert.AreEqual("SPDX-Tools-v2.0", doc.Name);
         Assert.AreEqual("SPDX-2.2", doc.SpdxVersion);
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.2-444504E0-4F89-41D3-9A0C-0305E82C3301", doc.DocumentNamespace);
+        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.2-444504E0-4F89-41D3-9A0C-0305E82C3301",
+            doc.DocumentNamespace);
         Assert.AreEqual("This document was created using SPDX 2.0 using licenses from the web site.", doc.Comment);
         Assert.AreEqual(3, doc.CreationInformation.Creators.Length);
         Assert.AreEqual("Tool: LicenseFind-1.0", doc.CreationInformation.Creators[0]);
@@ -36,20 +37,23 @@ public class JsonDeserialize22
         Assert.AreEqual("DocumentRef-spdx-tool-1.2", doc.ExternalDocumentReferences[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, doc.ExternalDocumentReferences[0].Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", doc.ExternalDocumentReferences[0].Checksum.Value);
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301", doc.ExternalDocumentReferences[0].SpdxDocument);
+        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+            doc.ExternalDocumentReferences[0].SpdxDocument);
 
         // Verify extracted licensing info
         Assert.AreEqual(5, doc.ExtractedLicensingInfo.Length);
         Assert.AreEqual("LicenseRef-Beerware-4.2", doc.ExtractedLicensingInfo[0].LicenseId);
         Assert.IsTrue(doc.ExtractedLicensingInfo[0].ExtractedText?.StartsWith("\"THE BEER-WARE LICENSE\""));
         Assert.AreEqual("LicenseRef-4", doc.ExtractedLicensingInfo[1].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[1].ExtractedText?.StartsWith("/*\n * (c) Copyright 2009 University of Bristol"));
+        Assert.IsTrue(doc.ExtractedLicensingInfo[1].ExtractedText
+            ?.StartsWith("/*\n * (c) Copyright 2009 University of Bristol"));
         Assert.AreEqual("LicenseRef-3", doc.ExtractedLicensingInfo[2].LicenseId);
         Assert.IsTrue(doc.ExtractedLicensingInfo[2].ExtractedText?.StartsWith("The CyberNeko Software License"));
         Assert.AreEqual("CyberNeko License", doc.ExtractedLicensingInfo[2].Name);
-        Assert.AreEqual(2, doc.ExtractedLicensingInfo[2].CrossReference.Length);
-        Assert.AreEqual("http://people.apache.org/~andyc/neko/LICENSE", doc.ExtractedLicensingInfo[2].CrossReference[0]);
-        Assert.AreEqual("http://justasample.url.com", doc.ExtractedLicensingInfo[2].CrossReference[1]);
+        Assert.AreEqual(2, doc.ExtractedLicensingInfo[2].CrossReferences.Length);
+        Assert.AreEqual("http://people.apache.org/~andyc/neko/LICENSE",
+            doc.ExtractedLicensingInfo[2].CrossReferences[0]);
+        Assert.AreEqual("http://justasample.url.com", doc.ExtractedLicensingInfo[2].CrossReferences[1]);
         Assert.AreEqual("This is tye CyperNeko License", doc.ExtractedLicensingInfo[2].Comment);
         Assert.AreEqual("LicenseRef-2", doc.ExtractedLicensingInfo[3].LicenseId);
         Assert.IsTrue(doc.ExtractedLicensingInfo[3].ExtractedText?.StartsWith("This package includes the"));

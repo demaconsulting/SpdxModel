@@ -12,7 +12,6 @@ public enum SpdxReferenceCategory
     Other
 }
 
-
 /// <summary>
 /// SPDX Reference Category Extensions
 /// </summary>
@@ -48,7 +47,8 @@ public static class SpdxReferenceCategoryExtensions
     {
         return category switch
         {
-            SpdxReferenceCategory.Missing => throw new InvalidOperationException("Attempt to serialize missing SPDX Reference Category"),
+            SpdxReferenceCategory.Missing => throw new InvalidOperationException(
+                "Attempt to serialize missing SPDX Reference Category"),
             SpdxReferenceCategory.Security => "SECURITY",
             SpdxReferenceCategory.PackageManager => "PACKAGE-MANAGER",
             SpdxReferenceCategory.PersistentId => "PERSISTENT-ID",

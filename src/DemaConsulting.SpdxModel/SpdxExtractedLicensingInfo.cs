@@ -23,7 +23,7 @@ public class SpdxExtractedLicensingInfo
     /// <summary>
     /// License Cross-Reference Field (optional)
     /// </summary>
-    public string[] CrossReference { get; set; } = Array.Empty<string>();
+    public string[] CrossReferences { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// License Comment Field (optional)

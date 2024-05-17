@@ -72,7 +72,8 @@ public static class SpdxChecksumAlgorithmExtensions
     {
         return checksumAlgorithm switch
         {
-            SpdxChecksumAlgorithm.Missing => throw new InvalidOperationException("Attempt to serialize missing SPDX Checksum Algorithm"),
+            SpdxChecksumAlgorithm.Missing => throw new InvalidOperationException(
+                "Attempt to serialize missing SPDX Checksum Algorithm"),
             SpdxChecksumAlgorithm.Sha1 => "SHA1",
             SpdxChecksumAlgorithm.Sha224 => "SHA224",
             SpdxChecksumAlgorithm.Sha256 => "SHA256",

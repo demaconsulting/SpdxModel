@@ -6,7 +6,7 @@ namespace DemaConsulting.SpdxModel.IO;
 /// <summary>
 /// JSON Deserializer class
 /// </summary>
-public static class JsonDeserializer
+public static class SpdxJsonDeserializer
 {
     /// <summary>
     /// Deserialize SPDX Document
@@ -17,7 +17,7 @@ public static class JsonDeserializer
     public static SpdxDocument Deserialize(string json)
     {
         // Deserialize the Json
-        var dom = JsonNode.Parse(json) ?? 
+        var dom = JsonNode.Parse(json) ??
                   throw new JsonException("Invalid JSON document");
 
         // Deserialize the SPDX Document
@@ -29,8 +29,9 @@ public static class JsonDeserializer
     /// </summary>
     /// <param name="json">Json Document Node</param>
     /// <returns>SPDX Document</returns>
-    private static SpdxDocument DeserializeDocument(JsonNode json) => 
-        new()
+    public static SpdxDocument DeserializeDocument(JsonNode json)
+    {
+        return new SpdxDocument
         {
             SpdxId = ParseString(json, "SPDXID"),
             SpdxVersion = ParseString(json, "spdxVersion"),
@@ -45,82 +46,98 @@ public static class JsonDeserializer
             Files = DeserializeFiles(json["files"]?.AsArray()),
             Packages = DeserializePackages(json["packages"]?.AsArray()),
             Snippets = DeserializeSnippets(json["snippets"]?.AsArray()),
-            Relationships = DeserializeRelationships(json["relationships"]?.AsArray())
+            Relationships = DeserializeRelationships(json["relationships"]?.AsArray()),
+            Describes = ParseStringArray(json, "documentDescribes")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Creation Information
     /// </summary>
     /// <param name="json">Json Creation Information Node</param>
     /// <returns>SPDX Document</returns>
-    private static SpdxCreationInformation DeserializeCreationInformation(JsonNode? json) =>
-        new()
+    public static SpdxCreationInformation DeserializeCreationInformation(JsonNode? json)
+    {
+        return new SpdxCreationInformation
         {
             Creators = ParseStringArray(json, "creators"),
             Created = ParseString(json, "created"),
             Comment = ParseOptionalString(json, "comment"),
             LicenseListVersion = ParseOptionalString(json, "licenseListVersion")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX External Document References
     /// </summary>
     /// <param name="json">Json External Document References Array</param>
     /// <returns>SPDX External Document References</returns>
-    private static SpdxExternalDocumentReference[] DeserializeExternalDocumentReferences(JsonArray? json) =>
-        json?.Select(DeserializeExternalDocumentReference).ToArray() ?? Array.Empty<SpdxExternalDocumentReference>();
+    public static SpdxExternalDocumentReference[] DeserializeExternalDocumentReferences(JsonArray? json)
+    {
+        return json?.Select(DeserializeExternalDocumentReference).ToArray() ??
+               Array.Empty<SpdxExternalDocumentReference>();
+    }
 
     /// <summary>
     /// Deserialize SPDX External Document Reference
     /// </summary>
     /// <param name="json">Json External Document Reference Node</param>
     /// <returns>SPDX External Document Reference</returns>
-    private static SpdxExternalDocumentReference DeserializeExternalDocumentReference(JsonNode? json) =>
-        new()
+    public static SpdxExternalDocumentReference DeserializeExternalDocumentReference(JsonNode? json)
+    {
+        return new SpdxExternalDocumentReference
         {
             ExternalDocumentId = ParseString(json, "externalDocumentId"),
             Checksum = DeserializeChecksum(json?["checksum"]),
             SpdxDocument = ParseString(json, "spdxDocument")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Extracted Licensing Infos
     /// </summary>
     /// <param name="json">Json Extracted Licensing Info Array</param>
     /// <returns>SPDX Extracted Licensing Infos</returns>
-    private static SpdxExtractedLicensingInfo[] DeserializeExtractedLicensingInfos(JsonArray? json) =>
-        json?.Select(DeserializeExtractedLicensingInfo).ToArray() ?? Array.Empty<SpdxExtractedLicensingInfo>();
+    public static SpdxExtractedLicensingInfo[] DeserializeExtractedLicensingInfos(JsonArray? json)
+    {
+        return json?.Select(DeserializeExtractedLicensingInfo).ToArray() ?? Array.Empty<SpdxExtractedLicensingInfo>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Extracted Licensing Info
     /// </summary>
     /// <param name="json">Json Extracted Licensing Info Node</param>
     /// <returns>SPDX Extracted Licensing Info</returns>
-    private static SpdxExtractedLicensingInfo DeserializeExtractedLicensingInfo(JsonNode? json) =>
-        new()
+    public static SpdxExtractedLicensingInfo DeserializeExtractedLicensingInfo(JsonNode? json)
+    {
+        return new SpdxExtractedLicensingInfo
         {
             LicenseId = ParseOptionalString(json, "licenseId"),
             ExtractedText = ParseOptionalString(json, "extractedText"),
             Name = ParseOptionalString(json, "name"),
-            CrossReference = ParseStringArray(json, "seeAlsos"),
+            CrossReferences = ParseStringArray(json, "seeAlsos"),
             Comment = ParseOptionalString(json, "comment")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Files
     /// </summary>
     /// <param name="json">Json Files Array</param>
     /// <returns>SPDX Files</returns>
-    private static SpdxFile[] DeserializeFiles(JsonArray? json) =>
-        json?.Select(DeserializeFile).ToArray() ?? Array.Empty<SpdxFile>();
+    public static SpdxFile[] DeserializeFiles(JsonArray? json)
+    {
+        return json?.Select(DeserializeFile).ToArray() ?? Array.Empty<SpdxFile>();
+    }
 
     /// <summary>
     /// Deserialize SPDX File
     /// </summary>
     /// <param name="json">Json File Node</param>
     /// <returns>SPDX File</returns>
-    private static SpdxFile DeserializeFile(JsonNode? json) =>
-        new()
+    public static SpdxFile DeserializeFile(JsonNode? json)
+    {
+        return new SpdxFile
         {
             SpdxId = ParseString(json, "SPDXID"),
             FileName = ParseString(json, "fileName"),
@@ -136,22 +153,26 @@ public static class JsonDeserializer
             AttributionText = ParseStringArray(json, "attributionTexts"),
             Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Packages
     /// </summary>
     /// <param name="json">Json Packages Array</param>
     /// <returns>SPDX Packages</returns>
-    private static SpdxPackage[] DeserializePackages(JsonArray? json) =>
-        json?.Select(DeserializePackage).ToArray() ?? Array.Empty<SpdxPackage>();
+    public static SpdxPackage[] DeserializePackages(JsonArray? json)
+    {
+        return json?.Select(DeserializePackage).ToArray() ?? Array.Empty<SpdxPackage>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Package
     /// </summary>
     /// <param name="json">Json Package Node</param>
     /// <returns>SPDX Package</returns>
-    private static SpdxPackage DeserializePackage(JsonNode? json) =>
-        new()
+    public static SpdxPackage DeserializePackage(JsonNode? json)
+    {
+        return new SpdxPackage
         {
             SpdxId = ParseString(json, "SPDXID"),
             Name = ParseString(json, "name"),
@@ -175,24 +196,33 @@ public static class JsonDeserializer
             Description = ParseOptionalString(json, "description"),
             Comment = ParseOptionalString(json, "comment"),
             ExternalReferences = DeserializeExternalReferences(json?["externalRefs"]?.AsArray()),
-            Attributions = ParseStringArray(json, "attributionTexts")
+            Attributions = ParseStringArray(json, "attributionTexts"),
+            PrimaryPackagePurpose = ParseOptionalString(json, "primaryPackagePurpose"),
+            ReleaseDate = ParseOptionalString(json, "releaseDate"),
+            BuildDate = ParseOptionalString(json, "builtDate"),
+            ValidUntilDate = ParseOptionalString(json, "validUntilDate"),
+            Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Snippets
     /// </summary>
     /// <param name="json">Json Snippets Array</param>
     /// <returns>SPDX Snippets</returns>
-    private static SpdxSnippet[] DeserializeSnippets(JsonArray? json) =>
-        json?.Select(DeserializeSnippet).ToArray() ?? Array.Empty<SpdxSnippet>();
+    public static SpdxSnippet[] DeserializeSnippets(JsonArray? json)
+    {
+        return json?.Select(DeserializeSnippet).ToArray() ?? Array.Empty<SpdxSnippet>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Snippet
     /// </summary>
     /// <param name="json">Json Snippet Node</param>
     /// <returns>SPDX Snippet</returns>
-    private static SpdxSnippet DeserializeSnippet(JsonNode? json) =>
-        new()
+    public static SpdxSnippet DeserializeSnippet(JsonNode? json)
+    {
+        return new SpdxSnippet
         {
             SpdxId = ParseString(json, "SPDXID"),
             SnippetFromFile = ParseString(json, "snippetFromFile"),
@@ -208,103 +238,126 @@ public static class JsonDeserializer
             Name = ParseOptionalString(json, "name"),
             AttributionText = ParseStringArray(json, "attributionTexts")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Relationships
     /// </summary>
     /// <param name="json">Json Relationships Array</param>
     /// <returns>SPDX Relationships</returns>
-    private static SpdxRelationship[] DeserializeRelationships(JsonArray? json) =>
-        json?.Select(DeserializeRelationship).ToArray() ?? Array.Empty<SpdxRelationship>();
+    public static SpdxRelationship[] DeserializeRelationships(JsonArray? json)
+    {
+        return json?.Select(DeserializeRelationship).ToArray() ?? Array.Empty<SpdxRelationship>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Relationship
     /// </summary>
     /// <param name="json">Json Relationship Node</param>
     /// <returns>SPDX Relationship</returns>
-    private static SpdxRelationship DeserializeRelationship(JsonNode? json) =>
-        new()
+    public static SpdxRelationship DeserializeRelationship(JsonNode? json)
+    {
+        return new SpdxRelationship
         {
             SpdxElementId = ParseString(json, "spdxElementId"),
             RelatedSpdxElement = ParseString(json, "relatedSpdxElement"),
             RelationshipType = SpdxRelationshipTypeExtensions.FromText(ParseString(json, "relationshipType")),
             Comment = ParseOptionalString(json, "comment")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Package Verification Code
     /// </summary>
     /// <param name="json">Json Package Verification Code Node</param>
     /// <returns>SPDX Package Verification Code</returns>
-    private static SpdxPackageVerificationCode? DeserializeVerificationCode(JsonNode? json) =>
-        json == null ? null : new SpdxPackageVerificationCode
-        {
-            ExcludedFiles = ParseStringArray(json, "packageVerificationCodeExcludedFiles"),
-            Value = ParseString(json, "packageVerificationCodeValue")
-        };
+    public static SpdxPackageVerificationCode? DeserializeVerificationCode(JsonNode? json)
+    {
+        return json == null
+            ? null
+            : new SpdxPackageVerificationCode
+            {
+                ExcludedFiles = ParseStringArray(json, "packageVerificationCodeExcludedFiles"),
+                Value = ParseString(json, "packageVerificationCodeValue")
+            };
+    }
 
     /// <summary>
     /// Deserialize SPDX External References
     /// </summary>
     /// <param name="json">Json External References Array</param>
     /// <returns>SPDX External References</returns>
-    private static SpdxExternalReference[] DeserializeExternalReferences(JsonArray? json) =>
-        json?.Select(DeserializeExternalReference).ToArray() ?? Array.Empty<SpdxExternalReference>();
+    public static SpdxExternalReference[] DeserializeExternalReferences(JsonArray? json)
+    {
+        return json?.Select(DeserializeExternalReference).ToArray() ?? Array.Empty<SpdxExternalReference>();
+    }
 
     /// <summary>
     /// Deserialize SPDX External Reference
     /// </summary>
     /// <param name="json">Json External Reference Node</param>
     /// <returns>SPDX External Reference</returns>
-    private static SpdxExternalReference DeserializeExternalReference(JsonNode? json) =>
-        new()
+    public static SpdxExternalReference DeserializeExternalReference(JsonNode? json)
+    {
+        return new SpdxExternalReference
         {
             Category = SpdxReferenceCategoryExtensions.FromText(ParseString(json, "referenceCategory")),
             Type = ParseString(json, "referenceType"),
             Locator = ParseString(json, "referenceLocator"),
             Comment = ParseOptionalString(json, "comment")
         };
+    }
 
     /// <summary>
     /// Deserialize SPDX Checksums
     /// </summary>
     /// <param name="json">Json Checksums Array</param>
     /// <returns>SPDX Checksums</returns>
-    private static SpdxChecksum[] DeserializeChecksums(JsonArray? json) =>
-        json?.Select(DeserializeChecksum).ToArray() ?? Array.Empty<SpdxChecksum>();
+    public static SpdxChecksum[] DeserializeChecksums(JsonArray? json)
+    {
+        return json?.Select(DeserializeChecksum).ToArray() ?? Array.Empty<SpdxChecksum>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Checksum
     /// </summary>
     /// <param name="json">Json Checksum Node</param>
     /// <returns>SPDX Checksum</returns>
-    private static SpdxChecksum DeserializeChecksum(JsonNode? json) => new()
+    public static SpdxChecksum DeserializeChecksum(JsonNode? json)
     {
-        Algorithm = SpdxChecksumAlgorithmExtensions.FromText(ParseString(json, "algorithm")),
-        Value = ParseString(json, "checksumValue")
-    };
+        return new SpdxChecksum
+        {
+            Algorithm = SpdxChecksumAlgorithmExtensions.FromText(ParseString(json, "algorithm")),
+            Value = ParseString(json, "checksumValue")
+        };
+    }
 
     /// <summary>
     /// Deserialize SPDX Annotations
     /// </summary>
     /// <param name="json">Json Annotations Array</param>
     /// <returns>SPDX Annotations</returns>
-    private static SpdxAnnotation[] DeserializeAnnotations(JsonArray? json) =>
-        json?.Select(DeserializeAnnotation).ToArray() ?? Array.Empty<SpdxAnnotation>();
+    public static SpdxAnnotation[] DeserializeAnnotations(JsonArray? json)
+    {
+        return json?.Select(DeserializeAnnotation).ToArray() ?? Array.Empty<SpdxAnnotation>();
+    }
 
     /// <summary>
     /// Deserialize SPDX Annotation
     /// </summary>
     /// <param name="json">Json Annotation Node</param>
     /// <returns>SPDX Annotation</returns>
-    private static SpdxAnnotation DeserializeAnnotation(JsonNode? json) => new()
+    public static SpdxAnnotation DeserializeAnnotation(JsonNode? json)
     {
-        SpdxId = ParseString(json, "SPDXID"),
-        Annotator = ParseString(json, "annotator"),
-        Date = ParseString(json, "annotationDate"),
-        Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, "annotationType")),
-        Comment = ParseOptionalString(json, "comment")
-    };
+        return new SpdxAnnotation
+        {
+            SpdxId = ParseString(json, "SPDXID"),
+            Annotator = ParseString(json, "annotator"),
+            Date = ParseString(json, "annotationDate"),
+            Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, "annotationType")),
+            Comment = ParseOptionalString(json, "comment")
+        };
+    }
 
     /// <summary>
     /// Deserialize JSON String
@@ -371,7 +424,7 @@ public static class JsonDeserializer
     private static JsonNode? Find(JsonNode? node, int idx, IReadOnlyList<string> names)
     {
         // Fail if at end
-        if (node == null || idx >= names.Count) 
+        if (node == null || idx >= names.Count)
             return node;
 
         // Iterate over arrays

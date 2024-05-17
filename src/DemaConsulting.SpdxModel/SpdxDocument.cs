@@ -15,7 +15,7 @@ public sealed class SpdxDocument : SpdxElement
         get => Id;
         set => Id = value;
     }
-    
+
     /// <summary>
     /// Document Name Field
     /// </summary>
@@ -49,12 +49,14 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     /// External Document References
     /// </summary>
-    public SpdxExternalDocumentReference[] ExternalDocumentReferences { get; set; } = Array.Empty<SpdxExternalDocumentReference>();
+    public SpdxExternalDocumentReference[] ExternalDocumentReferences { get; set; } =
+        Array.Empty<SpdxExternalDocumentReference>();
 
     /// <summary>
     /// Extracted Licensing Information
     /// </summary>
-    public SpdxExtractedLicensingInfo[] ExtractedLicensingInfo { get; set; } = Array.Empty<SpdxExtractedLicensingInfo>();
+    public SpdxExtractedLicensingInfo[] ExtractedLicensingInfo { get; set; } =
+        Array.Empty<SpdxExtractedLicensingInfo>();
 
     /// <summary>
     /// Annotations
@@ -80,6 +82,11 @@ public sealed class SpdxDocument : SpdxElement
     /// Relationships
     /// </summary>
     public SpdxRelationship[] Relationships { get; set; } = Array.Empty<SpdxRelationship>();
+
+    /// <summary>
+    /// Document Describes field (optional)
+    /// </summary>
+    public string[] Describes { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// Perform validation of information
