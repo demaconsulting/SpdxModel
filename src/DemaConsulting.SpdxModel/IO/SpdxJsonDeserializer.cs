@@ -199,7 +199,7 @@ public static class SpdxJsonDeserializer
             Attributions = ParseStringArray(json, "attributionTexts"),
             PrimaryPackagePurpose = ParseOptionalString(json, "primaryPackagePurpose"),
             ReleaseDate = ParseOptionalString(json, "releaseDate"),
-            BuildDate = ParseOptionalString(json, "builtDate"),
+            BuiltDate = ParseOptionalString(json, "builtDate"),
             ValidUntilDate = ParseOptionalString(json, "validUntilDate"),
             Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
         };

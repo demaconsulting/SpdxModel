@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using DemaConsulting.SpdxModel.IO;
 
-namespace DemaConsulting.SpdxModel.Tests;
+namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
 public class SpdxJsonDeserializeDocument

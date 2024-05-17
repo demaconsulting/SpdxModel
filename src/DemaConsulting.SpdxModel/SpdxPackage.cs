@@ -126,9 +126,9 @@ public class SpdxPackage : SpdxElement
     public string? ReleaseDate { get; set; }
 
     /// <summary>
-    /// Build Date Field (optional)
+    /// Built Date Field (optional)
     /// </summary>
-    public string? BuildDate { get; set; }
+    public string? BuiltDate { get; set; }
 
     /// <summary>
     /// Valid Until Date Field (optional)

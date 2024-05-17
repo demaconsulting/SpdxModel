@@ -75,7 +75,7 @@ public class SpdxJsonDeserializePackage
         Assert.AreEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
             package.Attributions[0]);
-        Assert.AreEqual("2011-01-29T18:30:22Z", package.BuildDate);
+        Assert.AreEqual("2011-01-29T18:30:22Z", package.BuiltDate);
         Assert.AreEqual(3, package.Checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, package.Checksums[0].Algorithm);
         Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", package.Checksums[0].Value);
@@ -168,7 +168,7 @@ public class SpdxJsonDeserializePackage
         Assert.AreEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
             packages[0].Attributions[0]);
-        Assert.AreEqual("2011-01-29T18:30:22Z", packages[0].BuildDate);
+        Assert.AreEqual("2011-01-29T18:30:22Z", packages[0].BuiltDate);
         Assert.AreEqual(3, packages[0].Checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, packages[0].Checksums[0].Algorithm);
         Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", packages[0].Checksums[0].Value);
