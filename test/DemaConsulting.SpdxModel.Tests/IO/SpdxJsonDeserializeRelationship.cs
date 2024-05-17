@@ -22,7 +22,7 @@ public class SpdxJsonDeserializeRelationship
         var relationship = SpdxJsonDeserializer.DeserializeRelationship(json);
 
         // Assert
-        Assert.AreEqual("SPDXRef-DOCUMENT", relationship.SpdxElementId);
+        Assert.AreEqual("SPDXRef-DOCUMENT", relationship.Id);
         Assert.AreEqual("SPDXRef-Package", relationship.RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Describes, relationship.RelationshipType);
         Assert.AreEqual("This is just an example", relationship.Comment);
@@ -55,11 +55,11 @@ public class SpdxJsonDeserializeRelationship
 
         // Assert
         Assert.AreEqual(2, relationships.Length);
-        Assert.AreEqual("SPDXRef-DOCUMENT", relationships[0].SpdxElementId);
+        Assert.AreEqual("SPDXRef-DOCUMENT", relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package", relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Describes, relationships[0].RelationshipType);
         Assert.AreEqual("This is just an example", relationships[0].Comment);
-        Assert.AreEqual("SPDXRef-Package", relationships[1].SpdxElementId);
+        Assert.AreEqual("SPDXRef-Package", relationships[1].Id);
         Assert.AreEqual("SPDXRef-DOCUMENT", relationships[1].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DescribedBy, relationships[1].RelationshipType);
         Assert.AreEqual("This is just an example", relationships[1].Comment);

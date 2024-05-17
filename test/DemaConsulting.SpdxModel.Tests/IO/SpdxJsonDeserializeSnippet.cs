@@ -60,7 +60,7 @@ public class SpdxJsonDeserializeSnippet
         var snippet = SpdxJsonDeserializer.DeserializeSnippet(json);
 
         // Assert
-        Assert.AreEqual("SPDXRef-Snippet", snippet.SpdxId);
+        Assert.AreEqual("SPDXRef-Snippet", snippet.Id);
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
             snippet.Comment);
@@ -137,7 +137,7 @@ public class SpdxJsonDeserializeSnippet
 
         // Assert
         Assert.AreEqual(1, snippets.Length);
-        Assert.AreEqual("SPDXRef-Snippet", snippets[0].SpdxId);
+        Assert.AreEqual("SPDXRef-Snippet", snippets[0].Id);
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
             snippets[0].Comment);

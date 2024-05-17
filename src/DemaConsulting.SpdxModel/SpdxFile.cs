@@ -6,15 +6,6 @@
 public sealed class SpdxFile : SpdxElement
 {
     /// <summary>
-    /// Gets or sets the SPDX Identifier Field
-    /// </summary>
-    public string SpdxId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// File Name Field
     /// </summary>
     public string FileName { get; set; } = string.Empty;
@@ -85,7 +76,7 @@ public sealed class SpdxFile : SpdxElement
             issues.Add($"File {FileName} Invalid File Name Field");
 
         // Validate File SPDX Identifier Field
-        if (!SpdxId.StartsWith("SPDXRef-"))
+        if (!Id.StartsWith("SPDXRef-"))
             issues.Add($"File {FileName} Invalid SPDX Identifier Field");
 
         // Validate Checksums

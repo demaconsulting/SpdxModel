@@ -6,7 +6,7 @@ public class SpdxJsonDeserialize23
     [TestMethod]
     public void TestParse23()
     {
-        var json22Example = TestHelpers.GetEmbeddedResource(
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
 
         // Deserialize the document
@@ -20,7 +20,7 @@ public class SpdxJsonDeserialize23
 
         // Verify document
         Assert.AreEqual("SPDX-Tools-v2.0", doc.Name);
-        Assert.AreEqual("SPDX-2.3", doc.SpdxVersion);
+        Assert.AreEqual("SPDX-2.3", doc.Version);
         Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             doc.DocumentNamespace);
         Assert.AreEqual("This document was created using SPDX 2.0 using licenses from the web site.", doc.Comment);
@@ -38,7 +38,7 @@ public class SpdxJsonDeserialize23
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, doc.ExternalDocumentReferences[0].Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", doc.ExternalDocumentReferences[0].Checksum.Value);
         Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
-            doc.ExternalDocumentReferences[0].SpdxDocument);
+            doc.ExternalDocumentReferences[0].Document);
 
         // Verify extracted licensing info
         Assert.AreEqual(5, doc.ExtractedLicensingInfo.Length);
@@ -83,7 +83,7 @@ public class SpdxJsonDeserialize23
 
         // Verify files
         Assert.AreEqual(5, doc.Files.Length);
-        Assert.AreEqual("SPDXRef-DoapSource", doc.Files[0].SpdxId);
+        Assert.AreEqual("SPDXRef-DoapSource", doc.Files[0].Id);
         Assert.AreEqual("./src/org/spdx/parser/DOAPProject.java", doc.Files[0].FileName);
         Assert.AreEqual(1, doc.Files[0].FileTypes.Length);
         Assert.IsTrue(doc.Files[0].FileTypes.Contains(SpdxFileType.Source));
@@ -111,7 +111,7 @@ public class SpdxJsonDeserialize23
 
         // Verify snippets
         Assert.AreEqual(1, doc.Snippets.Length);
-        Assert.AreEqual("SPDXRef-Snippet", doc.Snippets[0].SpdxId);
+        Assert.AreEqual("SPDXRef-Snippet", doc.Snippets[0].Id);
         Assert.AreEqual("SPDXRef-DoapSource", doc.Snippets[0].SnippetFromFile);
         Assert.AreEqual(310, doc.Snippets[0].SnippetByteStart);
         Assert.AreEqual(420, doc.Snippets[0].SnippetByteEnd);
@@ -127,25 +127,25 @@ public class SpdxJsonDeserialize23
 
         // Verify relationships
         Assert.AreEqual(7, doc.Relationships.Length);
-        Assert.AreEqual("SPDXRef-DOCUMENT", doc.Relationships[0].SpdxElementId);
+        Assert.AreEqual("SPDXRef-DOCUMENT", doc.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package", doc.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Contains, doc.Relationships[0].RelationshipType);
-        Assert.AreEqual("SPDXRef-DOCUMENT", doc.Relationships[1].SpdxElementId);
+        Assert.AreEqual("SPDXRef-DOCUMENT", doc.Relationships[1].Id);
         Assert.AreEqual("DocumentRef-spdx-tool-1.2:SPDXRef-ToolsElement", doc.Relationships[1].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.CopyOf, doc.Relationships[1].RelationshipType);
-        Assert.AreEqual("SPDXRef-Package", doc.Relationships[2].SpdxElementId);
+        Assert.AreEqual("SPDXRef-Package", doc.Relationships[2].Id);
         Assert.AreEqual("SPDXRef-Saxon", doc.Relationships[2].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DynamicLink, doc.Relationships[2].RelationshipType);
-        Assert.AreEqual("SPDXRef-CommonsLangSrc", doc.Relationships[3].SpdxElementId);
+        Assert.AreEqual("SPDXRef-CommonsLangSrc", doc.Relationships[3].Id);
         Assert.AreEqual("NOASSERTION", doc.Relationships[3].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.GeneratedFrom, doc.Relationships[3].RelationshipType);
-        Assert.AreEqual("SPDXRef-JenaLib", doc.Relationships[4].SpdxElementId);
+        Assert.AreEqual("SPDXRef-JenaLib", doc.Relationships[4].Id);
         Assert.AreEqual("SPDXRef-Package", doc.Relationships[4].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Contains, doc.Relationships[4].RelationshipType);
-        Assert.AreEqual("SPDXRef-Specification", doc.Relationships[5].SpdxElementId);
+        Assert.AreEqual("SPDXRef-Specification", doc.Relationships[5].Id);
         Assert.AreEqual("SPDXRef-fromDoap-0", doc.Relationships[5].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.SpecificationFor, doc.Relationships[5].RelationshipType);
-        Assert.AreEqual("SPDXRef-File", doc.Relationships[6].SpdxElementId);
+        Assert.AreEqual("SPDXRef-File", doc.Relationships[6].Id);
         Assert.AreEqual("SPDXRef-fromDoap-0", doc.Relationships[6].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.GeneratedFrom, doc.Relationships[6].RelationshipType);
     }

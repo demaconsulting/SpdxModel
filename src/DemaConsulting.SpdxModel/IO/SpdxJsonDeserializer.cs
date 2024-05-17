@@ -33,8 +33,8 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxDocument
         {
-            SpdxId = ParseString(json, "SPDXID"),
-            SpdxVersion = ParseString(json, "spdxVersion"),
+            Id = ParseString(json, "SPDXID"),
+            Version = ParseString(json, "spdxVersion"),
             Name = ParseString(json, "name"),
             DataLicense = ParseString(json, "dataLicense"),
             DocumentNamespace = ParseString(json, "documentNamespace"),
@@ -89,7 +89,7 @@ public static class SpdxJsonDeserializer
         {
             ExternalDocumentId = ParseString(json, "externalDocumentId"),
             Checksum = DeserializeChecksum(json?["checksum"]),
-            SpdxDocument = ParseString(json, "spdxDocument")
+            Document = ParseString(json, "spdxDocument")
         };
     }
 
@@ -139,7 +139,7 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxFile
         {
-            SpdxId = ParseString(json, "SPDXID"),
+            Id = ParseString(json, "SPDXID"),
             FileName = ParseString(json, "fileName"),
             FileTypes = ParseStringArray(json, "fileTypes").Select(SpdxFileTypeExtensions.FromText).ToArray(),
             Checksums = DeserializeChecksums(json?["checksums"]?.AsArray()),
@@ -174,7 +174,7 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxPackage
         {
-            SpdxId = ParseString(json, "SPDXID"),
+            Id = ParseString(json, "SPDXID"),
             Name = ParseString(json, "name"),
             Version = ParseOptionalString(json, "versionInfo"),
             FileName = ParseOptionalString(json, "packageFileName"),
@@ -224,7 +224,7 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxSnippet
         {
-            SpdxId = ParseString(json, "SPDXID"),
+            Id = ParseString(json, "SPDXID"),
             SnippetFromFile = ParseString(json, "snippetFromFile"),
             SnippetByteStart = Convert.ToInt32(Find(json, "ranges", "startPointer", "offset")?.ToString() ?? ""),
             SnippetByteEnd = Convert.ToInt32(Find(json, "ranges", "endPointer", "offset")?.ToString() ?? ""),
@@ -259,7 +259,7 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxRelationship
         {
-            SpdxElementId = ParseString(json, "spdxElementId"),
+            Id = ParseString(json, "spdxElementId"),
             RelatedSpdxElement = ParseString(json, "relatedSpdxElement"),
             RelationshipType = SpdxRelationshipTypeExtensions.FromText(ParseString(json, "relationshipType")),
             Comment = ParseOptionalString(json, "comment")
@@ -351,7 +351,7 @@ public static class SpdxJsonDeserializer
     {
         return new SpdxAnnotation
         {
-            SpdxId = ParseString(json, "SPDXID"),
+            Id = ParseString(json, "SPDXID"),
             Annotator = ParseString(json, "annotator"),
             Date = ParseString(json, "annotationDate"),
             Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, "annotationType")),

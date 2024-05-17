@@ -6,15 +6,6 @@
 public class SpdxRelationship : SpdxElement
 {
     /// <summary>
-    /// SPDX Element ID Field
-    /// </summary>
-    public string SpdxElementId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Related SPDX Element Field
     /// </summary>
     public string RelatedSpdxElement { get; set; } = string.Empty;
@@ -36,7 +27,7 @@ public class SpdxRelationship : SpdxElement
     public void Validate(List<string> issues)
     {
         // Validate SPDX Element ID Field
-        if (SpdxElementId.Length == 0)
+        if (Id.Length == 0)
             issues.Add("Relationship Invalid SPDX Element ID Field");
 
         // Validate Related SPDX Element Field

@@ -65,7 +65,7 @@ public class SpdxJsonDeserializePackage
         var package = SpdxJsonDeserializer.DeserializePackage(json);
 
         // Assert
-        Assert.AreEqual("SPDXRef-Package", package.SpdxId);
+        Assert.AreEqual("SPDXRef-Package", package.Id);
         Assert.AreEqual(1, package.Annotations.Length);
         Assert.AreEqual("2011-01-29T18:30:22Z", package.Annotations[0].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, package.Annotations[0].Type);
@@ -158,7 +158,7 @@ public class SpdxJsonDeserializePackage
 
         // Assert
         Assert.AreEqual(1, packages.Length);
-        Assert.AreEqual("SPDXRef-Package", packages[0].SpdxId);
+        Assert.AreEqual("SPDXRef-Package", packages[0].Id);
         Assert.AreEqual(1, packages[0].Annotations.Length);
         Assert.AreEqual("2011-01-29T18:30:22Z", packages[0].Annotations[0].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, packages[0].Annotations[0].Type);

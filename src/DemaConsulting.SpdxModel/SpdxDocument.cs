@@ -8,15 +8,6 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>
-    /// Gets or sets the SPDX Identifier Field
-    /// </summary>
-    public string SpdxId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Document Name Field
     /// </summary>
     public string Name { get; set; } = string.Empty;
@@ -24,7 +15,7 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     /// SPDX Version field
     /// </summary>
-    public string SpdxVersion { get; set; } = string.Empty;
+    public string Version { get; set; } = string.Empty;
 
     /// <summary>
     /// Data License field
@@ -95,7 +86,7 @@ public sealed class SpdxDocument : SpdxElement
     public void Validate(List<string> issues)
     {
         // Validate SPDX Identifier Field
-        if (SpdxId != "SPDXRef-DOCUMENT")
+        if (Id != "SPDXRef-DOCUMENT")
             issues.Add("Document Invalid SPDX Identifier Field");
 
         // Validate Document Name Field
@@ -103,7 +94,7 @@ public sealed class SpdxDocument : SpdxElement
             issues.Add("Document Invalid Document Name Field");
 
         // Validate SPDX Version Field
-        if (!Regex.IsMatch(SpdxVersion, @"SPDX-\d+\.\d+"))
+        if (!Regex.IsMatch(Version, @"SPDX-\d+\.\d+"))
             issues.Add("Document Invalid SPDX Version Field");
 
         // Validate Data License Field

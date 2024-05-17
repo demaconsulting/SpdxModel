@@ -34,7 +34,7 @@ public class SpdxJsonDeserializeFile
         var file = SpdxJsonDeserializer.DeserializeFile(json);
 
         // Assert
-        Assert.AreEqual("SPDXRef-File", file.SpdxId);
+        Assert.AreEqual("SPDXRef-File", file.Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", file.FileName);
         Assert.AreEqual(1, file.FileTypes.Length);
         Assert.AreEqual(SpdxFileType.Source, file.FileTypes[0]);
@@ -81,7 +81,7 @@ public class SpdxJsonDeserializeFile
 
         // Assert
         Assert.AreEqual(1, files.Length);
-        Assert.AreEqual("SPDXRef-File", files[0].SpdxId);
+        Assert.AreEqual("SPDXRef-File", files[0].Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", files[0].FileName);
         Assert.AreEqual(1, files[0].FileTypes.Length);
         Assert.AreEqual(SpdxFileType.Source, files[0].FileTypes[0]);

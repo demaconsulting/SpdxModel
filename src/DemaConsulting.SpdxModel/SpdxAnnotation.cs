@@ -8,15 +8,6 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxAnnotation : SpdxElement
 {
     /// <summary>
-    /// Gets or sets the SPDX Identifier Field
-    /// </summary>
-    public string SpdxId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Annotator Field (optional)
     /// </summary>
     public string Annotator { get; set; } = string.Empty;

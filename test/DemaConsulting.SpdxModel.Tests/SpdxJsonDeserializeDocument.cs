@@ -50,8 +50,8 @@ public class SpdxJsonDeserializeDocument
         var document = SpdxJsonDeserializer.DeserializeDocument(json);
 
         // Assert
-        Assert.AreEqual("SPDXRef-DOCUMENT", document.SpdxId);
-        Assert.AreEqual("SPDX-2.3", document.SpdxVersion);
+        Assert.AreEqual("SPDXRef-DOCUMENT", document.Id);
+        Assert.AreEqual("SPDX-2.3", document.Version);
         Assert.AreEqual("SPDX-Tools-v2.0", document.Name);
         Assert.AreEqual("CC0-1.0", document.DataLicense);
         Assert.AreEqual("This document was created using SPDX 2.0 using licenses from the web site.", document.Comment);

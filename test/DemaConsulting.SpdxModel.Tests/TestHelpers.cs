@@ -3,7 +3,7 @@
 /// <summary>
 /// Test helpers class
 /// </summary>
-internal static class TestHelpers
+internal static class SpdxTestHelpers
 {
     /// <summary>
     /// Get an embedded resource as a string
@@ -13,7 +13,7 @@ internal static class TestHelpers
     public static string GetEmbeddedResource(string resourceName)
     {
         // Open the resource
-        using var stream = typeof(TestHelpers).Assembly.GetManifestResourceStream(resourceName);
+        using var stream = typeof(SpdxTestHelpers).Assembly.GetManifestResourceStream(resourceName);
         if (stream == null)
             return string.Empty;
 

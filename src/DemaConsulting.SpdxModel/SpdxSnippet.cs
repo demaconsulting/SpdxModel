@@ -6,15 +6,6 @@
 public class SpdxSnippet : SpdxElement
 {
     /// <summary>
-    /// Gets or sets the SPDX Identifier Field
-    /// </summary>
-    public string SpdxId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Snippet From File Field
     /// </summary>
     public string SnippetFromFile { get; set; } = string.Empty;
@@ -81,27 +72,27 @@ public class SpdxSnippet : SpdxElement
     public void Validate(List<string> issues)
     {
         // Validate Snippet SPDX Identifier Field
-        if (!SpdxId.StartsWith("SPDXRef-"))
+        if (!Id.StartsWith("SPDXRef-"))
             issues.Add("Snippet Invalid SPDX Identifier Field");
 
         // Validate Snippet From File Field
         if (SnippetFromFile.Length == 0)
-            issues.Add($"Snippet {SpdxId} Invalid Snippet From File Field");
+            issues.Add($"Snippet {Id} Invalid Snippet From File Field");
 
         // Validate Snippet Byte Range Start Field
         if (SnippetByteStart < 1)
-            issues.Add($"Snippet {SpdxId} Invalid Snippet Byte Range Start Field");
+            issues.Add($"Snippet {Id} Invalid Snippet Byte Range Start Field");
 
         // Validate Snippet Byte Range End Field
         if (SnippetByteEnd < SnippetByteStart)
-            issues.Add($"Snippet {SpdxId} Invalid Snippet Byte Range End Field");
+            issues.Add($"Snippet {Id} Invalid Snippet Byte Range End Field");
 
         // Validate Concluded License Field
         if (ConcludedLicense.Length == 0)
-            issues.Add($"Snippet {SpdxId} Invalid Concluded License Field");
+            issues.Add($"Snippet {Id} Invalid Concluded License Field");
 
         // Validate Copyright Text Field
         if (Copyright.Length == 0)
-            issues.Add($"Snippet {SpdxId} Invalid Copyright Text Field");
+            issues.Add($"Snippet {Id} Invalid Copyright Text Field");
     }
 }

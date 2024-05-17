@@ -32,8 +32,8 @@ public static class SpdxJsonSerializer
     {
         return new JsonObject
         {
-            ["SPDXID"] = document.SpdxId,
-            ["spdxVersion"] = document.SpdxVersion,
+            ["SPDXID"] = document.Id,
+            ["spdxVersion"] = document.Version,
             ["name"] = document.Name,
             ["dataLicense"] = document.DataLicense,
             ["documentNamespace"] = document.DocumentNamespace

@@ -29,7 +29,7 @@ public class SpdxJsonDeserializeExternalDocumentReference
         Assert.AreEqual("DocumentRef-1", externalDocumentReference.ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReference.Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReference.Checksum.Value);
-        Assert.AreEqual("SPDXRef-Document", externalDocumentReference.SpdxDocument);
+        Assert.AreEqual("SPDXRef-Document", externalDocumentReference.Document);
     }
 
     [TestMethod]
@@ -59,6 +59,6 @@ public class SpdxJsonDeserializeExternalDocumentReference
         Assert.AreEqual("DocumentRef-1", externalDocumentReferences[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReferences[0].Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReferences[0].Checksum.Value);
-        Assert.AreEqual("SPDXRef-Document", externalDocumentReferences[0].SpdxDocument);
+        Assert.AreEqual("SPDXRef-Document", externalDocumentReferences[0].Document);
     }
 }

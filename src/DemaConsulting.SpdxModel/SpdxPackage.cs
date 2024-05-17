@@ -6,15 +6,6 @@
 public class SpdxPackage : SpdxElement
 {
     /// <summary>
-    /// Gets or sets the SPDX Identifier Field
-    /// </summary>
-    public string SpdxId
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Package Name Field
     /// </summary>
     public string Name { get; set; } = string.Empty;

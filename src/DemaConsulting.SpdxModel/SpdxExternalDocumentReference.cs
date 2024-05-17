@@ -18,7 +18,7 @@ public class SpdxExternalDocumentReference
     /// <summary>
     /// SPDX Document URI Field
     /// </summary>
-    public string SpdxDocument { get; set; } = string.Empty;
+    public string Document { get; set; } = string.Empty;
 
     /// <summary>
     /// Perform validation of information
@@ -34,7 +34,7 @@ public class SpdxExternalDocumentReference
         Checksum.Validate($"External Document Reference {ExternalDocumentId}", issues);
 
         // Validate SPDX Document URI Field
-        if (SpdxDocument.Length == 0)
+        if (Document.Length == 0)
             issues.Add("$\"External Document Reference {ExternalDocumentId} Invalid  SPDX Document URI Field");
     }
 }
