@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (1.10.0.1)'
+        description: 'Release version (1.0.0)'
         required: true
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
         build
         --no-restore
         --configuration Release
-        --property:Version=${{ github.events.inputs.version }}
+        --property:Version=${{ github.event.inputs.version }}
 
     - name: Test
       run: >
@@ -44,7 +44,7 @@ jobs:
         test
         --no-build
         --configuration Release
-        --property:Version=${{ github.events.inputs.version }}
+        --property:Version=${{ github.event.inputs.version }}
 
     - name: Create Dotnet Tool
       run: >
