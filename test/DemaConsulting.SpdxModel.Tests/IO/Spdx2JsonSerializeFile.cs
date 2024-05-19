@@ -63,7 +63,7 @@ public class Spdx2JsonSerializeFile
         Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
             json["checksums"]?[0]?["checksumValue"]?.ToString());
         Assert.AreEqual("Apache-2.0", json["licenseConcluded"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json["licenseInfoInFile"]?[0]?.ToString());
+        Assert.AreEqual("Apache-2.0", json["licenseInfoInFiles"]?[0]?.ToString());
         Assert.AreEqual("This license is used by Jena", json["licenseComments"]?.ToString());
         Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", json["copyrightText"]?.ToString());
         Assert.AreEqual("This file is a sample DOAP file", json["comment"]?.ToString());
@@ -144,7 +144,7 @@ public class Spdx2JsonSerializeFile
         Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
             json[0]?["checksums"]?[0]?["checksumValue"]?.ToString());
         Assert.AreEqual("Apache-2.0", json[0]?["licenseConcluded"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json[0]?["licenseInfoInFile"]?[0]?.ToString());
+        Assert.AreEqual("Apache-2.0", json[0]?["licenseInfoInFiles"]?[0]?.ToString());
         Assert.AreEqual("This license is used by Jena", json[0]?["licenseComments"]?.ToString());
         Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", json[0]?["copyrightText"]?.ToString());
         Assert.AreEqual("This file is a sample DOAP file", json[0]?["comment"]?.ToString());

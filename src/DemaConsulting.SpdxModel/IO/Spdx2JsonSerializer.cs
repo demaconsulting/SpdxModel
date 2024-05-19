@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DemaConsulting.SpdxModel.IO;
 
@@ -20,7 +21,11 @@ public static class Spdx2JsonSerializer
 
         // Convert to string
         return json.ToJsonString(
-            new JsonSerializerOptions { WriteIndented = true });
+            new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+            });
     }
 
     /// <summary>
@@ -149,7 +154,7 @@ public static class Spdx2JsonSerializer
         EmitOptionalStrings(json, "fileTypes", file.FileTypes.Select(SpdxFileTypeExtensions.ToText).ToArray());
         json["checksums"] = SerializeChecksums(file.Checksums);
         EmitOptionalString(json, "licenseConcluded", file.LicenseConcluded);
-        EmitOptionalStrings(json, "licenseInfoInFile", file.LicenseInfoInFiles);
+        EmitOptionalStrings(json, "licenseInfoInFiles", file.LicenseInfoInFiles);
         EmitOptionalString(json, "licenseComments", file.LicenseComments);
         EmitOptionalString(json, "copyrightText", file.Copyright);
         EmitOptionalString(json, "comment", file.Comment);
