@@ -5,8 +5,19 @@
 /// </summary>
 public enum SpdxAnnotationType
 {
+    /// <summary>
+    /// Missing annotation type
+    /// </summary>
     Missing = -1,
+
+    /// <summary>
+    /// Annotation created during review
+    /// </summary>
     Review,
+
+    /// <summary>
+    /// Annotation created for other reasons
+    /// </summary>
     Other
 }
 

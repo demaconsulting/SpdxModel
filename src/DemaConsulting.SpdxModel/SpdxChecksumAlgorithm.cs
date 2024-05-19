@@ -5,23 +5,94 @@
 /// </summary>
 public enum SpdxChecksumAlgorithm
 {
+    /// <summary>
+    /// Missing checksum algorithm
+    /// </summary>
     Missing = -1,
+
+    /// <summary>
+    /// SHA-1 checksum algorithm
+    /// </summary>
     Sha1,
+
+    /// <summary>
+    /// SHA-224 checksum algorithm
+    /// </summary>
     Sha224,
+
+    /// <summary>
+    /// SHA-256 checksum algorithm
+    /// </summary>
     Sha256,
+
+    /// <summary>
+    /// SHA-384 checksum algorithm
+    /// </summary>
     Sha384,
+
+    /// <summary>
+    /// SHA-512 checksum algorithm
+    /// </summary>
     Sha512,
+
+    /// <summary>
+    /// MD2 checksum algorithm
+    /// </summary>
     Md2,
+
+    /// <summary>
+    /// MD4 checksum algorithm
+    /// </summary>
     Md4,
+
+    /// <summary>
+    /// MD5 checksum algorithm
+    /// </summary>
     Md5,
+
+    /// <summary>
+    /// MD6 checksum algorithm
+    /// </summary>
     Md6,
+
+    /// <summary>
+    /// SHA3-256 checksum algorithm
+    /// </summary>
     Sha3256,
+
+    /// <summary>
+    /// SHA3-384 checksum algorithm
+    /// </summary>
     Sha3384,
+
+    /// <summary>
+    /// SHA3-512 checksum algorithm
+    /// </summary>
     Sha3512,
+
+    /// <summary>
+    /// BLAKE2b-256 checksum algorithm
+    /// </summary>
     Blake2B256,
+
+    /// <summary>
+    /// BLAKE2b-384 checksum algorithm
+    /// </summary>
     Blake2B384,
+
+    /// <summary>
+    /// BLAKE2b-512 checksum algorithm
+    /// </summary>
     Blake2B512,
+
+    /// <summary>
+    /// BLAKE3 checksum algorithm
+    /// </summary>
     Blake3,
+
+    /// <summary>
+    /// ADLER32 checksum algorithm
+    /// </summary>
     Adler32
 }
 

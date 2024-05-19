@@ -5,10 +5,29 @@
 /// </summary>
 public enum SpdxReferenceCategory
 {
+    /// <summary>
+    /// Missing reference category
+    /// </summary>
     Missing = -1,
+
+    /// <summary>
+    /// Reference for security-related information
+    /// </summary>
     Security,
+
+    /// <summary>
+    /// Reference for package management information
+    /// </summary>
     PackageManager,
+
+    /// <summary>
+    /// Reference for software heritage archive persistent identifier
+    /// </summary>
     PersistentId,
+
+    /// <summary>
+    /// Reference for other reasons
+    /// </summary>
     Other
 }
 

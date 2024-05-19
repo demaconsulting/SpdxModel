@@ -5,16 +5,59 @@
 /// </summary>
 public enum SpdxFileType
 {
+    /// <summary>
+    /// Human-readable source code
+    /// </summary>
     Source,
+
+    /// <summary>
+    /// Compiled object, target image or binary executable
+    /// </summary>
     Binary,
+
+    /// <summary>
+    /// File represents an archive
+    /// </summary>
     Archive,
+
+    /// <summary>
+    /// Application file
+    /// </summary>
     Application,
+
+    /// <summary>
+    /// Audio file
+    /// </summary>
     Audio,
+
+    /// <summary>
+    /// Image file
+    /// </summary>
     Image,
+
+    /// <summary>
+    /// Human-readable text file
+    /// </summary>
     Text,
+
+    /// <summary>
+    /// Video file
+    /// </summary>
     Video,
+
+    /// <summary>
+    /// Documentation file
+    /// </summary>
     Documentation,
+
+    /// <summary>
+    /// SPDX document
+    /// </summary>
     Spdx,
+
+    /// <summary>
+    /// Other type of document not matching standard categories
+    /// </summary>
     Other
 }
 
