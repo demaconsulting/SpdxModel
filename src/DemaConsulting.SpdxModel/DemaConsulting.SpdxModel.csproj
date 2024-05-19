@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageProjectUrl>https://github.com/demaconsulting/SpdxModel</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageTags>spdx;sbom</PackageTags>
+	<Description>SPDX Model Library</Description>
+	<Copyright>Copyright DEMA Consulting</Copyright>
+	<Title>SPDX Model Library</Title>
+    <Authors>DEMA Consulting</Authors>
+	<Company>DEMA Consulting</Company>
+	<Version>0.0.0</Version>
+	<PackageId>DemaConsulting.SpdxModel</PackageId>
+	<Product>DemaConsulting.SpdxModel</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DemaConsulting.SpdxModel.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.3" />
+  </ItemGroup>
+
+</Project>
