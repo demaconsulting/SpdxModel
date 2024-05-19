@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeRelationship
+public class Spdx2JsonSerializeRelationship
 {
     [TestMethod]
     public void SerializeRelationship()
@@ -18,7 +18,7 @@ public class SpdxJsonSerializeRelationship
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeRelationship(relationship);
+        var json = Spdx2JsonSerializer.SerializeRelationship(relationship);
 
         // Assert
         Assert.IsNotNull(json);
@@ -51,7 +51,7 @@ public class SpdxJsonSerializeRelationship
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeRelationships(relationships);
+        var json = Spdx2JsonSerializer.SerializeRelationships(relationships);
 
         // Assert
         Assert.IsNotNull(json);

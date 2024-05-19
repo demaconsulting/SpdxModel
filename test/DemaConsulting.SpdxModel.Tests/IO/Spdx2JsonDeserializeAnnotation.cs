@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeAnnotation
+public class Spdx2JsonDeserializeAnnotation
 {
     [TestMethod]
     public void DeserializeAnnotation()
@@ -19,7 +19,7 @@ public class SpdxJsonDeserializeAnnotation
         };
 
         // Act
-        var annotation = SpdxJsonDeserializer.DeserializeAnnotation(json);
+        var annotation = Spdx2JsonDeserializer.DeserializeAnnotation(json);
 
         // Assert
         Assert.AreEqual("2010-01-29T18:30:22Z", annotation.Date);
@@ -52,7 +52,7 @@ public class SpdxJsonDeserializeAnnotation
         };
 
         // Act
-        var annotations = SpdxJsonDeserializer.DeserializeAnnotations(json);
+        var annotations = Spdx2JsonDeserializer.DeserializeAnnotations(json);
 
         // Assert
         Assert.AreEqual(2, annotations.Length);

@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeDocument
+public class Spdx2JsonDeserializeDocument
 {
     [TestMethod]
     public void DeserializeDocument()
@@ -47,7 +47,7 @@ public class SpdxJsonDeserializeDocument
         };
 
         // Act
-        var document = SpdxJsonDeserializer.DeserializeDocument(json);
+        var document = Spdx2JsonDeserializer.DeserializeDocument(json);
 
         // Assert
         Assert.AreEqual("SPDXRef-DOCUMENT", document.Id);

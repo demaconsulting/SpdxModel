@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeExtractedLicensingInfo
+public class Spdx2JsonSerializeExtractedLicensingInfo
 {
     [TestMethod]
     public void SerializeExtractedLicensingInfo()
@@ -19,7 +19,7 @@ public class SpdxJsonSerializeExtractedLicensingInfo
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExtractedLicensingInfo(info);
+        var json = Spdx2JsonSerializer.SerializeExtractedLicensingInfo(info);
 
         // Assert
         Assert.AreEqual("MIT", json["licenseId"]?.ToString());
@@ -46,7 +46,7 @@ public class SpdxJsonSerializeExtractedLicensingInfo
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExtractedLicensingInfos(info);
+        var json = Spdx2JsonSerializer.SerializeExtractedLicensingInfos(info);
 
         // Assert
         Assert.AreEqual(1, json.Count);

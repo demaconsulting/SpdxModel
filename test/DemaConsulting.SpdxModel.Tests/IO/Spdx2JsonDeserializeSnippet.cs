@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeSnippet
+public class Spdx2JsonDeserializeSnippet
 {
     [TestMethod]
     public void DeserializeSnippet()
@@ -57,7 +57,7 @@ public class SpdxJsonDeserializeSnippet
         };
 
         // Act
-        var snippet = SpdxJsonDeserializer.DeserializeSnippet(json);
+        var snippet = Spdx2JsonDeserializer.DeserializeSnippet(json);
 
         // Assert
         Assert.AreEqual("SPDXRef-Snippet", snippet.Id);
@@ -133,7 +133,7 @@ public class SpdxJsonDeserializeSnippet
         };
 
         // Act
-        var snippets = SpdxJsonDeserializer.DeserializeSnippets(json);
+        var snippets = Spdx2JsonDeserializer.DeserializeSnippets(json);
 
         // Assert
         Assert.AreEqual(1, snippets.Length);

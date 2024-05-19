@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeCreationInformation
+public class Spdx2JsonSerializeCreationInformation
 {
     [TestMethod]
     public void SerializeCreationInformation()
@@ -24,7 +24,7 @@ public class SpdxJsonSerializeCreationInformation
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeCreationInformation(creationInformation);
+        var json = Spdx2JsonSerializer.SerializeCreationInformation(creationInformation);
 
         // Assert
         Assert.AreEqual(

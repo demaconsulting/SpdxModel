@@ -6,7 +6,7 @@ namespace DemaConsulting.SpdxModel.IO;
 /// <summary>
 /// JSON Serializer class
 /// </summary>
-public static class SpdxJsonSerializer
+public static class Spdx2JsonSerializer
 {
     /// <summary>
     /// Serialize SPDX Document

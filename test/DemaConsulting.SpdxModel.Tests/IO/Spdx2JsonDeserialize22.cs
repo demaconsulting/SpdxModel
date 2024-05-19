@@ -1,7 +1,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserialize22
+public class Spdx2JsonDeserialize22
 {
     [TestMethod]
     public void TestParse22()
@@ -10,7 +10,7 @@ public class SpdxJsonDeserialize22
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.2.spdx.json");
 
         // Deserialize the document
-        var doc = SpdxModel.IO.SpdxJsonDeserializer.Deserialize(json22Example);
+        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
         Assert.IsNotNull(doc);
 
         // Validate the document

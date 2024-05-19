@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializePackage
+public class Spdx2JsonSerializePackage
 {
     [TestMethod]
     public void SerializePackage()
@@ -68,7 +68,7 @@ public class SpdxJsonSerializePackage
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializePackage(package);
+        var json = Spdx2JsonSerializer.SerializePackage(package);
 
         // Assert
         Assert.IsNotNull(json);
@@ -173,7 +173,7 @@ public class SpdxJsonSerializePackage
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializePackages(packages);
+        var json = Spdx2JsonSerializer.SerializePackages(packages);
 
         // Assert
         Assert.IsNotNull(json);

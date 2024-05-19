@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeChecksum
+public class Spdx2JsonSerializeChecksum
 {
     [TestMethod]
     public void SerializeChecksum()
@@ -16,7 +16,7 @@ public class SpdxJsonSerializeChecksum
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeChecksum(checksum);
+        var json = Spdx2JsonSerializer.SerializeChecksum(checksum);
 
         // Assert
         Assert.IsNotNull(json);
@@ -43,7 +43,7 @@ public class SpdxJsonSerializeChecksum
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeChecksums(checksums);
+        var json = Spdx2JsonSerializer.SerializeChecksums(checksums);
 
         // Assert
         Assert.IsNotNull(json);

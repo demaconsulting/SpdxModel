@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeExternalDocumentReference
+public class Spdx2JsonDeserializeExternalDocumentReference
 {
     [TestMethod]
     public void DeserializeExternalDocumentReference()
@@ -23,7 +23,7 @@ public class SpdxJsonDeserializeExternalDocumentReference
         };
 
         // Act
-        var externalDocumentReference = SpdxJsonDeserializer.DeserializeExternalDocumentReference(json);
+        var externalDocumentReference = Spdx2JsonDeserializer.DeserializeExternalDocumentReference(json);
 
         // Assert
         Assert.AreEqual("DocumentRef-1", externalDocumentReference.ExternalDocumentId);
@@ -52,7 +52,7 @@ public class SpdxJsonDeserializeExternalDocumentReference
         };
 
         // Act
-        var externalDocumentReferences = SpdxJsonDeserializer.DeserializeExternalDocumentReferences(json);
+        var externalDocumentReferences = Spdx2JsonDeserializer.DeserializeExternalDocumentReferences(json);
 
         // Assert
         Assert.AreEqual(1, externalDocumentReferences.Length);

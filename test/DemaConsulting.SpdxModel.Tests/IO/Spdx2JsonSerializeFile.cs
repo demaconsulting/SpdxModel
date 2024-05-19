@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeFile
+public class Spdx2JsonSerializeFile
 {
     [TestMethod]
     public void SerializeFile()
@@ -53,7 +53,7 @@ public class SpdxJsonSerializeFile
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeFile(file);
+        var json = Spdx2JsonSerializer.SerializeFile(file);
 
         // Assert
         Assert.AreEqual("SPDXRef-DoapSource", json["SPDXID"]?.ToString());
@@ -133,7 +133,7 @@ public class SpdxJsonSerializeFile
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeFiles(file);
+        var json = Spdx2JsonSerializer.SerializeFiles(file);
 
         // Assert
         Assert.AreEqual(1, json.Count);

@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeExtractedLicensingInfo
+public class Spdx2JsonDeserializeExtractedLicensingInfo
 {
     [TestMethod]
     public void DeserializeExtractedLicensingInfo()
@@ -20,7 +20,7 @@ public class SpdxJsonDeserializeExtractedLicensingInfo
         };
 
         // Act
-        var extractedLicensingInfo = SpdxJsonDeserializer.DeserializeExtractedLicensingInfo(json);
+        var extractedLicensingInfo = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfo(json);
 
         // Assert
         Assert.AreEqual("MIT", extractedLicensingInfo.LicenseId);
@@ -48,7 +48,7 @@ public class SpdxJsonDeserializeExtractedLicensingInfo
         };
 
         // Act
-        var extractedLicensingInfos = SpdxJsonDeserializer.DeserializeExtractedLicensingInfos(json);
+        var extractedLicensingInfos = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfos(json);
 
         // Assert
         Assert.AreEqual(1, extractedLicensingInfos.Length);

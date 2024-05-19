@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeExternalReference
+public class Spdx2JsonSerializeExternalReference
 {
     [TestMethod]
     public void SerializeExternalReference()
@@ -18,7 +18,7 @@ public class SpdxJsonSerializeExternalReference
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExternalReference(reference);
+        var json = Spdx2JsonSerializer.SerializeExternalReference(reference);
 
         // Assert
         Assert.IsNotNull(json);
@@ -53,7 +53,7 @@ public class SpdxJsonSerializeExternalReference
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExternalReferences(references);
+        var json = Spdx2JsonSerializer.SerializeExternalReferences(references);
 
         // Assert
         Assert.IsNotNull(json);

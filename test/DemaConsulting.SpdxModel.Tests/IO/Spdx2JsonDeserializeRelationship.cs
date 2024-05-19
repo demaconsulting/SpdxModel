@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeRelationship
+public class Spdx2JsonDeserializeRelationship
 {
     [TestMethod]
     public void DeserializeRelationship()
@@ -19,7 +19,7 @@ public class SpdxJsonDeserializeRelationship
         };
 
         // Act
-        var relationship = SpdxJsonDeserializer.DeserializeRelationship(json);
+        var relationship = Spdx2JsonDeserializer.DeserializeRelationship(json);
 
         // Assert
         Assert.AreEqual("SPDXRef-DOCUMENT", relationship.Id);
@@ -51,7 +51,7 @@ public class SpdxJsonDeserializeRelationship
         };
 
         // Act
-        var relationships = SpdxJsonDeserializer.DeserializeRelationships(json);
+        var relationships = Spdx2JsonDeserializer.DeserializeRelationships(json);
 
         // Assert
         Assert.AreEqual(2, relationships.Length);

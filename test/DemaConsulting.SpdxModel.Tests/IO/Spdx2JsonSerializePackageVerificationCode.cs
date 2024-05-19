@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializePackageVerificationCode
+public class Spdx2JsonSerializePackageVerificationCode
 {
     [TestMethod]
     public void SerializePackageVerificationCode()
@@ -20,7 +20,7 @@ public class SpdxJsonSerializePackageVerificationCode
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeVerificationCode(code);
+        var json = Spdx2JsonSerializer.SerializeVerificationCode(code);
 
         // Assert
         Assert.IsNotNull(json);

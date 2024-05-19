@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializePackageVerificationCode
+public class Spdx2JsonDeserializePackageVerificationCode
 {
     [TestMethod]
     public void DeserializePackageVerificationCode()
@@ -21,7 +21,7 @@ public class SpdxJsonDeserializePackageVerificationCode
         };
 
         // Act
-        var packageVerificationCode = SpdxJsonDeserializer.DeserializeVerificationCode(json);
+        var packageVerificationCode = Spdx2JsonDeserializer.DeserializeVerificationCode(json);
         Assert.IsNotNull(packageVerificationCode);
 
         // Assert

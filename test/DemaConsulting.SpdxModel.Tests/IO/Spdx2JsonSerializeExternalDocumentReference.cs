@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeExternalDocumentReference
+public class Spdx2JsonSerializeExternalDocumentReference
 {
     [TestMethod]
     public void SerializeExternalDocumentReference()
@@ -21,7 +21,7 @@ public class SpdxJsonSerializeExternalDocumentReference
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExternalDocumentReference(reference);
+        var json = Spdx2JsonSerializer.SerializeExternalDocumentReference(reference);
 
         // Assert
         Assert.AreEqual("DocumentRef-spdx-tool-1.2", json["externalDocumentId"]?.ToString());
@@ -50,7 +50,7 @@ public class SpdxJsonSerializeExternalDocumentReference
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeExternalDocumentReferences(references);
+        var json = Spdx2JsonSerializer.SerializeExternalDocumentReferences(references);
 
         // Assert
         Assert.AreEqual(1, json.Count);

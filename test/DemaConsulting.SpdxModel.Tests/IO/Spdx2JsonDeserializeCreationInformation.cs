@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeCreationInformation
+public class Spdx2JsonDeserializeCreationInformation
 {
     [TestMethod]
     public void DeserializeCreationInformation()
@@ -25,7 +25,7 @@ public class SpdxJsonDeserializeCreationInformation
         };
 
         // Act
-        var creationInformation = SpdxJsonDeserializer.DeserializeCreationInformation(json);
+        var creationInformation = Spdx2JsonDeserializer.DeserializeCreationInformation(json);
 
         // Assert
         Assert.AreEqual(

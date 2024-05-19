@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeAnnotation
+public class Spdx2JsonSerializeAnnotation
 {
     [TestMethod]
     public void SerializeAnnotation()
@@ -19,7 +19,7 @@ public class SpdxJsonSerializeAnnotation
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeAnnotation(annotation);
+        var json = Spdx2JsonSerializer.SerializeAnnotation(annotation);
 
         // Assert
         Assert.AreEqual("SPDXRef-Annotation", json["SPDXID"]?.ToString());
@@ -54,7 +54,7 @@ public class SpdxJsonSerializeAnnotation
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeAnnotations(annotations);
+        var json = Spdx2JsonSerializer.SerializeAnnotations(annotations);
 
         // Assert
         Assert.AreEqual(2, json.Count);

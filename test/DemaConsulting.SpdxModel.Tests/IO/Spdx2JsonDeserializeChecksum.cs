@@ -4,7 +4,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonDeserializeChecksum
+public class Spdx2JsonDeserializeChecksum
 {
     [TestMethod]
     public void DeserializeChecksum()
@@ -17,7 +17,7 @@ public class SpdxJsonDeserializeChecksum
         };
 
         // Act
-        var checksum = SpdxJsonDeserializer.DeserializeChecksum(json);
+        var checksum = Spdx2JsonDeserializer.DeserializeChecksum(json);
 
         // Assert
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksum.Algorithm);
@@ -43,7 +43,7 @@ public class SpdxJsonDeserializeChecksum
         };
 
         // Act
-        var checksums = SpdxJsonDeserializer.DeserializeChecksums(json);
+        var checksums = Spdx2JsonDeserializer.DeserializeChecksums(json);
 
         // Assert
         Assert.AreEqual(2, checksums.Length);

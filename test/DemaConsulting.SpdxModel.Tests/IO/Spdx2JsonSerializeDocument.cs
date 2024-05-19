@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeDocument
+public class Spdx2JsonSerializeDocument
 {
     [TestMethod]
     public void SerializeDocument()
@@ -45,7 +45,7 @@ public class SpdxJsonSerializeDocument
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeDocument(document);
+        var json = Spdx2JsonSerializer.SerializeDocument(document);
 
         // Assert
         Assert.AreEqual("SPDXRef-DOCUMENT", json["SPDXID"]?.ToString());

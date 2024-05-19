@@ -3,7 +3,7 @@
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 [TestClass]
-public class SpdxJsonSerializeSnippet
+public class Spdx2JsonSerializeSnippet
 {
     [TestMethod]
     public void SerializeSnippet()
@@ -27,7 +27,7 @@ public class SpdxJsonSerializeSnippet
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeSnippet(snippet);
+        var json = Spdx2JsonSerializer.SerializeSnippet(snippet);
 
         // Assert
         Assert.IsNotNull(json);
@@ -75,7 +75,7 @@ public class SpdxJsonSerializeSnippet
         };
 
         // Act
-        var json = SpdxJsonSerializer.SerializeSnippets(snippets);
+        var json = Spdx2JsonSerializer.SerializeSnippets(snippets);
 
         // Assert
         Assert.IsNotNull(json);
