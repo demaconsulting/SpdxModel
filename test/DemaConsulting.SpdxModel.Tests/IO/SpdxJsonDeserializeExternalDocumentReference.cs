@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeExternalDocumentReference
     public void DeserializeExternalDocumentReference()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["externalDocumentId"] = "DocumentRef-1",
             ["checksum"] = new JsonObject
@@ -36,9 +36,9 @@ public class SpdxJsonDeserializeExternalDocumentReference
     public void DeserializeExternalDocumentReferences()
     {
         // Arrange
-        var json = new JsonArray()
+        var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["externalDocumentId"] = "DocumentRef-1",
                 ["checksum"] = new JsonObject

@@ -10,12 +10,12 @@ public class SpdxJsonDeserializePackage
     public void DeserializePackage()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-Package",
-            ["annotations"] = new JsonArray()
+            ["annotations"] = new JsonArray
             {
-                new JsonObject()
+                new JsonObject
                 {
                     ["annotationDate"] = "2011-01-29T18:30:22Z",
                     ["annotationType"] = "OTHER",
@@ -23,24 +23,24 @@ public class SpdxJsonDeserializePackage
                     ["comment"] = "Package level annotation"
                 }
             },
-            ["attributionTexts"] = new JsonArray()
+            ["attributionTexts"] = new JsonArray
             {
                 "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
             },
             ["builtDate"] = "2011-01-29T18:30:22Z",
-            ["checksums"] = new JsonArray()
+            ["checksums"] = new JsonArray
             {
-                new JsonObject()
+                new JsonObject
                 {
                     ["algorithm"] = "MD5",
                     ["checksumValue"] = "624c1abb3664f4b35547e7c73864ad24"
                 },
-                new JsonObject()
+                new JsonObject
                 {
                     ["algorithm"] = "SHA1",
                     ["checksumValue"] = "85ed0817af83a24ad8da68c2b5094de69833983c"
                 },
-                new JsonObject()
+                new JsonObject
                 {
                     ["algorithm"] = "SHA256",
                     ["checksumValue"] = "11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd"
@@ -50,9 +50,9 @@ public class SpdxJsonDeserializePackage
             ["description"] =
                 "The GNU C Library defines functions that are specified by the ISO C standard, as well as additional features specific to POSIX and other derivatives of the Unix operating system, and extensions specific to GNU systems.",
             ["downloadLocation"] = "http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
-            ["externalRefs"] = new JsonArray()
+            ["externalRefs"] = new JsonArray
             {
-                new JsonObject()
+                new JsonObject
                 {
                     ["referenceCategory"] = "SECURITY",
                     ["referenceLocator"] = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
@@ -99,14 +99,14 @@ public class SpdxJsonDeserializePackage
     public void DeserializePackages()
     {
         // Arrange
-        var json = new JsonArray()
+        var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["SPDXID"] = "SPDXRef-Package",
-                ["annotations"] = new JsonArray()
+                ["annotations"] = new JsonArray
                 {
-                    new JsonObject()
+                    new JsonObject
                     {
                         ["annotationDate"] = "2011-01-29T18:30:22Z",
                         ["annotationType"] = "OTHER",
@@ -114,24 +114,24 @@ public class SpdxJsonDeserializePackage
                         ["comment"] = "Package level annotation"
                     }
                 },
-                ["attributionTexts"] = new JsonArray()
+                ["attributionTexts"] = new JsonArray
                 {
                     "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
                 },
                 ["builtDate"] = "2011-01-29T18:30:22Z",
-                ["checksums"] = new JsonArray()
+                ["checksums"] = new JsonArray
                 {
-                    new JsonObject()
+                    new JsonObject
                     {
                         ["algorithm"] = "MD5",
                         ["checksumValue"] = "624c1abb3664f4b35547e7c73864ad24"
                     },
-                    new JsonObject()
+                    new JsonObject
                     {
                         ["algorithm"] = "SHA1",
                         ["checksumValue"] = "85ed0817af83a24ad8da68c2b5094de69833983c"
                     },
-                    new JsonObject()
+                    new JsonObject
                     {
                         ["algorithm"] = "SHA256",
                         ["checksumValue"] = "11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd"
@@ -141,9 +141,9 @@ public class SpdxJsonDeserializePackage
                 ["description"] =
                     "The GNU C Library defines functions that are specified by the ISO C standard, as well as additional features specific to POSIX and other derivatives of the Unix operating system, and extensions specific to GNU systems.",
                 ["downloadLocation"] = "http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
-                ["externalRefs"] = new JsonArray()
+                ["externalRefs"] = new JsonArray
                 {
-                    new JsonObject()
+                    new JsonObject
                     {
                         ["referenceCategory"] = "SECURITY",
                         ["referenceLocator"] = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",

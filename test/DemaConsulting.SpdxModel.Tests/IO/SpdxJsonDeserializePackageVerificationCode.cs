@@ -10,10 +10,10 @@ public class SpdxJsonDeserializePackageVerificationCode
     public void DeserializePackageVerificationCode()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["packageVerificationCodeValue"] = "d3b07384d113edec49eaa6238ad5ff00",
-            ["packageVerificationCodeExcludedFiles"] = new JsonArray()
+            ["packageVerificationCodeExcludedFiles"] = new JsonArray
             {
                 "file1.txt",
                 "file2.txt"

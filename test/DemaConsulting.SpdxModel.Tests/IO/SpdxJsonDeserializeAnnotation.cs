@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeAnnotation
     public void DeserializeAnnotation()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["annotationDate"] = "2010-01-29T18:30:22Z",
             ["annotationType"] = "OTHER",
@@ -34,14 +34,14 @@ public class SpdxJsonDeserializeAnnotation
         // Arrange
         var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["annotationDate"] = "2010-01-29T18:30:22Z",
                 ["annotationType"] = "OTHER",
                 ["annotator"] = "Person: Jane Doe ()",
                 ["comment"] = "Document level annotation"
             },
-            new JsonObject()
+            new JsonObject
             {
                 ["annotationDate"] = "2010-02-10T00:00:00Z",
                 ["annotationType"] = "REVIEW",

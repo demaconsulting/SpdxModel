@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeExtractedLicensingInfo
     public void DeserializeExtractedLicensingInfo()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["licenseId"] = "MIT",
             ["extractedText"] = "This is the MIT license",
@@ -35,9 +35,9 @@ public class SpdxJsonDeserializeExtractedLicensingInfo
     public void DeserializeExtractedLicensingInfos()
     {
         // Arrange
-        var json = new JsonArray()
+        var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["licenseId"] = "MIT",
                 ["extractedText"] = "This is the MIT license",

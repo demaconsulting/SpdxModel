@@ -10,6 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="DemaConsulting.SpdxModel.Tests.csproj.DotSettings" />
 		<None Remove="IO\Examples\SPDXJSONExample-v2.2.spdx.json" />
 		<None Remove="IO\Examples\SPDXJSONExample-v2.3.spdx.json" />
 	</ItemGroup>

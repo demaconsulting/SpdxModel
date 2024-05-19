@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeFile
     public void DeserializeFile()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-File",
             ["fileName"] = "src/DemaConsulting.SpdxModel/SpdxFile.cs",
@@ -53,9 +53,9 @@ public class SpdxJsonDeserializeFile
     public void DeserializeFiles()
     {
         // Arrange
-        var json = new JsonArray()
+        var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["SPDXID"] = "SPDXRef-File",
                 ["fileName"] = "src/DemaConsulting.SpdxModel/SpdxFile.cs",

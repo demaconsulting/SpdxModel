@@ -10,12 +10,12 @@ public class SpdxJsonDeserializeCreationInformation
     public void DeserializeCreationInformation()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["comment"] =
                 "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             ["created"] = "2010-01-29T18:30:22Z",
-            ["creators"] = new JsonArray()
+            ["creators"] = new JsonArray
             {
                 "Tool: LicenseFind-1.0",
                 "Organization: ExampleCodeInspect ()",

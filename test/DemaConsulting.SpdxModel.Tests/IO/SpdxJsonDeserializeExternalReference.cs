@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeExternalReference
     public void DeserializeExternalReference()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["comment"] = "This is just an example",
             ["referenceLocator"] = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
@@ -34,14 +34,14 @@ public class SpdxJsonDeserializeExternalReference
         // Arrange
         var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["comment"] = "This is just an example",
                 ["referenceLocator"] = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
                 ["referenceType"] = "cpe23Type",
                 ["referenceCategory"] = "SECURITY"
             },
-            new JsonObject()
+            new JsonObject
             {
                 ["comment"] = "This is the external ref for Acme",
                 ["referenceLocator"] = "acmecorp/acmenator/4.1.3-alpha",

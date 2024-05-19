@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeSnippet
     public void DeserializeSnippet()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-Snippet",
             ["comment"] =
@@ -19,34 +19,34 @@ public class SpdxJsonDeserializeSnippet
             ["licenseComments"] =
                 "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
             ["licenseConcluded"] = "GPL-2.0-only",
-            ["licenseInfoInSnippets"] = new JsonArray()
+            ["licenseInfoInSnippets"] = new JsonArray
             {
                 "GPL-2.0-only"
             },
             ["name"] = "from linux kernel",
-            ["ranges"] = new JsonArray()
+            ["ranges"] = new JsonArray
             {
-                new JsonObject()
+                new JsonObject
                 {
-                    ["endPointer"] = new JsonObject()
+                    ["endPointer"] = new JsonObject
                     {
                         ["offset"] = 420,
                         ["reference"] = "SPDXRef-DoapSource"
                     },
-                    ["startPointer"] = new JsonObject()
+                    ["startPointer"] = new JsonObject
                     {
                         ["offset"] = 310,
                         ["reference"] = "SPDXRef-DoapSource"
                     }
                 },
-                new JsonObject()
+                new JsonObject
                 {
-                    ["endPointer"] = new JsonObject()
+                    ["endPointer"] = new JsonObject
                     {
                         ["lineNumber"] = 23,
                         ["reference"] = "SPDXRef-DoapSource"
                     },
-                    ["startPointer"] = new JsonObject()
+                    ["startPointer"] = new JsonObject
                     {
                         ["lineNumber"] = 5,
                         ["reference"] = "SPDXRef-DoapSource"
@@ -85,7 +85,7 @@ public class SpdxJsonDeserializeSnippet
         // Arrange
         var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["SPDXID"] = "SPDXRef-Snippet",
                 ["comment"] =
@@ -94,34 +94,34 @@ public class SpdxJsonDeserializeSnippet
                 ["licenseComments"] =
                     "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
                 ["licenseConcluded"] = "GPL-2.0-only",
-                ["licenseInfoInSnippets"] = new JsonArray()
+                ["licenseInfoInSnippets"] = new JsonArray
                 {
                     "GPL-2.0-only"
                 },
                 ["name"] = "from linux kernel",
-                ["ranges"] = new JsonArray()
+                ["ranges"] = new JsonArray
                 {
-                    new JsonObject()
+                    new JsonObject
                     {
-                        ["endPointer"] = new JsonObject()
+                        ["endPointer"] = new JsonObject
                         {
                             ["offset"] = 420,
                             ["reference"] = "SPDXRef-DoapSource"
                         },
-                        ["startPointer"] = new JsonObject()
+                        ["startPointer"] = new JsonObject
                         {
                             ["offset"] = 310,
                             ["reference"] = "SPDXRef-DoapSource"
                         }
                     },
-                    new JsonObject()
+                    new JsonObject
                     {
-                        ["endPointer"] = new JsonObject()
+                        ["endPointer"] = new JsonObject
                         {
                             ["lineNumber"] = 23,
                             ["reference"] = "SPDXRef-DoapSource"
                         },
-                        ["startPointer"] = new JsonObject()
+                        ["startPointer"] = new JsonObject
                         {
                             ["lineNumber"] = 5,
                             ["reference"] = "SPDXRef-DoapSource"

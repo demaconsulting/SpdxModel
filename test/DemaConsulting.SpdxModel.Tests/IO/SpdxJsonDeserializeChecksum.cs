@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeChecksum
     public void DeserializeChecksum()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["algorithm"] = "SHA1",
             ["checksumValue"] = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"

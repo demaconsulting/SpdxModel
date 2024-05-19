@@ -10,16 +10,16 @@ public class SpdxJsonDeserializeDocument
     public void DeserializeDocument()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-DOCUMENT",
             ["spdxVersion"] = "SPDX-2.3",
-            ["creationInfo"] = new JsonObject()
+            ["creationInfo"] = new JsonObject
             {
                 ["comment"] =
                     "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
                 ["created"] = "2010-01-29T18:30:22Z",
-                ["creators"] = new JsonArray()
+                ["creators"] = new JsonArray
                 {
                     "Tool: LicenseFind-1.0",
                     "Organization: ExampleCodeInspect ()",
@@ -32,7 +32,7 @@ public class SpdxJsonDeserializeDocument
             ["comment"] = "This document was created using SPDX 2.0 using licenses from the web site.",
             ["externalDocumentRefs"] = new JsonArray(),
             ["hasExtractedLicensingInfos"] = new JsonArray(),
-            ["documentDescribes"] = new JsonArray()
+            ["documentDescribes"] = new JsonArray
             {
                 "SPDXRef-File",
                 "SPDXRef-File",

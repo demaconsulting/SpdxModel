@@ -10,7 +10,7 @@ public class SpdxJsonDeserializeRelationship
     public void DeserializeRelationship()
     {
         // Arrange
-        var json = new JsonObject()
+        var json = new JsonObject
         {
             ["spdxElementId"] = "SPDXRef-DOCUMENT",
             ["relatedSpdxElement"] = "SPDXRef-Package",
@@ -34,14 +34,14 @@ public class SpdxJsonDeserializeRelationship
         // Arrange
         var json = new JsonArray
         {
-            new JsonObject()
+            new JsonObject
             {
                 ["spdxElementId"] = "SPDXRef-DOCUMENT",
                 ["relatedSpdxElement"] = "SPDXRef-Package",
                 ["relationshipType"] = "DESCRIBES",
                 ["comment"] = "This is just an example"
             },
-            new JsonObject()
+            new JsonObject
             {
                 ["spdxElementId"] = "SPDXRef-Package",
                 ["relatedSpdxElement"] = "SPDXRef-DOCUMENT",
