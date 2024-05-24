@@ -236,7 +236,8 @@ public static class Spdx2JsonDeserializer
             Copyright = ParseString(json, "copyrightText"),
             Comment = ParseOptionalString(json, "comment"),
             Name = ParseOptionalString(json, "name"),
-            AttributionText = ParseStringArray(json, "attributionTexts")
+            AttributionText = ParseStringArray(json, "attributionTexts"),
+            Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
         };
     }
 

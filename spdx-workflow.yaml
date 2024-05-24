@@ -1,0 +1,44 @@
+# This workflow annotates the SBOM for the DemaConsulting.SpdxModel with
+# build tools, and generates a summary markdown.
+
+
+# Workflow Parameters
+parameters:
+  dotnet-version: unknown
+  spdx: src/DemaConsulting.SpdxModel/bin/Release/_manifest/spdx_2.2/manifest.spdx.json
+  summary-markdown: manifest.spdx.summary.md
+
+# Steps
+steps:
+
+  # Query the version of dotnet
+- command: query
+  inputs:
+    output: dotnet-version
+    pattern: '(?<value>\d+\.\d+\.\d+)'
+    program: dotnet
+    arguments:
+    - '--version'
+
+  # Add DotNet SDK as a build tool of the package
+- command: add-package
+  inputs:
+    package:
+      id: SPDXRef-Package-DotNetSDK
+      name: DotNet SDK ${{ dotnet-version }}
+      version: ${{ dotnet-version }}
+      download: https://dotnet.microsoft.com/download
+    spdx: ${{ spdx }}
+    relationship: BUILD_TOOL_OF
+    element: SPDXRef-RootPackage
+
+  # Update the Sha256 digest on the SPDX document
+- command: sha256
+  inputs:
+    operation: generate
+    file: ${{ spdx }}
+
+- command: to-markdown
+  inputs:
+    spdx: ${{ spdx }}
+    markdown: ${{ summary-markdown }}

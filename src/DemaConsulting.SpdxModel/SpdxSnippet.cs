@@ -3,11 +3,17 @@
 /// <summary>
 /// SPDX Snippet Class
 /// </summary>
+/// <remarks>
+/// Snippets referenced in the SPDX document
+/// </remarks>
 public class SpdxSnippet : SpdxElement
 {
     /// <summary>
     /// Snippet From File Field
     /// </summary>
+    /// <remarks>
+    /// SPDX ID for File. File containing the SPDX element (e.g. the file containing the snippet).
+    /// </remarks>
     public string SnippetFromFile { get; set; } = string.Empty;
 
     /// <summary>
@@ -33,37 +39,78 @@ public class SpdxSnippet : SpdxElement
     /// <summary>
     /// Concluded License Field
     /// </summary>
+    /// <remarks>
+    /// License expression. See SPDX Annex D for the license expression syntax.
+    ///
+    /// The licensing that the preparer of this SPDX document has concluded,
+    /// based on the evidence, actually applies to the snippet.
+    ///
+    /// If not present, it implies an equivalent meaning to NOASSERTION.
+    /// </remarks>
     public string ConcludedLicense { get; set; } = string.Empty;
 
     /// <summary>
     /// License Information in Snippet Field
     /// </summary>
+    /// <remarks>
+    /// License expressions. See SPDX Annex D for the license expression syntax.
+    /// 
+    /// Licensing information that was discovered directly in the subject snippet.
+    /// This is also considered a declared license for the snippet.
+    ///
+    /// If not present, it implies an equivalent meaning to NOASSERTION.
+    /// </remarks>
     public string[] LicenseInfoInSnippet { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// Comments On License Field (optional)
     /// </summary>
-    public string? LicenseComments;
+    /// <remarks>
+    /// This property allows the preparer of the SPDX document to describe why
+    /// the ConcludedLicense was chosen.
+    /// </remarks>
+    public string? LicenseComments { get; set; }
 
     /// <summary>
     /// Copyright Text Field
     /// </summary>
-    public string Copyright = string.Empty;
+    /// <remarks>
+    /// The text of copyright declarations recited in the snippet
+    /// 
+    /// If not present, it implies an equivalent meaning to NOASSERTION.
+    /// </remarks>
+    public string Copyright { get; set; } = string.Empty;
 
     /// <summary>
     /// Snippet Comment Field (optional)
     /// </summary>
-    public string? Comment;
+    public string? Comment { get; set; }
 
     /// <summary>
     /// Snippet Name Field (optional)
     /// </summary>
-    public string? Name;
+    /// <remarks>
+    /// Identify name of this snippet.
+    /// </remarks>
+    public string? Name { get; set; }
 
     /// <summary>
     /// Snippet Attribution Text Field
     /// </summary>
-    public string[] AttributionText = Array.Empty<string>();
+    /// <remarks>
+    /// This field provides a place for the SPDX data creator to record
+    /// acknowledgements that may be required to be communicated in some
+    /// contexts.
+    /// </remarks>
+    public string[] AttributionText { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Annotations
+    /// </summary>
+    /// <remarks>
+    /// Provide additional information about this snippet.
+    /// </remarks>
+    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
 
     /// <summary>
     /// Perform validation of information

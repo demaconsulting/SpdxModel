@@ -3,11 +3,18 @@
 /// <summary>
 /// SPDX External Document Reference
 /// </summary>
+/// <remarks>
+/// Information about an external SPDX document reference including the
+/// checksum. This allows for verification of the external references.
+/// </remarks>
 public class SpdxExternalDocumentReference
 {
     /// <summary>
     /// External Document ID Field
     /// </summary>
+    /// <remarks>
+    /// A string containing letters, numbers, ., - and/or + which uniquely identifies an external document within this document.
+    /// </remarks>
     public string ExternalDocumentId { get; set; } = string.Empty;
 
     /// <summary>

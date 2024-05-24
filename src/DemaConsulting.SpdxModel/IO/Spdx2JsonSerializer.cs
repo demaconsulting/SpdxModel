@@ -253,6 +253,8 @@ public static class Spdx2JsonSerializer
         EmitString(json, "copyrightText", snippet.Copyright);
         EmitOptionalString(json, "comment", snippet.Comment);
         EmitOptionalStrings(json, "attributionTexts", snippet.AttributionText);
+        if (snippet.Annotations.Length > 0)
+            json["annotations"] = SerializeAnnotations(snippet.Annotations);
 
         // Add ranges
         var ranges = new JsonArray
