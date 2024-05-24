@@ -3,16 +3,29 @@
 /// <summary>
 /// SPDX Checksum class
 /// </summary>
+/// <remarks>
+/// A Checksum is value that allows the contents of a file to be authenticated.
+/// Even small changes to the content of the file will change its checksum.
+/// This class allows the results of a variety of checksum and cryptographic
+/// message digest algorithms to be represented.
+/// </remarks>
 public sealed class SpdxChecksum
 {
     /// <summary>
     /// Checksum Algorithm Field
     /// </summary>
+    /// <remarks>
+    /// Identifies the algorithm used to produce the subject Checksum.
+    /// </remarks>
     public SpdxChecksumAlgorithm Algorithm { get; set; } = SpdxChecksumAlgorithm.Missing;
 
     /// <summary>
     /// Checksum Value Field
     /// </summary>
+    /// <remarks>
+    /// The checksumValue property provides a lower case hexadecimal encoded
+    /// digest value produced using a specific algorithm.
+    /// </remarks>
     public string Value { get; set; } = string.Empty;
 
     /// <summary>

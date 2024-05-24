@@ -5,16 +5,28 @@ namespace DemaConsulting.SpdxModel;
 /// <summary>
 /// SPDX Annotation class
 /// </summary>
+/// <remarks>
+/// An Annotation is a comment on an SpdxItem by an agent.
+/// </remarks>
 public sealed class SpdxAnnotation : SpdxElement
 {
     /// <summary>
     /// Annotator Field (optional)
     /// </summary>
+    /// <remarks>
+    /// This field identifies the person, organization, or tool that has
+    /// commented on a file, package, snippet, or the entire document.
+    /// </remarks>
     public string Annotator { get; set; } = string.Empty;
 
     /// <summary>
     /// Annotation Date Field (optional)
     /// </summary>
+    /// <remarks>
+    /// Identify when the comment was made. This is to be specified according
+    /// to the combined date and time in the UTC format, as specified in the
+    /// ISO 8601 standard.
+    /// </remarks>
     public string Date { get; set; } = string.Empty;
 
     /// <summary>
