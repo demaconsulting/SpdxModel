@@ -11,7 +11,7 @@
     "demaconsulting.spdxtool": {
       "version": "0.1.0-alpha.2",
       "commands": [
-        "spdxtool"
+        "spdx-tool"
       ]
     }
   }
