@@ -27,27 +27,22 @@ jobs:
 
     - name: Restore Tools
       run: >
-        dotnet
-        tool
-        restore
+        dotnet tool restore
       
     - name: Restore Dependencies
       run: >
-        dotnet
-        restore
+        dotnet restore
       
     - name: Build
       run: >
-        dotnet 
-        build
+        dotnet build
         --no-restore
         --configuration Release
         --property:Version=${{ github.event.inputs.version }}
 
     - name: Test
       run: >
-        dotnet
-        test
+        dotnet test
         --no-build
         --configuration Release
         --property:Version=${{ github.event.inputs.version }}
@@ -66,15 +61,12 @@ jobs:
 
     - name: Run SBOM Workflow
       run: >
-        dotnet
-        spdx-tool
-        run-workflow
-        spdx-workflow.yaml
+        dotnet spdx-tool
+        run-workflow spdx-workflow.yaml
 
     - name: Create Dotnet Tool
       run: >
-        dotnet
-        pack
+        dotnet pack
         --no-build
         --no-restore
         --property:PackageVersion=${{ github.event.inputs.version }}
