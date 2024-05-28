@@ -11,6 +11,15 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxAnnotation : SpdxElement
 {
     /// <summary>
+    /// Equality comparer for the same annotation
+    /// </summary>
+    /// <remarks>
+    /// This considers annotations as being the same if they have the same
+    /// annotator, date, type, and comment.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxAnnotation> Same = new SpdxAnnotationSame();
+    
+    /// <summary>
     /// Annotator Field (optional)
     /// </summary>
     /// <remarks>
@@ -37,8 +46,22 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     /// Annotation Comment field (optional)
     /// </summary>
-    public string? Comment { get; set; }
+    public string Comment { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxAnnotation DeepCopy() =>
+        new()
+        {
+            Id = Id,
+            Annotator = Annotator,
+            Date = Date,
+            Type = Type,
+            Comment = Comment
+        };
+    
     /// <summary>
     /// Perform validation of information
     /// </summary>
@@ -57,5 +80,36 @@ public sealed class SpdxAnnotation : SpdxElement
         // Validate Annotation Type Field
         if (Type == SpdxAnnotationType.Missing)
             issues.Add($"{parent} Invalid Annotation Type Field");
+
+        // Validate Annotation Comment Field
+        if (Comment.Length == 0)
+            issues.Add($"{parent} Invalid Annotation Comment");
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same annotation
+    /// </summary>
+    private class SpdxAnnotationSame : IEqualityComparer<SpdxAnnotation>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxAnnotation? a1, SpdxAnnotation? a2)
+        {
+            if (ReferenceEquals(a1, a2)) return true;
+            if (a1 == null || a2 == null) return false;
+
+            return a1.Annotator == a2.Annotator &&
+                   a1.Date == a2.Date &&
+                   a1.Type == a2.Type &&
+                   a1.Comment == a2.Comment;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxAnnotation obj)
+        {
+            return obj.Annotator.GetHashCode() ^
+                   obj.Date.GetHashCode() ^
+                   obj.Type.GetHashCode() ^
+                   obj.Comment.GetHashCode();
+        }
     }
 }

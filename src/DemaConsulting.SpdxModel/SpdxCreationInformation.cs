@@ -52,6 +52,19 @@ public sealed class SpdxCreationInformation
     public string? LicenseListVersion { get; set; }
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxCreationInformation DeepCopy() =>
+        new()
+        {
+            Creators = Creators.ToArray(),
+            Created = Created,
+            Comment = Comment,
+            LicenseListVersion = LicenseListVersion
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

@@ -8,6 +8,16 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>
+    /// Equality comparer for the same document
+    /// </summary>
+    /// <remarks>
+    /// This considers documents to be the same if they have the same name and
+    /// describe the same root packages (as compared using the
+    /// SpdxPackage.Same equality comparer).
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxDocument> Same = new SpdxDocumentSame();
+
+    /// <summary>
     /// Document Name Field
     /// </summary>
     public string Name { get; set; } = string.Empty;
@@ -105,6 +115,30 @@ public sealed class SpdxDocument : SpdxElement
     public string[] Describes { get; set; } = Array.Empty<string>();
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxDocument DeepCopy() =>
+        new()
+        {
+            Id = Id,
+            Name = Name,
+            Version = Version,
+            DataLicense = DataLicense,
+            DocumentNamespace = DocumentNamespace,
+            Comment = Comment,
+            CreationInformation = CreationInformation.DeepCopy(),
+            ExternalDocumentReferences = ExternalDocumentReferences.Select(r => r.DeepCopy()).ToArray(),
+            ExtractedLicensingInfo = ExtractedLicensingInfo.Select(l => l.DeepCopy()).ToArray(),
+            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray(),
+            Files = Files.Select(f => f.DeepCopy()).ToArray(),
+            Packages = Packages.Select(p => p.DeepCopy()).ToArray(),
+            Snippets = Snippets.Select(s => s.DeepCopy()).ToArray(),
+            Relationships = Relationships.Select(r => r.DeepCopy()).ToArray(),
+            Describes = Describes.ToArray()
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
@@ -136,6 +170,10 @@ public sealed class SpdxDocument : SpdxElement
         // Validate external document references
         foreach (var externalRef in ExternalDocumentReferences)
             externalRef.Validate(issues);
+
+        // Validate extracted licensing info
+        foreach (var license in ExtractedLicensingInfo)
+            license.Validate(issues);
 
         // Validate Files
         foreach (var file in Files)
@@ -173,5 +211,32 @@ public sealed class SpdxDocument : SpdxElement
 
         // Return the packages
         return Packages.Where(p => packageNames.Contains(p.Id)).ToArray();
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same relationship
+    /// </summary>
+    private class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxDocument? d1, SpdxDocument? d2)
+        {
+            if (ReferenceEquals(d1, d2)) return true;
+            if (d1 == null || d2 == null) return false;
+
+            // Ensure the document describes the same root packages
+            var p1 = d1.GetRootPackages().OrderBy(p => p.Name);
+            var p2 = d2.GetRootPackages().OrderBy(p => p.Name);
+            if (!p1.SequenceEqual(p2, SpdxPackage.Same))
+                return false;
+
+            return d1.Name == d2.Name;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxDocument obj)
+        {
+            return obj.Name.GetHashCode();
+        }
     }
 }

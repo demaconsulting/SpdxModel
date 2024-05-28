@@ -120,8 +120,8 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeExtractedLicensingInfo(SpdxExtractedLicensingInfo info)
     {
         var json = new JsonObject();
-        EmitOptionalString(json, "licenseId", info.LicenseId);
-        EmitOptionalString(json, "extractedText", info.ExtractedText);
+        EmitString(json, "licenseId", info.LicenseId);
+        EmitString(json, "extractedText", info.ExtractedText);
         EmitOptionalString(json, "name", info.Name);
         EmitOptionalStrings(json, "seeAlsos", info.CrossReferences);
         EmitOptionalString(json, "comment", info.Comment);
@@ -411,7 +411,7 @@ public static class Spdx2JsonSerializer
         EmitString(json, "annotator", annotation.Annotator);
         EmitString(json, "annotationDate", annotation.Date);
         EmitString(json, "annotationType", annotation.Type.ToText());
-        EmitOptionalString(json, "comment", annotation.Comment);
+        EmitString(json, "comment", annotation.Comment);
         return json;
     }
 
@@ -421,7 +421,7 @@ public static class Spdx2JsonSerializer
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>
     /// <param name="value">Property value</param>
-    private static void EmitString(JsonObject json, string name, string value)
+    private static void EmitString(JsonNode json, string name, string value)
     {
         json[name] = value;
     }
@@ -432,7 +432,7 @@ public static class Spdx2JsonSerializer
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>
     /// <param name="value">Optional property value</param>
-    private static void EmitOptionalString(JsonObject json, string name, string? value)
+    private static void EmitOptionalString(JsonNode json, string name, string? value)
     {
         // Skip if empty
         if (string.IsNullOrEmpty(value))
@@ -441,10 +441,10 @@ public static class Spdx2JsonSerializer
         json[name] = value;
     }
 
-    private static void EmitOptionalStrings(JsonObject json, string name, string[] values)
+    private static void EmitOptionalStrings(JsonNode json, string name, IReadOnlyCollection<string> values)
     {
         // Skip if empty
-        if (values.Length == 0)
+        if (values.Count == 0)
             return;
 
         var array = new JsonArray();

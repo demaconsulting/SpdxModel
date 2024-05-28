@@ -6,6 +6,15 @@
 public sealed class SpdxFile : SpdxElement
 {
     /// <summary>
+    /// Equality comparer for the same file
+    /// </summary>
+    /// <remarks>
+    /// This considers files as being the same if they have the same file name
+    /// and there is no differing SHA1 digest.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxFile> Same = new SpdxFileSame();
+
+    /// <summary>
     /// File Name Field
     /// </summary>
     /// <remarks>
@@ -120,6 +129,28 @@ public sealed class SpdxFile : SpdxElement
     public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxFile DeepCopy() =>
+        new()
+        {
+            Id = Id,
+            FileName = FileName,
+            FileTypes = FileTypes.ToArray(),
+            Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
+            LicenseConcluded = LicenseConcluded,
+            LicenseInfoInFiles = LicenseInfoInFiles.ToArray(),
+            LicenseComments = LicenseComments,
+            Copyright = Copyright,
+            Comment = Comment,
+            Notice = Notice,
+            Contributors = Contributors.ToArray(),
+            AttributionText = AttributionText.ToArray(),
+            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
@@ -142,5 +173,32 @@ public sealed class SpdxFile : SpdxElement
         // Validate Annotations
         foreach (var annotation in Annotations)
             annotation.Validate($"File {FileName}", issues);
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same file
+    /// </summary>
+    private class SpdxFileSame : IEqualityComparer<SpdxFile>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxFile? f1, SpdxFile? f2)
+        {
+            if (ReferenceEquals(f1, f2)) return true;
+            if (f1 == null || f2 == null) return false;
+
+            // Reject equality if they have differing sha1 checksums
+            var c1 = Array.Find(f1.Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1);
+            var c2 = Array.Find(f2.Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1);
+            if (c1 != null && c2 != null && c1.Value != c2.Value)
+                return false;
+
+            return f1.FileName == f2.FileName;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxFile obj)
+        {
+            return obj.FileName.GetHashCode();
+        }
     }
 }

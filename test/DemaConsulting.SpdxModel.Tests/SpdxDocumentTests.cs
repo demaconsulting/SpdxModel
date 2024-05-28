@@ -16,15 +16,15 @@ public class SpdxDocumentTests
             {
                 new SpdxPackage
                 {
-                    Id = "SPDXRef-Package1",
+                    Id = "SPDXRef-Package1"
                 },
                 new SpdxPackage
                 {
-                    Id = "SPDXRef-Package2",
+                    Id = "SPDXRef-Package2"
                 },
                 new SpdxPackage
                 {
-                    Id = "SPDXRef-Package3",
+                    Id = "SPDXRef-Package3"
                 }
             },
             Relationships = new[]
@@ -52,5 +52,112 @@ public class SpdxDocumentTests
         Assert.AreEqual(2, packages.Length);
         Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package1"));
         Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package2"));
+    }
+
+    [TestMethod]
+    public void DocumentSameComparer()
+    {
+        var d1 = new SpdxDocument
+        {
+            Name = "DemaConsulting.SpdxModel-0.0.0",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1",
+                    Name = "DemaConsulting.SpdxModel",
+                    Version = "0.0.0"
+                }
+            },
+            Describes = new[]
+            {
+                "SPDXRef-Package1"
+            }
+        };
+
+        var d2 = new SpdxDocument
+        {
+            Id = "SPDXRef-DOCUMENT",
+            Version = "SPDX-2.2",
+            Name = "DemaConsulting.SpdxModel-0.0.0",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package-SpdxModel",
+                    Name = "DemaConsulting.SpdxModel",
+                    Version = "0.0.0"
+                }
+            },
+            Describes = new[]
+            {
+                "SPDXRef-Package-SpdxModel"
+            }
+        };
+
+        var d3 = new SpdxDocument
+        {
+            Name = "SomePackage-1.2.3",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1",
+                    Name = "SomePackage",
+                    Version = "1.2.3"
+                }
+            },
+            Describes = new[]
+            {
+                "SPDXRef-Package1"
+            }
+        };
+
+        // Assert documents compare to themselves
+        Assert.IsTrue(SpdxDocument.Same.Equals(d1, d1));
+        Assert.IsTrue(SpdxDocument.Same.Equals(d2, d2));
+        Assert.IsTrue(SpdxDocument.Same.Equals(d3, d3));
+
+        // Assert documents compare correctly
+        Assert.IsTrue(SpdxDocument.Same.Equals(d1, d2));
+        Assert.IsTrue(SpdxDocument.Same.Equals(d2, d1));
+        Assert.IsFalse(SpdxDocument.Same.Equals(d1, d3));
+        Assert.IsFalse(SpdxDocument.Same.Equals(d3, d1));
+        Assert.IsFalse(SpdxDocument.Same.Equals(d2, d3));
+        Assert.IsFalse(SpdxDocument.Same.Equals(d3, d2));
+
+        // Assert same documents have identical hashes
+        Assert.IsTrue(SpdxDocument.Same.GetHashCode(d1) == SpdxDocument.Same.GetHashCode(d2));
+    }
+
+    [TestMethod]
+    public void DeepCopy()
+    {
+        var d1 = new SpdxDocument
+        {
+            Id = "SPDXRef-DOCUMENT",
+            Version = "SPDX-2.2",
+            Name = "DemaConsulting.SpdxModel-0.0.0",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package-SpdxModel",
+                    Name = "DemaConsulting.SpdxModel",
+                    Version = "0.0.0"
+                }
+            },
+            Describes = new[]
+            {
+                "SPDXRef-Package-SpdxModel"
+            }
+        };
+
+        var d2 = d1.DeepCopy();
+        d2.Name = "TestName";
+
+        Assert.IsFalse(ReferenceEquals(d1, d2));
+        Assert.AreEqual("DemaConsulting.SpdxModel-0.0.0", d1.Name);
+        Assert.AreEqual("TestName", d2.Name);
     }
 }
