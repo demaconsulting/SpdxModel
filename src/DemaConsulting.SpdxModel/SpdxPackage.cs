@@ -358,10 +358,6 @@ public class SpdxPackage : SpdxElement
         // SPDX NTIA Unique Identifier Check
         if (ntia && string.IsNullOrEmpty(Id))
             issues.Add($"NTIA: Package {Name} Missing Unique Identifier");
-
-        // SPDX NTIA Component Hash Check
-        if (ntia && Array.Find(Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1) == null)
-            issues.Add($"NTIA: Package {Name} Missing Component Hash");
     }
 
     /// <summary>
