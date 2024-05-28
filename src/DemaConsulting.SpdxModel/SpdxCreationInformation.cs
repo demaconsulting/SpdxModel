@@ -74,6 +74,13 @@ public sealed class SpdxCreationInformation
         if (Creators.Length == 0)
             issues.Add("Document Invalid Creator Field");
 
+        // Validate Creators Field Entries
+        foreach (var creator in Creators)
+            if (!creator.StartsWith("Person:") &&
+                !creator.StartsWith("Organization:") &&
+                !creator.StartsWith("Tool:"))
+                issues.Add($"Document Invalid Creator Entry: {creator}");
+
         // Validate Created Field
         if (!Regex.IsMatch(Created, @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"))
             issues.Add("Document Invalid Created Field");

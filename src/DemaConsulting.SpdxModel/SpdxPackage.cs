@@ -311,7 +311,8 @@ public class SpdxPackage : SpdxElement
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
-    public void Validate(List<string> issues)
+    /// <param name="ntia">Perform NTIA validation</param>
+    public void Validate(List<string> issues, bool ntia = false)
     {
         // Validate Package Name Field
         if (Name.Length == 0)
@@ -320,6 +321,20 @@ public class SpdxPackage : SpdxElement
         // Validate Package Download Location Field
         if (DownloadLocation.Length == 0)
             issues.Add($"Package {Name} Invalid Package Download Location Field");
+
+        // Validate Package Supplier Field
+        if (Supplier != null && 
+            Supplier != "NOASSERTION" && 
+            !Supplier.StartsWith("Person:") &&
+            !Supplier.StartsWith("Organization:"))
+            issues.Add($"Package {Name} Invalid Package Supplier Field");
+
+        // Validate Package Originator Field
+        if (Originator != null &&
+            Originator != "NOASSERTION" &&
+            !Originator.StartsWith("Person:") &&
+            !Originator.StartsWith("Organization:"))
+            issues.Add($"Package {Name} Invalid Package Originator Field");
 
         // Validate verification code
         VerificationCode?.Validate(Name, issues);
@@ -331,6 +346,22 @@ public class SpdxPackage : SpdxElement
         // Validate external references
         foreach (var externalReference in ExternalReferences)
             externalReference.Validate(Name, issues);
+
+        // SPDX NTIA Supplier Name Check
+        if (ntia && string.IsNullOrEmpty(Supplier))
+            issues.Add($"NTIA: Package {Name} Missing Supplier");
+
+        // SPDX NTIA Version String Check
+        if (ntia && string.IsNullOrEmpty(Version))
+            issues.Add($"NTIA: Package {Name} Missing Version");
+
+        // SPDX NTIA Unique Identifier Check
+        if (ntia && string.IsNullOrEmpty(Id))
+            issues.Add($"NTIA: Package {Name} Missing Unique Identifier");
+
+        // SPDX NTIA Component Hash Check
+        if (ntia && Array.Find(Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1) == null)
+            issues.Add($"NTIA: Package {Name} Missing Component Hash");
     }
 
     /// <summary>
