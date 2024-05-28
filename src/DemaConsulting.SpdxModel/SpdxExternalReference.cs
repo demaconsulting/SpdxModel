@@ -11,6 +11,15 @@
 public class SpdxExternalReference
 {
     /// <summary>
+    /// Equality comparer for the same external reference
+    /// </summary>
+    /// <remarks>
+    /// This considers external references to be the same if they have the same
+    /// category, type, and locator.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxExternalReference> Same = new SpdxExternalReferenceSame();
+
+    /// <summary>
     /// External Reference Category Field
     /// </summary>
     /// <remarks>
@@ -44,6 +53,19 @@ public class SpdxExternalReference
     public string? Comment { get; set; }
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxExternalReference DeepCopy() =>
+        new()
+        {
+            Category = Category,
+            Type = Type,
+            Locator = Locator,
+            Comment = Comment
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="package">Package name</param>
@@ -61,5 +83,30 @@ public class SpdxExternalReference
         // Validate External Reference Locator Field
         if (Locator.Length == 0)
             issues.Add($"Package {package} Invalid External Reference Locator Field");
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same external reference
+    /// </summary>
+    private class SpdxExternalReferenceSame : IEqualityComparer<SpdxExternalReference>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxExternalReference? r1, SpdxExternalReference? r2)
+        {
+            if (ReferenceEquals(r1, r2)) return true;
+            if (r1 == null || r2 == null) return false;
+
+            return r1.Category == r2.Category &&
+                   r1.Type == r2.Type &&
+                   r1.Locator == r2.Locator;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxExternalReference obj)
+        {
+            return obj.Category.GetHashCode() ^
+                   obj.Type.GetHashCode() ^
+                   obj.Locator.GetHashCode();
+        }
     }
 }

@@ -13,6 +13,15 @@
 public class SpdxPackageVerificationCode
 {
     /// <summary>
+    /// Equality comparer for the same package verification code
+    /// </summary>
+    /// <remarks>
+    /// This considers annotations as being the same if they have the same
+    /// value.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxPackageVerificationCode> Same = new SpdxPackageVerificationCodeSame();
+
+    /// <summary>
     /// Excluded Files Field
     /// </summary>
     /// <remarks>
@@ -34,6 +43,17 @@ public class SpdxPackageVerificationCode
     public string Value { get; set; } = string.Empty;
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxPackageVerificationCode DeepCopy() =>
+        new()
+        {
+            ExcludedFiles = ExcludedFiles.ToArray(),
+            Value = Value
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="package">Associated package</param>
@@ -43,5 +63,26 @@ public class SpdxPackageVerificationCode
         // Validate Package Verification Code Value Field
         if (Value.Length != 40)
             issues.Add($"Package {package} Invalid Package Verification Code Value");
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same package verification code
+    /// </summary>
+    private class SpdxPackageVerificationCodeSame : IEqualityComparer<SpdxPackageVerificationCode>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxPackageVerificationCode? v1, SpdxPackageVerificationCode? v2)
+        {
+            if (ReferenceEquals(v1, v2)) return true;
+            if (v1 == null || v2 == null) return false;
+
+            return v1.Value == v2.Value;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxPackageVerificationCode obj)
+        {
+            return obj.Value.GetHashCode();
+        }
     }
 }

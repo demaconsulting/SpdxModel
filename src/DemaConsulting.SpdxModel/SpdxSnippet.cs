@@ -9,6 +9,16 @@
 public class SpdxSnippet : SpdxElement
 {
     /// <summary>
+    /// Equality comparer for the same snippet
+    /// </summary>
+    /// <remarks>
+    /// This considers snippets as being the same if they share the same
+    /// file and byte range. Note that this does not work across documents
+    /// as the file element IDs are document-specific.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxSnippet> Same = new SpdxSnippetSame();
+
+    /// <summary>
     /// Snippet From File Field
     /// </summary>
     /// <remarks>
@@ -113,6 +123,29 @@ public class SpdxSnippet : SpdxElement
     public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxSnippet DeepCopy() =>
+        new()
+        {
+            Id = Id,
+            SnippetFromFile = SnippetFromFile,
+            SnippetByteStart = SnippetByteStart,
+            SnippetByteEnd = SnippetByteEnd,
+            SnippetLineStart = SnippetLineStart,
+            SnippetLineEnd = SnippetLineEnd,
+            ConcludedLicense = ConcludedLicense,
+            LicenseInfoInSnippet = LicenseInfoInSnippet,
+            LicenseComments = LicenseComments,
+            Copyright = Copyright,
+            Comment = Comment,
+            Name = Name,
+            AttributionText = AttributionText.ToArray(),
+            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
@@ -141,5 +174,30 @@ public class SpdxSnippet : SpdxElement
         // Validate Copyright Text Field
         if (Copyright.Length == 0)
             issues.Add($"Snippet {Id} Invalid Copyright Text Field");
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same snippet
+    /// </summary>
+    private class SpdxSnippetSame : IEqualityComparer<SpdxSnippet>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxSnippet? s1, SpdxSnippet? s2)
+        {
+            if (ReferenceEquals(s1, s2)) return true;
+            if (s1 == null || s2 == null) return false;
+
+            return s1.SnippetFromFile == s2.SnippetFromFile &&
+                   s1.SnippetByteStart == s2.SnippetByteStart &&
+                   s1.SnippetByteEnd == s2.SnippetByteEnd;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxSnippet obj)
+        {
+            return obj.SnippetFromFile.GetHashCode() ^
+                   obj.SnippetByteStart.GetHashCode() ^
+                   obj.SnippetByteEnd.GetHashCode();
+        }
     }
 }

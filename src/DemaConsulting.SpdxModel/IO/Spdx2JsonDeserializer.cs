@@ -112,8 +112,8 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxExtractedLicensingInfo
         {
-            LicenseId = ParseOptionalString(json, "licenseId"),
-            ExtractedText = ParseOptionalString(json, "extractedText"),
+            LicenseId = ParseString(json, "licenseId"),
+            ExtractedText = ParseString(json, "extractedText"),
             Name = ParseOptionalString(json, "name"),
             CrossReferences = ParseStringArray(json, "seeAlsos"),
             Comment = ParseOptionalString(json, "comment")
@@ -356,7 +356,7 @@ public static class Spdx2JsonDeserializer
             Annotator = ParseString(json, "annotator"),
             Date = ParseString(json, "annotationDate"),
             Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, "annotationType")),
-            Comment = ParseOptionalString(json, "comment")
+            Comment = ParseString(json, "comment")
         };
     }
 

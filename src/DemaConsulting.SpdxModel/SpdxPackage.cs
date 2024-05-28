@@ -6,6 +6,15 @@
 public class SpdxPackage : SpdxElement
 {
     /// <summary>
+    /// Equality comparer for the same package
+    /// </summary>
+    /// <remarks>
+    /// This considers packages as being the same if they have the same name
+    /// and version.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxPackage> Same = new SpdxPackageSame();
+
+    /// <summary>
     /// Package Name Field
     /// </summary>
     /// <remarks>
@@ -262,6 +271,43 @@ public class SpdxPackage : SpdxElement
     public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
 
     /// <summary>
+    /// Make a deep-copy of this object
+    /// </summary>
+    /// <returns>Deep copy of this object</returns>
+    public SpdxPackage DeepCopy() =>
+        new()
+        {
+            Id = Id,
+            Name = Name,
+            Version = Version,
+            FileName = FileName,
+            Supplier = Supplier,
+            Originator = Originator,
+            DownloadLocation = DownloadLocation,
+            FilesAnalyzed = FilesAnalyzed,
+            HasFiles = HasFiles.ToArray(),
+            VerificationCode = VerificationCode?.DeepCopy(),
+            Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
+            HomePage = HomePage,
+            SourceInformation = SourceInformation,
+            ConcludedLicense = ConcludedLicense,
+            LicenseInfoFromFiles = LicenseInfoFromFiles.ToArray(),
+            DeclaredLicense = DeclaredLicense,
+            LicenseComments = LicenseComments,
+            CopyrightText = CopyrightText,
+            Summary = Summary,
+            Description = Description,
+            Comment = Comment,
+            ExternalReferences = ExternalReferences.Select(r => r.DeepCopy()).ToArray(),
+            Attributions = Attributions.ToArray(),
+            PrimaryPackagePurpose = PrimaryPackagePurpose,
+            ReleaseDate = ReleaseDate,
+            BuiltDate = BuiltDate,
+            ValidUntilDate = ValidUntilDate,
+            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+        };
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
@@ -285,5 +331,27 @@ public class SpdxPackage : SpdxElement
         // Validate external references
         foreach (var externalReference in ExternalReferences)
             externalReference.Validate(Name, issues);
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same package
+    /// </summary>
+    private class SpdxPackageSame : IEqualityComparer<SpdxPackage>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxPackage? p1, SpdxPackage? p2)
+        {
+            if (ReferenceEquals(p1, p2)) return true;
+            if (p1 == null || p2 == null) return false;
+
+            return p1.Name == p2.Name &&
+                   p1.Version == p2.Version;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxPackage obj)
+        {
+            return obj.Name.GetHashCode() ^ (obj.Version?.GetHashCode() ?? 0);
+        }
     }
 }
