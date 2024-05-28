@@ -160,4 +160,45 @@ public class SpdxDocumentTests
         Assert.AreEqual("DemaConsulting.SpdxModel-0.0.0", d1.Name);
         Assert.AreEqual("TestName", d2.Name);
     }
+
+    [TestMethod]
+    public void Validate()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure no validation issues
+        Assert.AreEqual(0, issues.Count);
+    }
+
+    [TestMethod]
+    public void ValidateNtia()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues, true);
+
+        // We expect NTIA validation issues from the example.
+        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Supplier"));
+        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Version"));
+        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Component Hash"));
+        Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Supplier"));
+        Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Component Hash"));
+        Assert.IsTrue(issues.Contains("NTIA: Package Saxon Missing Supplier"));
+    }
 }

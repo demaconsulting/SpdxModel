@@ -142,7 +142,8 @@ public sealed class SpdxDocument : SpdxElement
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
-    public void Validate(List<string> issues)
+    /// <param name="ntia">Perform NTIA validation</param>
+    public void Validate(List<string> issues, bool ntia = false)
     {
         // Validate SPDX Identifier Field
         if (Id != "SPDXRef-DOCUMENT")
@@ -181,7 +182,7 @@ public sealed class SpdxDocument : SpdxElement
 
         // Validate Packages
         foreach (var package in Packages)
-            package.Validate(issues);
+            package.Validate(issues, ntia);
 
         // Validate Snippets
         foreach (var snippet in Snippets)
@@ -190,6 +191,10 @@ public sealed class SpdxDocument : SpdxElement
         // Validate Relationships
         foreach (var relationship in Relationships)
             relationship.Validate(issues);
+
+        // SPDX NTIA Relationship Check
+        if (ntia && GetRootPackages().Length == 0)
+            issues.Add("NTIA: Document must describe at least one package");
     }
 
     /// <summary>
