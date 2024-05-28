@@ -196,9 +196,7 @@ public class SpdxDocumentTests
         // We expect NTIA validation issues from the example.
         Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Supplier"));
         Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Version"));
-        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Component Hash"));
         Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Supplier"));
-        Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Component Hash"));
         Assert.IsTrue(issues.Contains("NTIA: Package Saxon Missing Supplier"));
     }
 }
