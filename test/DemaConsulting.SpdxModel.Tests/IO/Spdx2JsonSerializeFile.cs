@@ -22,10 +22,10 @@ public class Spdx2JsonSerializeFile
                     Value = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"
                 }
             },
-            LicenseConcluded = "Apache-2.0",
+            ConcludedLicense = "Apache-2.0",
             LicenseInfoInFiles = new[] { "Apache-2.0" },
             LicenseComments = "This license is used by Jena",
-            Copyright = "Copyright 2010, 2011 Source Auditor Inc.",
+            CopyrightText = "Copyright 2010, 2011 Source Auditor Inc.",
             Comment = "This file is a sample DOAP file",
             Notice = "Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com",
             Contributors = new[]
@@ -101,10 +101,10 @@ public class Spdx2JsonSerializeFile
                         Value = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"
                     }
                 },
-                LicenseConcluded = "Apache-2.0",
+                ConcludedLicense = "Apache-2.0",
                 LicenseInfoInFiles = new[] { "Apache-2.0" },
                 LicenseComments = "This license is used by Jena",
-                Copyright = "Copyright 2010, 2011 Source Auditor Inc.",
+                CopyrightText = "Copyright 2010, 2011 Source Auditor Inc.",
                 Comment = "This file is a sample DOAP file",
                 Notice = "Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com",
                 Contributors = new[]

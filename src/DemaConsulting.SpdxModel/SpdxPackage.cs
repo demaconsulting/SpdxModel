@@ -3,7 +3,7 @@
 /// <summary>
 /// SPDX Package class
 /// </summary>
-public class SpdxPackage : SpdxElement
+public sealed class SpdxPackage : SpdxLicenseElement
 {
     /// <summary>
     /// Equality comparer for the same package
@@ -127,20 +127,6 @@ public class SpdxPackage : SpdxElement
     public string? SourceInformation { get; set; }
 
     /// <summary>
-    /// Concluded License Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// License expression. See SPDX Annex D for the license expression syntax.
-    /// 
-    /// The licensing that the preparer of this SPDX document has concluded,
-    /// based on the evidence, actually applies to the SPDX Item.
-    ///
-    /// If the field is not present for an SPDX Item, it implies an equivalent
-    /// meaning to NOASSERTION.
-    /// </remarks>
-    public string? ConcludedLicense { get; set; }
-
-    /// <summary>
     /// All Licenses Information From Files Field
     /// </summary>
     /// <remarks>
@@ -164,25 +150,6 @@ public class SpdxPackage : SpdxElement
     /// should be preferred, if they exist.
     /// </remarks>
     public string DeclaredLicense { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Comments On License Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// This property allows the preparer of the SPDX document to describe
-    /// why the concluded licensing was chosen.
-    /// </remarks>
-    public string? LicenseComments { get; set; }
-
-    /// <summary>
-    /// Copyright Text Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// The text of copyright declarations recited in the package, file or
-    /// snippet. If the field is not present, it implies an equivalent meaning
-    /// to NOASSERTION.
-    /// </remarks>
-    public string? CopyrightText { get; set; }
 
     /// <summary>
     /// Package Summary Description Field (optional)
@@ -214,16 +181,6 @@ public class SpdxPackage : SpdxElement
     /// or downloadable content believed to be relevant to the Package.
     /// </remarks>
     public SpdxExternalReference[] ExternalReferences { get; set; } = Array.Empty<SpdxExternalReference>();
-
-    /// <summary>
-    /// Package Attribution Text Field
-    /// </summary>
-    /// <remarks>
-    /// This field provides a place for the SPDX data creator to record
-    /// acknowledgements that may be required to be communicated in some
-    /// contexts.
-    /// </remarks>
-    public string[] Attributions { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// Primary Package Purpose Field (optional)
@@ -263,14 +220,6 @@ public class SpdxPackage : SpdxElement
     public string? ValidUntilDate { get; set; }
 
     /// <summary>
-    /// Annotations
-    /// </summary>
-    /// <remarks>
-    /// Provide additional information about this package.
-    /// </remarks>
-    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
-
-    /// <summary>
     /// Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
@@ -299,7 +248,7 @@ public class SpdxPackage : SpdxElement
             Description = Description,
             Comment = Comment,
             ExternalReferences = ExternalReferences.Select(r => r.DeepCopy()).ToArray(),
-            Attributions = Attributions.ToArray(),
+            AttributionText = AttributionText.ToArray(),
             PrimaryPackagePurpose = PrimaryPackagePurpose,
             ReleaseDate = ReleaseDate,
             BuiltDate = BuiltDate,

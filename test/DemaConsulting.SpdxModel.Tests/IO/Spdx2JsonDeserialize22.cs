@@ -83,10 +83,10 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual(1, doc.Files[0].Checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, doc.Files[0].Checksums[0].Algorithm);
         Assert.AreEqual("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", doc.Files[0].Checksums[0].Value);
-        Assert.AreEqual("Apache-2.0", doc.Files[0].LicenseConcluded);
+        Assert.AreEqual("Apache-2.0", doc.Files[0].ConcludedLicense);
         Assert.AreEqual(1, doc.Files[0].LicenseInfoInFiles.Length);
         Assert.AreEqual("Apache-2.0", doc.Files[0].LicenseInfoInFiles[0]);
-        Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", doc.Files[0].Copyright);
+        Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", doc.Files[0].CopyrightText);
         Assert.AreEqual(5, doc.Files[0].Contributors.Length);
         Assert.AreEqual("Protecode Inc.", doc.Files[0].Contributors[0]);
         Assert.AreEqual("SPDX Technical Team Members", doc.Files[0].Contributors[1]);
@@ -119,7 +119,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual(1, doc.Snippets[0].LicenseInfoInSnippet.Length);
         Assert.AreEqual("GPL-2.0-only", doc.Snippets[0].LicenseInfoInSnippet[0]);
         Assert.IsTrue(doc.Snippets[0].LicenseComments?.StartsWith("The concluded license was taken"));
-        Assert.AreEqual("Copyright 2008-2010 John Smith", doc.Snippets[0].Copyright);
+        Assert.AreEqual("Copyright 2008-2010 John Smith", doc.Snippets[0].CopyrightText);
         Assert.IsTrue(doc.Snippets[0].Comment?.StartsWith("This snippet was identified as significant"));
         Assert.AreEqual("from linux kernel", doc.Snippets[0].Name);
 

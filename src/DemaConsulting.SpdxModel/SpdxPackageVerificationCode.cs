@@ -10,7 +10,7 @@
 /// identical to the SPDX item from which the data was produced. This
 /// algorithm works even if the SPDX document is included in the SPDX item.
 /// </remarks>
-public class SpdxPackageVerificationCode
+public sealed class SpdxPackageVerificationCode
 {
     /// <summary>
     /// Equality comparer for the same package verification code

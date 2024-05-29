@@ -71,10 +71,10 @@ public class Spdx2JsonDeserializePackage
         Assert.AreEqual(SpdxAnnotationType.Other, package.Annotations[0].Type);
         Assert.AreEqual("Person: Package Commenter", package.Annotations[0].Annotator);
         Assert.AreEqual("Package level annotation", package.Annotations[0].Comment);
-        Assert.AreEqual(1, package.Attributions.Length);
+        Assert.AreEqual(1, package.AttributionText.Length);
         Assert.AreEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
-            package.Attributions[0]);
+            package.AttributionText[0]);
         Assert.AreEqual("2011-01-29T18:30:22Z", package.BuiltDate);
         Assert.AreEqual(3, package.Checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, package.Checksums[0].Algorithm);
@@ -164,10 +164,10 @@ public class Spdx2JsonDeserializePackage
         Assert.AreEqual(SpdxAnnotationType.Other, packages[0].Annotations[0].Type);
         Assert.AreEqual("Person: Package Commenter", packages[0].Annotations[0].Annotator);
         Assert.AreEqual("Package level annotation", packages[0].Annotations[0].Comment);
-        Assert.AreEqual(1, packages[0].Attributions.Length);
+        Assert.AreEqual(1, packages[0].AttributionText.Length);
         Assert.AreEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
-            packages[0].Attributions[0]);
+            packages[0].AttributionText[0]);
         Assert.AreEqual("2011-01-29T18:30:22Z", packages[0].BuiltDate);
         Assert.AreEqual(3, packages[0].Checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, packages[0].Checksums[0].Algorithm);

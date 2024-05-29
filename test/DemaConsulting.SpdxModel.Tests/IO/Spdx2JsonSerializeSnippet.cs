@@ -20,7 +20,7 @@ public class Spdx2JsonSerializeSnippet
             ConcludedLicense = "ConcludedLicense",
             LicenseInfoInSnippet = new[] { "LicenseInfoInSnippet" },
             LicenseComments = "LicenseComments",
-            Copyright = "Copyright",
+            CopyrightText = "Copyright",
             Comment = "Comment",
             Name = "Name",
             AttributionText = new[] { "AttributionText" }
@@ -67,7 +67,7 @@ public class Spdx2JsonSerializeSnippet
                 ConcludedLicense = "ConcludedLicense",
                 LicenseInfoInSnippet = new[] { "LicenseInfoInSnippet" },
                 LicenseComments = "LicenseComments",
-                Copyright = "Copyright",
+                CopyrightText = "Copyright",
                 Comment = "Comment",
                 Name = "Name",
                 AttributionText = new[] { "AttributionText" }

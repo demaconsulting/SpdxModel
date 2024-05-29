@@ -8,7 +8,7 @@
 /// file or snippet. Any license text that is recognized as a license may be
 /// represented as a License rather than an ExtractedLicensingInfo.
 /// </remarks>
-public class SpdxExtractedLicensingInfo
+public sealed class SpdxExtractedLicensingInfo
 {
     /// <summary>
     /// Equality comparer for the same extracted licensing info

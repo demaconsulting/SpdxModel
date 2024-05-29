@@ -3,7 +3,7 @@
 /// <summary>
 /// SPDX Element base class
 /// </summary>
-public class SpdxElement
+public abstract class SpdxElement
 {
     /// <summary>
     /// Gets or sets the Element ID
