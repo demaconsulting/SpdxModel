@@ -64,7 +64,7 @@ public class Spdx2JsonDeserializeSnippet
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
             snippet.Comment);
-        Assert.AreEqual("Copyright 2008-2010 John Smith", snippet.Copyright);
+        Assert.AreEqual("Copyright 2008-2010 John Smith", snippet.CopyrightText);
         Assert.AreEqual(
             "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
             snippet.LicenseComments);
@@ -141,7 +141,7 @@ public class Spdx2JsonDeserializeSnippet
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
             snippets[0].Comment);
-        Assert.AreEqual("Copyright 2008-2010 John Smith", snippets[0].Copyright);
+        Assert.AreEqual("Copyright 2008-2010 John Smith", snippets[0].CopyrightText);
         Assert.AreEqual(
             "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
             snippets[0].LicenseComments);

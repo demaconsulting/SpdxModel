@@ -7,7 +7,7 @@
 /// Information about an external SPDX document reference including the
 /// checksum. This allows for verification of the external references.
 /// </remarks>
-public class SpdxExternalDocumentReference
+public sealed class SpdxExternalDocumentReference
 {
     /// <summary>
     /// Equality comparer for the same external document reference

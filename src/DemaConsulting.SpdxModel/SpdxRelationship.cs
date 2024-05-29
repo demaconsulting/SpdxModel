@@ -6,7 +6,7 @@
 /// <remarks>
 /// Relationships referenced in the SPDX document.
 /// </remarks>
-public class SpdxRelationship : SpdxElement
+public sealed class SpdxRelationship : SpdxElement
 {
     /// <summary>
     /// Equality comparer for the same relationship

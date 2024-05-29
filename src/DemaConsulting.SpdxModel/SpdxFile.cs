@@ -3,7 +3,7 @@
 /// <summary>
 /// SPDX File Information Element
 /// </summary>
-public sealed class SpdxFile : SpdxElement
+public sealed class SpdxFile : SpdxLicenseElement
 {
     /// <summary>
     /// Equality comparer for the same file
@@ -40,19 +40,6 @@ public sealed class SpdxFile : SpdxElement
     public SpdxChecksum[] Checksums { get; set; } = Array.Empty<SpdxChecksum>();
 
     /// <summary>
-    /// Concluded License Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// License expression. See SPDX Annex D for the license expression syntax.
-    /// 
-    /// The licensing that the preparer of this SPDX document has concluded,
-    /// based on the evidence, actually applies to the SPDX Item.
-    ///
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
-    /// </remarks>
-    public string? LicenseConcluded { get; set; }
-
-    /// <summary>
     /// License Information In File Field
     /// </summary>
     /// <remarks>
@@ -64,25 +51,6 @@ public sealed class SpdxFile : SpdxElement
     /// If not present for a file, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
     public string[] LicenseInfoInFiles { get; set; } = Array.Empty<string>();
-
-    /// <summary>
-    /// Comments On License Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// This property allows the preparer of the SPDX document to describe why
-    /// the LicenseConcluded was chosen.
-    /// </remarks>
-    public string? LicenseComments { get; set; }
-
-    /// <summary>
-    /// Copyright Text Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// The text of copyright declarations recited in the file.
-    ///
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
-    /// </remarks>
-    public string? Copyright { get; set; }
 
     /// <summary>
     /// File Comment Field (optional)
@@ -111,24 +79,6 @@ public sealed class SpdxFile : SpdxElement
     public string[] Contributors { get; set; } = Array.Empty<string>();
 
     /// <summary>
-    /// File Attribution Text Field
-    /// </summary>
-    /// <remarks>
-    /// This field provides a place for the SPDX data creator to record
-    /// acknowledgements that may be required to be communicated in some
-    /// contexts.
-    /// </remarks>
-    public string[] AttributionText { get; set; } = Array.Empty<string>();
-
-    /// <summary>
-    /// Annotations
-    /// </summary>
-    /// <remarks>
-    /// Provide additional information about this file.
-    /// </remarks>
-    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
-
-    /// <summary>
     /// Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
@@ -139,10 +89,10 @@ public sealed class SpdxFile : SpdxElement
             FileName = FileName,
             FileTypes = FileTypes.ToArray(),
             Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
-            LicenseConcluded = LicenseConcluded,
+            ConcludedLicense = ConcludedLicense,
             LicenseInfoInFiles = LicenseInfoInFiles.ToArray(),
             LicenseComments = LicenseComments,
-            Copyright = Copyright,
+            CopyrightText = CopyrightText,
             Comment = Comment,
             Notice = Notice,
             Contributors = Contributors.ToArray(),

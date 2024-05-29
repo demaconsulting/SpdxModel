@@ -6,7 +6,7 @@
 /// <remarks>
 /// Snippets referenced in the SPDX document
 /// </remarks>
-public class SpdxSnippet : SpdxElement
+public sealed class SpdxSnippet : SpdxLicenseElement
 {
     /// <summary>
     /// Equality comparer for the same snippet
@@ -47,19 +47,6 @@ public class SpdxSnippet : SpdxElement
     public int SnippetLineEnd { get; set; }
 
     /// <summary>
-    /// Concluded License Field
-    /// </summary>
-    /// <remarks>
-    /// License expression. See SPDX Annex D for the license expression syntax.
-    ///
-    /// The licensing that the preparer of this SPDX document has concluded,
-    /// based on the evidence, actually applies to the snippet.
-    ///
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
-    /// </remarks>
-    public string ConcludedLicense { get; set; } = string.Empty;
-
-    /// <summary>
     /// License Information in Snippet Field
     /// </summary>
     /// <remarks>
@@ -73,25 +60,6 @@ public class SpdxSnippet : SpdxElement
     public string[] LicenseInfoInSnippet { get; set; } = Array.Empty<string>();
 
     /// <summary>
-    /// Comments On License Field (optional)
-    /// </summary>
-    /// <remarks>
-    /// This property allows the preparer of the SPDX document to describe why
-    /// the ConcludedLicense was chosen.
-    /// </remarks>
-    public string? LicenseComments { get; set; }
-
-    /// <summary>
-    /// Copyright Text Field
-    /// </summary>
-    /// <remarks>
-    /// The text of copyright declarations recited in the snippet
-    /// 
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
-    /// </remarks>
-    public string Copyright { get; set; } = string.Empty;
-
-    /// <summary>
     /// Snippet Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
@@ -103,24 +71,6 @@ public class SpdxSnippet : SpdxElement
     /// Identify name of this snippet.
     /// </remarks>
     public string? Name { get; set; }
-
-    /// <summary>
-    /// Snippet Attribution Text Field
-    /// </summary>
-    /// <remarks>
-    /// This field provides a place for the SPDX data creator to record
-    /// acknowledgements that may be required to be communicated in some
-    /// contexts.
-    /// </remarks>
-    public string[] AttributionText { get; set; } = Array.Empty<string>();
-
-    /// <summary>
-    /// Annotations
-    /// </summary>
-    /// <remarks>
-    /// Provide additional information about this snippet.
-    /// </remarks>
-    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -138,7 +88,7 @@ public class SpdxSnippet : SpdxElement
             ConcludedLicense = ConcludedLicense,
             LicenseInfoInSnippet = LicenseInfoInSnippet,
             LicenseComments = LicenseComments,
-            Copyright = Copyright,
+            CopyrightText = CopyrightText,
             Comment = Comment,
             Name = Name,
             AttributionText = AttributionText.ToArray(),
@@ -172,7 +122,7 @@ public class SpdxSnippet : SpdxElement
             issues.Add($"Snippet {Id} Invalid Concluded License Field");
 
         // Validate Copyright Text Field
-        if (Copyright.Length == 0)
+        if (CopyrightText.Length == 0)
             issues.Add($"Snippet {Id} Invalid Copyright Text Field");
     }
 

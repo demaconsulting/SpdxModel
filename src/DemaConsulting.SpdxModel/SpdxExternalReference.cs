@@ -8,7 +8,7 @@
 /// additional information, metadata, enumerations, asset identifiers, or
 /// downloadable content believed to be relevant to the Package.
 /// </remarks>
-public class SpdxExternalReference
+public sealed class SpdxExternalReference
 {
     /// <summary>
     /// Equality comparer for the same external reference

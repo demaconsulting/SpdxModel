@@ -153,10 +153,10 @@ public static class Spdx2JsonSerializer
         EmitString(json, "fileName", file.FileName);
         EmitOptionalStrings(json, "fileTypes", file.FileTypes.Select(SpdxFileTypeExtensions.ToText).ToArray());
         json["checksums"] = SerializeChecksums(file.Checksums);
-        EmitOptionalString(json, "licenseConcluded", file.LicenseConcluded);
+        EmitOptionalString(json, "licenseConcluded", file.ConcludedLicense);
         EmitOptionalStrings(json, "licenseInfoInFiles", file.LicenseInfoInFiles);
         EmitOptionalString(json, "licenseComments", file.LicenseComments);
-        EmitOptionalString(json, "copyrightText", file.Copyright);
+        EmitOptionalString(json, "copyrightText", file.CopyrightText);
         EmitOptionalString(json, "comment", file.Comment);
         EmitOptionalString(json, "noticeText", file.Notice);
         EmitOptionalStrings(json, "fileContributors", file.Contributors);
@@ -212,7 +212,7 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, "comment", package.Comment);
         if (package.ExternalReferences.Length > 0)
             json["externalRefs"] = SerializeExternalReferences(package.ExternalReferences);
-        EmitOptionalStrings(json, "attributionTexts", package.Attributions);
+        EmitOptionalStrings(json, "attributionTexts", package.AttributionText);
         EmitOptionalString(json, "primaryPackagePurpose", package.PrimaryPackagePurpose);
         EmitOptionalString(json, "releaseDate", package.ReleaseDate);
         EmitOptionalString(json, "builtDate", package.BuiltDate);
@@ -247,10 +247,10 @@ public static class Spdx2JsonSerializer
         EmitString(json, "SPDXID", snippet.Id);
         EmitString(json, "snippetFromFile", snippet.SnippetFromFile);
         EmitOptionalString(json, "name", snippet.Name);
-        EmitString(json, "licenseConcluded", snippet.ConcludedLicense);
+        EmitOptionalString(json, "licenseConcluded", snippet.ConcludedLicense);
         EmitOptionalStrings(json, "licenseInfoInSnippets", snippet.LicenseInfoInSnippet);
         EmitOptionalString(json, "licenseComments", snippet.LicenseComments);
-        EmitString(json, "copyrightText", snippet.Copyright);
+        EmitOptionalString(json, "copyrightText", snippet.CopyrightText);
         EmitOptionalString(json, "comment", snippet.Comment);
         EmitOptionalStrings(json, "attributionTexts", snippet.AttributionText);
         if (snippet.Annotations.Length > 0)

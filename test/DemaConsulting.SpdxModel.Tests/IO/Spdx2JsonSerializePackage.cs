@@ -27,7 +27,7 @@ public class Spdx2JsonSerializePackage
                     Comment = "Package level annotation"
                 }
             },
-            Attributions = new[]
+            AttributionText = new[]
             {
                 "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
             },
@@ -131,7 +131,7 @@ public class Spdx2JsonSerializePackage
                         Comment = "Package level annotation"
                     }
                 },
-                Attributions = new[]
+                AttributionText = new[]
                 {
                     "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
                 },
