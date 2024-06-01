@@ -67,6 +67,64 @@ public sealed class SpdxExtractedLicensingInfo
         };
 
     /// <summary>
+    /// Enhance missing fields in the extracted licensing info
+    /// </summary>
+    /// <param name="other">Other extracted licensing info to enhance with</param>
+    public void Enhance(SpdxExtractedLicensingInfo other)
+    {
+        // Populate the license-id field if missing
+        if (string.IsNullOrWhiteSpace(LicenseId))
+            LicenseId = other.LicenseId;
+
+        // Populate the extracted-text field if missing
+        if (string.IsNullOrWhiteSpace(ExtractedText))
+            ExtractedText = other.ExtractedText;
+
+        // Populate the name field if missing
+        if (string.IsNullOrWhiteSpace(Name))
+            Name = other.Name;
+
+        // Merge the cross-references
+        CrossReferences = CrossReferences.Concat(other.CrossReferences).Distinct().ToArray();
+
+        // Populate the comment field if missing
+        if (string.IsNullOrWhiteSpace(Comment))
+            Comment = other.Comment;
+    }
+
+    /// <summary>
+    /// Enhance missing extracted licensing info in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxExtractedLicensingInfo[] Enhance(SpdxExtractedLicensingInfo[] array, SpdxExtractedLicensingInfo[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

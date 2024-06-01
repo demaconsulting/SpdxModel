@@ -63,4 +63,48 @@ public class SpdxSnippetTests
         Assert.AreEqual("SPDXRef-File1", s1.SnippetFromFile);
         Assert.AreEqual("SPDXRef-File2", s2.SnippetFromFile);
     }
+
+    [TestMethod]
+    public void Enhance()
+    {
+        var snippets = new[]
+        {
+            new SpdxSnippet
+            {
+                SnippetFromFile = "SPDXRef-File1",
+                SnippetByteStart = 100,
+                SnippetByteEnd = 200
+            }
+        };
+
+        snippets = SpdxSnippet.Enhance(
+            snippets,
+            new[]
+            {
+                new SpdxSnippet
+                {
+                    SnippetFromFile = "SPDXRef-File1",
+                    SnippetByteStart = 100,
+                    SnippetByteEnd = 200,
+                    Comment = "Found snippet",
+                    ConcludedLicense = "MIT"
+                },
+                new SpdxSnippet
+                {
+                    SnippetFromFile = "SPDXRef-File2",
+                    SnippetByteStart = 10,
+                    SnippetByteEnd = 40
+                }
+            });
+
+        Assert.AreEqual(2, snippets.Length);
+        Assert.AreEqual("SPDXRef-File1", snippets[0].SnippetFromFile);
+        Assert.AreEqual(100, snippets[0].SnippetByteStart);
+        Assert.AreEqual(200, snippets[0].SnippetByteEnd);
+        Assert.AreEqual("Found snippet", snippets[0].Comment);
+        Assert.AreEqual("MIT", snippets[0].ConcludedLicense);
+        Assert.AreEqual("SPDXRef-File2", snippets[1].SnippetFromFile);
+        Assert.AreEqual(10, snippets[1].SnippetByteStart);
+        Assert.AreEqual(40, snippets[1].SnippetByteEnd);
+    }
 }

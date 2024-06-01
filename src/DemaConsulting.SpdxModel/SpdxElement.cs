@@ -13,4 +13,15 @@ public abstract class SpdxElement
     /// referenced by other elements.
     /// </remarks>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Enhance missing fields in the element
+    /// </summary>
+    /// <param name="other">Other element to enhance with</param>
+    protected void EnhanceElement(SpdxElement other)
+    {
+        // Populate the ID if missing
+        if (string.IsNullOrWhiteSpace(Id))
+            Id = other.Id;
+    }
 }

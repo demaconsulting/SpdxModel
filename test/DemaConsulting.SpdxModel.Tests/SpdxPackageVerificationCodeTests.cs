@@ -55,4 +55,24 @@ public class SpdxPackageVerificationCodeTests
         Assert.AreEqual("./package.spdx", v1.ExcludedFiles[0]);
         Assert.AreEqual("./test.spdx", v2.ExcludedFiles[0]);
     }
+
+    [TestMethod]
+    public void Enhance()
+    {
+        var info = new SpdxPackageVerificationCode
+        {
+            Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
+        };
+
+        info.Enhance(
+            new SpdxPackageVerificationCode
+            {
+                ExcludedFiles = new[] { "./package.spdx" },
+                Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
+            });
+
+        Assert.AreEqual(1, info.ExcludedFiles.Length);
+        Assert.AreEqual("./package.spdx", info.ExcludedFiles[0]);
+        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2758", info.Value);
+    }
 }

@@ -65,6 +65,28 @@ public sealed class SpdxCreationInformation
         };
 
     /// <summary>
+    /// Enhance missing fields in the creation information
+    /// </summary>
+    /// <param name="other">Other creation information to enhance with</param>
+    public void Enhance(SpdxCreationInformation other)
+    {
+        // Merge the creators
+        Creators = Creators.Concat(other.Creators).Distinct().ToArray();
+
+        // Populate the created field if missing
+        if (string.IsNullOrWhiteSpace(Created))
+            Created = other.Created;
+
+        // Populate the comment field if missing
+        if (string.IsNullOrWhiteSpace(Comment))
+            Comment = other.Comment;
+
+        // Populate the license-list-version field if missing
+        if (string.IsNullOrWhiteSpace(LicenseListVersion))
+            LicenseListVersion = other.LicenseListVersion;
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

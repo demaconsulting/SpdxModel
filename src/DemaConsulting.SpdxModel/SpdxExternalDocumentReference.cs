@@ -48,6 +48,55 @@ public sealed class SpdxExternalDocumentReference
         };
 
     /// <summary>
+    /// Enhance missing fields in the checksum
+    /// </summary>
+    /// <param name="other">Other checksum to enhance with</param>
+    public void Enhance(SpdxExternalDocumentReference other)
+    {
+        // Populate the external document ID if missing
+        if (string.IsNullOrWhiteSpace(ExternalDocumentId))
+            ExternalDocumentId = other.ExternalDocumentId;
+
+        // Enhance the checksum
+        Checksum.Enhance(other.Checksum);
+
+        if (string.IsNullOrWhiteSpace(Document))
+            Document = other.Document;
+    }
+
+    /// <summary>
+    /// Enhance missing external document references in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxExternalDocumentReference[] Enhance(SpdxExternalDocumentReference[] array, SpdxExternalDocumentReference[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

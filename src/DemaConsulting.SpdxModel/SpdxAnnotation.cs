@@ -61,6 +61,64 @@ public sealed class SpdxAnnotation : SpdxElement
             Type = Type,
             Comment = Comment
         };
+
+    /// <summary>
+    /// Enhance missing fields in the annotation
+    /// </summary>
+    /// <param name="other">Other annotation to enhance with</param>
+    public void Enhance(SpdxAnnotation other)
+    {
+        // Enhance the base element
+        EnhanceElement(other);
+
+        // Populate the annotator if missing
+        if (string.IsNullOrWhiteSpace(Annotator))
+            Annotator = other.Annotator;
+
+        // Populate the date if missing
+        if (string.IsNullOrWhiteSpace(Date))
+            Date = other.Date;
+
+        // Populate the type if missing
+        if (Type == SpdxAnnotationType.Missing)
+            Type = other.Type;
+
+        // Populate the comment if missing
+        if (string.IsNullOrWhiteSpace(Comment))
+            Comment = other.Comment;
+    }
+
+    /// <summary>
+    /// Enhance missing annotations in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxAnnotation[] Enhance(SpdxAnnotation[] array, SpdxAnnotation[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
     
     /// <summary>
     /// Perform validation of information

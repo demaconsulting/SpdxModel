@@ -96,6 +96,79 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         };
 
     /// <summary>
+    /// Enhance missing fields in the snippet
+    /// </summary>
+    /// <param name="other">Other snippet to enhance with</param>
+    public void Enhance(SpdxSnippet other)
+    {
+        // Enhance the license information
+        EnhanceLicenseElement(other);
+
+        // Populate the snippet-from-file field if missing
+        if (string.IsNullOrWhiteSpace(SnippetFromFile))
+            SnippetFromFile = other.SnippetFromFile;
+
+        // Populate the snippet-byte-start field if missing
+        if (SnippetByteStart <= 0)
+            SnippetByteStart = other.SnippetByteStart;
+
+        // Populate the snippet-byte-end field if missing
+        if (SnippetByteEnd <= 0)
+            SnippetByteEnd = other.SnippetByteEnd;
+
+        // Populate the snippet-line-start field if missing
+        if (SnippetLineStart <= 0)
+            SnippetLineStart = other.SnippetLineStart;
+
+        // Populate the snippet-line-end field if missing
+        if (SnippetLineEnd <= 0)
+            SnippetLineEnd = other.SnippetLineEnd;
+
+        // Merge the license-info-in-snippet entries
+        LicenseInfoInSnippet = LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct().ToArray();
+
+        // Populate the comment field if missing
+        if (string.IsNullOrWhiteSpace(Comment))
+            Comment = other.Comment;
+
+        // Populate the name field if missing
+        if (string.IsNullOrWhiteSpace(Name))
+            Name = other.Name;
+    }
+
+    /// <summary>
+    /// Enhance missing snippets in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxSnippet[] Enhance(SpdxSnippet[] array, SpdxSnippet[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
