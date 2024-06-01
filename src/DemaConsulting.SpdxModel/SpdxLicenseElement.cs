@@ -54,4 +54,32 @@ public abstract class SpdxLicenseElement : SpdxElement
     /// Provide additional information about this element.
     /// </remarks>
     public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
+
+    /// <summary>
+    /// Enhance missing fields in the license element
+    /// </summary>
+    /// <param name="other">Other license element to enhance with</param>
+    protected void EnhanceLicenseElement(SpdxLicenseElement other)
+    {
+        // Enhance the base element
+        EnhanceElement(other);
+
+        // Populate the concluded license if missing
+        if (string.IsNullOrWhiteSpace(ConcludedLicense) || ConcludedLicense == "NOASSERTION")
+            ConcludedLicense = other.ConcludedLicense;
+
+        // Populate the license comments if missing
+        if (string.IsNullOrWhiteSpace(LicenseComments))
+            LicenseComments = other.LicenseComments;
+
+        // Populate the copyright text if missing
+        if (string.IsNullOrWhiteSpace(CopyrightText) || CopyrightText == "NOASSERTION")
+            CopyrightText = other.CopyrightText;
+
+        // Merge the attribution texts
+        AttributionText = AttributionText.Concat(other.AttributionText).Distinct().ToArray();
+
+        // Enhance the annotations
+        Annotations = SpdxAnnotation.Enhance(Annotations, other.Annotations);
+    }
 }

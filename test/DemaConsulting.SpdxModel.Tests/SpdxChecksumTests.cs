@@ -57,4 +57,39 @@ public class SpdxChecksumTests
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", c1.Value);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", c2.Value);
     }
+
+    [TestMethod]
+    public void Enhance()
+    {
+        var checksums = new[]
+        {
+            new SpdxChecksum
+            {
+                Algorithm = SpdxChecksumAlgorithm.Sha1,
+                Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
+            }
+        };
+
+        checksums = SpdxChecksum.Enhance(
+            checksums,
+            new[]
+            {
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha1,
+                    Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
+                },
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Md5,
+                    Value = "624c1abb3664f4b35547e7c73864ad24"
+                }
+            });
+
+        Assert.AreEqual(2, checksums.Length);
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
+        Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", checksums[0].Value);
+        Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
+        Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", checksums[1].Value);
+    }
 }

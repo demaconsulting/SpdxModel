@@ -63,4 +63,46 @@ public class SpdxExternalReferenceTests
         Assert.AreEqual(SpdxReferenceCategory.Security, r1.Category);
         Assert.AreEqual(SpdxReferenceCategory.Other, r2.Category);
     }
+
+    [TestMethod]
+    public void Enhance()
+    {
+        var references = new[]
+        {
+            new SpdxExternalReference
+            {
+                Category = SpdxReferenceCategory.Security,
+                Type = "cpe23Type",
+                Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*"
+            }
+        };
+
+        references = SpdxExternalReference.Enhance(
+            references,
+            new[]
+            {
+                new SpdxExternalReference
+                {
+                    Category = SpdxReferenceCategory.Security,
+                    Type = "cpe23Type",
+                    Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*",
+                    Comment = "CPE23 Standard Identifier"
+                },
+                new SpdxExternalReference
+                {
+                    Category = SpdxReferenceCategory.PackageManager,
+                    Type = "purl",
+                    Locator = "pkg:nuget/SomePackage@0.0.0"
+                }
+            });
+
+        Assert.AreEqual(2, references.Length);
+        Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);
+        Assert.AreEqual("cpe23Type", references[0].Type);
+        Assert.AreEqual("cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*", references[0].Locator);
+        Assert.AreEqual("CPE23 Standard Identifier", references[0].Comment);
+        Assert.AreEqual(SpdxReferenceCategory.PackageManager, references[1].Category);
+        Assert.AreEqual("purl", references[1].Type);
+        Assert.AreEqual("pkg:nuget/SomePackage@0.0.0", references[1].Locator);
+    }
 }

@@ -257,6 +257,127 @@ public sealed class SpdxPackage : SpdxLicenseElement
         };
 
     /// <summary>
+    /// Enhance missing fields in the package
+    /// </summary>
+    /// <param name="other">Other package to enhance with</param>
+    public void Enhance(SpdxPackage other)
+    {
+        // Enhance license information
+        EnhanceLicenseElement(other);
+
+        // Populate the name field if missing
+        if (string.IsNullOrWhiteSpace(Name))
+            Name = other.Name;
+
+        // Populate the version field if missing
+        if (string.IsNullOrWhiteSpace(Version))
+            Version = other.Version;
+
+        // Populate the file-name field if missing
+        if (string.IsNullOrWhiteSpace(FileName))
+            FileName = other.FileName;
+
+        // Populate the supplier field if missing
+        if (string.IsNullOrWhiteSpace(Supplier) || Supplier == "NOASSERTION")
+            Supplier = other.Supplier;
+
+        // Populate the originator field if missing
+        if (string.IsNullOrWhiteSpace(Originator) || Originator == "NOASSERTION")
+            Originator = other.Originator;
+
+        // Populate the download-location field if missing
+        if (string.IsNullOrWhiteSpace(DownloadLocation) || DownloadLocation == "NOASSERTION")
+            DownloadLocation = other.DownloadLocation;
+
+        // Enhance or populate the verification code
+        if (VerificationCode != null && other.VerificationCode != null)
+            VerificationCode?.Enhance(other.VerificationCode);
+        else
+            VerificationCode = other.VerificationCode?.DeepCopy();
+
+        // Enhance the checksums
+        Checksums = SpdxChecksum.Enhance(Checksums, other.Checksums);
+
+        // Populate the home-page if missing
+        if (string.IsNullOrWhiteSpace(HomePage) || HomePage == "NOASSERTION")
+            HomePage = other.HomePage;
+
+        // Populate the source-information if missing
+        if (string.IsNullOrWhiteSpace(SourceInformation))
+            SourceInformation = other.SourceInformation;
+
+        // Merge the license-info-from-files entries
+        LicenseInfoFromFiles = LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct().ToArray();
+
+        // Populate the declared-license field if missing
+        if (string.IsNullOrWhiteSpace(DeclaredLicense) || DeclaredLicense == "NOASSERTION")
+            DeclaredLicense = other.DeclaredLicense;
+
+        // Populate the summary field if missing
+        if (string.IsNullOrWhiteSpace(Summary))
+            Summary = other.Summary;
+
+        // Populate the description field if missing
+        if (string.IsNullOrWhiteSpace(Description))
+            Description = other.Description;
+
+        // Populate the comment field if missing
+        if (string.IsNullOrWhiteSpace(Comment))
+            Comment = other.Comment;
+
+        // Enhance external references
+        ExternalReferences = SpdxExternalReference.Enhance(ExternalReferences, other.ExternalReferences);
+
+        // Populate the primary-package-purpose field if missing
+        if (string.IsNullOrWhiteSpace(PrimaryPackagePurpose))
+            PrimaryPackagePurpose = other.PrimaryPackagePurpose;
+
+        // Populate the release-date field if missing
+        if (string.IsNullOrWhiteSpace(ReleaseDate))
+            ReleaseDate = other.ReleaseDate;
+
+        // Populate the built-date field if missing
+        if (string.IsNullOrWhiteSpace(BuiltDate))
+            BuiltDate = other.BuiltDate;
+
+        // Populate the valid-until-date field if missing
+        if (string.IsNullOrWhiteSpace(ValidUntilDate))
+            ValidUntilDate = other.ValidUntilDate;
+    }
+
+    /// <summary>
+    /// Enhance missing packages in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxPackage[] Enhance(SpdxPackage[] array, SpdxPackage[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>

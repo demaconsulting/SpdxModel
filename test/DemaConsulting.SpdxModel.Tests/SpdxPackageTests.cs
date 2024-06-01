@@ -61,4 +61,44 @@ public class SpdxPackageTests
         Assert.AreEqual("SPDXRef-Package1", p1.Id);
         Assert.AreEqual("SPDXRef-Package2", p2.Id);
     }
+
+    [TestMethod]
+    public void Enhance()
+    {
+        var packages = new[]
+        {
+            new SpdxPackage
+            {
+                Id = "SPDXRef-Package1",
+                Name = "DemaConsulting.SpdxModel",
+                Version = "0.0.0"
+            }
+        };
+
+        packages = SpdxPackage.Enhance(
+            packages,
+            new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package-SpdxModel",
+                    Name = "DemaConsulting.SpdxModel",
+                    Version = "0.0.0"
+                },
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1",
+                    Name = "SomePackage",
+                    Version = "1.2.3"
+                }
+            });
+
+        Assert.AreEqual(2, packages.Length);
+        Assert.AreEqual("SPDXRef-Package1", packages[0].Id);
+        Assert.AreEqual("DemaConsulting.SpdxModel", packages[0].Name);
+        Assert.AreEqual("0.0.0", packages[0].Version);
+        Assert.AreEqual("SPDXRef-Package1", packages[1].Id);
+        Assert.AreEqual("SomePackage", packages[1].Name);
+        Assert.AreEqual("1.2.3", packages[1].Version);
+    }
 }

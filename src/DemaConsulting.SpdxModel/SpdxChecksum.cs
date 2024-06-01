@@ -49,6 +49,53 @@ public sealed class SpdxChecksum
         };
 
     /// <summary>
+    /// Enhance missing fields in the checksum
+    /// </summary>
+    /// <param name="other">Other checksum to enhance with</param>
+    public void Enhance(SpdxChecksum other)
+    {
+        // Populate the algorithm if missing
+        if (Algorithm == SpdxChecksumAlgorithm.Missing)
+            Algorithm = other.Algorithm;
+
+        // Populate the value if missing
+        if (string.IsNullOrWhiteSpace(Value))
+            Value = other.Value;
+    }
+
+    /// <summary>
+    /// Enhance missing checksums in array
+    /// </summary>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
+    public static SpdxChecksum[] Enhance(SpdxChecksum[] array, SpdxChecksum[] others)
+    {
+        // Convert to list
+        var list = array.ToList();
+
+        // Iterate over other array
+        foreach (var other in others)
+        {
+            // Check if other item is the same as one we have
+            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            if (annotation != null)
+            {
+                // Enhance our item with the other information
+                annotation.Enhance(other);
+            }
+            else
+            {
+                // Add the new item to our list
+                list.Add(other.DeepCopy());
+            }
+        }
+
+        // Return as array
+        return list.ToArray();
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="fileName">Associated file name</param>

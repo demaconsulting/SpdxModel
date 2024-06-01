@@ -54,6 +54,20 @@ public sealed class SpdxPackageVerificationCode
         };
 
     /// <summary>
+    /// Enhance missing fields in the verification code
+    /// </summary>
+    /// <param name="other">Other verification code to enhance with</param>
+    public void Enhance(SpdxPackageVerificationCode other)
+    {
+        // Merge the excluded files
+        ExcludedFiles = ExcludedFiles.Concat(other.ExcludedFiles).Distinct().ToArray();
+
+        // Populate the value field if missing
+        if (string.IsNullOrWhiteSpace(Value))
+            Value = other.Value;
+    }
+
+    /// <summary>
     /// Perform validation of information
     /// </summary>
     /// <param name="package">Associated package</param>
