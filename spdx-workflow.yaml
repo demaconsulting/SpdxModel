@@ -5,14 +5,17 @@
 # Workflow Parameters
 parameters:
   dotnet-version: unknown
-  spdx: src/DemaConsulting.SpdxModel/bin/Release/_manifest/spdx_2.2/manifest.spdx.json
-  summary-markdown: manifest.spdx.summary.md
+  spdx-model-spdx: src/DemaConsulting.SpdxModel/bin/Release/_manifest/spdx_2.2/manifest.spdx.json
+  spdx-model-md: spdx-model-summary.md
+  spdx-model-tests-spdx: test/DemaConsulting.SpdxModel.Tests/bin/Release/_manifest/spdx_2.2/manifest.spdx.json
+  spdx-model-tests-md: spdx-model-tests-summary.md
 
 # Steps
 steps:
 
   # Query the version of dotnet
 - command: query
+  displayName: Query DotNet SDK Version
   inputs:
     output: dotnet-version
     pattern: '(?<value>\d+\.\d+\.\d+)'
@@ -20,10 +23,19 @@ steps:
     arguments:
     - '--version'
 
-  # Add DotNet SDK as a build tool of the package
-- command: add-package
+  # Rename the package ID for the platform library
+- command: rename-id
+  displayName: Rename SpdxModel Package ID
   inputs:
-    spdx: ${{ spdx }}
+    spdx: ${{ spdx-model-spdx }}
+    old: SPDXRef-RootPackage
+    new: SPDXRef-DemaConsulting-SpdxModel
+
+  # Add DotNet SDK as a build tool of the library package
+- command: add-package
+  displayName: Add DotNet SDK as Build Tool of SpdxModel
+  inputs:
+    spdx: ${{ spdx-model-spdx }}
     package:
       id: SPDXRef-Package-DotNetSDK
       name: DotNet SDK
@@ -37,15 +49,72 @@ steps:
       version: ${{ dotnet-version }}
     relationships:
     - type: BUILD_TOOL_OF
-      element: SPDXRef-RootPackage
+      element: SPDXRef-DemaConsulting-SpdxModel
 
-  # Update the Sha256 digest on the SPDX document
+  # Update the Sha256 digest on the library SPDX document
 - command: sha256
+  displayName: Update SpdxModel SBOM Sha256
   inputs:
     operation: generate
-    file: ${{ spdx }}
+    file: ${{ spdx-model-spdx }}
 
-- command: to-markdown
+  # Validate the library SPDX document
+- command: validate
+  displayName: Validate SpdxModel SBOM Sha256
   inputs:
-    spdx: ${{ spdx }}
-    markdown: ${{ summary-markdown }}
+    spdx: ${{ spdx-model-spdx }}
+
+  # Generate the library summary
+- command: to-markdown
+  displayName: Generate SpdxModel SBOM summary
+  inputs:
+    spdx: ${{ spdx-model-spdx }}
+    markdown: ${{ spdx-model-md }}
+
+  # Rename the package ID for the platform library
+- command: rename-id
+  displayName: Rename SpdxModel.Tests Package ID
+  inputs:
+    spdx: ${{ spdx-model-tests-spdx }}
+    old: SPDXRef-RootPackage
+    new: SPDXRef-DemaConsulting-SpdxModel-Tests
+
+  # Add DotNet SDK as a build tool of the test package
+- command: add-package
+  displayName: Add DotNet SDK as Build Tool of SpdxModel.Tests
+  inputs:
+    spdx: ${{ spdx-model-tests-spdx }}
+    package:
+      id: SPDXRef-Package-DotNetSDK
+      name: DotNet SDK
+      download: https://dotnet.microsoft.com/download
+      supplier: 'Organization: Microsoft Corporation'
+      originator: 'Organization: Microsoft Corporation'
+      homepage: https://dotnet.microsoft.com/en-us/
+      copyright: Copyright (c) 2019 Microsoft
+      summary: .NET is a free, open-source cross-platform framework for building applications and cloud services.
+      license: MIT
+      version: ${{ dotnet-version }}
+    relationships:
+    - type: BUILD_TOOL_OF
+      element: SPDXRef-DemaConsulting-SpdxModel-Tests
+
+  # Update the Sha256 digest on the library SPDX document
+- command: sha256
+  displayName: Update SpdxModel.Tests SBOM Sha256
+  inputs:
+    operation: generate
+    file: ${{ spdx-model-tests-spdx }}
+
+  # Validate the library SPDX document
+- command: validate
+  displayName: Validate SpdxModel.Tests SBOM Sha256
+  inputs:
+    spdx: ${{ spdx-model-tests-spdx }}
+
+  # Generate the library summary
+- command: to-markdown
+  displayName: Generate SpdxModel.Tests SBOM summary
+  inputs:
+    spdx: ${{ spdx-model-tests-spdx }}
+    markdown: ${{ spdx-model-tests-md }}
