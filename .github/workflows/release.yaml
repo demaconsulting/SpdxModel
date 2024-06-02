@@ -8,10 +8,14 @@ on:
         required: true
         type: string
       publish:
-        description: 'Publish to NuGet'
+        description: 'Publish Type'
         required: true
-        default: true
-        type: boolean
+        default: 'publish'
+        type: choice
+        options:
+        - none
+        - release
+        - publish
 
 jobs:
   release:
@@ -97,6 +101,7 @@ jobs:
           *summary.md
 
     - name: Create release
+      if: ${{ inputs.choice == 'release' || inputs.choice == 'publish' }}
       uses: ncipollo/release-action@v1
       with:
         artifacts: 'src/**/*.nupkg,src/**/manifest.spdx.json,src/**/manifest.spdx.json.sha256,*summary.md'
@@ -104,7 +109,7 @@ jobs:
         tag: ${{ github.event.inputs.version }}
 
     - name: Publish to Nuget
-      if: ${{ github.event.inputs.publish }}
+      if: ${{ inputs.choice == 'publish' }}
       run: >
         dotnet
         nuget push
