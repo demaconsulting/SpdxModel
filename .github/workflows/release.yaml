@@ -101,7 +101,7 @@ jobs:
           *summary.md
 
     - name: Create release
-      if: ${{ inputs.choice == 'release' || inputs.choice == 'publish' }}
+      if: ${{ inputs.publish == 'release' || inputs.publish == 'publish' }}
       uses: ncipollo/release-action@v1
       with:
         artifacts: 'src/**/*.nupkg,src/**/manifest.spdx.json,src/**/manifest.spdx.json.sha256,*summary.md'
@@ -109,7 +109,7 @@ jobs:
         tag: ${{ github.event.inputs.version }}
 
     - name: Publish to Nuget
-      if: ${{ inputs.choice == 'publish' }}
+      if: ${{ inputs.publish == 'publish' }}
       run: >
         dotnet
         nuget push
