@@ -62,6 +62,7 @@ jobs:
         dotnet sbom-tool generate
         -b test/DemaConsulting.SpdxModel.Tests/bin/Release
         -bc test/DemaConsulting.SpdxModel.Tests
+        -cd "--DirectoryExclusionList **/Examples/**"
         -pn DemaConsulting.SpdxModel.Tests
         -pv ${{ github.event.inputs.version }}
         -ps DemaConsulting
