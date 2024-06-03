@@ -199,4 +199,35 @@ public class SpdxDocumentTests
         Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Supplier"));
         Assert.IsTrue(issues.Contains("NTIA: Package Saxon Missing Supplier"));
     }
+
+    [TestMethod]
+    public void GetElement()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Find a document
+        var foundDoc = doc.GetElement<SpdxDocument>("SPDXRef-DOCUMENT");
+        Assert.IsNotNull(foundDoc);
+        Assert.AreEqual("SPDX-Tools-v2.0", foundDoc.Name);
+
+        // Find a file
+        var foundFile = doc.GetElement<SpdxFile>("SPDXRef-JenaLib");
+        Assert.IsNotNull(foundFile);
+        Assert.AreEqual("./lib-source/jena-2.6.3-sources.jar", foundFile.FileName);
+
+        // Find a package
+        var foundPackage = doc.GetElement<SpdxPackage>("SPDXRef-Saxon");
+        Assert.IsNotNull(foundPackage);
+        Assert.AreEqual("saxonB-8.8.zip", foundPackage.FileName);
+
+        // Find a snippet
+        var foundSnippet = doc.GetElement<SpdxSnippet>("SPDXRef-Snippet");
+        Assert.IsNotNull(foundSnippet);
+        Assert.AreEqual("SPDXRef-DoapSource", foundSnippet.SnippetFromFile);
+    }
 }
