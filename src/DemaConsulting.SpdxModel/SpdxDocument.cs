@@ -219,6 +219,67 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
+    /// Get an SPDX element by ID
+    /// </summary>
+    /// <param name="id">Element ID</param>
+    /// <returns>SPDX element or null</returns>
+    public SpdxElement? GetElement(string id)
+    {
+        // Handle this document ID
+        if (Id == id)
+            return this;
+
+        // Handle annotation for this document
+        var docAnnotation = Array.Find(Annotations, a => a.Id == id);
+        if (docAnnotation != null)
+            return docAnnotation;
+
+        // Check for a file
+        var file = Array.Find(Files, f => f.Id == id);
+        if (file != null)
+            return file;
+
+        // Check for a file annotation
+        var fileAnnotation = Files.SelectMany(f => f.Annotations).FirstOrDefault(a => a.Id == id);
+        if (fileAnnotation != null)
+            return fileAnnotation;
+
+        // Check for a package
+        var package = Array.Find(Packages, p => p.Id == id);
+        if (package != null)
+            return package;
+
+        // Check for a package annotation
+        var packageAnnotation = Packages.SelectMany(p => p.Annotations).FirstOrDefault(a => a.Id == id);
+        if (packageAnnotation != null)
+            return packageAnnotation;
+        
+        // Check for a snippet
+        var snippet = Array.Find(Snippets, s => s.Id == id);
+        if (snippet != null)
+            return snippet;
+
+        // Check for a snippet annotation
+        var snippetAnnotation = Snippets.SelectMany(s => s.Annotations).FirstOrDefault(a => a.Id == id);
+        if (snippetAnnotation != null)
+            return snippetAnnotation;
+
+        // Not found
+        return null;
+    }
+
+    /// <summary>
+    /// Get an SPDX element of a specific type
+    /// </summary>
+    /// <typeparam name="T">SPDX element type</typeparam>
+    /// <param name="id">Element ID</param>
+    /// <returns>SPDX element or null</returns>
+    public T? GetElement<T>(string id) where T : SpdxElement
+    {
+        return GetElement(id) as T;
+    }
+
+    /// <summary>
     /// Equality Comparer to test for the same relationship
     /// </summary>
     private class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
