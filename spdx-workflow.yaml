@@ -13,16 +13,6 @@ parameters:
 # Steps
 steps:
 
-  # Query the version of dotnet
-- command: query
-  displayName: Query DotNet SDK Version
-  inputs:
-    output: dotnet-version
-    pattern: '(?<value>\d+\.\d+\.\d+)'
-    program: dotnet
-    arguments:
-    - '--version'
-
   # Rename the package ID for the platform library
 - command: rename-id
   displayName: Rename SpdxModel Package ID
@@ -31,31 +21,41 @@ steps:
     old: SPDXRef-RootPackage
     new: SPDXRef-DemaConsulting-SpdxModel
 
-  # Add DotNet SDK as a build tool of the library package
-- command: add-package
-  displayName: Add DotNet SDK as Build Tool of SpdxModel
+  # Query for DotNet version
+- command: run-workflow
+  displayName: Query DotNet Version
+  inputs:
+    url: https://raw.githubusercontent.com/demaconsulting/SpdxWorkflows/main/GetDotNetVersion.yaml
+    outputs:
+      version: dotnet-version
+
+  # Add DotNet package
+- command: run-workflow
+  displayName: Add DotNet Package ${{ dotnet-version }}
+  inputs:
+    url: https://raw.githubusercontent.com/demaconsulting/SpdxWorkflows/main/AddDotNetPackage.yaml
+    parameters:
+      spdx: ${{ spdx-model-spdx }}
+      id: SPDXRef-Package-DotNet-${{ dotnet-version }}
+      version: ${{ dotnet-version }}
+
+  # Add DotNet relationships
+- command: add-relationship
+  displayName: Add DotNet Relationships
   inputs:
     spdx: ${{ spdx-model-spdx }}
-    package:
-      id: SPDXRef-Package-DotNetSDK
-      name: DotNet SDK
-      download: https://dotnet.microsoft.com/download
-      supplier: 'Organization: Microsoft Corporation'
-      originator: 'Organization: Microsoft Corporation'
-      homepage: https://dotnet.microsoft.com/en-us/
-      copyright: Copyright (c) 2019 Microsoft
-      summary: .NET is a free, open-source cross-platform framework for building applications and cloud services.
-      license: MIT
-      version: ${{ dotnet-version }}
+    id: SPDXRef-Package-DotNet-${{ dotnet-version }}
     relationships:
     - type: BUILD_TOOL_OF
       element: SPDXRef-DemaConsulting-SpdxModel
+      comment: DemaConsulting.SpdxModel compiled by DotNet ${{ dotnet-version }}
 
   # Update the Sha256 digest on the library SPDX document
-- command: sha256
+- command: hash
   displayName: Update SpdxModel SBOM Sha256
   inputs:
     operation: generate
+    algorithm: sha256
     file: ${{ spdx-model-spdx }}
 
   # Validate the library SPDX document
@@ -79,31 +79,33 @@ steps:
     old: SPDXRef-RootPackage
     new: SPDXRef-DemaConsulting-SpdxModel-Tests
 
-  # Add DotNet SDK as a build tool of the test package
-- command: add-package
-  displayName: Add DotNet SDK as Build Tool of SpdxModel.Tests
+  # Add DotNet package
+- command: run-workflow
+  displayName: Add DotNet Package ${{ dotnet-version }}
+  inputs:
+    url: https://raw.githubusercontent.com/demaconsulting/SpdxWorkflows/main/AddDotNetPackage.yaml
+    parameters:
+      spdx: ${{ spdx-model-tests-spdx }}
+      id: SPDXRef-Package-DotNet-${{ dotnet-version }}
+      version: ${{ dotnet-version }}
+
+  # Add DotNet relationships
+- command: add-relationship
+  displayName: Add DotNet Relationships
   inputs:
     spdx: ${{ spdx-model-tests-spdx }}
-    package:
-      id: SPDXRef-Package-DotNetSDK
-      name: DotNet SDK
-      download: https://dotnet.microsoft.com/download
-      supplier: 'Organization: Microsoft Corporation'
-      originator: 'Organization: Microsoft Corporation'
-      homepage: https://dotnet.microsoft.com/en-us/
-      copyright: Copyright (c) 2019 Microsoft
-      summary: .NET is a free, open-source cross-platform framework for building applications and cloud services.
-      license: MIT
-      version: ${{ dotnet-version }}
+    id: SPDXRef-Package-DotNet-${{ dotnet-version }}
     relationships:
     - type: BUILD_TOOL_OF
       element: SPDXRef-DemaConsulting-SpdxModel-Tests
+      comment: DemaConsulting.SpdxModel.Tests compiled by DotNet ${{ dotnet-version }}
 
   # Update the Sha256 digest on the library SPDX document
-- command: sha256
+- command: hash
   displayName: Update SpdxModel.Tests SBOM Sha256
   inputs:
     operation: generate
+    algorithm: sha256
     file: ${{ spdx-model-tests-spdx }}
 
   # Validate the library SPDX document
