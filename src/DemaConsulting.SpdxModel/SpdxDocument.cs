@@ -190,7 +190,7 @@ public sealed class SpdxDocument : SpdxElement
 
         // Validate Relationships
         foreach (var relationship in Relationships)
-            relationship.Validate(issues);
+            relationship.Validate(issues, this);
 
         // Check for duplicate elements
         var elements = GetAllElements().GroupBy(e => e.Id).Where(g => g.Count() > 1);

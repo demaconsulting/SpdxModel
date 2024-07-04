@@ -110,15 +110,20 @@ public sealed class SpdxRelationship : SpdxElement
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
-    public void Validate(List<string> issues)
+    /// <param name="doc">Document for resolving references</param>
+    public void Validate(List<string> issues, SpdxDocument doc)
     {
-        // Validate SPDX Element ID Field
+        // Validate SPDX Element ID Field - must refer to an element in this document
         if (Id.Length == 0)
             issues.Add("Relationship Invalid SPDX Element ID Field");
+        else if (doc.GetElement(Id) == null)
+            issues.Add($"Relationship Invalid SPDX Element ID Field: {Id}");
 
-        // Validate Related SPDX Element Field
+        // Validate Related SPDX Element Field - can be NOASSERTION or external reference
         if (RelatedSpdxElement.Length == 0)
             issues.Add("Relationship Invalid Related SPDX Element Field");
+        else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != "NOASSERTION" && doc.GetElement(RelatedSpdxElement) == null)
+            issues.Add($"Relationship Invalid Related SPDX Element Field: {RelatedSpdxElement}");
 
         // Validate Relationship Type Field
         if (RelationshipType == SpdxRelationshipType.Missing)
