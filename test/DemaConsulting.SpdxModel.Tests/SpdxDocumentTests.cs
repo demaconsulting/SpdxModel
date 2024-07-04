@@ -180,6 +180,83 @@ public class SpdxDocumentTests
     }
 
     [TestMethod]
+    public void ValidateDuplicateIds()
+    {
+        // Arrange
+        var doc = new SpdxDocument
+        {
+            Id = "SPDXRef-DOCUMENT",
+            Name = "Test Document",
+            DocumentNamespace = "http://example.com/SpdxDocument",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1"
+                },
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1"
+                }
+            },
+            Relationships = new[]
+            {
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-DOCUMENT",
+                    RelationshipType = SpdxRelationshipType.Describes,
+                    RelatedSpdxElement = "SPDXRef-Package1"
+                }
+            },
+            Describes = new[] { "SPDXRef-Package1" }
+        };
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure no validation issues
+        Assert.IsTrue(issues.Contains("Document Duplicate Element ID: SPDXRef-Package1"));
+    }
+
+
+    [TestMethod]
+    public void ValidateBadRelationship()
+    {
+        // Arrange
+        var doc = new SpdxDocument
+        {
+            Id = "SPDXRef-DOCUMENT",
+            Name = "Test Document",
+            DocumentNamespace = "http://example.com/SpdxDocument",
+            Packages = new[]
+            {
+                new SpdxPackage
+                {
+                    Id = "SPDXRef-Package1"
+                }
+            },
+            Relationships = new[]
+            {
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-DOCUMENT",
+                    RelationshipType = SpdxRelationshipType.Describes,
+                    RelatedSpdxElement = "SPDXRef-Package2"
+                }
+            },
+            Describes = new[] { "SPDXRef-Package1" }
+        };
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure no validation issues
+        Assert.IsTrue(issues.Contains("Relationship Invalid Related SPDX Element Field: SPDXRef-Package2"));
+    }
+
+    [TestMethod]
     public void ValidateNtia()
     {
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
