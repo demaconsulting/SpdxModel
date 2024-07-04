@@ -103,7 +103,7 @@ public sealed class SpdxAnnotation : SpdxElement
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -147,7 +147,7 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     /// Equality Comparer to test for the same annotation
     /// </summary>
-    private class SpdxAnnotationSame : IEqualityComparer<SpdxAnnotation>
+    private sealed class SpdxAnnotationSame : IEqualityComparer<SpdxAnnotation>
     {
         /// <inheritdoc />
         public bool Equals(SpdxAnnotation? a1, SpdxAnnotation? a2)

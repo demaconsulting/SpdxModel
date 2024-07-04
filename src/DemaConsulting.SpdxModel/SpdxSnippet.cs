@@ -151,7 +151,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -202,7 +202,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     /// <summary>
     /// Equality Comparer to test for the same snippet
     /// </summary>
-    private class SpdxSnippetSame : IEqualityComparer<SpdxSnippet>
+    private sealed class SpdxSnippetSame : IEqualityComparer<SpdxSnippet>
     {
         /// <inheritdoc />
         public bool Equals(SpdxSnippet? s1, SpdxSnippet? s2)

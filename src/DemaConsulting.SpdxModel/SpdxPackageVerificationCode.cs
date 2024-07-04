@@ -82,7 +82,7 @@ public sealed class SpdxPackageVerificationCode
     /// <summary>
     /// Equality Comparer to test for the same package verification code
     /// </summary>
-    private class SpdxPackageVerificationCodeSame : IEqualityComparer<SpdxPackageVerificationCode>
+    private sealed class SpdxPackageVerificationCodeSame : IEqualityComparer<SpdxPackageVerificationCode>
     {
         /// <inheritdoc />
         public bool Equals(SpdxPackageVerificationCode? v1, SpdxPackageVerificationCode? v2)

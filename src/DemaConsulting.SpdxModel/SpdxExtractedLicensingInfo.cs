@@ -107,7 +107,7 @@ public sealed class SpdxExtractedLicensingInfo
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -142,7 +142,7 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     /// Equality Comparer to test for the same external document reference
     /// </summary>
-    private class SpdxExtractedLicensingInfoSame : IEqualityComparer<SpdxExtractedLicensingInfo>
+    private sealed class SpdxExtractedLicensingInfoSame : IEqualityComparer<SpdxExtractedLicensingInfo>
     {
         /// <inheritdoc />
         public bool Equals(SpdxExtractedLicensingInfo? l1, SpdxExtractedLicensingInfo? l2)
