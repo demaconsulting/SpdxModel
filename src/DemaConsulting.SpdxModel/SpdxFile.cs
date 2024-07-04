@@ -149,7 +149,7 @@ public sealed class SpdxFile : SpdxLicenseElement
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -194,7 +194,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     /// Equality Comparer to test for the same file
     /// </summary>
-    private class SpdxFileSame : IEqualityComparer<SpdxFile>
+    private sealed class SpdxFileSame : IEqualityComparer<SpdxFile>
     {
         /// <inheritdoc />
         public bool Equals(SpdxFile? f1, SpdxFile? f2)

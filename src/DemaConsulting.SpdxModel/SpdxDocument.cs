@@ -192,6 +192,11 @@ public sealed class SpdxDocument : SpdxElement
         foreach (var relationship in Relationships)
             relationship.Validate(issues);
 
+        // Check for duplicate elements
+        var elements = GetAllElements().GroupBy(e => e.Id).Where(g => g.Count() > 1);
+        foreach (var element in elements.Where(e => !string.IsNullOrWhiteSpace(e.Key)))
+            issues.Add($"Document Duplicate Element ID: {element.Key}");
+
         // SPDX NTIA Relationship Check
         if (ntia && GetRootPackages().Length == 0)
             issues.Add("NTIA: Document must describe at least one package");
@@ -219,53 +224,31 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
+    /// Get all SPDX elements in the document
+    /// </summary>
+    /// <returns>Enumerable of all elements</returns>
+    public IEnumerable<SpdxElement> GetAllElements()
+    {
+        // Note: This excludes SpdxRelationship elements as these would appear as duplicates.
+        return Enumerable.Empty<SpdxElement>()
+            .Append(this)
+            .Concat(Annotations)
+            .Concat(Files)
+            .Concat(Packages)
+            .Concat(Snippets)
+            .Concat(Files.SelectMany(f => f.Annotations))
+            .Concat(Packages.SelectMany(p => p.Annotations))
+            .Concat(Snippets.SelectMany(s => s.Annotations));
+    }
+
+    /// <summary>
     /// Get an SPDX element by ID
     /// </summary>
     /// <param name="id">Element ID</param>
     /// <returns>SPDX element or null</returns>
     public SpdxElement? GetElement(string id)
     {
-        // Handle this document ID
-        if (Id == id)
-            return this;
-
-        // Handle annotation for this document
-        var docAnnotation = Array.Find(Annotations, a => a.Id == id);
-        if (docAnnotation != null)
-            return docAnnotation;
-
-        // Check for a file
-        var file = Array.Find(Files, f => f.Id == id);
-        if (file != null)
-            return file;
-
-        // Check for a file annotation
-        var fileAnnotation = Files.SelectMany(f => f.Annotations).FirstOrDefault(a => a.Id == id);
-        if (fileAnnotation != null)
-            return fileAnnotation;
-
-        // Check for a package
-        var package = Array.Find(Packages, p => p.Id == id);
-        if (package != null)
-            return package;
-
-        // Check for a package annotation
-        var packageAnnotation = Packages.SelectMany(p => p.Annotations).FirstOrDefault(a => a.Id == id);
-        if (packageAnnotation != null)
-            return packageAnnotation;
-        
-        // Check for a snippet
-        var snippet = Array.Find(Snippets, s => s.Id == id);
-        if (snippet != null)
-            return snippet;
-
-        // Check for a snippet annotation
-        var snippetAnnotation = Snippets.SelectMany(s => s.Annotations).FirstOrDefault(a => a.Id == id);
-        if (snippetAnnotation != null)
-            return snippetAnnotation;
-
-        // Not found
-        return null;
+        return GetAllElements().FirstOrDefault(e => e.Id == id);
     }
 
     /// <summary>
@@ -282,7 +265,7 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     /// Equality Comparer to test for the same relationship
     /// </summary>
-    private class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
+    private sealed class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
     {
         /// <inheritdoc />
         public bool Equals(SpdxDocument? d1, SpdxDocument? d2)

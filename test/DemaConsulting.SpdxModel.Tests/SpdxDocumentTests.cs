@@ -201,6 +201,39 @@ public class SpdxDocumentTests
     }
 
     [TestMethod]
+    public void GetAllElements()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Get all elements
+        var elements = doc.GetAllElements().ToList();
+
+        // Ensure the document is in the list
+        Assert.AreEqual(1, elements.OfType<SpdxDocument>().Count());
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-DOCUMENT"));
+
+        // Ensure all packages are in the list
+        Assert.AreEqual(4, elements.OfType<SpdxPackage>().Count());
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Package"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-1"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-0"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Saxon"));
+
+        // Ensure all files are in the list
+        Assert.AreEqual(5, elements.OfType<SpdxFile>().Count());
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-DoapSource"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-CommonsLangSrc"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-JenaLib"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Specification"));
+        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-File"));
+    }
+
+    [TestMethod]
     public void GetElement()
     {
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(

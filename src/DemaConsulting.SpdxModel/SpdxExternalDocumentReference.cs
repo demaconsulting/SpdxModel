@@ -79,7 +79,7 @@ public sealed class SpdxExternalDocumentReference
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -117,7 +117,7 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     /// Equality Comparer to test for the same external document reference
     /// </summary>
-    private class SpdxExternalDocumentReferenceSame : IEqualityComparer<SpdxExternalDocumentReference>
+    private sealed class SpdxExternalDocumentReferenceSame : IEqualityComparer<SpdxExternalDocumentReference>
     {
         /// <inheritdoc />
         public bool Equals(SpdxExternalDocumentReference? r1, SpdxExternalDocumentReference? r2)

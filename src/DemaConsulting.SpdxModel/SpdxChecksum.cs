@@ -78,7 +78,7 @@ public sealed class SpdxChecksum
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.FirstOrDefault(a => Same.Equals(a, other));
+            var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
             {
                 // Enhance our item with the other information
@@ -114,7 +114,7 @@ public sealed class SpdxChecksum
     /// <summary>
     /// Equality Comparer to test for the same relationship
     /// </summary>
-    private class SpdxChecksumSame : IEqualityComparer<SpdxChecksum>
+    private sealed class SpdxChecksumSame : IEqualityComparer<SpdxChecksum>
     {
         /// <inheritdoc />
         public bool Equals(SpdxChecksum? c1, SpdxChecksum? c2)
