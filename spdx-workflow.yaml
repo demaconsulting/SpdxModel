@@ -13,13 +13,20 @@ parameters:
 # Steps
 steps:
 
-  # Rename the package ID for the platform library
+  # Get the version of the SpdxModel package
+- command: get-version
+  inputs:
+    output: version
+    spdx: ${{ spdx-model-spdx }}
+    name: DemaConsulting.SpdxModel
+
+  # Rename the package ID for SpdxModel
 - command: rename-id
   displayName: Rename SpdxModel Package ID
   inputs:
     spdx: ${{ spdx-model-spdx }}
     old: SPDXRef-RootPackage
-    new: SPDXRef-DemaConsulting-SpdxModel
+    new: SPDXRef-Package-DemaConsulting-SpdxModel-${{ version }}
 
   # Query for DotNet version
 - command: run-workflow
@@ -47,10 +54,10 @@ steps:
     id: SPDXRef-Package-DotNet-${{ dotnet-version }}
     relationships:
     - type: BUILD_TOOL_OF
-      element: SPDXRef-DemaConsulting-SpdxModel
+      element: SPDXRef-Package-DemaConsulting-SpdxModel-${{ version }}
       comment: DemaConsulting.SpdxModel compiled by DotNet ${{ dotnet-version }}
 
-  # Update the Sha256 digest on the library SPDX document
+  # Update the Sha256 digest on the SpdxModel SBOM
 - command: hash
   displayName: Update SpdxModel SBOM Sha256
   inputs:
@@ -58,26 +65,26 @@ steps:
     algorithm: sha256
     file: ${{ spdx-model-spdx }}
 
-  # Validate the library SPDX document
+  # Validate the SpdxModel SBOM
 - command: validate
   displayName: Validate SpdxModel SBOM Sha256
   inputs:
     spdx: ${{ spdx-model-spdx }}
 
-  # Generate the library summary
+  # Generate the SpdxModel summary
 - command: to-markdown
   displayName: Generate SpdxModel SBOM summary
   inputs:
     spdx: ${{ spdx-model-spdx }}
     markdown: ${{ spdx-model-md }}
 
-  # Rename the package ID for the platform library
+  # Rename the package ID for SpdxModel.Tests
 - command: rename-id
   displayName: Rename SpdxModel.Tests Package ID
   inputs:
     spdx: ${{ spdx-model-tests-spdx }}
     old: SPDXRef-RootPackage
-    new: SPDXRef-DemaConsulting-SpdxModel-Tests
+    new: SPDXRef-Package-DemaConsulting-SpdxModel-Tests-${{ version }}
 
   # Add DotNet package
 - command: run-workflow
@@ -97,10 +104,10 @@ steps:
     id: SPDXRef-Package-DotNet-${{ dotnet-version }}
     relationships:
     - type: BUILD_TOOL_OF
-      element: SPDXRef-DemaConsulting-SpdxModel-Tests
+      element: SPDXRef-Package-DemaConsulting-SpdxModel-Tests-${{ version }}
       comment: DemaConsulting.SpdxModel.Tests compiled by DotNet ${{ dotnet-version }}
 
-  # Update the Sha256 digest on the library SPDX document
+  # Update the Sha256 digest on the SpdxModel.Tests SBOM
 - command: hash
   displayName: Update SpdxModel.Tests SBOM Sha256
   inputs:
@@ -108,13 +115,13 @@ steps:
     algorithm: sha256
     file: ${{ spdx-model-tests-spdx }}
 
-  # Validate the library SPDX document
+  # Validate the SpdxModel.Tests SBOM
 - command: validate
   displayName: Validate SpdxModel.Tests SBOM Sha256
   inputs:
     spdx: ${{ spdx-model-tests-spdx }}
 
-  # Generate the library summary
+  # Generate the SpdxModel.Tests summary
 - command: to-markdown
   displayName: Generate SpdxModel.Tests SBOM summary
   inputs:
