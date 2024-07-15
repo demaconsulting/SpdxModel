@@ -381,8 +381,9 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
+    /// <param name="doc">Optional document for checking file-references</param>
     /// <param name="ntia">Perform NTIA validation</param>
-    public void Validate(List<string> issues, bool ntia = false)
+    public void Validate(List<string> issues, SpdxDocument? doc, bool ntia = false)
     {
         // Validate Package Name Field
         if (Name.Length == 0)
@@ -416,6 +417,11 @@ public sealed class SpdxPackage : SpdxLicenseElement
         // Validate external references
         foreach (var externalReference in ExternalReferences)
             externalReference.Validate(Name, issues);
+
+        // If the document is provided then ensure all referenced files exist
+        if (doc != null)
+            if (HasFiles.Any(pf => doc.Files.All(df => df.Id != pf)))
+                issues.Add($"Package {Name} HasFiles references missing files");
 
         // SPDX NTIA Supplier Name Check
         if (ntia && string.IsNullOrEmpty(Supplier))

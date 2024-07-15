@@ -182,7 +182,7 @@ public sealed class SpdxDocument : SpdxElement
 
         // Validate Packages
         foreach (var package in Packages)
-            package.Validate(issues, ntia);
+            package.Validate(issues, this, ntia);
 
         // Validate Snippets
         foreach (var snippet in Snippets)
