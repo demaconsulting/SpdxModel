@@ -20,6 +20,10 @@
 	<PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="DemaConsulting.SpdxModel.csproj.DotSettings" />
   </ItemGroup>
