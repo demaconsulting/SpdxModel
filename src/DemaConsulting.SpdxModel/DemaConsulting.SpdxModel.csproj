@@ -18,11 +18,13 @@
 	<PackageId>DemaConsulting.SpdxModel</PackageId>
 	<Product>DemaConsulting.SpdxModel</Product>
 	<PackageIcon>Icon.png</PackageIcon>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <RepositoryUrl>https://github.com/demaconsulting/SpdxModel.git</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="DemaConsulting.SpdxModel.csproj.DotSettings" />
