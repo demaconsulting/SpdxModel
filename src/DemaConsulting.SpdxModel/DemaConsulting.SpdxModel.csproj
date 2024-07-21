@@ -20,6 +20,8 @@
 	<PackageIcon>Icon.png</PackageIcon>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <RepositoryUrl>https://github.com/demaconsulting/SpdxModel.git</RepositoryUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
