@@ -53,21 +53,21 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxDocument
         {
-            Id = ParseString(json, "SPDXID"),
-            Version = ParseString(json, "spdxVersion"),
-            Name = ParseString(json, "name"),
-            DataLicense = ParseString(json, "dataLicense"),
-            DocumentNamespace = ParseString(json, "documentNamespace"),
-            Comment = ParseOptionalString(json, "comment"),
-            CreationInformation = DeserializeCreationInformation(json["creationInfo"]),
-            ExternalDocumentReferences = DeserializeExternalDocumentReferences(json["externalDocumentRefs"]?.AsArray()),
-            ExtractedLicensingInfo = DeserializeExtractedLicensingInfos(json["hasExtractedLicensingInfos"]?.AsArray()),
-            Annotations = DeserializeAnnotations(json["annotations"]?.AsArray()),
-            Files = DeserializeFiles(json["files"]?.AsArray()),
-            Packages = DeserializePackages(json["packages"]?.AsArray()),
-            Snippets = DeserializeSnippets(json["snippets"]?.AsArray()),
-            Relationships = DeserializeRelationships(json["relationships"]?.AsArray()),
-            Describes = ParseStringArray(json, "documentDescribes")
+            Id = ParseString(json, SpdxConstants.FieldSpdxId),
+            Version = ParseString(json, SpdxConstants.FieldSpdxVersion),
+            Name = ParseString(json, SpdxConstants.FieldName),
+            DataLicense = ParseString(json, SpdxConstants.FieldDataLicense),
+            DocumentNamespace = ParseString(json, SpdxConstants.FieldDocumentNamespace),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
+            CreationInformation = DeserializeCreationInformation(json[SpdxConstants.FieldCreationInfo]),
+            ExternalDocumentReferences = DeserializeExternalDocumentReferences(json[SpdxConstants.FieldExternalDocumentRefs]?.AsArray()),
+            ExtractedLicensingInfo = DeserializeExtractedLicensingInfos(json[SpdxConstants.FieldHasExtractedLicensingInfos]?.AsArray()),
+            Annotations = DeserializeAnnotations(json[SpdxConstants.FieldAnnotations]?.AsArray()),
+            Files = DeserializeFiles(json[SpdxConstants.FieldFiles]?.AsArray()),
+            Packages = DeserializePackages(json[SpdxConstants.FieldPackages]?.AsArray()),
+            Snippets = DeserializeSnippets(json[SpdxConstants.FieldSnippets]?.AsArray()),
+            Relationships = DeserializeRelationships(json[SpdxConstants.FieldRelationships]?.AsArray()),
+            Describes = ParseStringArray(json, SpdxConstants.FieldDocumentDescribes)
         };
     }
 
@@ -80,10 +80,10 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxCreationInformation
         {
-            Creators = ParseStringArray(json, "creators"),
-            Created = ParseString(json, "created"),
-            Comment = ParseOptionalString(json, "comment"),
-            LicenseListVersion = ParseOptionalString(json, "licenseListVersion")
+            Creators = ParseStringArray(json, SpdxConstants.FieldCreators),
+            Created = ParseString(json, SpdxConstants.FieldCreated),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
+            LicenseListVersion = ParseOptionalString(json, SpdxConstants.FieldLicenseListVersion)
         };
     }
 
@@ -107,9 +107,9 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxExternalDocumentReference
         {
-            ExternalDocumentId = ParseString(json, "externalDocumentId"),
-            Checksum = DeserializeChecksum(json?["checksum"]),
-            Document = ParseString(json, "spdxDocument")
+            ExternalDocumentId = ParseString(json, SpdxConstants.FieldExternalDocumentId),
+            Checksum = DeserializeChecksum(json?[SpdxConstants.FieldChecksum]),
+            Document = ParseString(json, SpdxConstants.FieldSpdxDocument)
         };
     }
 
@@ -132,11 +132,11 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxExtractedLicensingInfo
         {
-            LicenseId = ParseString(json, "licenseId"),
-            ExtractedText = ParseString(json, "extractedText"),
-            Name = ParseOptionalString(json, "name"),
-            CrossReferences = ParseStringArray(json, "seeAlsos"),
-            Comment = ParseOptionalString(json, "comment")
+            LicenseId = ParseString(json, SpdxConstants.FieldLicenseId),
+            ExtractedText = ParseString(json, SpdxConstants.FieldExtractedText),
+            Name = ParseOptionalString(json, SpdxConstants.FieldName),
+            CrossReferences = ParseStringArray(json, SpdxConstants.FieldSeeAlsos),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment)
         };
     }
 
@@ -159,19 +159,19 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxFile
         {
-            Id = ParseString(json, "SPDXID"),
-            FileName = ParseString(json, "fileName"),
-            FileTypes = ParseStringArray(json, "fileTypes").Select(SpdxFileTypeExtensions.FromText).ToArray(),
-            Checksums = DeserializeChecksums(json?["checksums"]?.AsArray()),
-            ConcludedLicense = ParseString(json, "licenseConcluded"),
-            LicenseInfoInFiles = ParseStringArray(json, "licenseInfoInFiles"),
-            LicenseComments = ParseOptionalString(json, "licenseComments"),
-            CopyrightText = ParseString(json, "copyrightText"),
-            Comment = ParseOptionalString(json, "comment"),
-            Notice = ParseOptionalString(json, "noticeText"),
-            Contributors = ParseStringArray(json, "fileContributors"),
-            AttributionText = ParseStringArray(json, "attributionTexts"),
-            Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
+            Id = ParseString(json, SpdxConstants.FieldSpdxId),
+            FileName = ParseString(json, SpdxConstants.FieldFileName),
+            FileTypes = ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText).ToArray(),
+            Checksums = DeserializeChecksums(json?[SpdxConstants.FieldChecksums]?.AsArray()),
+            ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
+            LicenseInfoInFiles = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInFiles),
+            LicenseComments = ParseOptionalString(json, SpdxConstants.FieldLicenseComments),
+            CopyrightText = ParseString(json, SpdxConstants.FieldCopyrightText),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
+            Notice = ParseOptionalString(json, SpdxConstants.FieldNoticeText),
+            Contributors = ParseStringArray(json, SpdxConstants.FieldFileContributors),
+            AttributionText = ParseStringArray(json, SpdxConstants.FieldAttributionTexts),
+            Annotations = DeserializeAnnotations(json?[SpdxConstants.FieldAnnotations]?.AsArray())
         };
     }
 
@@ -194,34 +194,34 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxPackage
         {
-            Id = ParseString(json, "SPDXID"),
-            Name = ParseString(json, "name"),
-            Version = ParseOptionalString(json, "versionInfo"),
-            FileName = ParseOptionalString(json, "packageFileName"),
-            Supplier = ParseOptionalString(json, "supplier"),
-            Originator = ParseOptionalString(json, "originator"),
-            DownloadLocation = ParseString(json, "downloadLocation"),
-            FilesAnalyzed = ParseBool(json, "filesAnalyzed"),
-            HasFiles = ParseStringArray(json, "hasFiles"),
-            VerificationCode = DeserializeVerificationCode(json?["packageVerificationCode"]),
-            Checksums = DeserializeChecksums(json?["checksums"]?.AsArray()),
-            HomePage = ParseOptionalString(json, "homepage"),
-            SourceInformation = ParseOptionalString(json, "sourceInfo"),
-            ConcludedLicense = ParseString(json, "licenseConcluded"),
-            LicenseInfoFromFiles = ParseStringArray(json, "licenseInfoFromFiles"),
-            DeclaredLicense = ParseString(json, "licenseDeclared"),
-            LicenseComments = ParseOptionalString(json, "licenseComments"),
-            CopyrightText = ParseString(json, "copyrightText"),
-            Summary = ParseOptionalString(json, "summary"),
-            Description = ParseOptionalString(json, "description"),
-            Comment = ParseOptionalString(json, "comment"),
-            ExternalReferences = DeserializeExternalReferences(json?["externalRefs"]?.AsArray()),
-            AttributionText = ParseStringArray(json, "attributionTexts"),
-            PrimaryPackagePurpose = ParseOptionalString(json, "primaryPackagePurpose"),
-            ReleaseDate = ParseOptionalString(json, "releaseDate"),
-            BuiltDate = ParseOptionalString(json, "builtDate"),
-            ValidUntilDate = ParseOptionalString(json, "validUntilDate"),
-            Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
+            Id = ParseString(json, SpdxConstants.FieldSpdxId),
+            Name = ParseString(json, SpdxConstants.FieldName),
+            Version = ParseOptionalString(json, SpdxConstants.FieldVersionInfo),
+            FileName = ParseOptionalString(json, SpdxConstants.FieldPackageFileName),
+            Supplier = ParseOptionalString(json, SpdxConstants.FieldSupplier),
+            Originator = ParseOptionalString(json, SpdxConstants.FieldOriginator),
+            DownloadLocation = ParseString(json, SpdxConstants.FieldDownloadLocation),
+            FilesAnalyzed = ParseBool(json, SpdxConstants.FieldFilesAnalyzed),
+            HasFiles = ParseStringArray(json, SpdxConstants.FieldHasFiles),
+            VerificationCode = DeserializeVerificationCode(json?[SpdxConstants.FieldPackageVerificationCode]),
+            Checksums = DeserializeChecksums(json?[SpdxConstants.FieldChecksums]?.AsArray()),
+            HomePage = ParseOptionalString(json, SpdxConstants.FieldHomePage),
+            SourceInformation = ParseOptionalString(json, SpdxConstants.FieldSourceInfo),
+            ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
+            LicenseInfoFromFiles = ParseStringArray(json, SpdxConstants.FieldLicenseInfoFromFiles),
+            DeclaredLicense = ParseString(json, SpdxConstants.FieldLicenseDeclared),
+            LicenseComments = ParseOptionalString(json, SpdxConstants.FieldLicenseComments),
+            CopyrightText = ParseString(json, SpdxConstants.FieldCopyrightText),
+            Summary = ParseOptionalString(json, SpdxConstants.FieldSummary),
+            Description = ParseOptionalString(json, SpdxConstants.FieldDescription),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
+            ExternalReferences = DeserializeExternalReferences(json?[SpdxConstants.FieldExternalRefs]?.AsArray()),
+            AttributionText = ParseStringArray(json, SpdxConstants.FieldAttributionTexts),
+            PrimaryPackagePurpose = ParseOptionalString(json, SpdxConstants.FieldPrimaryPackagePurpose),
+            ReleaseDate = ParseOptionalString(json, SpdxConstants.FieldReleaseDate),
+            BuiltDate = ParseOptionalString(json, SpdxConstants.FieldBuiltDate),
+            ValidUntilDate = ParseOptionalString(json, SpdxConstants.FieldValidUntilDate),
+            Annotations = DeserializeAnnotations(json?[SpdxConstants.FieldAnnotations]?.AsArray())
         };
     }
 
@@ -244,20 +244,20 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxSnippet
         {
-            Id = ParseString(json, "SPDXID"),
-            SnippetFromFile = ParseString(json, "snippetFromFile"),
-            SnippetByteStart = Convert.ToInt32(Find(json, "ranges", "startPointer", "offset")?.ToString() ?? ""),
-            SnippetByteEnd = Convert.ToInt32(Find(json, "ranges", "endPointer", "offset")?.ToString() ?? ""),
-            SnippetLineStart = Convert.ToInt32(Find(json, "ranges", "startPointer", "lineNumber")?.ToString() ?? ""),
-            SnippetLineEnd = Convert.ToInt32(Find(json, "ranges", "endPointer", "lineNumber")?.ToString() ?? ""),
-            ConcludedLicense = ParseString(json, "licenseConcluded"),
-            LicenseInfoInSnippet = ParseStringArray(json, "licenseInfoInSnippets"),
-            LicenseComments = ParseOptionalString(json, "licenseComments"),
-            CopyrightText = ParseString(json, "copyrightText"),
-            Comment = ParseOptionalString(json, "comment"),
-            Name = ParseOptionalString(json, "name"),
-            AttributionText = ParseStringArray(json, "attributionTexts"),
-            Annotations = DeserializeAnnotations(json?["annotations"]?.AsArray())
+            Id = ParseString(json, SpdxConstants.FieldSpdxId),
+            SnippetFromFile = ParseString(json, SpdxConstants.FieldSnippetFromFile),
+            SnippetByteStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer, SpdxConstants.FieldOffset)?.ToString() ?? ""),
+            SnippetByteEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer, SpdxConstants.FieldOffset)?.ToString() ?? ""),
+            SnippetLineStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer, SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
+            SnippetLineEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer, SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
+            ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
+            LicenseInfoInSnippet = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInSnippets),
+            LicenseComments = ParseOptionalString(json, SpdxConstants.FieldLicenseComments),
+            CopyrightText = ParseString(json, SpdxConstants.FieldCopyrightText),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
+            Name = ParseOptionalString(json, SpdxConstants.FieldName),
+            AttributionText = ParseStringArray(json, SpdxConstants.FieldAttributionTexts),
+            Annotations = DeserializeAnnotations(json?[SpdxConstants.FieldAnnotations]?.AsArray())
         };
     }
 
@@ -280,10 +280,10 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxRelationship
         {
-            Id = ParseString(json, "spdxElementId"),
-            RelatedSpdxElement = ParseString(json, "relatedSpdxElement"),
-            RelationshipType = SpdxRelationshipTypeExtensions.FromText(ParseString(json, "relationshipType")),
-            Comment = ParseOptionalString(json, "comment")
+            Id = ParseString(json, SpdxConstants.FieldSpdxElementId),
+            RelatedSpdxElement = ParseString(json, SpdxConstants.FieldRelatedSpdxElement),
+            RelationshipType = SpdxRelationshipTypeExtensions.FromText(ParseString(json, SpdxConstants.FieldRelationshipType)),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment)
         };
     }
 
@@ -298,8 +298,8 @@ public static class Spdx2JsonDeserializer
             ? null
             : new SpdxPackageVerificationCode
             {
-                ExcludedFiles = ParseStringArray(json, "packageVerificationCodeExcludedFiles"),
-                Value = ParseString(json, "packageVerificationCodeValue")
+                ExcludedFiles = ParseStringArray(json, SpdxConstants.FieldPackageVerificationCodeExcludedFiles),
+                Value = ParseString(json, SpdxConstants.FieldPackageVerificationCodeValue)
             };
     }
 
@@ -322,10 +322,10 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxExternalReference
         {
-            Category = SpdxReferenceCategoryExtensions.FromText(ParseString(json, "referenceCategory")),
-            Type = ParseString(json, "referenceType"),
-            Locator = ParseString(json, "referenceLocator"),
-            Comment = ParseOptionalString(json, "comment")
+            Category = SpdxReferenceCategoryExtensions.FromText(ParseString(json, SpdxConstants.FieldReferenceCategory)),
+            Type = ParseString(json, SpdxConstants.FieldReferenceType),
+            Locator = ParseString(json, SpdxConstants.FieldReferenceLocator),
+            Comment = ParseOptionalString(json, SpdxConstants.FieldComment)
         };
     }
 
@@ -348,8 +348,8 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxChecksum
         {
-            Algorithm = SpdxChecksumAlgorithmExtensions.FromText(ParseString(json, "algorithm")),
-            Value = ParseString(json, "checksumValue")
+            Algorithm = SpdxChecksumAlgorithmExtensions.FromText(ParseString(json, SpdxConstants.FieldAlgorithm)),
+            Value = ParseString(json, SpdxConstants.FieldChecksumValue)
         };
     }
 
@@ -372,11 +372,11 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxAnnotation
         {
-            Id = ParseString(json, "SPDXID"),
-            Annotator = ParseString(json, "annotator"),
-            Date = ParseString(json, "annotationDate"),
-            Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, "annotationType")),
-            Comment = ParseString(json, "comment")
+            Id = ParseString(json, SpdxConstants.FieldSpdxId),
+            Annotator = ParseString(json, SpdxConstants.FieldAnnotator),
+            Date = ParseString(json, SpdxConstants.FieldAnnotationDate),
+            Type = SpdxAnnotationTypeExtensions.FromText(ParseString(json, SpdxConstants.FieldAnnotationType)),
+            Comment = ParseString(json, SpdxConstants.FieldComment)
         };
     }
 
