@@ -439,9 +439,8 @@ public sealed class SpdxPackage : SpdxLicenseElement
             externalReference.Validate(Name, issues);
 
         // If the document is provided then ensure all referenced files exist
-        if (doc != null)
-            if (HasFiles.Any(pf => doc.Files.All(df => df.Id != pf)))
-                issues.Add($"Package {Name} HasFiles references missing files");
+        if (doc != null && Array.Exists(HasFiles, file => Array.TrueForAll(doc.Files, df => df.Id != file)))
+            issues.Add($"Package {Name} HasFiles references missing files");
 
         // SPDX NTIA Supplier Name Check
         if (ntia && string.IsNullOrEmpty(Supplier))

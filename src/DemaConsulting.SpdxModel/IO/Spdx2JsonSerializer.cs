@@ -56,24 +56,24 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeDocument(SpdxDocument document)
     {
         var json = new JsonObject();
-        EmitString(json, "SPDXID", document.Id);
-        EmitString(json, "spdxVersion", document.Version);
-        EmitString(json, "name", document.Name);
-        EmitString(json, "dataLicense", document.DataLicense);
-        EmitString(json, "documentNamespace", document.DocumentNamespace);
-        EmitOptionalString(json, "comment", document.Comment);
-        json["creationInfo"] = SerializeCreationInformation(document.CreationInformation);
+        EmitString(json, SpdxConstants.FieldSpdxId, document.Id);
+        EmitString(json, SpdxConstants.FieldSpdxVersion, document.Version);
+        EmitString(json, SpdxConstants.FieldName, document.Name);
+        EmitString(json, SpdxConstants.FieldDataLicense, document.DataLicense);
+        EmitString(json, SpdxConstants.FieldDocumentNamespace, document.DocumentNamespace);
+        EmitOptionalString(json, SpdxConstants.FieldComment, document.Comment);
+        json[SpdxConstants.FieldCreationInfo] = SerializeCreationInformation(document.CreationInformation);
         if (document.ExternalDocumentReferences.Length > 0)
-            json["externalDocumentRefs"] = SerializeExternalDocumentReferences(document.ExternalDocumentReferences);
+            json[SpdxConstants.FieldExternalDocumentRefs] = SerializeExternalDocumentReferences(document.ExternalDocumentReferences);
         if (document.ExtractedLicensingInfo.Length > 0)
-            json["hasExtractedLicensingInfos"] = SerializeExtractedLicensingInfos(document.ExtractedLicensingInfo);
+            json[SpdxConstants.FieldHasExtractedLicensingInfos] = SerializeExtractedLicensingInfos(document.ExtractedLicensingInfo);
         if (document.Annotations.Length > 0)
-            json["annotations"] = SerializeAnnotations(document.Annotations);
-        json["files"] = SerializeFiles(document.Files);
-        json["packages"] = SerializePackages(document.Packages);
-        json["snippets"] = SerializeSnippets(document.Snippets);
-        json["relationships"] = SerializeRelationships(document.Relationships);
-        EmitOptionalStrings(json, "documentDescribes", document.Describes);
+            json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(document.Annotations);
+        json[SpdxConstants.FieldFiles] = SerializeFiles(document.Files);
+        json[SpdxConstants.FieldPackages] = SerializePackages(document.Packages);
+        json[SpdxConstants.FieldSnippets] = SerializeSnippets(document.Snippets);
+        json[SpdxConstants.FieldRelationships] = SerializeRelationships(document.Relationships);
+        EmitOptionalStrings(json, SpdxConstants.FieldDocumentDescribes, document.Describes);
         return json;
     }
 
@@ -85,10 +85,10 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeCreationInformation(SpdxCreationInformation info)
     {
         var json = new JsonObject();
-        EmitOptionalStrings(json, "creators", info.Creators);
-        EmitString(json, "created", info.Created);
-        EmitOptionalString(json, "comment", info.Comment);
-        EmitOptionalString(json, "licenseListVersion", info.LicenseListVersion);
+        EmitOptionalStrings(json, SpdxConstants.FieldCreators, info.Creators);
+        EmitString(json, SpdxConstants.FieldCreated, info.Created);
+        EmitOptionalString(json, SpdxConstants.FieldComment, info.Comment);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseListVersion, info.LicenseListVersion);
         return json;
     }
 
@@ -113,9 +113,9 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeExternalDocumentReference(SpdxExternalDocumentReference reference)
     {
         var json = new JsonObject();
-        EmitString(json, "externalDocumentId", reference.ExternalDocumentId);
-        json["checksum"] = SerializeChecksum(reference.Checksum);
-        EmitString(json, "spdxDocument", reference.Document);
+        EmitString(json, SpdxConstants.FieldExternalDocumentId, reference.ExternalDocumentId);
+        json[SpdxConstants.FieldChecksum] = SerializeChecksum(reference.Checksum);
+        EmitString(json, SpdxConstants.FieldSpdxDocument, reference.Document);
         return json;
     }
 
@@ -140,11 +140,11 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeExtractedLicensingInfo(SpdxExtractedLicensingInfo info)
     {
         var json = new JsonObject();
-        EmitString(json, "licenseId", info.LicenseId);
-        EmitString(json, "extractedText", info.ExtractedText);
-        EmitOptionalString(json, "name", info.Name);
-        EmitOptionalStrings(json, "seeAlsos", info.CrossReferences);
-        EmitOptionalString(json, "comment", info.Comment);
+        EmitString(json, SpdxConstants.FieldLicenseId, info.LicenseId);
+        EmitString(json, SpdxConstants.FieldExtractedText, info.ExtractedText);
+        EmitOptionalString(json, SpdxConstants.FieldName, info.Name);
+        EmitOptionalStrings(json, SpdxConstants.FieldSeeAlsos, info.CrossReferences);
+        EmitOptionalString(json, SpdxConstants.FieldComment, info.Comment);
         return json;
     }
 
@@ -169,20 +169,20 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeFile(SpdxFile file)
     {
         var json = new JsonObject();
-        EmitString(json, "SPDXID", file.Id);
-        EmitString(json, "fileName", file.FileName);
-        EmitOptionalStrings(json, "fileTypes", file.FileTypes.Select(SpdxFileTypeExtensions.ToText).ToArray());
-        json["checksums"] = SerializeChecksums(file.Checksums);
-        EmitOptionalString(json, "licenseConcluded", file.ConcludedLicense);
-        EmitOptionalStrings(json, "licenseInfoInFiles", file.LicenseInfoInFiles);
-        EmitOptionalString(json, "licenseComments", file.LicenseComments);
-        EmitOptionalString(json, "copyrightText", file.CopyrightText);
-        EmitOptionalString(json, "comment", file.Comment);
-        EmitOptionalString(json, "noticeText", file.Notice);
-        EmitOptionalStrings(json, "fileContributors", file.Contributors);
-        EmitOptionalStrings(json, "attributionTexts", file.AttributionText);
+        EmitString(json, SpdxConstants.FieldSpdxId, file.Id);
+        EmitString(json, SpdxConstants.FieldFileName, file.FileName);
+        EmitOptionalStrings(json, SpdxConstants.FieldFileTypes, file.FileTypes.Select(SpdxFileTypeExtensions.ToText).ToArray());
+        json[SpdxConstants.FieldChecksums] = SerializeChecksums(file.Checksums);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, file.ConcludedLicense);
+        EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoInFiles, file.LicenseInfoInFiles);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseComments, file.LicenseComments);
+        EmitOptionalString(json, SpdxConstants.FieldCopyrightText, file.CopyrightText);
+        EmitOptionalString(json, SpdxConstants.FieldComment, file.Comment);
+        EmitOptionalString(json, SpdxConstants.FieldNoticeText, file.Notice);
+        EmitOptionalStrings(json, SpdxConstants.FieldFileContributors, file.Contributors);
+        EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, file.AttributionText);
         if (file.Annotations.Length > 0)
-            json["annotations"] = SerializeAnnotations(file.Annotations);
+            json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(file.Annotations);
         return json;
     }
 
@@ -207,38 +207,38 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializePackage(SpdxPackage package)
     {
         var json = new JsonObject();
-        EmitString(json, "SPDXID", package.Id);
-        EmitString(json, "name", package.Name);
-        EmitOptionalString(json, "versionInfo", package.Version);
-        EmitOptionalString(json, "packageFileName", package.FileName);
-        EmitOptionalString(json, "supplier", package.Supplier);
-        EmitOptionalString(json, "originator", package.Originator);
-        EmitOptionalString(json, "downloadLocation", package.DownloadLocation);
+        EmitString(json, SpdxConstants.FieldSpdxId, package.Id);
+        EmitString(json, SpdxConstants.FieldName, package.Name);
+        EmitOptionalString(json, SpdxConstants.FieldVersionInfo, package.Version);
+        EmitOptionalString(json, SpdxConstants.FieldPackageFileName, package.FileName);
+        EmitOptionalString(json, SpdxConstants.FieldSupplier, package.Supplier);
+        EmitOptionalString(json, SpdxConstants.FieldOriginator, package.Originator);
+        EmitOptionalString(json, SpdxConstants.FieldDownloadLocation, package.DownloadLocation);
         if (package.FilesAnalyzed != null)
-            json["filesAnalyzed"] = package.FilesAnalyzed;
-        EmitOptionalStrings(json, "hasFiles", package.HasFiles);
+            json[SpdxConstants.FieldFilesAnalyzed] = package.FilesAnalyzed;
+        EmitOptionalStrings(json, SpdxConstants.FieldHasFiles, package.HasFiles);
         if (package.VerificationCode != null)
-            json["packageVerificationCode"] = SerializeVerificationCode(package.VerificationCode);
-        json["checksums"] = SerializeChecksums(package.Checksums);
-        EmitOptionalString(json, "homepage", package.HomePage);
-        EmitOptionalString(json, "sourceInfo", package.SourceInformation);
-        EmitOptionalString(json, "licenseConcluded", package.ConcludedLicense);
-        EmitOptionalStrings(json, "licenseInfoFromFiles", package.LicenseInfoFromFiles);
-        EmitString(json, "licenseDeclared", package.DeclaredLicense);
-        EmitOptionalString(json, "licenseComments", package.LicenseComments);
-        EmitOptionalString(json, "copyrightText", package.CopyrightText);
-        EmitOptionalString(json, "summary", package.Summary);
-        EmitOptionalString(json, "description", package.Description);
-        EmitOptionalString(json, "comment", package.Comment);
+            json[SpdxConstants.FieldPackageVerificationCode] = SerializeVerificationCode(package.VerificationCode);
+        json[SpdxConstants.FieldChecksums] = SerializeChecksums(package.Checksums);
+        EmitOptionalString(json, SpdxConstants.FieldHomePage, package.HomePage);
+        EmitOptionalString(json, SpdxConstants.FieldSourceInfo, package.SourceInformation);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, package.ConcludedLicense);
+        EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoFromFiles, package.LicenseInfoFromFiles);
+        EmitString(json, SpdxConstants.FieldLicenseDeclared, package.DeclaredLicense);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseComments, package.LicenseComments);
+        EmitOptionalString(json, SpdxConstants.FieldCopyrightText, package.CopyrightText);
+        EmitOptionalString(json, SpdxConstants.FieldSummary, package.Summary);
+        EmitOptionalString(json, SpdxConstants.FieldDescription, package.Description);
+        EmitOptionalString(json, SpdxConstants.FieldComment, package.Comment);
         if (package.ExternalReferences.Length > 0)
-            json["externalRefs"] = SerializeExternalReferences(package.ExternalReferences);
-        EmitOptionalStrings(json, "attributionTexts", package.AttributionText);
-        EmitOptionalString(json, "primaryPackagePurpose", package.PrimaryPackagePurpose);
-        EmitOptionalString(json, "releaseDate", package.ReleaseDate);
-        EmitOptionalString(json, "builtDate", package.BuiltDate);
-        EmitOptionalString(json, "validUntilDate", package.ValidUntilDate);
+            json[SpdxConstants.FieldExternalRefs] = SerializeExternalReferences(package.ExternalReferences);
+        EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, package.AttributionText);
+        EmitOptionalString(json, SpdxConstants.FieldPrimaryPackagePurpose, package.PrimaryPackagePurpose);
+        EmitOptionalString(json, SpdxConstants.FieldReleaseDate, package.ReleaseDate);
+        EmitOptionalString(json, SpdxConstants.FieldBuiltDate, package.BuiltDate);
+        EmitOptionalString(json, SpdxConstants.FieldValidUntilDate, package.ValidUntilDate);
         if (package.Annotations.Length > 0)
-            json["annotations"] = SerializeAnnotations(package.Annotations);
+            json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(package.Annotations);
 
         return json;
     }
@@ -264,50 +264,50 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeSnippet(SpdxSnippet snippet)
     {
         var json = new JsonObject();
-        EmitString(json, "SPDXID", snippet.Id);
-        EmitString(json, "snippetFromFile", snippet.SnippetFromFile);
-        EmitOptionalString(json, "name", snippet.Name);
-        EmitOptionalString(json, "licenseConcluded", snippet.ConcludedLicense);
-        EmitOptionalStrings(json, "licenseInfoInSnippets", snippet.LicenseInfoInSnippet);
-        EmitOptionalString(json, "licenseComments", snippet.LicenseComments);
-        EmitOptionalString(json, "copyrightText", snippet.CopyrightText);
-        EmitOptionalString(json, "comment", snippet.Comment);
-        EmitOptionalStrings(json, "attributionTexts", snippet.AttributionText);
+        EmitString(json, SpdxConstants.FieldSpdxId, snippet.Id);
+        EmitString(json, SpdxConstants.FieldSnippetFromFile, snippet.SnippetFromFile);
+        EmitOptionalString(json, SpdxConstants.FieldName, snippet.Name);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, snippet.ConcludedLicense);
+        EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoInSnippets, snippet.LicenseInfoInSnippet);
+        EmitOptionalString(json, SpdxConstants.FieldLicenseComments, snippet.LicenseComments);
+        EmitOptionalString(json, SpdxConstants.FieldCopyrightText, snippet.CopyrightText);
+        EmitOptionalString(json, SpdxConstants.FieldComment, snippet.Comment);
+        EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, snippet.AttributionText);
         if (snippet.Annotations.Length > 0)
-            json["annotations"] = SerializeAnnotations(snippet.Annotations);
+            json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(snippet.Annotations);
 
         // Add ranges
         var ranges = new JsonArray
         {
             new JsonObject
             {
-                ["endPointer"] = new JsonObject
+                [SpdxConstants.FieldEndPointer] = new JsonObject
                 {
-                    ["reference"] = snippet.SnippetFromFile,
-                    ["offset"] = snippet.SnippetByteEnd
+                    [SpdxConstants.FieldReference] = snippet.SnippetFromFile,
+                    [SpdxConstants.FieldOffset] = snippet.SnippetByteEnd
                 },
-                ["startPointer"] = new JsonObject
+                [SpdxConstants.FieldStartPointer] = new JsonObject
                 {
-                    ["reference"] = snippet.SnippetFromFile,
-                    ["offset"] = snippet.SnippetByteStart
+                    [SpdxConstants.FieldReference] = snippet.SnippetFromFile,
+                    [SpdxConstants.FieldOffset] = snippet.SnippetByteStart
                 }
             }
         };
         if (snippet.SnippetLineEnd > 0 || snippet.SnippetLineStart > 0)
             ranges.Add(new JsonObject
             {
-                ["endPointer"] = new JsonObject
+                [SpdxConstants.FieldEndPointer] = new JsonObject
                 {
-                    ["reference"] = snippet.SnippetFromFile,
-                    ["lineNumber"] = snippet.SnippetLineEnd
+                    [SpdxConstants.FieldReference] = snippet.SnippetFromFile,
+                    [SpdxConstants.FieldLineNumber] = snippet.SnippetLineEnd
                 },
-                ["startPointer"] = new JsonObject
+                [SpdxConstants.FieldStartPointer] = new JsonObject
                 {
-                    ["reference"] = snippet.SnippetFromFile,
-                    ["lineNumber"] = snippet.SnippetLineStart
+                    [SpdxConstants.FieldReference] = snippet.SnippetFromFile,
+                    [SpdxConstants.FieldLineNumber] = snippet.SnippetLineStart
                 }
             });
-        json["ranges"] = ranges;
+        json[SpdxConstants.FieldRanges] = ranges;
         return json;
     }
 
@@ -332,10 +332,10 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeRelationship(SpdxRelationship relationship)
     {
         var json = new JsonObject();
-        EmitString(json, "spdxElementId", relationship.Id);
-        EmitString(json, "relatedSpdxElement", relationship.RelatedSpdxElement);
-        EmitString(json, "relationshipType", relationship.RelationshipType.ToText());
-        EmitOptionalString(json, "comment", relationship.Comment);
+        EmitString(json, SpdxConstants.FieldSpdxElementId, relationship.Id);
+        EmitString(json, SpdxConstants.FieldRelatedSpdxElement, relationship.RelatedSpdxElement);
+        EmitString(json, SpdxConstants.FieldRelationshipType, relationship.RelationshipType.ToText());
+        EmitOptionalString(json, SpdxConstants.FieldComment, relationship.Comment);
         return json;
     }
 
@@ -347,8 +347,8 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeVerificationCode(SpdxPackageVerificationCode code)
     {
         var json = new JsonObject();
-        EmitString(json, "packageVerificationCodeValue", code.Value);
-        EmitOptionalStrings(json, "packageVerificationCodeExcludedFiles", code.ExcludedFiles);
+        EmitString(json, SpdxConstants.FieldPackageVerificationCodeValue, code.Value);
+        EmitOptionalStrings(json, SpdxConstants.FieldPackageVerificationCodeExcludedFiles, code.ExcludedFiles);
         return json;
     }
 
@@ -373,10 +373,10 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeExternalReference(SpdxExternalReference reference)
     {
         var json = new JsonObject();
-        EmitString(json, "referenceCategory", reference.Category.ToText());
-        EmitString(json, "referenceType", reference.Type);
-        EmitString(json, "referenceLocator", reference.Locator);
-        EmitOptionalString(json, "comment", reference.Comment);
+        EmitString(json, SpdxConstants.FieldReferenceCategory, reference.Category.ToText());
+        EmitString(json, SpdxConstants.FieldReferenceType, reference.Type);
+        EmitString(json, SpdxConstants.FieldReferenceLocator, reference.Locator);
+        EmitOptionalString(json, SpdxConstants.FieldComment, reference.Comment);
         return json;
     }
 
@@ -401,8 +401,8 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeChecksum(SpdxChecksum checksum)
     {
         var json = new JsonObject();
-        EmitString(json, "algorithm", checksum.Algorithm.ToText());
-        EmitString(json, "checksumValue", checksum.Value);
+        EmitString(json, SpdxConstants.FieldAlgorithm, checksum.Algorithm.ToText());
+        EmitString(json, SpdxConstants.FieldChecksumValue, checksum.Value);
         return json;
     }
 
@@ -427,11 +427,11 @@ public static class Spdx2JsonSerializer
     public static JsonObject SerializeAnnotation(SpdxAnnotation annotation)
     {
         var json = new JsonObject();
-        EmitOptionalString(json, "SPDXID", annotation.Id);
-        EmitString(json, "annotator", annotation.Annotator);
-        EmitString(json, "annotationDate", annotation.Date);
-        EmitString(json, "annotationType", annotation.Type.ToText());
-        EmitString(json, "comment", annotation.Comment);
+        EmitOptionalString(json, SpdxConstants.FieldSpdxId, annotation.Id);
+        EmitString(json, SpdxConstants.FieldAnnotator, annotation.Annotator);
+        EmitString(json, SpdxConstants.FieldAnnotationDate, annotation.Date);
+        EmitString(json, SpdxConstants.FieldAnnotationType, annotation.Type.ToText());
+        EmitString(json, SpdxConstants.FieldComment, annotation.Comment);
         return json;
     }
 
