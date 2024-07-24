@@ -28,6 +28,14 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>
+    /// Regular expression for checking SPDX version fields
+    /// </summary>
+    private static readonly Regex VersionRegex = new(
+        @"SPDX-\d+\.\d+",
+        RegexOptions.None,
+        TimeSpan.FromMilliseconds(100));
+
+    /// <summary>
     /// Equality comparer for the same document
     /// </summary>
     /// <remarks>
@@ -174,7 +182,7 @@ public sealed class SpdxDocument : SpdxElement
             issues.Add("Document Invalid Document Name Field");
 
         // Validate SPDX Version Field
-        if (!Regex.IsMatch(Version, @"SPDX-\d+\.\d+"))
+        if (!VersionRegex.IsMatch(Version))
             issues.Add("Document Invalid SPDX Version Field");
 
         // Validate Data License Field

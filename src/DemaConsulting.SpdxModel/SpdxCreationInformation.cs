@@ -33,6 +33,14 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxCreationInformation
 {
     /// <summary>
+    /// Regular expression for checking license list versions
+    /// </summary>
+    private static readonly Regex LicenseListVersionRegex = new(
+        @"\d+\.\d+",
+        RegexOptions.None,
+        TimeSpan.FromMilliseconds(100));
+
+    /// <summary>
     /// Creator Field
     /// </summary>
     /// <remarks>
@@ -124,11 +132,11 @@ public sealed class SpdxCreationInformation
                 issues.Add($"Document Invalid Creator Entry: {creator}");
 
         // Validate Created Field
-        if (!Regex.IsMatch(Created, @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"))
+        if (!SpdxHelpers.IsValidSpdxDateTime(Created))
             issues.Add("Document Invalid Created Field");
 
         // Validate License List Version Field
-        if (LicenseListVersion != null && !Regex.IsMatch(LicenseListVersion, @"\d+\.\d+"))
+        if (!string.IsNullOrEmpty(LicenseListVersion) && !LicenseListVersionRegex.IsMatch(LicenseListVersion))
             issues.Add("Document Invalid License List Version Field");
     }
 }

@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Text.RegularExpressions;
-
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
@@ -152,7 +150,7 @@ public sealed class SpdxAnnotation : SpdxElement
             issues.Add($"{parent} Invalid Annotator Field");
 
         // Validate Annotation Date Field
-        if (!Regex.IsMatch(Date, @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"))
+        if (!SpdxHelpers.IsValidSpdxDateTime(Date))
             issues.Add($"{parent} Invalid Annotation Date Field");
 
         // Validate Annotation Type Field

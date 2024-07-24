@@ -453,6 +453,18 @@ public sealed class SpdxPackage : SpdxLicenseElement
         // SPDX NTIA Unique Identifier Check
         if (ntia && string.IsNullOrEmpty(Id))
             issues.Add($"NTIA: Package {Name} Missing Unique Identifier");
+
+        // Release Date field
+        if (!SpdxHelpers.IsValidSpdxDateTime(ReleaseDate))
+            issues.Add($"Package {Name} Invalid Release Date Field");
+
+        // Built Date field
+        if (!SpdxHelpers.IsValidSpdxDateTime(BuiltDate))
+            issues.Add($"Package {Name} Invalid Built Date Field");
+
+        // Valid Until Date field
+        if (!SpdxHelpers.IsValidSpdxDateTime(ValidUntilDate))
+            issues.Add($"Package {Name} Invalid Valid Until Date Field");
     }
 
     /// <summary>
