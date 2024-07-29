@@ -39,6 +39,16 @@ public sealed class SpdxRelationship : SpdxElement
     public static readonly IEqualityComparer<SpdxRelationship> Same = new SpdxRelationshipSame();
 
     /// <summary>
+    /// Equality comparer for the same relationship elements
+    /// </summary>
+    /// <remarks>
+    /// This considers relationships as being the same if they have the same
+    /// elements. Note that this does not work across documents as the element
+    /// IDs are document-specific.
+    /// </remarks>
+    public static readonly IEqualityComparer<SpdxRelationship> SameElements = new SpdxRelationshipSameElements();
+
+    /// <summary>
     /// Related SPDX Element Field
     /// </summary>
     /// <remarks>
@@ -171,6 +181,29 @@ public sealed class SpdxRelationship : SpdxElement
         {
             return obj.Id.GetHashCode() ^
                    obj.RelationshipType.GetHashCode() ^
+                   obj.RelatedSpdxElement.GetHashCode();
+        }
+    }
+
+    /// <summary>
+    /// Equality Comparer to test for the same elements
+    /// </summary>
+    private sealed class SpdxRelationshipSameElements : IEqualityComparer<SpdxRelationship>
+    {
+        /// <inheritdoc />
+        public bool Equals(SpdxRelationship? r1, SpdxRelationship? r2)
+        {
+            if (ReferenceEquals(r1, r2)) return true;
+            if (r1 == null || r2 == null) return false;
+
+            return r1.Id == r2.Id &&
+                   r1.RelatedSpdxElement == r2.RelatedSpdxElement;
+        }
+
+        /// <inheritdoc />
+        public int GetHashCode(SpdxRelationship obj)
+        {
+            return obj.Id.GetHashCode() ^
                    obj.RelatedSpdxElement.GetHashCode();
         }
     }
