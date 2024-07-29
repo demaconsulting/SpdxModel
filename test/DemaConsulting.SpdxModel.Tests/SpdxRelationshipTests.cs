@@ -66,6 +66,48 @@ public class SpdxRelationshipTests
     }
 
     [TestMethod]
+    public void RelationshipSameElementsComparer()
+    {
+        var r1 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+
+        var r2 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.BuildToolOf,
+            RelatedSpdxElement = "SPDXRef-Package2",
+            Comment = "Package 1 builds Package 2"
+        };
+
+        var r3 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package3",
+            RelationshipType = SpdxRelationshipType.DevToolOf,
+            RelatedSpdxElement = "SPDXRef-Package4"
+        };
+
+        // Assert relationships compare to themselves
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r1));
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r2));
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r3, r3));
+
+        // Assert relationships compare correctly
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r2));
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r1));
+        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r1, r3));
+        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r1));
+        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r2, r3));
+        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r2));
+
+        // Assert same relationships have identical hashes
+        Assert.IsTrue(SpdxRelationship.SameElements.GetHashCode(r1) == SpdxRelationship.SameElements.GetHashCode(r2));
+    }
+
+    [TestMethod]
     public void DeepCopy()
     {
         var r1 = new SpdxRelationship
