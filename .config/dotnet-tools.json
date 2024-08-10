@@ -2,14 +2,20 @@
   "version": 1,
   "isRoot": true,
   "tools": {
+    "dotnet-sonarscanner": {
+      "version": "7.1.1",
+      "commands": [
+        "dotnet-sonarscanner"
+      ]
+    },
     "microsoft.sbom.dotnettool": {
-      "version": "2.2.6",
+      "version": "2.2.7",
       "commands": [
         "sbom-tool"
       ]
     },
     "demaconsulting.spdxtool": {
-      "version": "1.2.0",
+      "version": "1.4.0",
       "commands": [
         "spdx-tool"
       ]
