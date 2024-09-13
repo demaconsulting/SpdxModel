@@ -112,8 +112,7 @@ public class SpdxExternalDocumentReferenceTests
 
         references = SpdxExternalDocumentReference.Enhance(
             references,
-            new[]
-            {
+            [
                 new SpdxExternalDocumentReference
                 {
                     Checksum = new SpdxChecksum
@@ -133,7 +132,7 @@ public class SpdxExternalDocumentReferenceTests
                     },
                     Document = "http://demo.com/some-document"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, references.Length);
         Assert.AreEqual("DocumentRef-spdx-tool-1.2", references[0].ExternalDocumentId);

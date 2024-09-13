@@ -37,8 +37,8 @@ public class Spdx2JsonSerializePackage
             FileName = "glibc-2.11.1.tar.gz",
             Supplier = "Person: Jane Doe (jane.doe@example.com)",
             Originator = "Organization: ExampleCodeInspect (contact@example.com)",
-            Annotations = new[]
-            {
+            Annotations =
+            [
                 new SpdxAnnotation
                 {
                     Date = "2011-01-29T18:30:22Z",
@@ -46,14 +46,14 @@ public class Spdx2JsonSerializePackage
                     Annotator = "Person: Package Commenter",
                     Comment = "Package level annotation"
                 }
-            },
-            AttributionText = new[]
-            {
+            ],
+            AttributionText =
+            [
                 "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
-            },
+            ],
             BuiltDate = "2011-01-29T18:30:22Z",
-            Checksums = new[]
-            {
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -64,25 +64,25 @@ public class Spdx2JsonSerializePackage
                     Algorithm = SpdxChecksumAlgorithm.Sha256,
                     Value = "11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd"
                 }
-            },
+            ],
             CopyrightText = "Copyright 2008-2010 John Smith",
             Description =
                 "The GNU C Library defines functions that are specified by the ISO C standard, as well as additional features specific to POSIX and other derivatives of the Unix operating system, and extensions specific to GNU systems.",
             DownloadLocation = "http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
-            ExternalReferences = new[]
-            {
+            ExternalReferences =
+            [
                 new SpdxExternalReference
                 {
                     Category = SpdxReferenceCategory.Security,
                     Locator = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
                     Type = "cpe23Type"
                 }
-            },
+            ],
             FilesAnalyzed = true,
-            HasFiles = new[] { "file1.txt", "file2.txt" },
+            HasFiles = ["file1.txt", "file2.txt"],
             VerificationCode = new SpdxPackageVerificationCode
             {
-                ExcludedFiles = new[] { "file1.txt" },
+                ExcludedFiles = ["file1.txt"],
                 Value = "1234567890abcdef"
             }
         };
@@ -141,8 +141,8 @@ public class Spdx2JsonSerializePackage
                 FileName = "glibc-2.11.1.tar.gz",
                 Supplier = "Person: Jane Doe (jane.doe@example.com)",
                 Originator = "Organization: ExampleCodeInspect (contact@example.com)",
-                Annotations = new[]
-                {
+                Annotations =
+                [
                     new SpdxAnnotation
                     {
                         Date = "2011-01-29T18:30:22Z",
@@ -150,14 +150,14 @@ public class Spdx2JsonSerializePackage
                         Annotator = "Person: Package Commenter",
                         Comment = "Package level annotation"
                     }
-                },
-                AttributionText = new[]
-                {
+                ],
+                AttributionText =
+                [
                     "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually."
-                },
+                ],
                 BuiltDate = "2011-01-29T18:30:22Z",
-                Checksums = new[]
-                {
+                Checksums =
+                [
                     new SpdxChecksum
                     {
                         Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -168,25 +168,25 @@ public class Spdx2JsonSerializePackage
                         Algorithm = SpdxChecksumAlgorithm.Sha256,
                         Value = "11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd"
                     }
-                },
+                ],
                 CopyrightText = "Copyright 2008-2010 John Smith",
                 Description =
                     "The GNU C Library defines functions that are specified by the ISO C standard, as well as additional features specific to POSIX and other derivatives of the Unix operating system, and extensions specific to GNU systems.",
                 DownloadLocation = "http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
-                ExternalReferences = new[]
-                {
+                ExternalReferences =
+                [
                     new SpdxExternalReference
                     {
                         Category = SpdxReferenceCategory.Security,
                         Locator = "cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
                         Type = "cpe23Type"
                     }
-                },
+                ],
                 FilesAnalyzed = true,
-                HasFiles = new[] { "file1.txt", "file2.txt" },
+                HasFiles = ["file1.txt", "file2.txt"],
                 VerificationCode = new SpdxPackageVerificationCode
                 {
-                    ExcludedFiles = new[] { "file1.txt" },
+                    ExcludedFiles = ["file1.txt"],
                     Value = "1234567890abcdef"
                 }
             }

@@ -28,7 +28,7 @@ public class SpdxCreationInformationTests
     {
         var c1 = new SpdxCreationInformation
         {
-            Creators = new [] { "Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()", "Person: Jane Doe ()" },
+            Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()", "Person: Jane Doe ()"],
             Created = "2010-01-29T18:30:22Z",
             Comment = "This package has been shipped in source and binary form.",
             LicenseListVersion = "3.9"
@@ -47,7 +47,7 @@ public class SpdxCreationInformationTests
     {
         var info = new SpdxCreationInformation
         {
-            Creators = new[] { "Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()" },
+            Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
             Created = "2010-01-29T18:30:22Z",
             Comment = "This package has been shipped in source and binary form."
         };
@@ -55,7 +55,7 @@ public class SpdxCreationInformationTests
         info.Enhance(
             new SpdxCreationInformation
             {
-                Creators = new[] { "Person: Jane Doe ()" },
+                Creators = ["Person: Jane Doe ()"],
                 LicenseListVersion = "3.9"
             });
 

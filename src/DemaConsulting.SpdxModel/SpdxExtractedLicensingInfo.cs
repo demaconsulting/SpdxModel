@@ -45,7 +45,7 @@ public sealed class SpdxExtractedLicensingInfo
     /// <remarks>
     /// A human-readable short form license identifier for a license.
     /// </remarks>
-    public string LicenseId { get; set; } = string.Empty;
+    public string LicenseId { get; set; } = "";
 
     /// <summary>
     /// Extracted Text Field
@@ -55,7 +55,7 @@ public sealed class SpdxExtractedLicensingInfo
     /// from the package, file or snippet that is associated with the License
     /// Identifier to aid in future analysis.
     /// </remarks>
-    public string ExtractedText { get; set; } = string.Empty;
+    public string ExtractedText { get; set; } = "";
 
     /// <summary>
     /// License Name Field
@@ -65,7 +65,7 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     /// License Cross-Reference Field (optional)
     /// </summary>
-    public string[] CrossReferences { get; set; } = Array.Empty<string>();
+    public string[] CrossReferences { get; set; } = [];
 
     /// <summary>
     /// License Comment Field (optional)
@@ -93,23 +93,19 @@ public sealed class SpdxExtractedLicensingInfo
     public void Enhance(SpdxExtractedLicensingInfo other)
     {
         // Populate the license-id field if missing
-        if (string.IsNullOrWhiteSpace(LicenseId))
-            LicenseId = other.LicenseId;
+        LicenseId = SpdxHelpers.EnhanceString(LicenseId, other.LicenseId) ?? "";
 
         // Populate the extracted-text field if missing
-        if (string.IsNullOrWhiteSpace(ExtractedText))
-            ExtractedText = other.ExtractedText;
+        ExtractedText = SpdxHelpers.EnhanceString(ExtractedText, other.ExtractedText) ?? "";
 
         // Populate the name field if missing
-        if (string.IsNullOrWhiteSpace(Name))
-            Name = other.Name;
+        Name = SpdxHelpers.EnhanceString(Name, other.Name);
 
         // Merge the cross-references
         CrossReferences = CrossReferences.Concat(other.CrossReferences).Distinct().ToArray();
 
         // Populate the comment field if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
     }
 
     /// <summary>

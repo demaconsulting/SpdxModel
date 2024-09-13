@@ -38,12 +38,12 @@ public class Spdx2JsonSerializeSnippet
             SnippetLineStart = 3,
             SnippetLineEnd = 4,
             ConcludedLicense = "ConcludedLicense",
-            LicenseInfoInSnippet = new[] { "LicenseInfoInSnippet" },
+            LicenseInfoInSnippet = ["LicenseInfoInSnippet"],
             LicenseComments = "LicenseComments",
             CopyrightText = "Copyright",
             Comment = "Comment",
             Name = "Name",
-            AttributionText = new[] { "AttributionText" }
+            AttributionText = ["AttributionText"]
         };
 
         // Act
@@ -85,12 +85,12 @@ public class Spdx2JsonSerializeSnippet
                 SnippetLineStart = 3,
                 SnippetLineEnd = 4,
                 ConcludedLicense = "ConcludedLicense",
-                LicenseInfoInSnippet = new[] { "LicenseInfoInSnippet" },
+                LicenseInfoInSnippet = ["LicenseInfoInSnippet"],
                 LicenseComments = "LicenseComments",
                 CopyrightText = "Copyright",
                 Comment = "Comment",
                 Name = "Name",
-                AttributionText = new[] { "AttributionText" }
+                AttributionText = ["AttributionText"]
             }
         };
 

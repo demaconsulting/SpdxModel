@@ -29,22 +29,22 @@ public class SpdxFileTests
         var f1 = new SpdxFile
         {
             FileName = "./file1.txt",
-            Checksums = new[]
-            {
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
                     Value = "85ed0817af83a24ad8da68c2b5094de69833983c"
                 }
-            }
+            ]
         };
 
         var f2 = new SpdxFile
         {
             Id = "SPDXRef-File1",
             FileName = "./file1.txt",
-            Checksums = new[]
-            {
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -55,21 +55,21 @@ public class SpdxFileTests
                     Algorithm = SpdxChecksumAlgorithm.Md5,
                     Value = "624c1abb3664f4b35547e7c73864ad24"
                 }
-            },
+            ],
             Comment = "File 1"
         };
 
         var f3 = new SpdxFile
         {
             FileName = "./file2.txt",
-            Checksums = new[]
-            {
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
                     Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
                 }
-            }
+            ]
         };
 
         // Assert files compare to themselves
@@ -96,8 +96,8 @@ public class SpdxFileTests
         {
             Id = "SPDXRef-File1",
             FileName = "./file1.txt",
-            Checksums = new[]
-            {
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -108,7 +108,7 @@ public class SpdxFileTests
                     Algorithm = SpdxChecksumAlgorithm.Md5,
                     Value = "624c1abb3664f4b35547e7c73864ad24"
                 }
-            },
+            ],
             Comment = "File 1"
         };
 
@@ -128,27 +128,26 @@ public class SpdxFileTests
             new SpdxFile
             {
                 FileName = "./file1.txt",
-                Checksums = new[]
-                {
+                Checksums =
+                [
                     new SpdxChecksum
                     {
                         Algorithm = SpdxChecksumAlgorithm.Sha1,
                         Value = "85ed0817af83a24ad8da68c2b5094de69833983c"
                     }
-                }
+                ]
             }
         };
 
         files = SpdxFile.Enhance(
             files,
-            new[]
-            {
+            [
                 new SpdxFile
                 {
                     Id = "SPDXRef-File1",
                     FileName = "./file1.txt",
-                    Checksums = new[]
-                    {
+                    Checksums =
+                    [
                         new SpdxChecksum
                         {
                             Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -159,22 +158,22 @@ public class SpdxFileTests
                             Algorithm = SpdxChecksumAlgorithm.Md5,
                             Value = "624c1abb3664f4b35547e7c73864ad24"
                         }
-                    },
+                    ],
                     Comment = "File 1"
                 },
                 new SpdxFile
                 {
                     FileName = "./file2.txt",
-                    Checksums = new[]
-                    {
+                    Checksums =
+                    [
                         new SpdxChecksum
                         {
                             Algorithm = SpdxChecksumAlgorithm.Sha1,
                             Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
                         }
-                    }
+                    ]
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, files.Length);
         Assert.AreEqual("SPDXRef-File1", files[0].Id);

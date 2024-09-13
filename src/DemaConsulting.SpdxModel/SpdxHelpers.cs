@@ -41,4 +41,40 @@ internal static class SpdxHelpers
     {
         return string.IsNullOrEmpty(value) || DateTimeRegex.IsMatch(value);
     }
+
+    /// <summary>
+    /// This method picks the best string.
+    /// </summary>
+    /// <param name="values">String values to pick from</param>
+    /// <returns>Best string</returns>
+    internal static string? EnhanceString(params string?[] values)
+    {
+        // Start assuming no string
+        string? ret = null;
+        var retFitness = 0;
+
+        // Select the string with the highest fitness
+        foreach (var value in values)
+        {
+            // Calculate the fitness
+            var fitness = value switch
+            {
+                null => 0,
+                "" => 1,
+                SpdxElement.NoAssertion => 2,
+                _ => 3
+            };
+
+            // Skip if not an improvement
+            if (fitness <= retFitness)
+                continue;
+
+            // Update the return value
+            ret = value;
+            retFitness = fitness;
+        }
+
+        // Return the fittest string
+        return ret;
+    }
 }

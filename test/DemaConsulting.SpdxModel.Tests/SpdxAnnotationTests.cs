@@ -102,8 +102,7 @@ public class SpdxAnnotationTests
 
         annotations = SpdxAnnotation.Enhance(
             annotations,
-            new[]
-            {
+            [
                 new SpdxAnnotation
                 {
                     Id = "SPDXRef-Annotation1",
@@ -119,7 +118,7 @@ public class SpdxAnnotationTests
                     Date = "2023-11-20T12:34:23Z",
                     Type = SpdxAnnotationType.Other
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, annotations.Length);
         Assert.AreEqual("SPDXRef-Annotation1", annotations[0].Id);

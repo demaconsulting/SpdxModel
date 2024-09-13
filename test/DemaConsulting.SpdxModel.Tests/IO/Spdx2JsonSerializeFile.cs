@@ -33,35 +33,35 @@ public class Spdx2JsonSerializeFile
         {
             Id = "SPDXRef-DoapSource",
             FileName = "./src/org/spdx/parser/DOAPProject.java",
-            FileTypes = new[] { SpdxFileType.Source },
-            Checksums = new[]
-            {
+            FileTypes = [SpdxFileType.Source],
+            Checksums =
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
                     Value = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"
                 }
-            },
+            ],
             ConcludedLicense = "Apache-2.0",
-            LicenseInfoInFiles = new[] { "Apache-2.0" },
+            LicenseInfoInFiles = ["Apache-2.0"],
             LicenseComments = "This license is used by Jena",
             CopyrightText = "Copyright 2010, 2011 Source Auditor Inc.",
             Comment = "This file is a sample DOAP file",
             Notice = "Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com",
-            Contributors = new[]
-            {
+            Contributors =
+            [
                 "Protecode Inc.",
                 "SPDX Technical Team Members",
                 "Open Logic Inc.",
                 "Source Auditor Inc.",
                 "Black Duck Software In.c"
-            },
-            AttributionText = new[]
-            {
+            ],
+            AttributionText =
+            [
                 "All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by the AT&T."
-            },
-            Annotations = new[]
-            {
+            ],
+            Annotations =
+            [
                 new SpdxAnnotation
                 {
                     Date = "2011-01-29T18:30:22Z",
@@ -69,7 +69,7 @@ public class Spdx2JsonSerializeFile
                     Comment = "Person: File Commenter",
                     Annotator = "File level annotation"
                 }
-            }
+            ]
         };
 
         // Act
@@ -112,35 +112,35 @@ public class Spdx2JsonSerializeFile
             {
                 Id = "SPDXRef-DoapSource",
                 FileName = "./src/org/spdx/parser/DOAPProject.java",
-                FileTypes = new[] { SpdxFileType.Source },
-                Checksums = new[]
-                {
+                FileTypes = [SpdxFileType.Source],
+                Checksums =
+                [
                     new SpdxChecksum
                     {
                         Algorithm = SpdxChecksumAlgorithm.Sha1,
                         Value = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"
                     }
-                },
+                ],
                 ConcludedLicense = "Apache-2.0",
-                LicenseInfoInFiles = new[] { "Apache-2.0" },
+                LicenseInfoInFiles = ["Apache-2.0"],
                 LicenseComments = "This license is used by Jena",
                 CopyrightText = "Copyright 2010, 2011 Source Auditor Inc.",
                 Comment = "This file is a sample DOAP file",
                 Notice = "Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com",
-                Contributors = new[]
-                {
+                Contributors =
+                [
                     "Protecode Inc.",
                     "SPDX Technical Team Members",
                     "Open Logic Inc.",
                     "Source Auditor Inc.",
                     "Black Duck Software In.c"
-                },
-                AttributionText = new[]
-                {
+                ],
+                AttributionText =
+                [
                     "All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by the AT&T."
-                },
-                Annotations = new[]
-                {
+                ],
+                Annotations =
+                [
                     new SpdxAnnotation
                     {
                         Date = "2011-01-29T18:30:22Z",
@@ -148,7 +148,7 @@ public class Spdx2JsonSerializeFile
                         Comment = "Person: File Commenter",
                         Annotator = "File level annotation"
                     }
-                }
+                ]
             }
         };
 

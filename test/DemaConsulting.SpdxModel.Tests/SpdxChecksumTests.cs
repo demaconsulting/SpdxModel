@@ -92,8 +92,7 @@ public class SpdxChecksumTests
 
         checksums = SpdxChecksum.Enhance(
             checksums,
-            new[]
-            {
+            [
                 new SpdxChecksum
                 {
                     Algorithm = SpdxChecksumAlgorithm.Sha1,
@@ -104,7 +103,7 @@ public class SpdxChecksumTests
                     Algorithm = SpdxChecksumAlgorithm.Md5,
                     Value = "624c1abb3664f4b35547e7c73864ad24"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);

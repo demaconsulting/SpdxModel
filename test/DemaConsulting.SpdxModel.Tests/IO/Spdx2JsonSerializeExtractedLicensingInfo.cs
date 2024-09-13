@@ -34,7 +34,7 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
             LicenseId = "MIT",
             ExtractedText = "This is the MIT license",
             Name = "MIT License",
-            CrossReferences = new[] { "https://opensource.org/licenses/MIT" },
+            CrossReferences = ["https://opensource.org/licenses/MIT"],
             Comment = "This is a comment"
         };
 
@@ -60,7 +60,7 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
                 LicenseId = "MIT",
                 ExtractedText = "This is the MIT license",
                 Name = "MIT License",
-                CrossReferences = new[] { "https://opensource.org/licenses/MIT" },
+                CrossReferences = ["https://opensource.org/licenses/MIT"],
                 Comment = "This is a comment"
             }
         };

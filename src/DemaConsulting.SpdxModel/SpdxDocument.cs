@@ -98,23 +98,23 @@ public sealed class SpdxDocument : SpdxElement
     /// document.
     /// </remarks>
     public SpdxExternalDocumentReference[] ExternalDocumentReferences { get; set; } =
-        Array.Empty<SpdxExternalDocumentReference>();
+        [];
 
     /// <summary>
     /// Extracted Licensing Information
     /// </summary>
     public SpdxExtractedLicensingInfo[] ExtractedLicensingInfo { get; set; } =
-        Array.Empty<SpdxExtractedLicensingInfo>();
+        [];
 
     /// <summary>
     /// Annotations
     /// </summary>
-    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
+    public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
     /// Files
     /// </summary>
-    public SpdxFile[] Files { get; set; } = Array.Empty<SpdxFile>();
+    public SpdxFile[] Files { get; set; } = [];
 
     /// <summary>
     /// Packages
@@ -122,17 +122,17 @@ public sealed class SpdxDocument : SpdxElement
     /// <remarks>
     /// Packages referenced in the SPDX document.
     /// </remarks>
-    public SpdxPackage[] Packages { get; set; } = Array.Empty<SpdxPackage>();
+    public SpdxPackage[] Packages { get; set; } = [];
 
     /// <summary>
     /// Snippets
     /// </summary>
-    public SpdxSnippet[] Snippets { get; set; } = Array.Empty<SpdxSnippet>();
+    public SpdxSnippet[] Snippets { get; set; } = [];
 
     /// <summary>
     /// Relationships
     /// </summary>
-    public SpdxRelationship[] Relationships { get; set; } = Array.Empty<SpdxRelationship>();
+    public SpdxRelationship[] Relationships { get; set; } = [];
 
     /// <summary>
     /// Document Describes field (optional)
@@ -140,7 +140,7 @@ public sealed class SpdxDocument : SpdxElement
     /// <remarks>
     /// Packages, files and/or Snippets described by this SPDX document.
     /// </remarks>
-    public string[] Describes { get; set; } = Array.Empty<string>();
+    public string[] Describes { get; set; } = [];
 
     /// <summary>
     /// Make a deep-copy of this object

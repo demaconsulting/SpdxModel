@@ -26,13 +26,18 @@ namespace DemaConsulting.SpdxModel;
 public abstract class SpdxElement
 {
     /// <summary>
+    /// No Assertion value
+    /// </summary>
+    public const string NoAssertion = "NOASSERTION";
+
+    /// <summary>
     /// Gets or sets the Element ID
     /// </summary>
     /// <remarks>
     /// Uniquely identify any element in an SPDX document which may be
     /// referenced by other elements.
     /// </remarks>
-    public string Id { get; set; } = string.Empty;
+    public string Id { get; set; } = "";
 
     /// <summary>
     /// Enhance missing fields in the element
@@ -41,7 +46,6 @@ public abstract class SpdxElement
     protected void EnhanceElement(SpdxElement other)
     {
         // Populate the ID if missing
-        if (string.IsNullOrWhiteSpace(Id))
-            Id = other.Id;
+        Id = SpdxHelpers.EnhanceString(Id, other.Id) ?? "";
     }
 }

@@ -141,8 +141,7 @@ public class SpdxRelationshipTests
 
         relationships = SpdxRelationship.Enhance(
             relationships,
-            new[]
-            {
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package1",
@@ -156,7 +155,7 @@ public class SpdxRelationshipTests
                     RelationshipType = SpdxRelationshipType.DevToolOf,
                     RelatedSpdxElement = "SPDXRef-Package4"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, relationships.Length);
         Assert.AreEqual("SPDXRef-Package1", relationships[0].Id);
