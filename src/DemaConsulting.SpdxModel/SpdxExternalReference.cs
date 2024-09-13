@@ -54,7 +54,7 @@ public sealed class SpdxExternalReference
     /// Type of the external reference. These are defined in an appendix in
     /// the SPDX specification.
     /// </remarks>
-    public string Type { get; set; } = string.Empty;
+    public string Type { get; set; } = "";
 
     /// <summary>
     /// External Reference Locator Field
@@ -65,7 +65,7 @@ public sealed class SpdxExternalReference
     /// location. The format of the locator is subject to constraints defined
     /// by the type.
     /// </remarks>
-    public string Locator { get; set; } = string.Empty;
+    public string Locator { get; set; } = "";
 
     /// <summary>
     /// External Reference Comment Field (optional)
@@ -96,16 +96,13 @@ public sealed class SpdxExternalReference
             Category = other.Category;
 
         // Populate the type field if missing
-        if (string.IsNullOrWhiteSpace(Type))
-            Type = other.Type;
+        Type = SpdxHelpers.EnhanceString(Type, other.Type) ?? "";
 
         // Populate the locator field if missing
-        if (string.IsNullOrWhiteSpace(Locator))
-            Locator = other.Locator;
+        Locator = SpdxHelpers.EnhanceString(Locator, other.Locator) ?? "";
 
         // Populate the comment if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <remarks>
     /// Name of this package.
     /// </remarks>
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = "";
 
     /// <summary>
     /// Package Version Field (optional)
@@ -96,7 +96,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// package is not downloadable or that no attempt was made to determine
     /// its download location, respectively.
     /// </remarks>
-    public string DownloadLocation { get; set; } = string.Empty;
+    public string DownloadLocation { get; set; } = "";
 
     /// <summary>
     /// Files Analyzed Field (optional)
@@ -117,7 +117,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// SPDX ID for files. Indicates that a particular file belongs to this
     /// package.
     /// </remarks>
-    public string[] HasFiles { get; set; } = Array.Empty<string>();
+    public string[] HasFiles { get; set; } = [];
 
     /// <summary>
     /// Package Verification Code (optional)
@@ -130,7 +130,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     /// Package Checksum Field (optional)
     /// </summary>
-    public SpdxChecksum[] Checksums { get; set; } = Array.Empty<SpdxChecksum>();
+    public SpdxChecksum[] Checksums { get; set; } = [];
 
     /// <summary>
     /// Package Home Page Field (optional)
@@ -157,7 +157,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// If not present and FilesAnalyzed property is true or omitted, it implies
     /// an equivalent meaning to NOASSERTION.
     /// </remarks>
-    public string[] LicenseInfoFromFiles { get; set; } = Array.Empty<string>();
+    public string[] LicenseInfoFromFiles { get; set; } = [];
 
     /// <summary>
     /// Declared License Field
@@ -169,7 +169,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// packager, have declared. Declarations by the original software creator
     /// should be preferred, if they exist.
     /// </remarks>
-    public string DeclaredLicense { get; set; } = string.Empty;
+    public string DeclaredLicense { get; set; } = "";
 
     /// <summary>
     /// Package Summary Description Field (optional)
@@ -200,7 +200,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// of additional information, metadata, enumerations, asset identifiers,
     /// or downloadable content believed to be relevant to the Package.
     /// </remarks>
-    public SpdxExternalReference[] ExternalReferences { get; set; } = Array.Empty<SpdxExternalReference>();
+    public SpdxExternalReference[] ExternalReferences { get; set; } = [];
 
     /// <summary>
     /// Primary Package Purpose Field (optional)
@@ -254,13 +254,13 @@ public sealed class SpdxPackage : SpdxLicenseElement
             Originator = Originator,
             DownloadLocation = DownloadLocation,
             FilesAnalyzed = FilesAnalyzed,
-            HasFiles = HasFiles.ToArray(),
+            HasFiles = [..HasFiles],
             VerificationCode = VerificationCode?.DeepCopy(),
             Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
             HomePage = HomePage,
             SourceInformation = SourceInformation,
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoFromFiles = LicenseInfoFromFiles.ToArray(),
+            LicenseInfoFromFiles = [..LicenseInfoFromFiles],
             DeclaredLicense = DeclaredLicense,
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
@@ -268,7 +268,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
             Description = Description,
             Comment = Comment,
             ExternalReferences = ExternalReferences.Select(r => r.DeepCopy()).ToArray(),
-            AttributionText = AttributionText.ToArray(),
+            AttributionText = [..AttributionText],
             PrimaryPackagePurpose = PrimaryPackagePurpose,
             ReleaseDate = ReleaseDate,
             BuiltDate = BuiltDate,
@@ -286,32 +286,26 @@ public sealed class SpdxPackage : SpdxLicenseElement
         EnhanceLicenseElement(other);
 
         // Populate the name field if missing
-        if (string.IsNullOrWhiteSpace(Name))
-            Name = other.Name;
+        Name = SpdxHelpers.EnhanceString(Name, other.Name) ?? "";
 
         // Populate the version field if missing
-        if (string.IsNullOrWhiteSpace(Version))
-            Version = other.Version;
+        Version = SpdxHelpers.EnhanceString(Version, other.Version);
 
         // Populate the file-name field if missing
-        if (string.IsNullOrWhiteSpace(FileName))
-            FileName = other.FileName;
+        FileName = SpdxHelpers.EnhanceString(FileName, other.FileName);
 
         // Populate the supplier field if missing
-        if (string.IsNullOrWhiteSpace(Supplier) || Supplier == "NOASSERTION")
-            Supplier = other.Supplier;
+        Supplier = SpdxHelpers.EnhanceString(Supplier, other.Supplier);
 
         // Populate the originator field if missing
-        if (string.IsNullOrWhiteSpace(Originator) || Originator == "NOASSERTION")
-            Originator = other.Originator;
+        Originator = SpdxHelpers.EnhanceString(Originator, other.Originator);
 
         // Populate the download-location field if missing
-        if (string.IsNullOrWhiteSpace(DownloadLocation) || DownloadLocation == "NOASSERTION")
-            DownloadLocation = other.DownloadLocation;
+        DownloadLocation = SpdxHelpers.EnhanceString(DownloadLocation, other.DownloadLocation) ?? "";
 
         // Enhance or populate the verification code
         if (VerificationCode != null && other.VerificationCode != null)
-            VerificationCode?.Enhance(other.VerificationCode);
+            VerificationCode.Enhance(other.VerificationCode);
         else
             VerificationCode = other.VerificationCode?.DeepCopy();
 
@@ -319,50 +313,40 @@ public sealed class SpdxPackage : SpdxLicenseElement
         Checksums = SpdxChecksum.Enhance(Checksums, other.Checksums);
 
         // Populate the home-page if missing
-        if (string.IsNullOrWhiteSpace(HomePage) || HomePage == "NOASSERTION")
-            HomePage = other.HomePage;
+        HomePage = SpdxHelpers.EnhanceString(HomePage, other.HomePage);
 
         // Populate the source-information if missing
-        if (string.IsNullOrWhiteSpace(SourceInformation))
-            SourceInformation = other.SourceInformation;
+        SourceInformation = SpdxHelpers.EnhanceString(SourceInformation, other.SourceInformation);
 
         // Merge the license-info-from-files entries
         LicenseInfoFromFiles = LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct().ToArray();
 
         // Populate the declared-license field if missing
-        if (string.IsNullOrWhiteSpace(DeclaredLicense) || DeclaredLicense == "NOASSERTION")
-            DeclaredLicense = other.DeclaredLicense;
+        DeclaredLicense = SpdxHelpers.EnhanceString(DeclaredLicense, other.DeclaredLicense) ?? "";
 
         // Populate the summary field if missing
-        if (string.IsNullOrWhiteSpace(Summary))
-            Summary = other.Summary;
+        Summary = SpdxHelpers.EnhanceString(Summary, other.Summary);
 
         // Populate the description field if missing
-        if (string.IsNullOrWhiteSpace(Description))
-            Description = other.Description;
+        Description = SpdxHelpers.EnhanceString(Description, other.Description);
 
         // Populate the comment field if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
 
         // Enhance external references
         ExternalReferences = SpdxExternalReference.Enhance(ExternalReferences, other.ExternalReferences);
 
         // Populate the primary-package-purpose field if missing
-        if (string.IsNullOrWhiteSpace(PrimaryPackagePurpose))
-            PrimaryPackagePurpose = other.PrimaryPackagePurpose;
+        PrimaryPackagePurpose = SpdxHelpers.EnhanceString(PrimaryPackagePurpose, other.PrimaryPackagePurpose);
 
         // Populate the release-date field if missing
-        if (string.IsNullOrWhiteSpace(ReleaseDate))
-            ReleaseDate = other.ReleaseDate;
+        ReleaseDate = SpdxHelpers.EnhanceString(ReleaseDate, other.ReleaseDate);
 
         // Populate the built-date field if missing
-        if (string.IsNullOrWhiteSpace(BuiltDate))
-            BuiltDate = other.BuiltDate;
+        BuiltDate = SpdxHelpers.EnhanceString(BuiltDate, other.BuiltDate);
 
         // Populate the valid-until-date field if missing
-        if (string.IsNullOrWhiteSpace(ValidUntilDate))
-            ValidUntilDate = other.ValidUntilDate;
+        ValidUntilDate = SpdxHelpers.EnhanceString(ValidUntilDate, other.ValidUntilDate);
     }
 
     /// <summary>
@@ -394,7 +378,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>
@@ -415,14 +399,14 @@ public sealed class SpdxPackage : SpdxLicenseElement
 
         // Validate Package Supplier Field
         if (Supplier != null && 
-            Supplier != "NOASSERTION" && 
+            Supplier != NoAssertion && 
             !Supplier.StartsWith("Person:") &&
             !Supplier.StartsWith("Organization:"))
             issues.Add($"Package {Name} Invalid Package Supplier Field");
 
         // Validate Package Originator Field
         if (Originator != null &&
-            Originator != "NOASSERTION" &&
+            Originator != NoAssertion &&
             !Originator.StartsWith("Person:") &&
             !Originator.StartsWith("Organization:"))
             issues.Add($"Package {Name} Invalid Package Originator Field");

@@ -40,7 +40,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <remarks>
     /// The name of the file relative to the root of the package.
     /// </remarks>
-    public string FileName { get; set; } = string.Empty;
+    public string FileName { get; set; } = "";
 
     /// <summary>
     /// File Types Field
@@ -48,7 +48,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <remarks>
     /// The type of the file.
     /// </remarks>
-    public SpdxFileType[] FileTypes { get; set; } = Array.Empty<SpdxFileType>();
+    public SpdxFileType[] FileTypes { get; set; } = [];
 
     /// <summary>
     /// File Checksums
@@ -57,7 +57,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// The checksum property provides a mechanism that can be used to verify
     /// that the contents of a file have not changed.
     /// </remarks>
-    public SpdxChecksum[] Checksums { get; set; } = Array.Empty<SpdxChecksum>();
+    public SpdxChecksum[] Checksums { get; set; } = [];
 
     /// <summary>
     /// License Information In File Field
@@ -70,7 +70,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     ///
     /// If not present for a file, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
-    public string[] LicenseInfoInFiles { get; set; } = Array.Empty<string>();
+    public string[] LicenseInfoInFiles { get; set; } = [];
 
     /// <summary>
     /// File Comment Field (optional)
@@ -96,7 +96,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// and/or authors who may not be copyright holders yet contributed to the
     /// file content.
     /// </remarks>
-    public string[] Contributors { get; set; } = Array.Empty<string>();
+    public string[] Contributors { get; set; } = [];
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -130,8 +130,7 @@ public sealed class SpdxFile : SpdxLicenseElement
         EnhanceLicenseElement(other);
 
         // Populate the file name if missing
-        if (string.IsNullOrWhiteSpace(FileName))
-            FileName = other.FileName;
+        FileName = SpdxHelpers.EnhanceString(FileName, other.FileName) ?? "";
 
         // Merge the file types
         FileTypes = FileTypes.Concat(other.FileTypes).Distinct().ToArray();
@@ -143,12 +142,10 @@ public sealed class SpdxFile : SpdxLicenseElement
         LicenseInfoInFiles = LicenseInfoInFiles.Concat(other.LicenseInfoInFiles).Distinct().ToArray();
 
         // Populate the comment if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
 
         // Populate the notice if missing
-        if (string.IsNullOrWhiteSpace(Notice))
-            Notice = other.Notice;
+        Notice = SpdxHelpers.EnhanceString(Notice, other.Notice);
 
         // Merge the contributors
         Contributors = Contributors.Concat(other.Contributors).Distinct().ToArray();

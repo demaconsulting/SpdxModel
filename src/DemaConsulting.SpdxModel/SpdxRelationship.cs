@@ -54,7 +54,7 @@ public sealed class SpdxRelationship : SpdxElement
     /// <remarks>
     /// SPDX ID for SpdxElement.  A related SpdxElement.
     /// </remarks>
-    public string RelatedSpdxElement { get; set; } = string.Empty;
+    public string RelatedSpdxElement { get; set; } = "";
 
     /// <summary>
     /// Relationship Type Field
@@ -92,16 +92,14 @@ public sealed class SpdxRelationship : SpdxElement
         EnhanceElement(other);
         
         // Populate the related-element field if missing
-        if (string.IsNullOrWhiteSpace(RelatedSpdxElement))
-            RelatedSpdxElement = other.RelatedSpdxElement;
+        RelatedSpdxElement = SpdxHelpers.EnhanceString(RelatedSpdxElement, other.RelatedSpdxElement) ?? "";
 
         // Populate the relationship-type field if missing
         if (RelationshipType == SpdxRelationshipType.Missing)
             RelationshipType = other.RelationshipType;
 
         // Populate the comment if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment) ?? "";
     }
 
     /// <summary>
@@ -133,7 +131,7 @@ public sealed class SpdxRelationship : SpdxElement
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>
@@ -152,7 +150,7 @@ public sealed class SpdxRelationship : SpdxElement
         // Validate Related SPDX Element Field - can be NOASSERTION or external reference
         if (RelatedSpdxElement.Length == 0)
             issues.Add("Relationship Invalid Related SPDX Element Field");
-        else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != "NOASSERTION" && doc != null && doc.GetElement(RelatedSpdxElement) == null)
+        else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != NoAssertion && doc != null && doc.GetElement(RelatedSpdxElement) == null)
             issues.Add($"Relationship Invalid Related SPDX Element Field: {RelatedSpdxElement}");
 
         // Validate Relationship Type Field

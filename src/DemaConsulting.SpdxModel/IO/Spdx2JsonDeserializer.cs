@@ -95,7 +95,7 @@ public static class Spdx2JsonDeserializer
     public static SpdxExternalDocumentReference[] DeserializeExternalDocumentReferences(JsonArray? json)
     {
         return json?.Select(DeserializeExternalDocumentReference).ToArray() ??
-               Array.Empty<SpdxExternalDocumentReference>();
+               [];
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Extracted Licensing Infos</returns>
     public static SpdxExtractedLicensingInfo[] DeserializeExtractedLicensingInfos(JsonArray? json)
     {
-        return json?.Select(DeserializeExtractedLicensingInfo).ToArray() ?? Array.Empty<SpdxExtractedLicensingInfo>();
+        return json?.Select(DeserializeExtractedLicensingInfo).ToArray() ?? [];
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Files</returns>
     public static SpdxFile[] DeserializeFiles(JsonArray? json)
     {
-        return json?.Select(DeserializeFile).ToArray() ?? Array.Empty<SpdxFile>();
+        return json?.Select(DeserializeFile).ToArray() ?? [];
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Packages</returns>
     public static SpdxPackage[] DeserializePackages(JsonArray? json)
     {
-        return json?.Select(DeserializePackage).ToArray() ?? Array.Empty<SpdxPackage>();
+        return json?.Select(DeserializePackage).ToArray() ?? [];
     }
 
     /// <summary>
@@ -232,7 +232,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Snippets</returns>
     public static SpdxSnippet[] DeserializeSnippets(JsonArray? json)
     {
-        return json?.Select(DeserializeSnippet).ToArray() ?? Array.Empty<SpdxSnippet>();
+        return json?.Select(DeserializeSnippet).ToArray() ?? [];
     }
 
     /// <summary>
@@ -268,7 +268,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Relationships</returns>
     public static SpdxRelationship[] DeserializeRelationships(JsonArray? json)
     {
-        return json?.Select(DeserializeRelationship).ToArray() ?? Array.Empty<SpdxRelationship>();
+        return json?.Select(DeserializeRelationship).ToArray() ?? [];
     }
 
     /// <summary>
@@ -310,7 +310,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX External References</returns>
     public static SpdxExternalReference[] DeserializeExternalReferences(JsonArray? json)
     {
-        return json?.Select(DeserializeExternalReference).ToArray() ?? Array.Empty<SpdxExternalReference>();
+        return json?.Select(DeserializeExternalReference).ToArray() ?? [];
     }
 
     /// <summary>
@@ -336,7 +336,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Checksums</returns>
     public static SpdxChecksum[] DeserializeChecksums(JsonArray? json)
     {
-        return json?.Select(DeserializeChecksum).ToArray() ?? Array.Empty<SpdxChecksum>();
+        return json?.Select(DeserializeChecksum).ToArray() ?? [];
     }
 
     /// <summary>
@@ -360,7 +360,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>SPDX Annotations</returns>
     public static SpdxAnnotation[] DeserializeAnnotations(JsonArray? json)
     {
-        return json?.Select(DeserializeAnnotation).ToArray() ?? Array.Empty<SpdxAnnotation>();
+        return json?.Select(DeserializeAnnotation).ToArray() ?? [];
     }
 
     /// <summary>
@@ -410,7 +410,7 @@ public static class Spdx2JsonDeserializer
     /// <returns>String Array</returns>
     private static string[] ParseStringArray(JsonNode? node, string name)
     {
-        return node?[name]?.AsArray().GetValues<string>().ToArray() ?? Array.Empty<string>();
+        return node?[name]?.AsArray().GetValues<string>().ToArray() ?? [];
     }
 
     /// <summary>

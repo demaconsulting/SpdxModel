@@ -97,8 +97,7 @@ public class SpdxPackageTests
 
         packages = SpdxPackage.Enhance(
             packages,
-            new[]
-            {
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package-SpdxModel",
@@ -111,7 +110,7 @@ public class SpdxPackageTests
                     Name = "SomePackage",
                     Version = "1.2.3"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, packages.Length);
         Assert.AreEqual("SPDXRef-Package1", packages[0].Id);

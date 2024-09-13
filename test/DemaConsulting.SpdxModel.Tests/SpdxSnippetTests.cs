@@ -99,8 +99,7 @@ public class SpdxSnippetTests
 
         snippets = SpdxSnippet.Enhance(
             snippets,
-            new[]
-            {
+            [
                 new SpdxSnippet
                 {
                     SnippetFromFile = "SPDXRef-File1",
@@ -115,7 +114,7 @@ public class SpdxSnippetTests
                     SnippetByteStart = 10,
                     SnippetByteEnd = 40
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, snippets.Length);
         Assert.AreEqual("SPDXRef-File1", snippets[0].SnippetFromFile);

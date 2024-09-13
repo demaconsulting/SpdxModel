@@ -52,7 +52,7 @@ public sealed class SpdxPackageVerificationCode
     /// would be impossible to correctly calculate the verification codes in
     /// both files.
     /// </remarks>
-    public string[] ExcludedFiles { get; set; } = Array.Empty<string>();
+    public string[] ExcludedFiles { get; set; } = [];
 
     /// <summary>
     /// Verification Code Value Field
@@ -60,7 +60,7 @@ public sealed class SpdxPackageVerificationCode
     /// <remarks>
     /// The actual package verification code as a hex encoded value.
     /// </remarks>
-    public string Value { get; set; } = string.Empty;
+    public string Value { get; set; } = "";
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -83,8 +83,7 @@ public sealed class SpdxPackageVerificationCode
         ExcludedFiles = ExcludedFiles.Concat(other.ExcludedFiles).Distinct().ToArray();
 
         // Populate the value field if missing
-        if (string.IsNullOrWhiteSpace(Value))
-            Value = other.Value;
+        Value = SpdxHelpers.EnhanceString(Value, other.Value) ?? "";
     }
 
     /// <summary>

@@ -34,12 +34,12 @@ public class Spdx2JsonSerializeCreationInformation
             Comment =
                 "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             Created = "2010-01-29T18:30:22Z",
-            Creators = new[]
-            {
+            Creators =
+            [
                 "Tool: LicenseFind-1.0",
                 "Organization: ExampleCodeInspect ()",
                 "Person: Jane Doe ()"
-            },
+            ],
             LicenseListVersion = "3.17"
         };
 

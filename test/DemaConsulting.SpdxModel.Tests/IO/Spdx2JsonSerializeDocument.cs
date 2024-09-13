@@ -38,30 +38,30 @@ public class Spdx2JsonSerializeDocument
                 Comment =
                     "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
                 Created = "2010-01-29T18:30:22Z",
-                Creators = new[]
-                {
+                Creators =
+                [
                     "Tool: LicenseFind-1.0",
                     "Organization: ExampleCodeInspect ()",
                     "Person: Jane Doe ()"
-                },
+                ],
                 LicenseListVersion = "3.17"
             },
             Name = "SPDX-Tools-v2.0",
             DataLicense = "CC0-1.0",
             Comment = "This document was created using SPDX 2.0 using licenses from the web site.",
-            ExternalDocumentReferences = Array.Empty<SpdxExternalDocumentReference>(),
-            ExtractedLicensingInfo = Array.Empty<SpdxExtractedLicensingInfo>(),
-            Describes = new[]
-            {
+            ExternalDocumentReferences = [],
+            ExtractedLicensingInfo = [],
+            Describes =
+            [
                 "SPDXRef-File",
                 "SPDXRef-File",
                 "SPDXRef-Package"
-            },
+            ],
             DocumentNamespace = "http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
-            Packages = Array.Empty<SpdxPackage>(),
-            Files = Array.Empty<SpdxFile>(),
-            Snippets = Array.Empty<SpdxSnippet>(),
-            Relationships = Array.Empty<SpdxRelationship>()
+            Packages = [],
+            Files = [],
+            Snippets = [],
+            Relationships = []
         };
 
         // Act

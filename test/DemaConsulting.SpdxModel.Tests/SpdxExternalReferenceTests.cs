@@ -99,8 +99,7 @@ public class SpdxExternalReferenceTests
 
         references = SpdxExternalReference.Enhance(
             references,
-            new[]
-            {
+            [
                 new SpdxExternalReference
                 {
                     Category = SpdxReferenceCategory.Security,
@@ -114,7 +113,7 @@ public class SpdxExternalReferenceTests
                     Type = "purl",
                     Locator = "pkg:nuget/SomePackage@0.0.0"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, references.Length);
         Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);

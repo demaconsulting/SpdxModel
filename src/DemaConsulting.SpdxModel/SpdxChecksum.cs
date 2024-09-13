@@ -55,7 +55,7 @@ public sealed class SpdxChecksum
     /// The checksumValue property provides a lower case hexadecimal encoded
     /// digest value produced using a specific algorithm.
     /// </remarks>
-    public string Value { get; set; } = string.Empty;
+    public string Value { get; set; } = "";
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -79,8 +79,7 @@ public sealed class SpdxChecksum
             Algorithm = other.Algorithm;
 
         // Populate the value if missing
-        if (string.IsNullOrWhiteSpace(Value))
-            Value = other.Value;
+        Value = SpdxHelpers.EnhanceString(Value, other.Value) ?? "";
     }
 
     /// <summary>

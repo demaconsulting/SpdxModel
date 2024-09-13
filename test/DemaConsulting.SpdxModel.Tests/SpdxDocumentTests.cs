@@ -32,8 +32,8 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Name = "Test Document",
             DocumentNamespace = "http://example.com/SpdxDocument",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package1"
@@ -46,9 +46,9 @@ public class SpdxDocumentTests
                 {
                     Id = "SPDXRef-Package3"
                 }
-            },
-            Relationships = new[]
-            {
+            ],
+            Relationships =
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-DOCUMENT",
@@ -61,8 +61,8 @@ public class SpdxDocumentTests
                     RelationshipType = SpdxRelationshipType.DescribedBy,
                     RelatedSpdxElement = "SPDXRef-DOCUMENT"
                 }
-            },
-            Describes = new[] { "SPDXRef-Package1" }
+            ],
+            Describes = ["SPDXRef-Package1"]
         };
 
         // Act
@@ -80,19 +80,19 @@ public class SpdxDocumentTests
         var d1 = new SpdxDocument
         {
             Name = "DemaConsulting.SpdxModel-0.0.0",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package1",
                     Name = "DemaConsulting.SpdxModel",
                     Version = "0.0.0"
                 }
-            },
-            Describes = new[]
-            {
+            ],
+            Describes =
+            [
                 "SPDXRef-Package1"
-            }
+            ]
         };
 
         var d2 = new SpdxDocument
@@ -100,37 +100,37 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Version = "SPDX-2.2",
             Name = "DemaConsulting.SpdxModel-0.0.0",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package-SpdxModel",
                     Name = "DemaConsulting.SpdxModel",
                     Version = "0.0.0"
                 }
-            },
-            Describes = new[]
-            {
+            ],
+            Describes =
+            [
                 "SPDXRef-Package-SpdxModel"
-            }
+            ]
         };
 
         var d3 = new SpdxDocument
         {
             Name = "SomePackage-1.2.3",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package1",
                     Name = "SomePackage",
                     Version = "1.2.3"
                 }
-            },
-            Describes = new[]
-            {
+            ],
+            Describes =
+            [
                 "SPDXRef-Package1"
-            }
+            ]
         };
 
         // Assert documents compare to themselves
@@ -158,19 +158,19 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Version = "SPDX-2.2",
             Name = "DemaConsulting.SpdxModel-0.0.0",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package-SpdxModel",
                     Name = "DemaConsulting.SpdxModel",
                     Version = "0.0.0"
                 }
-            },
-            Describes = new[]
-            {
+            ],
+            Describes =
+            [
                 "SPDXRef-Package-SpdxModel"
-            }
+            ]
         };
 
         var d2 = d1.DeepCopy();
@@ -208,8 +208,8 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Name = "Test Document",
             DocumentNamespace = "http://example.com/SpdxDocument",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package1"
@@ -218,17 +218,17 @@ public class SpdxDocumentTests
                 {
                     Id = "SPDXRef-Package1"
                 }
-            },
-            Relationships = new[]
-            {
+            ],
+            Relationships =
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-DOCUMENT",
                     RelationshipType = SpdxRelationshipType.Describes,
                     RelatedSpdxElement = "SPDXRef-Package1"
                 }
-            },
-            Describes = new[] { "SPDXRef-Package1" }
+            ],
+            Describes = ["SPDXRef-Package1"]
         };
 
         // Perform validation
@@ -249,23 +249,23 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Name = "Test Document",
             DocumentNamespace = "http://example.com/SpdxDocument",
-            Packages = new[]
-            {
+            Packages =
+            [
                 new SpdxPackage
                 {
                     Id = "SPDXRef-Package1"
                 }
-            },
-            Relationships = new[]
-            {
+            ],
+            Relationships =
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-DOCUMENT",
                     RelationshipType = SpdxRelationshipType.Describes,
                     RelatedSpdxElement = "SPDXRef-Package2"
                 }
-            },
-            Describes = new[] { "SPDXRef-Package1" }
+            ],
+            Describes = ["SPDXRef-Package1"]
         };
 
         // Perform validation

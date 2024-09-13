@@ -9,37 +9,39 @@ public class SpdxRelationshipsTests
     /// <summary>
     /// Test SPDX document for relationships.
     /// </summary>
-    private const string Contents = "{\r\n" +
-                                    "  \"files\": [],\r\n" +
-                                    "  \"packages\": [" +
-                                    "    {\r\n" +
-                                    "      \"SPDXID\": \"SPDXRef-Package-1\",\r\n" +
-                                    "      \"name\": \"Test Package\",\r\n" +
-                                    "      \"versionInfo\": \"1.0.0\",\r\n" +
-                                    "      \"packageFileName\": \"package1.zip\",\r\n" +
-                                    "      \"downloadLocation\": \"https://github.com/demaconsulting/SpdxTool\",\r\n" +
-                                    "      \"licenseConcluded\": \"MIT\"\r\n" +
-                                    "    },\r\n" +
-                                    "    {\r\n" +
-                                    "      \"SPDXID\": \"SPDXRef-Package-2\",\r\n" +
-                                    "      \"name\": \"Another Test Package\",\r\n" +
-                                    "      \"versionInfo\": \"2.0.0\",\r\n" +
-                                    "      \"packageFileName\": \"package2.tar\",\r\n" +
-                                    "      \"downloadLocation\": \"https://github.com/demaconsulting/SpdxModel\",\r\n" +
-                                    "      \"licenseConcluded\": \"MIT\"\r\n" +
-                                    "    }\r\n" +
-                                    "  ],\r\n" +
-                                    "  \"spdxVersion\": \"SPDX-2.2\",\r\n" +
-                                    "  \"dataLicense\": \"CC0-1.0\",\r\n" +
-                                    "  \"SPDXID\": \"SPDXRef-DOCUMENT\",\r\n" +
-                                    "  \"name\": \"Test Document\",\r\n" +
-                                    "  \"documentNamespace\": \"https://sbom.spdx.org\",\r\n" +
-                                    "  \"creationInfo\": {\r\n" +
-                                    "    \"created\": \"2021-10-01T00:00:00Z\",\r\n" +
-                                    "    \"creators\": [ \"Person: Malcolm Nixon\" ]\r\n" +
-                                    "  },\r\n" +
-                                    "  \"documentDescribes\": [ \"SPDXRef-Package-1\" ]\r\n" +
-                                    "}";
+    private const string Contents = 
+        """
+        {
+          "files": [],
+          "packages": [    {
+              "SPDXID": "SPDXRef-Package-1",
+              "name": "Test Package",
+              "versionInfo": "1.0.0",
+              "packageFileName": "package1.zip",
+              "downloadLocation": "https://github.com/demaconsulting/SpdxTool",
+              "licenseConcluded": "MIT"
+            },
+            {
+              "SPDXID": "SPDXRef-Package-2",
+              "name": "Another Test Package",
+              "versionInfo": "2.0.0",
+              "packageFileName": "package2.tar",
+              "downloadLocation": "https://github.com/demaconsulting/SpdxModel",
+              "licenseConcluded": "MIT"
+            }
+          ],
+          "spdxVersion": "SPDX-2.2",
+          "dataLicense": "CC0-1.0",
+          "SPDXID": "SPDXRef-DOCUMENT",
+          "name": "Test Document",
+          "documentNamespace": "https://sbom.spdx.org",
+          "creationInfo": {
+            "created": "2021-10-01T00:00:00Z",
+            "creators": [ "Person: Malcolm Nixon" ]
+          },
+          "documentDescribes": [ "SPDXRef-Package-1" ]
+        }
+        """;
 
     [TestMethod]
     public void AddRelationshipBadId()
@@ -150,15 +152,14 @@ public class SpdxRelationshipsTests
         // Act
         SpdxRelationships.Add(
             document,
-            new[]
-            {
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package-1",
                     RelatedSpdxElement = "SPDXRef-Package-2",
                     RelationshipType = SpdxRelationshipType.DependsOn
                 }
-            });
+            ]);
 
         // Assert
         Assert.AreEqual(1, document.Relationships.Length);
@@ -176,8 +177,7 @@ public class SpdxRelationshipsTests
         // Act
         SpdxRelationships.Add(
             document,
-            new[]
-            {
+            [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package-1",
@@ -190,7 +190,7 @@ public class SpdxRelationshipsTests
                     RelatedSpdxElement = "SPDXRef-Package-2",
                     RelationshipType = SpdxRelationshipType.DependsOn
                 }
-            });
+            ]);
 
         // Assert
         Assert.AreEqual(1, document.Relationships.Length);
@@ -214,15 +214,14 @@ public class SpdxRelationshipsTests
             });
 
         // Act
-        SpdxRelationships.Add(document, new[]
-            {
+        SpdxRelationships.Add(document, [
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package-1",
                     RelatedSpdxElement = "SPDXRef-Package-2",
                     RelationshipType = SpdxRelationshipType.BuildToolOf
                 }
-            },
+            ],
             true);
 
         // Assert

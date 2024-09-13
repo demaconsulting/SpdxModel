@@ -33,7 +33,7 @@ public class SpdxPackageVerificationCodeTests
 
         var v2 = new SpdxPackageVerificationCode
         {
-            ExcludedFiles = new[] { "./package.spdx" },
+            ExcludedFiles = ["./package.spdx"],
             Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
         };
 
@@ -64,7 +64,7 @@ public class SpdxPackageVerificationCodeTests
     {
         var v1 = new SpdxPackageVerificationCode
         {
-            ExcludedFiles = new[] { "./package.spdx" },
+            ExcludedFiles = ["./package.spdx"],
             Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
         };
 
@@ -87,7 +87,7 @@ public class SpdxPackageVerificationCodeTests
         info.Enhance(
             new SpdxPackageVerificationCode
             {
-                ExcludedFiles = new[] { "./package.spdx" },
+                ExcludedFiles = ["./package.spdx"],
                 Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
             });
 

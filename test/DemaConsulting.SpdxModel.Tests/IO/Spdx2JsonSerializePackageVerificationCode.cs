@@ -32,11 +32,11 @@ public class Spdx2JsonSerializePackageVerificationCode
         var code = new SpdxPackageVerificationCode
         {
             Value = "d3b07384d113edec49eaa6238ad5ff00",
-            ExcludedFiles = new[]
-            {
+            ExcludedFiles =
+            [
                 "file1.txt",
                 "file2.txt"
-            }
+            ]
         };
 
         // Act

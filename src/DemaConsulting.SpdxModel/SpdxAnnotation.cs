@@ -44,7 +44,7 @@ public sealed class SpdxAnnotation : SpdxElement
     /// This field identifies the person, organization, or tool that has
     /// commented on a file, package, snippet, or the entire document.
     /// </remarks>
-    public string Annotator { get; set; } = string.Empty;
+    public string Annotator { get; set; } = "";
 
     /// <summary>
     /// Annotation Date Field (optional)
@@ -54,7 +54,7 @@ public sealed class SpdxAnnotation : SpdxElement
     /// to the combined date and time in the UTC format, as specified in the
     /// ISO 8601 standard.
     /// </remarks>
-    public string Date { get; set; } = string.Empty;
+    public string Date { get; set; } = "";
 
     /// <summary>
     /// Annotation Type Field (optional)
@@ -64,7 +64,7 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     /// Annotation Comment field (optional)
     /// </summary>
-    public string Comment { get; set; } = string.Empty;
+    public string Comment { get; set; } = "";
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -90,20 +90,17 @@ public sealed class SpdxAnnotation : SpdxElement
         EnhanceElement(other);
 
         // Populate the annotator if missing
-        if (string.IsNullOrWhiteSpace(Annotator))
-            Annotator = other.Annotator;
+        Annotator = SpdxHelpers.EnhanceString(Annotator, other.Annotator) ?? "";
 
         // Populate the date if missing
-        if (string.IsNullOrWhiteSpace(Date))
-            Date = other.Date;
+        Date = SpdxHelpers.EnhanceString(Date, other.Date) ?? "";
 
         // Populate the type if missing
         if (Type == SpdxAnnotationType.Missing)
             Type = other.Type;
 
         // Populate the comment if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment) ?? "";
     }
 
     /// <summary>

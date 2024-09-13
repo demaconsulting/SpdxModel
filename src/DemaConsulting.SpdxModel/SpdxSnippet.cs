@@ -44,7 +44,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     /// <remarks>
     /// SPDX ID for File. File containing the SPDX element (e.g. the file containing the snippet).
     /// </remarks>
-    public string SnippetFromFile { get; set; } = string.Empty;
+    public string SnippetFromFile { get; set; } = "";
 
     /// <summary>
     /// Snippet Byte Range Start Field
@@ -77,7 +77,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     ///
     /// If not present, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
-    public string[] LicenseInfoInSnippet { get; set; } = Array.Empty<string>();
+    public string[] LicenseInfoInSnippet { get; set; } = [];
 
     /// <summary>
     /// Snippet Comment Field (optional)
@@ -125,8 +125,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         EnhanceLicenseElement(other);
 
         // Populate the snippet-from-file field if missing
-        if (string.IsNullOrWhiteSpace(SnippetFromFile))
-            SnippetFromFile = other.SnippetFromFile;
+        SnippetFromFile = SpdxHelpers.EnhanceString(SnippetFromFile, other.SnippetFromFile) ?? "";
 
         // Populate the snippet-byte-start field if missing
         if (SnippetByteStart <= 0)
@@ -148,12 +147,10 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         LicenseInfoInSnippet = LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct().ToArray();
 
         // Populate the comment field if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
 
         // Populate the name field if missing
-        if (string.IsNullOrWhiteSpace(Name))
-            Name = other.Name;
+        Name = SpdxHelpers.EnhanceString(Name, other.Name);
     }
 
     /// <summary>

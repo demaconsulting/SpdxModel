@@ -43,7 +43,7 @@ public sealed class SpdxExternalDocumentReference
     /// <remarks>
     /// A string containing letters, numbers, ., - and/or + which uniquely identifies an external document within this document.
     /// </remarks>
-    public string ExternalDocumentId { get; set; } = string.Empty;
+    public string ExternalDocumentId { get; set; } = "";
 
     /// <summary>
     /// External Document Checksum Field
@@ -53,7 +53,7 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     /// SPDX Document URI Field
     /// </summary>
-    public string Document { get; set; } = string.Empty;
+    public string Document { get; set; } = "";
 
     /// <summary>
     /// Make a deep-copy of this object
@@ -74,14 +74,13 @@ public sealed class SpdxExternalDocumentReference
     public void Enhance(SpdxExternalDocumentReference other)
     {
         // Populate the external document ID if missing
-        if (string.IsNullOrWhiteSpace(ExternalDocumentId))
-            ExternalDocumentId = other.ExternalDocumentId;
+        ExternalDocumentId = SpdxHelpers.EnhanceString(ExternalDocumentId, other.ExternalDocumentId) ?? "";
 
         // Enhance the checksum
         Checksum.Enhance(other.Checksum);
 
-        if (string.IsNullOrWhiteSpace(Document))
-            Document = other.Document;
+        // Enhance the document URI if missing
+        Document = SpdxHelpers.EnhanceString(Document, other.Document) ?? "";
     }
 
     /// <summary>

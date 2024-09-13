@@ -94,8 +94,7 @@ public class SpdxExtractedLicensingInfoTests
 
         infos = SpdxExtractedLicensingInfo.Enhance(
             infos,
-            new[]
-            {
+            [
                 new SpdxExtractedLicensingInfo
                 {
                     LicenseId = "LicenseRef-1",
@@ -107,7 +106,7 @@ public class SpdxExtractedLicensingInfoTests
                     LicenseId = "LicenseRef-2",
                     ExtractedText = "Some Random License"
                 }
-            });
+            ]);
 
         Assert.AreEqual(2, infos.Length);
         Assert.AreEqual("LicenseRef-1", infos[0].LicenseId);

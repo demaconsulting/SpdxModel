@@ -36,7 +36,7 @@ public abstract class SpdxLicenseElement : SpdxElement
     ///
     /// If not present, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
-    public string ConcludedLicense { get; set; } = string.Empty;
+    public string ConcludedLicense { get; set; } = "";
 
     /// <summary>
     /// Comments On License Field (optional)
@@ -55,7 +55,7 @@ public abstract class SpdxLicenseElement : SpdxElement
     ///
     /// If not present, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
-    public string CopyrightText { get; set; } = string.Empty;
+    public string CopyrightText { get; set; } = "";
 
     /// <summary>
     /// Attribution Text Field
@@ -65,7 +65,7 @@ public abstract class SpdxLicenseElement : SpdxElement
     /// acknowledgements that may be required to be communicated in some
     /// contexts.
     /// </remarks>
-    public string[] AttributionText { get; set; } = Array.Empty<string>();
+    public string[] AttributionText { get; set; } = [];
 
     /// <summary>
     /// Annotations
@@ -73,7 +73,7 @@ public abstract class SpdxLicenseElement : SpdxElement
     /// <remarks>
     /// Provide additional information about this element.
     /// </remarks>
-    public SpdxAnnotation[] Annotations { get; set; } = Array.Empty<SpdxAnnotation>();
+    public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
     /// Enhance missing fields in the license element
@@ -85,16 +85,13 @@ public abstract class SpdxLicenseElement : SpdxElement
         EnhanceElement(other);
 
         // Populate the concluded license if missing
-        if (string.IsNullOrWhiteSpace(ConcludedLicense) || ConcludedLicense == "NOASSERTION")
-            ConcludedLicense = other.ConcludedLicense;
+        ConcludedLicense = SpdxHelpers.EnhanceString(ConcludedLicense, other.ConcludedLicense) ?? "";
 
         // Populate the license comments if missing
-        if (string.IsNullOrWhiteSpace(LicenseComments))
-            LicenseComments = other.LicenseComments;
+        LicenseComments = SpdxHelpers.EnhanceString(LicenseComments, other.LicenseComments);
 
         // Populate the copyright text if missing
-        if (string.IsNullOrWhiteSpace(CopyrightText) || CopyrightText == "NOASSERTION")
-            CopyrightText = other.CopyrightText;
+        CopyrightText = SpdxHelpers.EnhanceString(CopyrightText, other.CopyrightText) ?? "";
 
         // Merge the attribution texts
         AttributionText = AttributionText.Concat(other.AttributionText).Distinct().ToArray();

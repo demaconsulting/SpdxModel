@@ -53,7 +53,7 @@ public sealed class SpdxCreationInformation
     /// involved, use multiple instances of this field. Person name or
     /// organization name may be designated as “anonymous” if appropriate.
     /// </remarks>
-    public string[] Creators { get; set; } = Array.Empty<string>();
+    public string[] Creators { get; set; } = [];
 
     /// <summary>
     /// Created Field
@@ -63,7 +63,7 @@ public sealed class SpdxCreationInformation
     /// be specified according to combined date and time in UTC format as
     /// specified in ISO 8601 standard.
     /// </remarks>
-    public string Created { get; set; } = string.Empty;
+    public string Created { get; set; } = "";
 
     /// <summary>
     /// Creator Comment Field (optional)
@@ -102,16 +102,13 @@ public sealed class SpdxCreationInformation
         Creators = Creators.Concat(other.Creators).Distinct().ToArray();
 
         // Populate the created field if missing
-        if (string.IsNullOrWhiteSpace(Created))
-            Created = other.Created;
+        Created = SpdxHelpers.EnhanceString(Created, other.Created) ?? "";
 
         // Populate the comment field if missing
-        if (string.IsNullOrWhiteSpace(Comment))
-            Comment = other.Comment;
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
 
         // Populate the license-list-version field if missing
-        if (string.IsNullOrWhiteSpace(LicenseListVersion))
-            LicenseListVersion = other.LicenseListVersion;
+        LicenseListVersion = SpdxHelpers.EnhanceString(LicenseListVersion, other.LicenseListVersion);
     }
 
     /// <summary>
