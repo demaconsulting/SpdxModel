@@ -176,9 +176,10 @@ public sealed class SpdxExternalReference
         /// <inheritdoc />
         public int GetHashCode(SpdxExternalReference obj)
         {
-            return obj.Category.GetHashCode() ^
-                   obj.Type.GetHashCode() ^
-                   obj.Locator.GetHashCode();
+            return HashCode.Combine(
+                obj.Category,
+                obj.Type,
+                obj.Locator);
         }
     }
 }

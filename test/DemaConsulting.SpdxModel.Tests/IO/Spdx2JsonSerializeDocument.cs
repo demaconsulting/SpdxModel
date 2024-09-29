@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxDocument"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeDocument
 {
+    /// <summary>
+    /// Tests serializing a document.
+    /// </summary>
     [TestMethod]
     public void SerializeDocument()
     {

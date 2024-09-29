@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxCreationInformation"/> class.
+/// </summary>
 [TestClass]
 public class SpdxCreationInformationTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxCreationInformation.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -42,6 +48,9 @@ public class SpdxCreationInformationTests
         Assert.AreEqual("Person: Malcolm Nixon", c2.Creators[2]);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxCreationInformation.Enhance"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxRelationship"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeRelationship
 {
+    /// <summary>
+    /// Tests serializing a relationship.
+    /// </summary>
     [TestMethod]
     public void SerializeRelationship()
     {
@@ -48,6 +54,9 @@ public class Spdx2JsonSerializeRelationship
         Assert.AreEqual("Example Comment", json["comment"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple relationships.
+    /// </summary>
     [TestMethod]
     public void SerializeRelationships()
     {

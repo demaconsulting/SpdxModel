@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxExternalDocumentReference"/> class.
+/// </summary>
 [TestClass]
 public class SpdxExternalDocumentReferenceTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalDocumentReference.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void ExternalDocumentReferenceSameComparer()
     {
@@ -73,9 +79,12 @@ public class SpdxExternalDocumentReferenceTests
         Assert.IsFalse(SpdxExternalDocumentReference.Same.Equals(r3, r2));
 
         // Assert same external-document-references have identical hashes
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.GetHashCode(r1) == SpdxExternalDocumentReference.Same.GetHashCode(r2));
+        Assert.AreEqual(SpdxExternalDocumentReference.Same.GetHashCode(r1), SpdxExternalDocumentReference.Same.GetHashCode(r2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalDocumentReference.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -98,6 +107,9 @@ public class SpdxExternalDocumentReferenceTests
         Assert.AreEqual("http://demo.com/some-document", r2.Document);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalDocumentReference.Enhance(SpdxExternalDocumentReference[], SpdxExternalDocumentReference[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

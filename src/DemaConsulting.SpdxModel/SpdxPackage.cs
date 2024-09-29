@@ -469,7 +469,9 @@ public sealed class SpdxPackage : SpdxLicenseElement
         /// <inheritdoc />
         public int GetHashCode(SpdxPackage obj)
         {
-            return obj.Name.GetHashCode() ^ (obj.Version?.GetHashCode() ?? 0);
+            return HashCode.Combine(
+                obj.Name,
+                obj.Version);
         }
     }
 }

@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxFile"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeFile
 {
+    /// <summary>
+    /// Tests serializing a file.
+    /// </summary>
     [TestMethod]
     public void SerializeFile()
     {
@@ -102,6 +108,9 @@ public class Spdx2JsonSerializeFile
         Assert.AreEqual("File level annotation", json["annotations"]?[0]?["annotator"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple files.
+    /// </summary>
     [TestMethod]
     public void SerializeFiles()
     {

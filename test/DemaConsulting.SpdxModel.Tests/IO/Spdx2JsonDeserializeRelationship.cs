@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX relationships to <see cref="SpdxRelationship"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeRelationship
 {
+    /// <summary>
+    /// Tests deserializing a relationship.
+    /// </summary>
     [TestMethod]
     public void DeserializeRelationship()
     {
@@ -48,6 +54,9 @@ public class Spdx2JsonDeserializeRelationship
         Assert.AreEqual("This is just an example", relationship.Comment);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple relationships.
+    /// </summary>
     [TestMethod]
     public void DeserializeRelationships()
     {

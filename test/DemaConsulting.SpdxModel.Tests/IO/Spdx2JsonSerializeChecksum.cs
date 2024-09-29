@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxChecksum"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeChecksum
 {
+    /// <summary>
+    /// Tests serializing a checksum.
+    /// </summary>
     [TestMethod]
     public void SerializeChecksum()
     {
@@ -44,6 +50,9 @@ public class Spdx2JsonSerializeChecksum
         Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json["checksumValue"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple checksums.
+    /// </summary>
     [TestMethod]
     public void SerializeChecksums()
     {

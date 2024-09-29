@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX packages to <see cref="SpdxPackage"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializePackage
 {
+    /// <summary>
+    /// Tests deserializing a package.
+    /// </summary>
     [TestMethod]
     public void DeserializePackage()
     {
@@ -115,6 +121,9 @@ public class Spdx2JsonDeserializePackage
         Assert.AreEqual("cpe23Type", package.ExternalReferences[0].Type);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple packages.
+    /// </summary>
     [TestMethod]
     public void DeserializePackages()
     {

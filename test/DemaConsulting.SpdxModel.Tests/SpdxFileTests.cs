@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxFile"/> class.
+/// </summary>
 [TestClass]
 public class SpdxFileTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxFile.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void FileSameComparer()
     {
@@ -86,9 +92,12 @@ public class SpdxFileTests
         Assert.IsFalse(SpdxFile.Same.Equals(f3, f2));
 
         // Assert same files have identical hashes
-        Assert.IsTrue(SpdxFile.Same.GetHashCode(f1) == SpdxFile.Same.GetHashCode(f2));
+        Assert.AreEqual(SpdxFile.Same.GetHashCode(f1), SpdxFile.Same.GetHashCode(f2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxFile.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -120,6 +129,9 @@ public class SpdxFileTests
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", f2.Checksums[0].Value);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

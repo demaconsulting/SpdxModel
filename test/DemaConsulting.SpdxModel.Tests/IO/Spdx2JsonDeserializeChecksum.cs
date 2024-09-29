@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX checksums to <see cref="SpdxChecksum"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeChecksum
 {
+    /// <summary>
+    /// Tests deserializing a checksum.
+    /// </summary>
     [TestMethod]
     public void DeserializeChecksum()
     {
@@ -44,6 +50,9 @@ public class Spdx2JsonDeserializeChecksum
         Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksum.Value);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple checksums.
+    /// </summary>
     [TestMethod]
     public void DeserializeChecksums()
     {

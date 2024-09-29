@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX documents to <see cref="SpdxDocument"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeDocument
 {
+    /// <summary>
+    /// Tests deserializing a document.
+    /// </summary>
     [TestMethod]
     public void DeserializeDocument()
     {

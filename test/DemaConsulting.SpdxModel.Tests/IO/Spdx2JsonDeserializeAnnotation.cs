@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeAnnotation
 {
+    /// <summary>
+    /// Tests deserializing an annotation.
+    /// </summary>
     [TestMethod]
     public void DeserializeAnnotation()
     {
@@ -48,6 +54,9 @@ public class Spdx2JsonDeserializeAnnotation
         Assert.AreEqual("Document level annotation", annotation.Comment);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple annotations.
+    /// </summary>
     [TestMethod]
     public void DeserializeAnnotations()
     {

@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxExternalDocumentReference"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeExternalDocumentReference
 {
+    /// <summary>
+    /// Tests serializing an external document reference.
+    /// </summary>
     [TestMethod]
     public void SerializeExternalDocumentReference()
     {
@@ -51,6 +57,9 @@ public class Spdx2JsonSerializeExternalDocumentReference
             json["spdxDocument"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple external document references.
+    /// </summary>
     [TestMethod]
     public void SerializeExternalDocumentReferences()
     {

@@ -107,17 +107,17 @@ public sealed class SpdxFile : SpdxLicenseElement
         {
             Id = Id,
             FileName = FileName,
-            FileTypes = FileTypes.ToArray(),
-            Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
+            FileTypes = [..FileTypes],
+            Checksums = [..Checksums.Select(c => c.DeepCopy())],
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoInFiles = LicenseInfoInFiles.ToArray(),
+            LicenseInfoInFiles = [..LicenseInfoInFiles],
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
             Comment = Comment,
             Notice = Notice,
-            Contributors = Contributors.ToArray(),
-            AttributionText = AttributionText.ToArray(),
-            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+            Contributors = [..Contributors],
+            AttributionText = [..AttributionText],
+            Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
     /// <summary>
@@ -180,7 +180,7 @@ public sealed class SpdxFile : SpdxLicenseElement
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>

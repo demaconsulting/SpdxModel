@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxExternalReference"/> class.
+/// </summary>
 [TestClass]
 public class SpdxExternalReferenceTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalReference.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void ExternalReferenceSameComparer()
     {
@@ -62,9 +68,12 @@ public class SpdxExternalReferenceTests
         Assert.IsFalse(SpdxExternalReference.Same.Equals(r3, r2));
 
         // Assert same external-references have identical hashes
-        Assert.IsTrue(SpdxExternalReference.Same.GetHashCode(r1) == SpdxExternalReference.Same.GetHashCode(r2));
+        Assert.AreEqual(SpdxExternalReference.Same.GetHashCode(r1), SpdxExternalReference.Same.GetHashCode(r2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalReference.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -84,6 +93,9 @@ public class SpdxExternalReferenceTests
         Assert.AreEqual(SpdxReferenceCategory.Other, r2.Category);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExternalReference.Enhance(SpdxExternalReference[], SpdxExternalReference[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxAnnotation"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeAnnotation
 {
+    /// <summary>
+    /// Tests serializing an annotation.
+    /// </summary>
     [TestMethod]
     public void SerializeAnnotation()
     {
@@ -49,6 +55,9 @@ public class Spdx2JsonSerializeAnnotation
         Assert.AreEqual("This is a comment", json["comment"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple annotations.
+    /// </summary>
     [TestMethod]
     public void SerializeAnnotations()
     {

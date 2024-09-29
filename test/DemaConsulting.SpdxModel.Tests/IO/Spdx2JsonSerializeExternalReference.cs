@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxExternalReference"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeExternalReference
 {
+    /// <summary>
+    /// Tests serializing an external reference.
+    /// </summary>
     [TestMethod]
     public void SerializeExternalReference()
     {
@@ -49,6 +55,9 @@ public class Spdx2JsonSerializeExternalReference
         Assert.AreEqual("Example Comment", json["comment"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple external references.
+    /// </summary>
     [TestMethod]
     public void SerializeExternalReferences()
     {

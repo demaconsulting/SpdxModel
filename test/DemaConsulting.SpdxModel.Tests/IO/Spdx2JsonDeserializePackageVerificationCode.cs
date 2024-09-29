@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX package verification codes to <see cref="SpdxPackageVerificationCode"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializePackageVerificationCode
 {
+    /// <summary>
+    /// Tests deserializing a package verification code.
+    /// </summary>
     [TestMethod]
     public void DeserializePackageVerificationCode()
     {

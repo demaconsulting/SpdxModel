@@ -82,7 +82,7 @@ public sealed class SpdxExtractedLicensingInfo
             LicenseId = LicenseId,
             ExtractedText = ExtractedText,
             Name = Name,
-            CrossReferences = CrossReferences.ToArray(),
+            CrossReferences = [..CrossReferences],
             Comment = Comment
         };
 
@@ -137,7 +137,7 @@ public sealed class SpdxExtractedLicensingInfo
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>

@@ -69,7 +69,7 @@ public sealed class SpdxPackageVerificationCode
     public SpdxPackageVerificationCode DeepCopy() =>
         new()
         {
-            ExcludedFiles = ExcludedFiles.ToArray(),
+            ExcludedFiles = [..ExcludedFiles],
             Value = Value
         };
 
