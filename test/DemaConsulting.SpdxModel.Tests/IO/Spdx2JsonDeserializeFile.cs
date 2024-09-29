@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX files to <see cref="SpdxFile"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeFile
 {
+    /// <summary>
+    /// Tests deserializing a file.
+    /// </summary>
     [TestMethod]
     public void DeserializeFile()
     {
@@ -69,6 +75,9 @@ public class Spdx2JsonDeserializeFile
         Assert.AreEqual("This is a notice", file.Notice);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple files.
+    /// </summary>
     [TestMethod]
     public void DeserializeFiles()
     {

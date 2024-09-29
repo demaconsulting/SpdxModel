@@ -112,7 +112,7 @@ public sealed class SpdxExternalDocumentReference
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>

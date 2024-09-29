@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxCreationInformation"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeCreationInformation
 {
+    /// <summary>
+    /// Tests serializing creation information.
+    /// </summary>
     [TestMethod]
     public void SerializeCreationInformation()
     {

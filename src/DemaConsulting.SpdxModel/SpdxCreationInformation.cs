@@ -86,7 +86,7 @@ public sealed class SpdxCreationInformation
     public SpdxCreationInformation DeepCopy() =>
         new()
         {
-            Creators = Creators.ToArray(),
+            Creators = [..Creators],
             Created = Created,
             Comment = Comment,
             LicenseListVersion = LicenseListVersion

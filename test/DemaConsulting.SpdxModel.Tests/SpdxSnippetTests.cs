@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxSnippet"/> class.
+/// </summary>
 [TestClass]
 public class SpdxSnippetTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxSnippet.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void SnippetSameComparer()
     {
@@ -63,9 +69,12 @@ public class SpdxSnippetTests
         Assert.IsFalse(SpdxSnippet.Same.Equals(s3, s2));
 
         // Assert same snippets have identical hashes
-        Assert.IsTrue(SpdxSnippet.Same.GetHashCode(s1) == SpdxSnippet.Same.GetHashCode(s2));
+        Assert.AreEqual(SpdxSnippet.Same.GetHashCode(s1), SpdxSnippet.Same.GetHashCode(s2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxSnippet.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -84,6 +93,9 @@ public class SpdxSnippetTests
         Assert.AreEqual("SPDXRef-File2", s2.SnippetFromFile);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

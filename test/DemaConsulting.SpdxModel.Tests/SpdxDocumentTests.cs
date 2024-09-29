@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxDocument"/> class.
+/// </summary>
 [TestClass]
 public class SpdxDocumentTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.GetRootPackages"/> method.
+    /// </summary>
     [TestMethod]
     public void TestGetRootPackages()
     {
@@ -74,6 +80,9 @@ public class SpdxDocumentTests
         Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package2"));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void DocumentSameComparer()
     {
@@ -147,9 +156,12 @@ public class SpdxDocumentTests
         Assert.IsFalse(SpdxDocument.Same.Equals(d3, d2));
 
         // Assert same documents have identical hashes
-        Assert.IsTrue(SpdxDocument.Same.GetHashCode(d1) == SpdxDocument.Same.GetHashCode(d2));
+        Assert.AreEqual(SpdxDocument.Same.GetHashCode(d1), SpdxDocument.Same.GetHashCode(d2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -181,6 +193,9 @@ public class SpdxDocumentTests
         Assert.AreEqual("TestName", d2.Name);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.Validate"/> method.
+    /// </summary>
     [TestMethod]
     public void Validate()
     {
@@ -199,6 +214,9 @@ public class SpdxDocumentTests
         Assert.AreEqual(0, issues.Count);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.Validate"/> method detects duplicate IDs.
+    /// </summary>
     [TestMethod]
     public void ValidateDuplicateIds()
     {
@@ -239,7 +257,9 @@ public class SpdxDocumentTests
         Assert.IsTrue(issues.Contains("Document Duplicate Element ID: SPDXRef-Package1"));
     }
 
-
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.Validate"/> method detects bad relationships.
+    /// </summary>
     [TestMethod]
     public void ValidateBadRelationship()
     {
@@ -276,6 +296,9 @@ public class SpdxDocumentTests
         Assert.IsTrue(issues.Contains("Relationship Invalid Related SPDX Element Field: SPDXRef-Package2"));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.Validate"/> method detects NTIA issues.
+    /// </summary>
     [TestMethod]
     public void ValidateNtia()
     {
@@ -297,6 +320,9 @@ public class SpdxDocumentTests
         Assert.IsTrue(issues.Contains("NTIA: Package Saxon Missing Supplier"));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.GetAllElements"/> method.
+    /// </summary>
     [TestMethod]
     public void GetAllElements()
     {
@@ -330,6 +356,9 @@ public class SpdxDocumentTests
         Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-File"));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxDocument.GetElement"/> method.
+    /// </summary>
     [TestMethod]
     public void GetElement()
     {

@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX snippets to <see cref="SpdxSnippet"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeSnippet
 {
+    /// <summary>
+    /// Tests deserializing a snippet.
+    /// </summary>
     [TestMethod]
     public void DeserializeSnippet()
     {
@@ -99,6 +105,9 @@ public class Spdx2JsonDeserializeSnippet
         Assert.AreEqual("SPDXRef-DoapSource", snippet.SnippetFromFile);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple snippets.
+    /// </summary>
     [TestMethod]
     public void DeserializeSnippets()
     {

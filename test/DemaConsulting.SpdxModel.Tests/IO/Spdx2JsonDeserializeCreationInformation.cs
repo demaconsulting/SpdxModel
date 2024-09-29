@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX creation information to <see cref="SpdxCreationInformation"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeCreationInformation
 {
+    /// <summary>
+    /// Tests deserializing creation information.
+    /// </summary>
     [TestMethod]
     public void DeserializeCreationInformation()
     {

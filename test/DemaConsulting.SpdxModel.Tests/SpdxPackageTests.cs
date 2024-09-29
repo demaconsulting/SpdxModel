@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxPackage"/> class.
+/// </summary>
 [TestClass]
 public class SpdxPackageTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxPackage.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void PackageSameComparer()
     {
@@ -61,9 +67,12 @@ public class SpdxPackageTests
         Assert.IsFalse(SpdxPackage.Same.Equals(p3, p2));
 
         // Assert same packages have identical hashes
-        Assert.IsTrue(SpdxPackage.Same.GetHashCode(p1) == SpdxPackage.Same.GetHashCode(p2));
+        Assert.AreEqual(SpdxPackage.Same.GetHashCode(p1), SpdxPackage.Same.GetHashCode(p2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxPackage.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -82,6 +91,9 @@ public class SpdxPackageTests
         Assert.AreEqual("SPDXRef-Package2", p2.Id);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxPackage.Enhance(SpdxPackage[], SpdxPackage[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

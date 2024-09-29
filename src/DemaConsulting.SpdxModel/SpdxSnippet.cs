@@ -111,8 +111,8 @@ public sealed class SpdxSnippet : SpdxLicenseElement
             CopyrightText = CopyrightText,
             Comment = Comment,
             Name = Name,
-            AttributionText = AttributionText.ToArray(),
-            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+            AttributionText = [..AttributionText],
+            Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
     /// <summary>
@@ -182,7 +182,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>
@@ -235,9 +235,10 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         /// <inheritdoc />
         public int GetHashCode(SpdxSnippet obj)
         {
-            return obj.SnippetFromFile.GetHashCode() ^
-                   obj.SnippetByteStart.GetHashCode() ^
-                   obj.SnippetByteEnd.GetHashCode();
+            return HashCode.Combine(
+                obj.SnippetFromFile,
+                obj.SnippetByteStart,
+                obj.SnippetByteEnd);
         }
     }
 }

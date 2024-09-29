@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX 2.3 JSON documents to <see cref="SpdxDocument"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserialize23
 {
+    /// <summary>
+    /// Test parsing SPDX 2.3 JSON document.
+    /// </summary>
     [TestMethod]
     public void TestParse23()
     {

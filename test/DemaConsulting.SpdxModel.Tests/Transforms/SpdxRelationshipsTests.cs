@@ -3,6 +3,9 @@ using DemaConsulting.SpdxModel.Transform;
 
 namespace DemaConsulting.SpdxModel.Tests.Transforms;
 
+/// <summary>
+/// Tests for the <see cref="SpdxRelationship"/> transforms.
+/// </summary>
 [TestClass]
 public class SpdxRelationshipsTests
 {
@@ -43,6 +46,9 @@ public class SpdxRelationshipsTests
         }
         """;
 
+    /// <summary>
+    /// Tests adding a relationship with a bad ID.
+    /// </summary>
     [TestMethod]
     public void AddRelationshipBadId()
     {
@@ -66,6 +72,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(0, document.Relationships.Length);
     }
 
+    /// <summary>
+    /// Tests adding a relationship with a bad related element.
+    /// </summary>
     [TestMethod]
     public void AddRelationshipBadRelatedElement()
     {
@@ -89,6 +98,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(0, document.Relationships.Length);
     }
 
+    /// <summary>
+    /// Tests adding a relationship.
+    /// </summary>
     [TestMethod]
     public void AddRelationship()
     {
@@ -112,6 +124,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
+    /// <summary>
+    /// Tests adding a duplicate relationship.
+    /// </summary>
     [TestMethod]
     public void AddRelationshipDuplicate()
     {
@@ -143,6 +158,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
+    /// <summary>
+    /// Tests adding multiple relationships.
+    /// </summary>
     [TestMethod]
     public void AddRelationships()
     {
@@ -168,6 +186,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
+    /// <summary>
+    /// Tests adding multiple relationships with a duplicate.
+    /// </summary>
     [TestMethod]
     public void AddRelationshipsDuplicate()
     {
@@ -199,6 +220,9 @@ public class SpdxRelationshipsTests
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
+    /// <summary>
+    /// Tests adding multiple relationships with a duplicate and replace.
+    /// </summary>
     [TestMethod]
     public void AddRelationshipsReplace()
     {

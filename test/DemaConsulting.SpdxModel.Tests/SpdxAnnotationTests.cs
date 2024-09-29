@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxAnnotation"/> class.
+/// </summary>
 [TestClass]
 public class SpdxAnnotationTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotation.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void AnnotationSameComparer()
     {
@@ -64,9 +70,12 @@ public class SpdxAnnotationTests
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a3, a2));
 
         // Assert same annotations have identical hashes
-        Assert.IsTrue(SpdxAnnotation.Same.GetHashCode(a1) == SpdxAnnotation.Same.GetHashCode(a2));
+        Assert.AreEqual(SpdxAnnotation.Same.GetHashCode(a1), SpdxAnnotation.Same.GetHashCode(a2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotation.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -86,6 +95,9 @@ public class SpdxAnnotationTests
         Assert.AreEqual("Looks bad", a2.Comment);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotation.Enhance(SpdxAnnotation[], SpdxAnnotation[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

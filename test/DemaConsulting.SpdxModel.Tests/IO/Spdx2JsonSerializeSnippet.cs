@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxSnippet"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeSnippet
 {
+    /// <summary>
+    /// Tests serializing a snippet.
+    /// </summary>
     [TestMethod]
     public void SerializeSnippet()
     {
@@ -70,6 +76,9 @@ public class Spdx2JsonSerializeSnippet
         Assert.AreEqual("3", json["ranges"]?[1]?["startPointer"]?["lineNumber"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple snippets.
+    /// </summary>
     [TestMethod]
     public void SerializeSnippets()
     {

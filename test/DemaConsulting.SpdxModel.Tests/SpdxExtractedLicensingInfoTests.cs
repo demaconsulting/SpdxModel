@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxExtractedLicensingInfo"/> class.
+/// </summary>
 [TestClass]
 public class SpdxExtractedLicensingInfoTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxExtractedLicensingInfo.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void ExtractedLicensingInfoSameComparer()
     {
@@ -59,9 +65,12 @@ public class SpdxExtractedLicensingInfoTests
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l3, l2));
 
         // Assert same extracted-licensing-infos have identical hashes
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.GetHashCode(l1) == SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
+        Assert.AreEqual(SpdxExtractedLicensingInfo.Same.GetHashCode(l1), SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExtractedLicensingInfo.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -80,6 +89,9 @@ public class SpdxExtractedLicensingInfoTests
         Assert.AreEqual("Different License", l2.ExtractedText);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxExtractedLicensingInfo.Enhance(SpdxExtractedLicensingInfo[], SpdxExtractedLicensingInfo[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

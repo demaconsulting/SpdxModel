@@ -22,15 +22,13 @@ using System.Text.RegularExpressions;
 
 namespace DemaConsulting.SpdxModel;
 
-internal static class SpdxHelpers
+internal static partial class SpdxHelpers
 {
     /// <summary>
     /// Regular expression for checking date/time formats
     /// </summary>
-    private static readonly Regex DateTimeRegex = new(
-        @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z",
-        RegexOptions.None,
-        TimeSpan.FromMilliseconds(100));
+    [GeneratedRegex(@"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", RegexOptions.None, 100)]
+    private static partial Regex DateTimeRegex();
 
     /// <summary>
     /// Test if a string is a valid SPDX date/time field (which include null/empty)
@@ -39,7 +37,7 @@ internal static class SpdxHelpers
     /// <returns>True if valid</returns>
     internal static bool IsValidSpdxDateTime(string? value)
     {
-        return string.IsNullOrEmpty(value) || DateTimeRegex.IsMatch(value);
+        return string.IsNullOrEmpty(value) || DateTimeRegex().IsMatch(value);
     }
 
     /// <summary>
@@ -49,32 +47,18 @@ internal static class SpdxHelpers
     /// <returns>Best string</returns>
     internal static string? EnhanceString(params string?[] values)
     {
-        // Start assuming no string
-        string? ret = null;
-        var retFitness = 0;
-
-        // Select the string with the highest fitness
-        foreach (var value in values)
-        {
-            // Calculate the fitness
-            var fitness = value switch
-            {
-                null => 0,
-                "" => 1,
-                SpdxElement.NoAssertion => 2,
-                _ => 3
-            };
-
-            // Skip if not an improvement
-            if (fitness <= retFitness)
-                continue;
-
-            // Update the return value
-            ret = value;
-            retFitness = fitness;
-        }
-
-        // Return the fittest string
-        return ret;
+        // Return the value with the highest fitness
+        return values
+            .Select(value => (
+                Value: value,
+                Fitness: value switch
+                {
+                    null => 0,
+                    "" => 1,
+                    SpdxElement.NoAssertion => 2,
+                    _ => 3
+                }))
+            .OrderByDescending(x => x.Fitness)
+            .FirstOrDefault().Value;
     }
 }

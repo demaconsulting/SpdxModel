@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxPackage"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializePackage
 {
+    /// <summary>
+    /// Tests serializing a package.
+    /// </summary>
     [TestMethod]
     public void SerializePackage()
     {
@@ -127,6 +133,9 @@ public class Spdx2JsonSerializePackage
             json["packageVerificationCode"]?["packageVerificationCodeValue"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple packages.
+    /// </summary>
     [TestMethod]
     public void SerializePackages()
     {

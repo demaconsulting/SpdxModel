@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxChecksum"/> class.
+/// </summary>
 [TestClass]
 public class SpdxChecksumTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksum.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void ChecksumSameComparer()
     {
@@ -58,9 +64,12 @@ public class SpdxChecksumTests
         Assert.IsFalse(SpdxChecksum.Same.Equals(c3, c2));
 
         // Assert same checksums have identical hashes
-        Assert.IsTrue(SpdxChecksum.Same.GetHashCode(c1) == SpdxChecksum.Same.GetHashCode(c2));
+        Assert.AreEqual(SpdxChecksum.Same.GetHashCode(c1), SpdxChecksum.Same.GetHashCode(c2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksum.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -78,6 +87,9 @@ public class SpdxChecksumTests
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", c2.Value);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {

@@ -111,7 +111,7 @@ public sealed class SpdxChecksum
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
 
     /// <summary>
@@ -148,7 +148,7 @@ public sealed class SpdxChecksum
         /// <inheritdoc />
         public int GetHashCode(SpdxChecksum obj)
         {
-            return obj.Algorithm.GetHashCode() ^ obj.Value.GetHashCode();
+            return HashCode.Combine(obj.Algorithm, obj.Value);
         }
     }
 }

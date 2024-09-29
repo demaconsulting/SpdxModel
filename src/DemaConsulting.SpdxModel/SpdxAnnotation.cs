@@ -132,7 +132,7 @@ public sealed class SpdxAnnotation : SpdxElement
         }
 
         // Return as array
-        return list.ToArray();
+        return [..list];
     }
     
     /// <summary>
@@ -179,10 +179,11 @@ public sealed class SpdxAnnotation : SpdxElement
         /// <inheritdoc />
         public int GetHashCode(SpdxAnnotation obj)
         {
-            return obj.Annotator.GetHashCode() ^
-                   obj.Date.GetHashCode() ^
-                   obj.Type.GetHashCode() ^
-                   obj.Comment.GetHashCode();
+            return HashCode.Combine(
+                obj.Annotator,
+                obj.Date,
+                obj.Type,
+                obj.Comment);
         }
     }
 }

@@ -23,9 +23,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for deserializing SPDX external references to <see cref="SpdxExternalReference"/> classes.
+/// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeExternalReference
 {
+    /// <summary>
+    /// Tests deserializing an external reference.
+    /// </summary>
     [TestMethod]
     public void DeserializeExternalReference()
     {
@@ -48,6 +54,9 @@ public class Spdx2JsonDeserializeExternalReference
         Assert.AreEqual(SpdxReferenceCategory.Security, reference.Category);
     }
 
+    /// <summary>
+    /// Tests deserializing multiple external references.
+    /// </summary>
     [TestMethod]
     public void DeserializeExternalReferences()
     {

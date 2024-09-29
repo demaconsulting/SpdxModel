@@ -22,9 +22,15 @@ using DemaConsulting.SpdxModel.IO;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
+/// <summary>
+/// Tests for serializing <see cref="SpdxExtractedLicensingInfo"/> to JSON.
+/// </summary>
 [TestClass]
 public class Spdx2JsonSerializeExtractedLicensingInfo
 {
+    /// <summary>
+    /// Tests serializing an extracted licensing info.
+    /// </summary>
     [TestMethod]
     public void SerializeExtractedLicensingInfo()
     {
@@ -49,6 +55,9 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
         Assert.AreEqual("This is a comment", json["comment"]?.ToString());
     }
 
+    /// <summary>
+    /// Tests serializing multiple extracted licensing infos.
+    /// </summary>
     [TestMethod]
     public void SerializeExtractedLicensingInfos()
     {

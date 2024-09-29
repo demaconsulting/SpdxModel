@@ -20,9 +20,15 @@
 
 namespace DemaConsulting.SpdxModel.Tests;
 
+/// <summary>
+/// Tests for the <see cref="SpdxRelationship"/> class.
+/// </summary>
 [TestClass]
 public class SpdxRelationshipTests
 {
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationship.Same"/> comparer.
+    /// </summary>
     [TestMethod]
     public void RelationshipSameComparer()
     {
@@ -62,9 +68,12 @@ public class SpdxRelationshipTests
         Assert.IsFalse(SpdxRelationship.Same.Equals(r3, r2));
 
         // Assert same relationships have identical hashes
-        Assert.IsTrue(SpdxRelationship.Same.GetHashCode(r1) == SpdxRelationship.Same.GetHashCode(r2));
+        Assert.AreEqual(SpdxRelationship.Same.GetHashCode(r1), SpdxRelationship.Same.GetHashCode(r2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationship.SameElements"/> comparer.
+    /// </summary>
     [TestMethod]
     public void RelationshipSameElementsComparer()
     {
@@ -107,6 +116,9 @@ public class SpdxRelationshipTests
         Assert.IsTrue(SpdxRelationship.SameElements.GetHashCode(r1) == SpdxRelationship.SameElements.GetHashCode(r2));
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationship.DeepCopy"/> method.
+    /// </summary>
     [TestMethod]
     public void DeepCopy()
     {
@@ -126,6 +138,9 @@ public class SpdxRelationshipTests
         Assert.AreEqual("SPDXRef-Package3", r2.Id);
     }
 
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationship.Enhance(SpdxRelationship[], SpdxRelationship[])"/> method.
+    /// </summary>
     [TestMethod]
     public void Enhance()
     {
