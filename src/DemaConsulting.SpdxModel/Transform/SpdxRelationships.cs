@@ -57,7 +57,7 @@ public static class SpdxRelationships
         {
             // Copy the new relationship
             existing = relationship.DeepCopy();
-            document.Relationships = document.Relationships.Append(existing).ToArray();
+            document.Relationships = [..document.Relationships.Append(existing)];
         }
     }
 }
