@@ -8,16 +8,16 @@
     <PackageProjectUrl>https://github.com/demaconsulting/SpdxModel</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageTags>spdx;sbom</PackageTags>
-	<Description>SPDX Model Library</Description>
-	<Copyright>Copyright DEMA Consulting</Copyright>
-	<Title>SPDX Model Library</Title>
+    <PackageTags>spdx;sbom</PackageTags>
+    <Description>SPDX Model Library</Description>
+    <Copyright>Copyright DEMA Consulting</Copyright>
+    <Title>SPDX Model Library</Title>
     <Authors>DEMA Consulting</Authors>
-	<Company>DEMA Consulting</Company>
-	<Version>0.0.0</Version>
-	<PackageId>DemaConsulting.SpdxModel</PackageId>
-	<Product>DemaConsulting.SpdxModel</Product>
-	<PackageIcon>Icon.png</PackageIcon>
+    <Company>DEMA Consulting</Company>
+    <Version>0.0.0</Version>
+    <PackageId>DemaConsulting.SpdxModel</PackageId>
+    <Product>DemaConsulting.SpdxModel</Product>
+    <PackageIcon>Icon.png</PackageIcon>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
