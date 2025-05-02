@@ -53,13 +53,13 @@ public class Spdx2JsonSerializeCreationInformation
         var json = Spdx2JsonSerializer.SerializeCreationInformation(creationInformation);
 
         // Assert
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual(
             "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
-            json["comment"]?.ToString());
-        Assert.AreEqual("2010-01-29T18:30:22Z", json["created"]?.ToString());
-        Assert.AreEqual("Tool: LicenseFind-1.0", json["creators"]?[0]?.ToString());
-        Assert.AreEqual("Organization: ExampleCodeInspect ()", json["creators"]?[1]?.ToString());
-        Assert.AreEqual("Person: Jane Doe ()", json["creators"]?[2]?.ToString());
-        Assert.AreEqual("3.17", json["licenseListVersion"]?.ToString());
+            json["comment"]);
+        SpdxJsonHelpers.AssertEqual("2010-01-29T18:30:22Z", json["created"]);
+        SpdxJsonHelpers.AssertEqual("Tool: LicenseFind-1.0", json["creators"]?[0]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect ()", json["creators"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe ()", json["creators"]?[2]);
+        SpdxJsonHelpers.AssertEqual("3.17", json["licenseListVersion"]);
     }
 }

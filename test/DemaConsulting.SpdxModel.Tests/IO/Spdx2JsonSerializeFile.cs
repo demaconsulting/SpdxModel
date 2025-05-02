@@ -82,30 +82,30 @@ public class Spdx2JsonSerializeFile
         var json = Spdx2JsonSerializer.SerializeFile(file);
 
         // Assert
-        Assert.AreEqual("SPDXRef-DoapSource", json["SPDXID"]?.ToString());
-        Assert.AreEqual("./src/org/spdx/parser/DOAPProject.java", json["fileName"]?.ToString());
-        Assert.AreEqual("SOURCE", json["fileTypes"]?[0]?.ToString());
-        Assert.AreEqual("SHA1", json["checksums"]?[0]?["algorithm"]?.ToString());
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
-            json["checksums"]?[0]?["checksumValue"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json["licenseConcluded"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json["licenseInfoInFiles"]?[0]?.ToString());
-        Assert.AreEqual("This license is used by Jena", json["licenseComments"]?.ToString());
-        Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", json["copyrightText"]?.ToString());
-        Assert.AreEqual("This file is a sample DOAP file", json["comment"]?.ToString());
-        Assert.AreEqual("Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com", json["noticeText"]?.ToString());
-        Assert.AreEqual("Protecode Inc.", json["fileContributors"]?[0]?.ToString());
-        Assert.AreEqual("SPDX Technical Team Members", json["fileContributors"]?[1]?.ToString());
-        Assert.AreEqual("Open Logic Inc.", json["fileContributors"]?[2]?.ToString());
-        Assert.AreEqual("Source Auditor Inc.", json["fileContributors"]?[3]?.ToString());
-        Assert.AreEqual("Black Duck Software In.c", json["fileContributors"]?[4]?.ToString());
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual("SPDXRef-DoapSource", json["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("./src/org/spdx/parser/DOAPProject.java", json["fileName"]);
+        SpdxJsonHelpers.AssertEqual("SOURCE", json["fileTypes"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json["checksums"]?[0]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
+            json["checksums"]?[0]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("Apache-2.0", json["licenseConcluded"]);
+        SpdxJsonHelpers.AssertEqual("Apache-2.0", json["licenseInfoInFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("This license is used by Jena", json["licenseComments"]);
+        SpdxJsonHelpers.AssertEqual("Copyright 2010, 2011 Source Auditor Inc.", json["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("This file is a sample DOAP file", json["comment"]);
+        SpdxJsonHelpers.AssertEqual("Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com", json["noticeText"]);
+        SpdxJsonHelpers.AssertEqual("Protecode Inc.", json["fileContributors"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SPDX Technical Team Members", json["fileContributors"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Open Logic Inc.", json["fileContributors"]?[2]);
+        SpdxJsonHelpers.AssertEqual("Source Auditor Inc.", json["fileContributors"]?[3]);
+        SpdxJsonHelpers.AssertEqual("Black Duck Software In.c", json["fileContributors"]?[4]);
+        SpdxJsonHelpers.AssertEqual(
             "All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by the AT&T.",
-            json["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json["annotations"]?[0]?["annotationDate"]?.ToString());
-        Assert.AreEqual("OTHER", json["annotations"]?[0]?["annotationType"]?.ToString());
-        Assert.AreEqual("Person: File Commenter", json["annotations"]?[0]?["comment"]?.ToString());
-        Assert.AreEqual("File level annotation", json["annotations"]?[0]?["annotator"]?.ToString());
+            json["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json["annotations"]?[0]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json["annotations"]?[0]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("Person: File Commenter", json["annotations"]?[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("File level annotation", json["annotations"]?[0]?["annotator"]);
     }
 
     /// <summary>
@@ -165,30 +165,31 @@ public class Spdx2JsonSerializeFile
         var json = Spdx2JsonSerializer.SerializeFiles(file);
 
         // Assert
+        Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
-        Assert.AreEqual("SPDXRef-DoapSource", json[0]?["SPDXID"]?.ToString());
-        Assert.AreEqual("./src/org/spdx/parser/DOAPProject.java", json[0]?["fileName"]?.ToString());
-        Assert.AreEqual("SOURCE", json[0]?["fileTypes"]?[0]?.ToString());
-        Assert.AreEqual("SHA1", json[0]?["checksums"]?[0]?["algorithm"]?.ToString());
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
-            json[0]?["checksums"]?[0]?["checksumValue"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json[0]?["licenseConcluded"]?.ToString());
-        Assert.AreEqual("Apache-2.0", json[0]?["licenseInfoInFiles"]?[0]?.ToString());
-        Assert.AreEqual("This license is used by Jena", json[0]?["licenseComments"]?.ToString());
-        Assert.AreEqual("Copyright 2010, 2011 Source Auditor Inc.", json[0]?["copyrightText"]?.ToString());
-        Assert.AreEqual("This file is a sample DOAP file", json[0]?["comment"]?.ToString());
-        Assert.AreEqual("Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com", json[0]?["noticeText"]?.ToString());
-        Assert.AreEqual("Protecode Inc.", json[0]?["fileContributors"]?[0]?.ToString());
-        Assert.AreEqual("SPDX Technical Team Members", json[0]?["fileContributors"]?[1]?.ToString());
-        Assert.AreEqual("Open Logic Inc.", json[0]?["fileContributors"]?[2]?.ToString());
-        Assert.AreEqual("Source Auditor Inc.", json[0]?["fileContributors"]?[3]?.ToString());
-        Assert.AreEqual("Black Duck Software In.c", json[0]?["fileContributors"]?[4]?.ToString());
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual("SPDXRef-DoapSource", json[0]?["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("./src/org/spdx/parser/DOAPProject.java", json[0]?["fileName"]);
+        SpdxJsonHelpers.AssertEqual("SOURCE", json[0]?["fileTypes"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["checksums"]?[0]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12",
+            json[0]?["checksums"]?[0]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("Apache-2.0", json[0]?["licenseConcluded"]);
+        SpdxJsonHelpers.AssertEqual("Apache-2.0", json[0]?["licenseInfoInFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("This license is used by Jena", json[0]?["licenseComments"]);
+        SpdxJsonHelpers.AssertEqual("Copyright 2010, 2011 Source Auditor Inc.", json[0]?["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("This file is a sample DOAP file", json[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("Copyright (c) 2001 Aaron Lehmann aaroni@vitelus.com", json[0]?["noticeText"]);
+        SpdxJsonHelpers.AssertEqual("Protecode Inc.", json[0]?["fileContributors"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SPDX Technical Team Members", json[0]?["fileContributors"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Open Logic Inc.", json[0]?["fileContributors"]?[2]);
+        SpdxJsonHelpers.AssertEqual("Source Auditor Inc.", json[0]?["fileContributors"]?[3]);
+        SpdxJsonHelpers.AssertEqual("Black Duck Software In.c", json[0]?["fileContributors"]?[4]);
+        SpdxJsonHelpers.AssertEqual(
             "All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by the AT&T.",
-            json[0]?["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json[0]?["annotations"]?[0]?["annotationDate"]?.ToString());
-        Assert.AreEqual("OTHER", json[0]?["annotations"]?[0]?["annotationType"]?.ToString());
-        Assert.AreEqual("Person: File Commenter", json[0]?["annotations"]?[0]?["comment"]?.ToString());
-        Assert.AreEqual("File level annotation", json[0]?["annotations"]?[0]?["annotator"]?.ToString());
+            json[0]?["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json[0]?["annotations"]?[0]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json[0]?["annotations"]?[0]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("Person: File Commenter", json[0]?["annotations"]?[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("File level annotation", json[0]?["annotations"]?[0]?["annotator"]);
     }
 }

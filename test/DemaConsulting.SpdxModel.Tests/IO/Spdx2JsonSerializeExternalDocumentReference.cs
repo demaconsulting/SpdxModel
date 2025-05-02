@@ -50,11 +50,11 @@ public class Spdx2JsonSerializeExternalDocumentReference
         var json = Spdx2JsonSerializer.SerializeExternalDocumentReference(reference);
 
         // Assert
-        Assert.AreEqual("DocumentRef-spdx-tool-1.2", json["externalDocumentId"]?.ToString());
-        Assert.AreEqual("SHA1", json["checksum"]?["algorithm"]?.ToString());
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json["checksum"]?["checksumValue"]?.ToString());
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
-            json["spdxDocument"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("DocumentRef-spdx-tool-1.2", json["externalDocumentId"]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json["checksum"]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json["checksum"]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+            json["spdxDocument"]);
     }
 
     /// <summary>
@@ -82,11 +82,12 @@ public class Spdx2JsonSerializeExternalDocumentReference
         var json = Spdx2JsonSerializer.SerializeExternalDocumentReferences(references);
 
         // Assert
+        Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
-        Assert.AreEqual("DocumentRef-spdx-tool-1.2", json[0]?["externalDocumentId"]?.ToString());
-        Assert.AreEqual("SHA1", json[0]?["checksum"]?["algorithm"]?.ToString());
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json[0]?["checksum"]?["checksumValue"]?.ToString());
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
-            json[0]?["spdxDocument"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("DocumentRef-spdx-tool-1.2", json[0]?["externalDocumentId"]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["checksum"]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json[0]?["checksum"]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+            json[0]?["spdxDocument"]);
     }
 }

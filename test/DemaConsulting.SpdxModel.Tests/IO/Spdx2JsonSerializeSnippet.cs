@@ -57,23 +57,23 @@ public class Spdx2JsonSerializeSnippet
 
         // Assert
         Assert.IsNotNull(json);
-        Assert.AreEqual("SPDXRef-Snippet", json["SPDXID"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json["snippetFromFile"]?.ToString());
-        Assert.AreEqual("Name", json["name"]?.ToString());
-        Assert.AreEqual("ConcludedLicense", json["licenseConcluded"]?.ToString());
-        Assert.AreEqual("LicenseInfoInSnippet", json["licenseInfoInSnippets"]?[0]?.ToString());
-        Assert.AreEqual("LicenseComments", json["licenseComments"]?.ToString());
-        Assert.AreEqual("Copyright", json["copyrightText"]?.ToString());
-        Assert.AreEqual("Comment", json["comment"]?.ToString());
-        Assert.AreEqual("AttributionText", json["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json["ranges"]?[0]?["endPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("2", json["ranges"]?[0]?["endPointer"]?["offset"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json["ranges"]?[0]?["startPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("1", json["ranges"]?[0]?["startPointer"]?["offset"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json["ranges"]?[1]?["endPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("4", json["ranges"]?[1]?["endPointer"]?["lineNumber"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json["ranges"]?[1]?["startPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("3", json["ranges"]?[1]?["startPointer"]?["lineNumber"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Snippet", json["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["snippetFromFile"]);
+        SpdxJsonHelpers.AssertEqual("Name", json["name"]);
+        SpdxJsonHelpers.AssertEqual("ConcludedLicense", json["licenseConcluded"]);
+        SpdxJsonHelpers.AssertEqual("LicenseInfoInSnippet", json["licenseInfoInSnippets"]?[0]);
+        SpdxJsonHelpers.AssertEqual("LicenseComments", json["licenseComments"]);
+        SpdxJsonHelpers.AssertEqual("Copyright", json["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("Comment", json["comment"]);
+        SpdxJsonHelpers.AssertEqual("AttributionText", json["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["ranges"]?[0]?["endPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("2", json["ranges"]?[0]?["endPointer"]?["offset"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["ranges"]?[0]?["startPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("1", json["ranges"]?[0]?["startPointer"]?["offset"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["ranges"]?[1]?["endPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("4", json["ranges"]?[1]?["endPointer"]?["lineNumber"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["ranges"]?[1]?["startPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("3", json["ranges"]?[1]?["startPointer"]?["lineNumber"]);
     }
 
     /// <summary>
@@ -109,22 +109,22 @@ public class Spdx2JsonSerializeSnippet
         // Assert
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
-        Assert.AreEqual("SPDXRef-Snippet", json[0]?["SPDXID"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json[0]?["snippetFromFile"]?.ToString());
-        Assert.AreEqual("Name", json[0]?["name"]?.ToString());
-        Assert.AreEqual("ConcludedLicense", json[0]?["licenseConcluded"]?.ToString());
-        Assert.AreEqual("LicenseInfoInSnippet", json[0]?["licenseInfoInSnippets"]?[0]?.ToString());
-        Assert.AreEqual("LicenseComments", json[0]?["licenseComments"]?.ToString());
-        Assert.AreEqual("Copyright", json[0]?["copyrightText"]?.ToString());
-        Assert.AreEqual("Comment", json[0]?["comment"]?.ToString());
-        Assert.AreEqual("AttributionText", json[0]?["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json[0]?["ranges"]?[0]?["endPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("2", json[0]?["ranges"]?[0]?["endPointer"]?["offset"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json[0]?["ranges"]?[0]?["startPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("1", json[0]?["ranges"]?[0]?["startPointer"]?["offset"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json[0]?["ranges"]?[1]?["endPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("4", json[0]?["ranges"]?[1]?["endPointer"]?["lineNumber"]?.ToString());
-        Assert.AreEqual("SnippetFromFile", json[0]?["ranges"]?[1]?["startPointer"]?["reference"]?.ToString());
-        Assert.AreEqual("3", json[0]?["ranges"]?[1]?["startPointer"]?["lineNumber"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Snippet", json[0]?["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json[0]?["snippetFromFile"]);
+        SpdxJsonHelpers.AssertEqual("Name", json[0]?["name"]);
+        SpdxJsonHelpers.AssertEqual("ConcludedLicense", json[0]?["licenseConcluded"]);
+        SpdxJsonHelpers.AssertEqual("LicenseInfoInSnippet", json[0]?["licenseInfoInSnippets"]?[0]);
+        SpdxJsonHelpers.AssertEqual("LicenseComments", json[0]?["licenseComments"]);
+        SpdxJsonHelpers.AssertEqual("Copyright", json[0]?["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("Comment", json[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("AttributionText", json[0]?["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json[0]?["ranges"]?[0]?["endPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("2", json[0]?["ranges"]?[0]?["endPointer"]?["offset"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json[0]?["ranges"]?[0]?["startPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("1", json[0]?["ranges"]?[0]?["startPointer"]?["offset"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json[0]?["ranges"]?[1]?["endPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("4", json[0]?["ranges"]?[1]?["endPointer"]?["lineNumber"]);
+        SpdxJsonHelpers.AssertEqual("SnippetFromFile", json[0]?["ranges"]?[1]?["startPointer"]?["reference"]);
+        SpdxJsonHelpers.AssertEqual("3", json[0]?["ranges"]?[1]?["startPointer"]?["lineNumber"]);
     }
 }
