@@ -113,7 +113,7 @@ public class SpdxRelationshipTests
         Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r2));
 
         // Assert same relationships have identical hashes
-        Assert.IsTrue(SpdxRelationship.SameElements.GetHashCode(r1) == SpdxRelationship.SameElements.GetHashCode(r2));
+        Assert.AreEqual(SpdxRelationship.SameElements.GetHashCode(r1), SpdxRelationship.SameElements.GetHashCode(r2));
     }
 
     /// <summary>
