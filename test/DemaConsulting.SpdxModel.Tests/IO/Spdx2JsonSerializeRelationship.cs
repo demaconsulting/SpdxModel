@@ -48,10 +48,10 @@ public class Spdx2JsonSerializeRelationship
 
         // Assert
         Assert.IsNotNull(json);
-        Assert.AreEqual("SPDXRef-DOCUMENT", json["spdxElementId"]?.ToString());
-        Assert.AreEqual("SPDXRef-Package", json["relatedSpdxElement"]?.ToString());
-        Assert.AreEqual("DESCRIBES", json["relationshipType"]?.ToString());
-        Assert.AreEqual("Example Comment", json["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json["spdxElementId"]);
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json["relatedSpdxElement"]);
+        SpdxJsonHelpers.AssertEqual("DESCRIBES", json["relationshipType"]);
+        SpdxJsonHelpers.AssertEqual("Example Comment", json["comment"]);
     }
 
     /// <summary>
@@ -85,13 +85,13 @@ public class Spdx2JsonSerializeRelationship
         // Assert
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
-        Assert.AreEqual("SPDXRef-DOCUMENT", json[0]?["spdxElementId"]?.ToString());
-        Assert.AreEqual("SPDXRef-Package", json[0]?["relatedSpdxElement"]?.ToString());
-        Assert.AreEqual("DESCRIBES", json[0]?["relationshipType"]?.ToString());
-        Assert.AreEqual("Example Comment", json[0]?["comment"]?.ToString());
-        Assert.AreEqual("SPDXRef-Package", json[1]?["spdxElementId"]?.ToString());
-        Assert.AreEqual("SPDXRef-DOCUMENT", json[1]?["relatedSpdxElement"]?.ToString());
-        Assert.AreEqual("DESCRIBED_BY", json[1]?["relationshipType"]?.ToString());
-        Assert.AreEqual("Example Comment", json[1]?["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json[0]?["spdxElementId"]);
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json[0]?["relatedSpdxElement"]);
+        SpdxJsonHelpers.AssertEqual("DESCRIBES", json[0]?["relationshipType"]);
+        SpdxJsonHelpers.AssertEqual("Example Comment", json[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json[1]?["spdxElementId"]);
+        SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json[1]?["relatedSpdxElement"]);
+        SpdxJsonHelpers.AssertEqual("DESCRIBED_BY", json[1]?["relationshipType"]);
+        SpdxJsonHelpers.AssertEqual("Example Comment", json[1]?["comment"]);
     }
 }

@@ -48,11 +48,11 @@ public class Spdx2JsonSerializeExternalReference
 
         // Assert
         Assert.IsNotNull(json);
-        Assert.AreEqual("SECURITY", json["referenceCategory"]?.ToString());
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
-            json["referenceLocator"]?.ToString());
-        Assert.AreEqual("cpe23Type", json["referenceType"]?.ToString());
-        Assert.AreEqual("Example Comment", json["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SECURITY", json["referenceCategory"]);
+        SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
+            json["referenceLocator"]);
+        SpdxJsonHelpers.AssertEqual("cpe23Type", json["referenceType"]);
+        SpdxJsonHelpers.AssertEqual("Example Comment", json["comment"]);
     }
 
     /// <summary>
@@ -87,16 +87,16 @@ public class Spdx2JsonSerializeExternalReference
         // Assert
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
-        Assert.AreEqual("SECURITY", json[0]?["referenceCategory"]?.ToString());
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
-            json[0]?["referenceLocator"]?.ToString());
-        Assert.AreEqual("cpe23Type", json[0]?["referenceType"]?.ToString());
-        Assert.AreEqual("Example Comment", json[0]?["comment"]?.ToString());
-        Assert.AreEqual("OTHER", json[1]?["referenceCategory"]?.ToString());
-        Assert.AreEqual("acmecorp/acmenator/4.1.3-alpha", json[1]?["referenceLocator"]?.ToString());
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual("SECURITY", json[0]?["referenceCategory"]);
+        SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
+            json[0]?["referenceLocator"]);
+        SpdxJsonHelpers.AssertEqual("cpe23Type", json[0]?["referenceType"]);
+        SpdxJsonHelpers.AssertEqual("Example Comment", json[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json[1]?["referenceCategory"]);
+        SpdxJsonHelpers.AssertEqual("acmecorp/acmenator/4.1.3-alpha", json[1]?["referenceLocator"]);
+        SpdxJsonHelpers.AssertEqual(
             "http://spdx.org/spdxdocs/spdx-example-444504E0-4F89-41D3-9A0C-0305E82C3301#LocationRef-acmeforge",
-            json[1]?["referenceType"]?.ToString());
-        Assert.AreEqual("This is the external ref for Acme", json[1]?["comment"]?.ToString());
+            json[1]?["referenceType"]);
+        SpdxJsonHelpers.AssertEqual("This is the external ref for Acme", json[1]?["comment"]);
     }
 }

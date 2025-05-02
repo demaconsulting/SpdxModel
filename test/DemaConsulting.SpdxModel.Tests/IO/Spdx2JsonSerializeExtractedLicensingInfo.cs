@@ -48,11 +48,11 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
         var json = Spdx2JsonSerializer.SerializeExtractedLicensingInfo(info);
 
         // Assert
-        Assert.AreEqual("MIT", json["licenseId"]?.ToString());
-        Assert.AreEqual("This is the MIT license", json["extractedText"]?.ToString());
-        Assert.AreEqual("MIT License", json["name"]?.ToString());
-        Assert.AreEqual("https://opensource.org/licenses/MIT", json["seeAlsos"]?[0]?.ToString());
-        Assert.AreEqual("This is a comment", json["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("MIT", json["licenseId"]);
+        SpdxJsonHelpers.AssertEqual("This is the MIT license", json["extractedText"]);
+        SpdxJsonHelpers.AssertEqual("MIT License", json["name"]);
+        SpdxJsonHelpers.AssertEqual("https://opensource.org/licenses/MIT", json["seeAlsos"]?[0]);
+        SpdxJsonHelpers.AssertEqual("This is a comment", json["comment"]);
     }
 
     /// <summary>
@@ -78,11 +78,12 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
         var json = Spdx2JsonSerializer.SerializeExtractedLicensingInfos(info);
 
         // Assert
+        Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
-        Assert.AreEqual("MIT", json[0]?["licenseId"]?.ToString());
-        Assert.AreEqual("This is the MIT license", json[0]?["extractedText"]?.ToString());
-        Assert.AreEqual("MIT License", json[0]?["name"]?.ToString());
-        Assert.AreEqual("https://opensource.org/licenses/MIT", json[0]?["seeAlsos"]?[0]?.ToString());
-        Assert.AreEqual("This is a comment", json[0]?["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("MIT", json[0]?["licenseId"]);
+        SpdxJsonHelpers.AssertEqual("This is the MIT license", json[0]?["extractedText"]);
+        SpdxJsonHelpers.AssertEqual("MIT License", json[0]?["name"]);
+        SpdxJsonHelpers.AssertEqual("https://opensource.org/licenses/MIT", json[0]?["seeAlsos"]?[0]);
+        SpdxJsonHelpers.AssertEqual("This is a comment", json[0]?["comment"]);
     }
 }

@@ -46,8 +46,8 @@ public class Spdx2JsonSerializeChecksum
 
         // Assert
         Assert.IsNotNull(json);
-        Assert.AreEqual("SHA1", json["algorithm"]?.ToString());
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json["checksumValue"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SHA1", json["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json["checksumValue"]);
     }
 
     /// <summary>
@@ -77,9 +77,9 @@ public class Spdx2JsonSerializeChecksum
         // Assert
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
-        Assert.AreEqual("SHA1", json[0]?["algorithm"]?.ToString());
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json[0]?["checksumValue"]?.ToString());
-        Assert.AreEqual("MD5", json[1]?["algorithm"]?.ToString());
-        Assert.AreEqual("d41d8cd98f00b204e9800998ecf8427e", json[1]?["checksumValue"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json[0]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("MD5", json[1]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("d41d8cd98f00b204e9800998ecf8427e", json[1]?["checksumValue"]);
     }
 }

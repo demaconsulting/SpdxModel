@@ -461,10 +461,10 @@ public static class Spdx2JsonSerializer
         json[name] = value;
     }
 
-    private static void EmitOptionalStrings(JsonNode json, string name, IReadOnlyCollection<string> values)
+    private static void EmitOptionalStrings(JsonNode json, string name, string[] values)
     {
         // Skip if empty
-        if (values.Count == 0)
+        if (values.Length == 0)
             return;
 
         var array = new JsonArray();

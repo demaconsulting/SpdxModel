@@ -48,11 +48,11 @@ public class Spdx2JsonSerializeAnnotation
         var json = Spdx2JsonSerializer.SerializeAnnotation(annotation);
 
         // Assert
-        Assert.AreEqual("SPDXRef-Annotation", json["SPDXID"]?.ToString());
-        Assert.AreEqual("John Doe", json["annotator"]?.ToString());
-        Assert.AreEqual("2021-09-01T12:00:00Z", json["annotationDate"]?.ToString());
-        Assert.AreEqual("REVIEW", json["annotationType"]?.ToString());
-        Assert.AreEqual("This is a comment", json["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation", json["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("John Doe", json["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("REVIEW", json["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("This is a comment", json["comment"]);
     }
 
     /// <summary>
@@ -86,16 +86,17 @@ public class Spdx2JsonSerializeAnnotation
         var json = Spdx2JsonSerializer.SerializeAnnotations(annotations);
 
         // Assert
+        Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
-        Assert.AreEqual("SPDXRef-Annotation1", json[0]?["SPDXID"]?.ToString());
-        Assert.AreEqual("John Doe", json[0]?["annotator"]?.ToString());
-        Assert.AreEqual("2021-09-01T12:00:00Z", json[0]?["annotationDate"]?.ToString());
-        Assert.AreEqual("REVIEW", json[0]?["annotationType"]?.ToString());
-        Assert.AreEqual("This is a comment", json[0]?["comment"]?.ToString());
-        Assert.AreEqual("SPDXRef-Annotation2", json[1]?["SPDXID"]?.ToString());
-        Assert.AreEqual("Jane Doe", json[1]?["annotator"]?.ToString());
-        Assert.AreEqual("2021-09-02T12:00:00Z", json[1]?["annotationDate"]?.ToString());
-        Assert.AreEqual("OTHER", json[1]?["annotationType"]?.ToString());
-        Assert.AreEqual("This is another comment", json[1]?["comment"]?.ToString());
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation1", json[0]?["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("John Doe", json[0]?["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json[0]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("REVIEW", json[0]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("This is a comment", json[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation2", json[1]?["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("Jane Doe", json[1]?["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2021-09-02T12:00:00Z", json[1]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json[1]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("This is another comment", json[1]?["comment"]);
     }
 }

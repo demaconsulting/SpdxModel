@@ -98,39 +98,39 @@ public class Spdx2JsonSerializePackage
 
         // Assert
         Assert.IsNotNull(json);
-        Assert.AreEqual("SPDXRef-Package", json["SPDXID"]?.ToString());
-        Assert.AreEqual("glibc", json["name"]?.ToString());
-        Assert.AreEqual("2.11.1", json["versionInfo"]?.ToString());
-        Assert.AreEqual("glibc-2.11.1.tar.gz", json["packageFileName"]?.ToString());
-        Assert.AreEqual("Person: Jane Doe (jane.doe@example.com)", json["supplier"]?.ToString());
-        Assert.AreEqual("Organization: ExampleCodeInspect (contact@example.com)", json["originator"]?.ToString());
-        Assert.AreEqual("Person: Package Commenter", json["annotations"]?[0]?["annotator"]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json["annotations"]?[0]?["annotationDate"]?.ToString());
-        Assert.AreEqual("OTHER", json["annotations"]?[0]?["annotationType"]?.ToString());
-        Assert.AreEqual("Package level annotation", json["annotations"]?[0]?["comment"]?.ToString());
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("glibc", json["name"]);
+        SpdxJsonHelpers.AssertEqual("2.11.1", json["versionInfo"]);
+        SpdxJsonHelpers.AssertEqual("glibc-2.11.1.tar.gz", json["packageFileName"]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe (jane.doe@example.com)", json["supplier"]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect (contact@example.com)", json["originator"]);
+        SpdxJsonHelpers.AssertEqual("Person: Package Commenter", json["annotations"]?[0]?["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json["annotations"]?[0]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json["annotations"]?[0]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("Package level annotation", json["annotations"]?[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
-            json["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json["builtDate"]?.ToString());
-        Assert.AreEqual("85ed0817af83a24ad8da68c2b5094de69833983c",
-            json["checksums"]?[0]?["checksumValue"]?.ToString());
-        Assert.AreEqual("SHA1", json["checksums"]?[0]?["algorithm"]?.ToString());
-        Assert.AreEqual("11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd",
-            json["checksums"]?[1]?["checksumValue"]?.ToString());
-        Assert.AreEqual("SHA256", json["checksums"]?[1]?["algorithm"]?.ToString());
-        Assert.AreEqual("Copyright 2008-2010 John Smith", json["copyrightText"]?.ToString());
-        Assert.AreEqual("http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz", json["downloadLocation"]?.ToString());
-        Assert.AreEqual("SECURITY", json["externalRefs"]?[0]?["referenceCategory"]?.ToString());
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
-            json["externalRefs"]?[0]?["referenceLocator"]?.ToString());
-        Assert.AreEqual("cpe23Type", json["externalRefs"]?[0]?["referenceType"]?.ToString());
-        Assert.AreEqual("true", json["filesAnalyzed"]?.ToString());
-        Assert.AreEqual("file1.txt", json["hasFiles"]?[0]?.ToString());
-        Assert.AreEqual("file2.txt", json["hasFiles"]?[1]?.ToString());
-        Assert.AreEqual("file1.txt",
-            json["packageVerificationCode"]?["packageVerificationCodeExcludedFiles"]?[0]?.ToString());
-        Assert.AreEqual("1234567890abcdef",
-            json["packageVerificationCode"]?["packageVerificationCodeValue"]?.ToString());
+            json["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json["builtDate"]);
+        SpdxJsonHelpers.AssertEqual("85ed0817af83a24ad8da68c2b5094de69833983c",
+            json["checksums"]?[0]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json["checksums"]?[0]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd",
+            json["checksums"]?[1]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("SHA256", json["checksums"]?[1]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("Copyright 2008-2010 John Smith", json["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz", json["downloadLocation"]);
+        SpdxJsonHelpers.AssertEqual("SECURITY", json["externalRefs"]?[0]?["referenceCategory"]);
+        SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
+            json["externalRefs"]?[0]?["referenceLocator"]);
+        SpdxJsonHelpers.AssertEqual("cpe23Type", json["externalRefs"]?[0]?["referenceType"]);
+        SpdxJsonHelpers.AssertEqual("true", json["filesAnalyzed"]);
+        SpdxJsonHelpers.AssertEqual("file1.txt", json["hasFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("file2.txt", json["hasFiles"]?[1]);
+        SpdxJsonHelpers.AssertEqual("file1.txt",
+            json["packageVerificationCode"]?["packageVerificationCodeExcludedFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("1234567890abcdef",
+            json["packageVerificationCode"]?["packageVerificationCodeValue"]);
     }
 
     /// <summary>
@@ -207,39 +207,39 @@ public class Spdx2JsonSerializePackage
         // Assert
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
-        Assert.AreEqual("SPDXRef-Package", json[0]?["SPDXID"]?.ToString());
-        Assert.AreEqual("glibc", json[0]?["name"]?.ToString());
-        Assert.AreEqual("2.11.1", json[0]?["versionInfo"]?.ToString());
-        Assert.AreEqual("glibc-2.11.1.tar.gz", json[0]?["packageFileName"]?.ToString());
-        Assert.AreEqual("Person: Jane Doe (jane.doe@example.com)", json[0]?["supplier"]?.ToString());
-        Assert.AreEqual("Organization: ExampleCodeInspect (contact@example.com)", json[0]?["originator"]?.ToString());
-        Assert.AreEqual("Person: Package Commenter", json[0]?["annotations"]?[0]?["annotator"]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json[0]?["annotations"]?[0]?["annotationDate"]?.ToString());
-        Assert.AreEqual("OTHER", json[0]?["annotations"]?[0]?["annotationType"]?.ToString());
-        Assert.AreEqual("Package level annotation", json[0]?["annotations"]?[0]?["comment"]?.ToString());
-        Assert.AreEqual(
+        SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json[0]?["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("glibc", json[0]?["name"]);
+        SpdxJsonHelpers.AssertEqual("2.11.1", json[0]?["versionInfo"]);
+        SpdxJsonHelpers.AssertEqual("glibc-2.11.1.tar.gz", json[0]?["packageFileName"]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe (jane.doe@example.com)", json[0]?["supplier"]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect (contact@example.com)", json[0]?["originator"]);
+        SpdxJsonHelpers.AssertEqual("Person: Package Commenter", json[0]?["annotations"]?[0]?["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json[0]?["annotations"]?[0]?["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("OTHER", json[0]?["annotations"]?[0]?["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("Package level annotation", json[0]?["annotations"]?[0]?["comment"]);
+        SpdxJsonHelpers.AssertEqual(
             "The GNU C Library is free software.  See the file COPYING.LIB for copying conditions, and LICENSES for notices about a few contributions that require these additional notices to be distributed.  License copyright years may be listed using range notation, e.g., 1996-2015, indicating that every year in the range, inclusive, is a copyrightable year that would otherwise be listed individually.",
-            json[0]?["attributionTexts"]?[0]?.ToString());
-        Assert.AreEqual("2011-01-29T18:30:22Z", json[0]?["builtDate"]?.ToString());
-        Assert.AreEqual("85ed0817af83a24ad8da68c2b5094de69833983c",
-            json[0]?["checksums"]?[0]?["checksumValue"]?.ToString());
-        Assert.AreEqual("SHA1", json[0]?["checksums"]?[0]?["algorithm"]?.ToString());
-        Assert.AreEqual("11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd",
-            json[0]?["checksums"]?[1]?["checksumValue"]?.ToString());
-        Assert.AreEqual("SHA256", json[0]?["checksums"]?[1]?["algorithm"]?.ToString());
-        Assert.AreEqual("Copyright 2008-2010 John Smith", json[0]?["copyrightText"]?.ToString());
-        Assert.AreEqual("http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
-            json[0]?["downloadLocation"]?.ToString());
-        Assert.AreEqual("SECURITY", json[0]?["externalRefs"]?[0]?["referenceCategory"]?.ToString());
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
-            json[0]?["externalRefs"]?[0]?["referenceLocator"]?.ToString());
-        Assert.AreEqual("cpe23Type", json[0]?["externalRefs"]?[0]?["referenceType"]?.ToString());
-        Assert.AreEqual("true", json[0]?["filesAnalyzed"]?.ToString());
-        Assert.AreEqual("file1.txt", json[0]?["hasFiles"]?[0]?.ToString());
-        Assert.AreEqual("file2.txt", json[0]?["hasFiles"]?[1]?.ToString());
-        Assert.AreEqual("file1.txt",
-            json[0]?["packageVerificationCode"]?["packageVerificationCodeExcludedFiles"]?[0]?.ToString());
-        Assert.AreEqual("1234567890abcdef",
-            json[0]?["packageVerificationCode"]?["packageVerificationCodeValue"]?.ToString());
+            json[0]?["attributionTexts"]?[0]);
+        SpdxJsonHelpers.AssertEqual("2011-01-29T18:30:22Z", json[0]?["builtDate"]);
+        SpdxJsonHelpers.AssertEqual("85ed0817af83a24ad8da68c2b5094de69833983c",
+            json[0]?["checksums"]?[0]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["checksums"]?[0]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("11b6d3ee554eedf79299905a98f9b9a04e498210b59f15094c916c91d150efcd",
+            json[0]?["checksums"]?[1]?["checksumValue"]);
+        SpdxJsonHelpers.AssertEqual("SHA256", json[0]?["checksums"]?[1]?["algorithm"]);
+        SpdxJsonHelpers.AssertEqual("Copyright 2008-2010 John Smith", json[0]?["copyrightText"]);
+        SpdxJsonHelpers.AssertEqual("http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz",
+            json[0]?["downloadLocation"]);
+        SpdxJsonHelpers.AssertEqual("SECURITY", json[0]?["externalRefs"]?[0]?["referenceCategory"]);
+        SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
+            json[0]?["externalRefs"]?[0]?["referenceLocator"]);
+        SpdxJsonHelpers.AssertEqual("cpe23Type", json[0]?["externalRefs"]?[0]?["referenceType"]);
+        SpdxJsonHelpers.AssertEqual("true", json[0]?["filesAnalyzed"]);
+        SpdxJsonHelpers.AssertEqual("file1.txt", json[0]?["hasFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("file2.txt", json[0]?["hasFiles"]?[1]);
+        SpdxJsonHelpers.AssertEqual("file1.txt",
+            json[0]?["packageVerificationCode"]?["packageVerificationCodeExcludedFiles"]?[0]);
+        SpdxJsonHelpers.AssertEqual("1234567890abcdef",
+            json[0]?["packageVerificationCode"]?["packageVerificationCodeValue"]);
     }
 }

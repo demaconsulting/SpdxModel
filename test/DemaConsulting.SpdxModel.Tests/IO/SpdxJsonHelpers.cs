@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+﻿// Copyright(c) 2025 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,40 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using DemaConsulting.SpdxModel.IO;
+using System.Text.Json.Nodes;
 
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxPackageVerificationCode"/> to JSON.
+///     JSON Helpers
 /// </summary>
-[TestClass]
-public class Spdx2JsonSerializePackageVerificationCode
+internal static class SpdxJsonHelpers
 {
     /// <summary>
-    /// Tests serializing a package verification code.
+    ///     Assert JSON has expected value
     /// </summary>
-    [TestMethod]
-    public void SerializePackageVerificationCode()
+    /// <param name="expected">Expected value in text form</param>
+    /// <param name="node">JSON node</param>
+    public static void AssertEqual(string expected, JsonNode? node)
     {
-        // Arrange
-        var code = new SpdxPackageVerificationCode
-        {
-            Value = "d3b07384d113edec49eaa6238ad5ff00",
-            ExcludedFiles =
-            [
-                "file1.txt",
-                "file2.txt"
-            ]
-        };
-
-        // Act
-        var json = Spdx2JsonSerializer.SerializeVerificationCode(code);
-
-        // Assert
-        Assert.IsNotNull(json);
-        SpdxJsonHelpers.AssertEqual("d3b07384d113edec49eaa6238ad5ff00", json["packageVerificationCodeValue"]);
-        SpdxJsonHelpers.AssertEqual("file1.txt", json["packageVerificationCodeExcludedFiles"]?[0]);
-        SpdxJsonHelpers.AssertEqual("file2.txt", json["packageVerificationCodeExcludedFiles"]?[1]);
+        Assert.IsNotNull(node);
+        Assert.AreEqual(expected, node.ToString());
     }
 }
