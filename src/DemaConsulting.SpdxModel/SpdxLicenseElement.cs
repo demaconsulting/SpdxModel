@@ -94,7 +94,7 @@ public abstract class SpdxLicenseElement : SpdxElement
         CopyrightText = SpdxHelpers.EnhanceString(CopyrightText, other.CopyrightText) ?? "";
 
         // Merge the attribution texts
-        AttributionText = AttributionText.Concat(other.AttributionText).Distinct().ToArray();
+        AttributionText = [..AttributionText.Concat(other.AttributionText).Distinct()];
 
         // Enhance the annotations
         Annotations = SpdxAnnotation.Enhance(Annotations, other.Annotations);

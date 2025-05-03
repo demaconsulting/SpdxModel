@@ -256,7 +256,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
             FilesAnalyzed = FilesAnalyzed,
             HasFiles = [..HasFiles],
             VerificationCode = VerificationCode?.DeepCopy(),
-            Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
+            Checksums = [..Checksums.Select(c => c.DeepCopy())],
             HomePage = HomePage,
             SourceInformation = SourceInformation,
             ConcludedLicense = ConcludedLicense,
@@ -267,13 +267,13 @@ public sealed class SpdxPackage : SpdxLicenseElement
             Summary = Summary,
             Description = Description,
             Comment = Comment,
-            ExternalReferences = ExternalReferences.Select(r => r.DeepCopy()).ToArray(),
+            ExternalReferences = [..ExternalReferences.Select(r => r.DeepCopy())],
             AttributionText = [..AttributionText],
             PrimaryPackagePurpose = PrimaryPackagePurpose,
             ReleaseDate = ReleaseDate,
             BuiltDate = BuiltDate,
             ValidUntilDate = ValidUntilDate,
-            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+            Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
     /// <summary>
@@ -319,7 +319,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
         SourceInformation = SpdxHelpers.EnhanceString(SourceInformation, other.SourceInformation);
 
         // Merge the license-info-from-files entries
-        LicenseInfoFromFiles = LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct().ToArray();
+        LicenseInfoFromFiles = [..LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct()];
 
         // Populate the declared-license field if missing
         DeclaredLicense = SpdxHelpers.EnhanceString(DeclaredLicense, other.DeclaredLicense) ?? "";

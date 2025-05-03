@@ -56,7 +56,7 @@ public class SpdxRelationshipsTests
         var document = Spdx2JsonDeserializer.Deserialize(Contents);
 
         // Act
-        var exception = Assert.ThrowsException<ArgumentException>(() =>
+        var exception = Assert.ThrowsExactly<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
                 document,
@@ -83,7 +83,7 @@ public class SpdxRelationshipsTests
         var document = Spdx2JsonDeserializer.Deserialize(Contents);
 
         // Act
-        Assert.ThrowsException<ArgumentException>(() =>
+        Assert.ThrowsExactly<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
                 document,

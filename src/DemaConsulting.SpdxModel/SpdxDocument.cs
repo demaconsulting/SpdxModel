@@ -156,13 +156,13 @@ public sealed class SpdxDocument : SpdxElement
             DocumentNamespace = DocumentNamespace,
             Comment = Comment,
             CreationInformation = CreationInformation.DeepCopy(),
-            ExternalDocumentReferences = ExternalDocumentReferences.Select(r => r.DeepCopy()).ToArray(),
-            ExtractedLicensingInfo = ExtractedLicensingInfo.Select(l => l.DeepCopy()).ToArray(),
-            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray(),
-            Files = Files.Select(f => f.DeepCopy()).ToArray(),
-            Packages = Packages.Select(p => p.DeepCopy()).ToArray(),
-            Snippets = Snippets.Select(s => s.DeepCopy()).ToArray(),
-            Relationships = Relationships.Select(r => r.DeepCopy()).ToArray(),
+            ExternalDocumentReferences = [.. ExternalDocumentReferences.Select(r => r.DeepCopy())],
+            ExtractedLicensingInfo = [.. ExtractedLicensingInfo.Select(l => l.DeepCopy())],
+            Annotations = [.. Annotations.Select(a => a.DeepCopy())],
+            Files = [.. Files.Select(f => f.DeepCopy())],
+            Packages = [.. Packages.Select(p => p.DeepCopy())],
+            Snippets = [.. Snippets.Select(s => s.DeepCopy())],
+            Relationships = [.. Relationships.Select(r => r.DeepCopy())],
             Describes = [..Describes]
         };
 
@@ -248,7 +248,7 @@ public sealed class SpdxDocument : SpdxElement
             Relationships.Where(r => r.RelationshipType == SpdxRelationshipType.DescribedBy && r.RelatedSpdxElement == Id).Select(r => r.Id));
 
         // Return the packages
-        return Packages.Where(p => packageNames.Contains(p.Id)).ToArray();
+        return [.. Packages.Where(p => packageNames.Contains(p.Id))];
     }
 
     /// <summary>
