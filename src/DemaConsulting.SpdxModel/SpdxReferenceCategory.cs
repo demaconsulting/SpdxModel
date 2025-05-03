@@ -64,7 +64,7 @@ public static class SpdxReferenceCategoryExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxReferenceCategory FromText(string category)
     {
-        return category switch
+        return category.ToUpperInvariant() switch
         {
             "" => SpdxReferenceCategory.Missing,
             "SECURITY" => SpdxReferenceCategory.Security,
@@ -72,7 +72,7 @@ public static class SpdxReferenceCategoryExtensions
             "PACKAGE_MANAGER" => SpdxReferenceCategory.PackageManager,
             "PERSISTENT-ID" => SpdxReferenceCategory.PersistentId,
             "OTHER" => SpdxReferenceCategory.Other,
-            _ => throw new InvalidOperationException($"Unsupported SPDX Reference Category {category}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Reference Category '{category}'")
         };
     }
 
@@ -92,7 +92,7 @@ public static class SpdxReferenceCategoryExtensions
             SpdxReferenceCategory.PackageManager => "PACKAGE-MANAGER",
             SpdxReferenceCategory.PersistentId => "PERSISTENT-ID",
             SpdxReferenceCategory.Other => "OTHER",
-            _ => throw new InvalidOperationException($"Unsupported SPDX Reference Category {category}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Reference Category '{category}'")
         };
     }
 }

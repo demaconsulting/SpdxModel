@@ -56,10 +56,10 @@ public class SpdxRelationshipsTests
         var document = Spdx2JsonDeserializer.Deserialize(Contents);
 
         // Act
-        Assert.ThrowsException<ArgumentException>(() =>
+        var exception = Assert.ThrowsException<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
-                document, 
+                document,
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package-Missing",
@@ -69,6 +69,7 @@ public class SpdxRelationshipsTests
         });
 
         // Assert
+        Assert.AreEqual("Element SPDXRef-Package-Missing not found in SPDX document (Parameter 'relationship')", exception.Message);
         Assert.AreEqual(0, document.Relationships.Length);
     }
 

@@ -30,7 +30,7 @@ public class Spdx2JsonDeserialize22
     /// Test parsing SPDX 2.2 JSON document.
     /// </summary>
     [TestMethod]
-    public void TestParse22()
+    public void Deserialize_ValidSpdx22Json_ReturnsExpectedDocument()
     {
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.2.spdx.json");
@@ -55,7 +55,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("Organization: ExampleCodeInspect ()", doc.CreationInformation.Creators[1]);
         Assert.AreEqual("Person: Jane Doe ()", doc.CreationInformation.Creators[2]);
         Assert.AreEqual("2010-01-29T18:30:22Z", doc.CreationInformation.Created);
-        Assert.IsTrue(doc.CreationInformation.Comment?.StartsWith("This package has been shipped in source and"));
+        StringAssert.StartsWith(doc.CreationInformation.Comment, "This package has been shipped in source and");
         Assert.AreEqual("3.9", doc.CreationInformation.LicenseListVersion);
 
         // Verify external document references
@@ -69,21 +69,21 @@ public class Spdx2JsonDeserialize22
         // Verify extracted licensing info
         Assert.AreEqual(5, doc.ExtractedLicensingInfo.Length);
         Assert.AreEqual("LicenseRef-Beerware-4.2", doc.ExtractedLicensingInfo[0].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[0].ExtractedText.StartsWith("\"THE BEER-WARE LICENSE\""));
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[0].ExtractedText, "\"THE BEER-WARE LICENSE\"");
         Assert.AreEqual("LicenseRef-4", doc.ExtractedLicensingInfo[1].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[1].ExtractedText.StartsWith("/*\n * (c) Copyright 2009 University of Bristol"));
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[1].ExtractedText, "/*\n * (c) Copyright 2009 University of Bristol");
         Assert.AreEqual("LicenseRef-3", doc.ExtractedLicensingInfo[2].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[2].ExtractedText.StartsWith("The CyberNeko Software License"));
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[2].ExtractedText, "The CyberNeko Software License");
         Assert.AreEqual("CyberNeko License", doc.ExtractedLicensingInfo[2].Name);
         Assert.AreEqual(2, doc.ExtractedLicensingInfo[2].CrossReferences.Length);
         Assert.AreEqual("http://people.apache.org/~andyc/neko/LICENSE",
             doc.ExtractedLicensingInfo[2].CrossReferences[0]);
         Assert.AreEqual("http://justasample.url.com", doc.ExtractedLicensingInfo[2].CrossReferences[1]);
-        Assert.AreEqual("This is tye CyperNeko License", doc.ExtractedLicensingInfo[2].Comment);
+        Assert.AreEqual("This is the CyperNeko License", doc.ExtractedLicensingInfo[2].Comment);
         Assert.AreEqual("LicenseRef-2", doc.ExtractedLicensingInfo[3].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[3].ExtractedText.StartsWith("This package includes the"));
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[3].ExtractedText, "This package includes the");
         Assert.AreEqual("LicenseRef-1", doc.ExtractedLicensingInfo[4].LicenseId);
-        Assert.IsTrue(doc.ExtractedLicensingInfo[4].ExtractedText.StartsWith("/*\n * (c) Copyright 2000, 2001, 2002"));
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[4].ExtractedText, "/*\n * (c) Copyright 2000, 2001, 2002");
 
         // Verify annotations
         Assert.AreEqual(3, doc.Annotations.Length);
@@ -98,7 +98,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("Person: Joe Reviewer", doc.Annotations[2].Annotator);
         Assert.AreEqual("2010-02-10T00:00:00Z", doc.Annotations[2].Date);
         Assert.AreEqual(SpdxAnnotationType.Review, doc.Annotations[2].Type);
-        Assert.IsTrue(doc.Annotations[2].Comment.StartsWith("This is just an example"));
+        StringAssert.StartsWith(doc.Annotations[2].Comment, "This is just an example");
 
         // Verify files
         Assert.AreEqual(4, doc.Files.Length);
@@ -118,9 +118,9 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("SPDX Technical Team Members", doc.Files[0].Contributors[1]);
         Assert.AreEqual("Open Logic Inc.", doc.Files[0].Contributors[2]);
         Assert.AreEqual("Source Auditor Inc.", doc.Files[0].Contributors[3]);
-        Assert.AreEqual("Black Duck Software In.c", doc.Files[0].Contributors[4]);
+        Assert.AreEqual("Black Duck Software Inc.", doc.Files[0].Contributors[4]);
         Assert.AreEqual("This file is used by Jena", doc.Files[1].Comment);
-        Assert.IsTrue(doc.Files[1].Notice?.StartsWith("Apache Commons Lang\nCopyright 2001-2011"));
+        StringAssert.StartsWith(doc.Files[1].Notice, "Apache Commons Lang\nCopyright 2001-2011");
         Assert.AreEqual("This license is used by Jena", doc.Files[2].LicenseComments);
         Assert.AreEqual(1, doc.Files[3].Annotations.Length);
         Assert.AreEqual("Person: File Commenter", doc.Files[3].Annotations[0].Annotator);
@@ -144,9 +144,9 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("GPL-2.0-only", doc.Snippets[0].ConcludedLicense);
         Assert.AreEqual(1, doc.Snippets[0].LicenseInfoInSnippet.Length);
         Assert.AreEqual("GPL-2.0-only", doc.Snippets[0].LicenseInfoInSnippet[0]);
-        Assert.IsTrue(doc.Snippets[0].LicenseComments?.StartsWith("The concluded license was taken"));
+        StringAssert.StartsWith(doc.Snippets[0].LicenseComments, "The concluded license was taken");
         Assert.AreEqual("Copyright 2008-2010 John Smith", doc.Snippets[0].CopyrightText);
-        Assert.IsTrue(doc.Snippets[0].Comment?.StartsWith("This snippet was identified as significant"));
+        StringAssert.StartsWith(doc.Snippets[0].Comment, "This snippet was identified as significant");
         Assert.AreEqual("from linux kernel", doc.Snippets[0].Name);
 
         // Verify relationships

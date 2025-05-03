@@ -54,12 +54,12 @@ public static class SpdxAnnotationTypeExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxAnnotationType FromText(string annotationType)
     {
-        return annotationType switch
+        return annotationType.ToUpperInvariant() switch
         {
             "" => SpdxAnnotationType.Missing,
             "REVIEW" => SpdxAnnotationType.Review,
             "OTHER" => SpdxAnnotationType.Other,
-            _ => throw new InvalidOperationException($"Unsupported SPDX Annotation Type {annotationType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Annotation Type '{annotationType}'")
         };
     }
 
@@ -77,7 +77,7 @@ public static class SpdxAnnotationTypeExtensions
                 "Attempt to serialize missing SPDX Annotation Type"),
             SpdxAnnotationType.Review => "REVIEW",
             SpdxAnnotationType.Other => "OTHER",
-            _ => throw new InvalidOperationException($"Unsupported SPDX Annotation Type {annotationType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Annotation Type '{annotationType}'")
         };
     }
 }

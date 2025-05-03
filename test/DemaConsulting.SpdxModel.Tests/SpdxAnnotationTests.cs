@@ -142,4 +142,49 @@ public class SpdxAnnotationTests
         Assert.AreEqual("2023-11-20T12:34:23Z", annotations[1].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, annotations[1].Type);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for valid annotation types.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_FromText_Valid()
+    {
+        Assert.AreEqual(SpdxAnnotationType.Missing, SpdxAnnotationTypeExtensions.FromText(""));
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("Review"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("OTHER"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("other"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("Other"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for an invalid annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_FromText_Invalid()
+    {
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        Assert.AreEqual($"Unsupported SPDX Annotation Type 'invalid'", exception.Message);
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for valid annotation types.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_ToText_Valid()
+    {
+        Assert.AreEqual("REVIEW", SpdxAnnotationType.Review.ToText());
+        Assert.AreEqual("OTHER", SpdxAnnotationType.Other.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for an invalid annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_ToText_Invalid()
+    {
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+        Assert.AreEqual($"Unsupported SPDX Annotation Type '1000'", exception.Message);
+    }
 }
