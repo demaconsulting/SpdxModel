@@ -107,7 +107,7 @@ public static class SpdxFileTypeExtensions
             "DOCUMENTATION" => SpdxFileType.Documentation,
             "SPDX" => SpdxFileType.Spdx,
             "OTHER" => SpdxFileType.Other,
-            _ => throw new InvalidOperationException($"Unsupported SPDX File Type {fileType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX File Type '{fileType}'")
         };
     }
 
@@ -132,7 +132,7 @@ public static class SpdxFileTypeExtensions
             SpdxFileType.Documentation => "DOCUMENTATION",
             SpdxFileType.Spdx => "SPDX",
             SpdxFileType.Other => "OTHER",
-            _ => throw new InvalidOperationException($"Unsupported SPDX File Type {fileType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX File Type '{fileType}'")
         };
     }
 }

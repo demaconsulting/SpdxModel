@@ -317,7 +317,7 @@ public static class SpdxRelationshipTypeExtensions
             "REQUIREMENT_DESCRIPTION_FOR" => SpdxRelationshipType.RequirementDescriptionFor,
             "SPECIFICATION_FOR" => SpdxRelationshipType.SpecificationFor,
             "OTHER" => SpdxRelationshipType.Other,
-            _ => throw new InvalidOperationException($"Unsupported SPDX Relationship Type {relationshipType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Relationship Type '{relationshipType}'")
         };
     }
 
@@ -378,7 +378,7 @@ public static class SpdxRelationshipTypeExtensions
             SpdxRelationshipType.RequirementDescriptionFor => "REQUIREMENT_DESCRIPTION_FOR",
             SpdxRelationshipType.SpecificationFor => "SPECIFICATION_FOR",
             SpdxRelationshipType.Other => "OTHER",
-            _ => throw new InvalidOperationException($"Unsupported SPDX Relationship Type {relationshipType}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Relationship Type '{relationshipType}'")
         };
     }
 }

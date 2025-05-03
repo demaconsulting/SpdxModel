@@ -59,14 +59,14 @@ public class SpdxRelationshipsTests
         Assert.ThrowsException<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
-                document, 
+                document,
                 new SpdxRelationship
                 {
                     Id = "SPDXRef-Package-Missing",
                     RelatedSpdxElement = "SPDXRef-Package-2",
                     RelationshipType = SpdxRelationshipType.DependsOn
                 });
-        });
+        }, "Expected exception for invalid SPDX ID was not thrown.");
 
         // Assert
         Assert.AreEqual(0, document.Relationships.Length);

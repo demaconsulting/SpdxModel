@@ -149,7 +149,7 @@ public static class SpdxChecksumAlgorithmExtensions
             "BLAKE2b-512" => SpdxChecksumAlgorithm.Blake2B512,
             "BLAKE3" => SpdxChecksumAlgorithm.Blake3,
             "ADLER32" => SpdxChecksumAlgorithm.Adler32,
-            _ => throw new InvalidOperationException($"Unsupported SPDX Checksum Algorithm {checksumAlgorithm}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Checksum Algorithm '{checksumAlgorithm}'")
         };
     }
 
@@ -182,7 +182,7 @@ public static class SpdxChecksumAlgorithmExtensions
             SpdxChecksumAlgorithm.Blake2B512 => "BLAKE2b-512",
             SpdxChecksumAlgorithm.Blake3 => "BLAKE3",
             SpdxChecksumAlgorithm.Adler32 => "ADLER32",
-            _ => throw new InvalidOperationException($"Unsupported SPDX Checksum Algorithm {checksumAlgorithm}")
+            _ => throw new InvalidOperationException($"Unsupported SPDX Checksum Algorithm '{checksumAlgorithm}'")
         };
     }
 }
