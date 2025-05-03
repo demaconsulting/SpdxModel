@@ -164,8 +164,8 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
-        Assert.AreEqual($"Unsupported SPDX Annotation Type 'invalid'", exception.Message);
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        Assert.AreEqual("Unsupported SPDX Annotation Type 'invalid'", exception.Message);
     }
 
     /// <summary>
@@ -184,7 +184,7 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
-        Assert.AreEqual($"Unsupported SPDX Annotation Type '1000'", exception.Message);
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+        Assert.AreEqual("Unsupported SPDX Annotation Type '1000'", exception.Message);
     }
 }
