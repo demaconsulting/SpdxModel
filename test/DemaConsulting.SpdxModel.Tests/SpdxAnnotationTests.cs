@@ -160,7 +160,8 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        Assert.AreEqual($"Unsupported SPDX Annotation Type 'invalid'", exception.Message);
     }
 
     /// <summary>
@@ -178,6 +179,7 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+        Assert.AreEqual($"Unsupported SPDX Annotation Type '1000'", exception.Message);
     }
 }
