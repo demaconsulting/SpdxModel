@@ -136,4 +136,52 @@ public class SpdxExternalReferenceTests
         Assert.AreEqual("purl", references[1].Type);
         Assert.AreEqual("pkg:nuget/SomePackage@0.0.0", references[1].Locator);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)"/> method with valid input.
+    /// </summary>
+    [TestMethod]
+    public void SpdxReferenceCategoryExtensions_FromText_Valid()
+    {
+        Assert.AreEqual(SpdxReferenceCategory.Missing, SpdxReferenceCategoryExtensions.FromText(""));
+        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("SECURITY"));
+        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("security"));
+        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("Security"));
+        Assert.AreEqual(SpdxReferenceCategory.PackageManager, SpdxReferenceCategoryExtensions.FromText("PACKAGE-MANAGER"));
+        Assert.AreEqual(SpdxReferenceCategory.PackageManager, SpdxReferenceCategoryExtensions.FromText("PACKAGE_MANAGER"));
+        Assert.AreEqual(SpdxReferenceCategory.PersistentId, SpdxReferenceCategoryExtensions.FromText("PERSISTENT-ID"));
+        Assert.AreEqual(SpdxReferenceCategory.Other, SpdxReferenceCategoryExtensions.FromText("OTHER"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)"/> method with invalid input.
+    /// </summary>
+    [TestMethod]
+    public void SpdxReferenceCategoryExtensions_FromText_Invalid()
+    {
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
+        Assert.AreEqual("Unsupported SPDX Reference Category 'invalid'", exception.Message);
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxReferenceCategoryExtensions.ToText"/> method with valid input.
+    /// </summary>
+    [TestMethod]
+    public void SpdxReferenceCategoryExtensions_ToText_Valid()
+    {
+        Assert.AreEqual("SECURITY", SpdxReferenceCategory.Security.ToText());
+        Assert.AreEqual("PACKAGE-MANAGER", SpdxReferenceCategory.PackageManager.ToText());
+        Assert.AreEqual("PERSISTENT-ID", SpdxReferenceCategory.PersistentId.ToText());
+        Assert.AreEqual("OTHER", SpdxReferenceCategory.Other.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxReferenceCategoryExtensions.ToText"/> method with invalid input.
+    /// </summary>
+    [TestMethod]
+    public void SpdxReferenceCategoryExtensions_ToText_Invalid()
+    {
+        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxReferenceCategory)1000).ToText());
+        Assert.AreEqual("Unsupported SPDX Reference Category '1000'", exception.Message);
+    }
 }

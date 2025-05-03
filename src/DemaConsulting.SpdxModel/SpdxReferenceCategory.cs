@@ -64,7 +64,7 @@ public static class SpdxReferenceCategoryExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxReferenceCategory FromText(string category)
     {
-        return category switch
+        return category.ToUpperInvariant() switch
         {
             "" => SpdxReferenceCategory.Missing,
             "SECURITY" => SpdxReferenceCategory.Security,
