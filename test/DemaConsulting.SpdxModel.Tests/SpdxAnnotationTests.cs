@@ -144,14 +144,18 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for the "REVIEW" annotation type.
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for valid annotation types.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotationTypeExtensions_FromText_Review()
+    public void SpdxAnnotationTypeExtensions_FromText_Valid()
     {
+        Assert.AreEqual(SpdxAnnotationType.Missing, SpdxAnnotationTypeExtensions.FromText(""));
         Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
         Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
         Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("Review"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("OTHER"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("other"));
+        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("Other"));
     }
 
     /// <summary>
@@ -165,12 +169,13 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for the "REVIEW" annotation type.
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for valid annotation types.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotationTypeExtensions_ToText_Review()
+    public void SpdxAnnotationTypeExtensions_ToText_Valid()
     {
         Assert.AreEqual("REVIEW", SpdxAnnotationType.Review.ToText());
+        Assert.AreEqual("OTHER", SpdxAnnotationType.Other.ToText());
     }
 
     /// <summary>

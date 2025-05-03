@@ -128,9 +128,28 @@ public class SpdxChecksumTests
     /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)"/> method.
     /// </summary>
     [TestMethod]
-    public void SpdxChecksumAlgorithmExtensions_FromText_Sha256()
+    public void SpdxChecksumAlgorithmExtensions_FromText_Valid()
     {
+        Assert.AreEqual(SpdxChecksumAlgorithm.Missing, SpdxChecksumAlgorithmExtensions.FromText(""));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("SHA1"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("sha1"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("Sha1"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha224, SpdxChecksumAlgorithmExtensions.FromText("SHA224"));
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha256, SpdxChecksumAlgorithmExtensions.FromText("SHA256"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha384, SpdxChecksumAlgorithmExtensions.FromText("SHA384"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha512, SpdxChecksumAlgorithmExtensions.FromText("SHA512"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Md2, SpdxChecksumAlgorithmExtensions.FromText("MD2"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Md4, SpdxChecksumAlgorithmExtensions.FromText("MD4"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Md5, SpdxChecksumAlgorithmExtensions.FromText("MD5"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Md6, SpdxChecksumAlgorithmExtensions.FromText("MD6"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3256, SpdxChecksumAlgorithmExtensions.FromText("SHA3-256"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3384, SpdxChecksumAlgorithmExtensions.FromText("SHA3-384"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3512, SpdxChecksumAlgorithmExtensions.FromText("SHA3-512"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B256, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-256"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B384, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-384"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B512, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-512"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Blake3, SpdxChecksumAlgorithmExtensions.FromText("BLAKE3"));
+        Assert.AreEqual(SpdxChecksumAlgorithm.Adler32, SpdxChecksumAlgorithmExtensions.FromText("ADLER32"));
     }
 
     /// <summary>
@@ -147,9 +166,25 @@ public class SpdxChecksumTests
     /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)"/> method.
     /// </summary>
     [TestMethod]
-    public void SpdxChecksumAlgorithmExtensions_ToText_Sha256()
+    public void SpdxChecksumAlgorithmExtensions_ToText_Valid()
     {
+        Assert.AreEqual("SHA1", SpdxChecksumAlgorithm.Sha1.ToText());
+        Assert.AreEqual("SHA224", SpdxChecksumAlgorithm.Sha224.ToText());
         Assert.AreEqual("SHA256", SpdxChecksumAlgorithm.Sha256.ToText());
+        Assert.AreEqual("SHA384", SpdxChecksumAlgorithm.Sha384.ToText());
+        Assert.AreEqual("SHA512", SpdxChecksumAlgorithm.Sha512.ToText());
+        Assert.AreEqual("MD2", SpdxChecksumAlgorithm.Md2.ToText());
+        Assert.AreEqual("MD4", SpdxChecksumAlgorithm.Md4.ToText());
+        Assert.AreEqual("MD5", SpdxChecksumAlgorithm.Md5.ToText());
+        Assert.AreEqual("MD6", SpdxChecksumAlgorithm.Md6.ToText());
+        Assert.AreEqual("SHA3-256", SpdxChecksumAlgorithm.Sha3256.ToText());
+        Assert.AreEqual("SHA3-384", SpdxChecksumAlgorithm.Sha3384.ToText());
+        Assert.AreEqual("SHA3-512", SpdxChecksumAlgorithm.Sha3512.ToText());
+        Assert.AreEqual("BLAKE2b-256", SpdxChecksumAlgorithm.Blake2B256.ToText());
+        Assert.AreEqual("BLAKE2b-384", SpdxChecksumAlgorithm.Blake2B384.ToText());
+        Assert.AreEqual("BLAKE2b-512", SpdxChecksumAlgorithm.Blake2B512.ToText());
+        Assert.AreEqual("BLAKE3", SpdxChecksumAlgorithm.Blake3.ToText());
+        Assert.AreEqual("ADLER32", SpdxChecksumAlgorithm.Adler32.ToText());
     }
 
     /// <summary>

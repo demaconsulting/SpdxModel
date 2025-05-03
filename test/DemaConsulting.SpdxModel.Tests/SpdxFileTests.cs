@@ -206,11 +206,21 @@ public class SpdxFileTests
     /// Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method.
     /// </summary>
     [TestMethod]
-    public void SpdxFileTypeExtensions_FromText_Source()
+    public void SpdxFileTypeExtensions_FromText_Valid()
     {
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("SOURCE"));
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("source"));
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("Source"));
+        Assert.AreEqual(SpdxFileType.Binary, SpdxFileTypeExtensions.FromText("BINARY"));
+        Assert.AreEqual(SpdxFileType.Archive, SpdxFileTypeExtensions.FromText("ARCHIVE"));
+        Assert.AreEqual(SpdxFileType.Application, SpdxFileTypeExtensions.FromText("APPLICATION"));
+        Assert.AreEqual(SpdxFileType.Audio, SpdxFileTypeExtensions.FromText("AUDIO"));
+        Assert.AreEqual(SpdxFileType.Image, SpdxFileTypeExtensions.FromText("IMAGE"));
+        Assert.AreEqual(SpdxFileType.Text, SpdxFileTypeExtensions.FromText("TEXT"));
+        Assert.AreEqual(SpdxFileType.Video, SpdxFileTypeExtensions.FromText("VIDEO"));
+        Assert.AreEqual(SpdxFileType.Documentation, SpdxFileTypeExtensions.FromText("DOCUMENTATION"));
+        Assert.AreEqual(SpdxFileType.Spdx, SpdxFileTypeExtensions.FromText("SPDX"));
+        Assert.AreEqual(SpdxFileType.Other, SpdxFileTypeExtensions.FromText("OTHER"));
     }
 
     /// <summary>
@@ -227,9 +237,19 @@ public class SpdxFileTests
     /// Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method.
     /// </summary>
     [TestMethod]
-    public void SpdxFileTypeExtensions_ToText_Source()
+    public void SpdxFileTypeExtensions_ToText_Valid()
     {
         Assert.AreEqual("SOURCE", SpdxFileType.Source.ToText());
+        Assert.AreEqual("BINARY", SpdxFileType.Binary.ToText());
+        Assert.AreEqual("ARCHIVE", SpdxFileType.Archive.ToText());
+        Assert.AreEqual("APPLICATION", SpdxFileType.Application.ToText());
+        Assert.AreEqual("AUDIO", SpdxFileType.Audio.ToText());
+        Assert.AreEqual("IMAGE", SpdxFileType.Image.ToText());
+        Assert.AreEqual("TEXT", SpdxFileType.Text.ToText());
+        Assert.AreEqual("VIDEO", SpdxFileType.Video.ToText());
+        Assert.AreEqual("DOCUMENTATION", SpdxFileType.Documentation.ToText());
+        Assert.AreEqual("SPDX", SpdxFileType.Spdx.ToText());
+        Assert.AreEqual("OTHER", SpdxFileType.Other.ToText());
     }
 
     /// <summary>
