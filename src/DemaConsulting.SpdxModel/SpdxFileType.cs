@@ -94,7 +94,7 @@ public static class SpdxFileTypeExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxFileType FromText(string fileType)
     {
-        return fileType switch
+        return fileType.ToUpperInvariant() switch
         {
             "SOURCE" => SpdxFileType.Source,
             "BINARY" => SpdxFileType.Binary,

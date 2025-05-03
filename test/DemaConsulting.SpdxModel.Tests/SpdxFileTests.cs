@@ -201,4 +201,42 @@ public class SpdxFileTests
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, files[1].Checksums[0].Algorithm);
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", files[1].Checksums[0].Value);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFileTypeExtensions_FromText_Source()
+    {
+        Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("SOURCE"));
+        Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("source"));
+        Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("Source"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFileTypeExtensions_FromText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("Invalid"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFileTypeExtensions_ToText_Source()
+    {
+        Assert.AreEqual("SOURCE", SpdxFileType.Source.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFileTypeExtensions_ToText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => ((SpdxFileType)1000).ToText());
+    }
 }

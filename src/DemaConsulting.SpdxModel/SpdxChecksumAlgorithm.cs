@@ -129,7 +129,7 @@ public static class SpdxChecksumAlgorithmExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxChecksumAlgorithm FromText(string checksumAlgorithm)
     {
-        return checksumAlgorithm switch
+        return checksumAlgorithm.ToUpperInvariant() switch
         {
             "" => SpdxChecksumAlgorithm.Missing,
             "SHA1" => SpdxChecksumAlgorithm.Sha1,
@@ -144,9 +144,9 @@ public static class SpdxChecksumAlgorithmExtensions
             "SHA3-256" => SpdxChecksumAlgorithm.Sha3256,
             "SHA3-384" => SpdxChecksumAlgorithm.Sha3384,
             "SHA3-512" => SpdxChecksumAlgorithm.Sha3512,
-            "BLAKE2b-256" => SpdxChecksumAlgorithm.Blake2B256,
-            "BLAKE2b-384" => SpdxChecksumAlgorithm.Blake2B384,
-            "BLAKE2b-512" => SpdxChecksumAlgorithm.Blake2B512,
+            "BLAKE2B-256" => SpdxChecksumAlgorithm.Blake2B256,
+            "BLAKE2B-384" => SpdxChecksumAlgorithm.Blake2B384,
+            "BLAKE2B-512" => SpdxChecksumAlgorithm.Blake2B512,
             "BLAKE3" => SpdxChecksumAlgorithm.Blake3,
             "ADLER32" => SpdxChecksumAlgorithm.Adler32,
             _ => throw new InvalidOperationException($"Unsupported SPDX Checksum Algorithm '{checksumAlgorithm}'")

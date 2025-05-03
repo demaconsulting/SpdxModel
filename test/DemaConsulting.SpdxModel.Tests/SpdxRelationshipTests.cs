@@ -181,4 +181,42 @@ public class SpdxRelationshipTests
         Assert.AreEqual(SpdxRelationshipType.DevToolOf, relationships[1].RelationshipType);
         Assert.AreEqual("SPDXRef-Package4", relationships[1].RelatedSpdxElement);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)"/> method for the "CONTAINS" relationship type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationshipTypeExtensions_FromText_Contains()
+    {
+        Assert.AreEqual(SpdxRelationshipType.Contains, SpdxRelationshipTypeExtensions.FromText("CONTAINS"));
+        Assert.AreEqual(SpdxRelationshipType.Contains, SpdxRelationshipTypeExtensions.FromText("contains"));
+        Assert.AreEqual(SpdxRelationshipType.Contains, SpdxRelationshipTypeExtensions.FromText("Contains"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)"/> method for an invalid relationship type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationshipTypeExtensions_FromText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("Invalid"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)"/> method for the "CONTAINS" relationship type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationshipTypeExtensions_ToText_Contains()
+    {
+        Assert.AreEqual("CONTAINS", SpdxRelationshipType.Contains.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)"/> method for an invalid relationship type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationshipTypeExtensions_ToText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => ((SpdxRelationshipType)1000).ToText());
+    }
 }

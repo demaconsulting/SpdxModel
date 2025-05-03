@@ -142,4 +142,42 @@ public class SpdxAnnotationTests
         Assert.AreEqual("2023-11-20T12:34:23Z", annotations[1].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, annotations[1].Type);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for the "REVIEW" annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_FromText_Review()
+    {
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
+        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("Review"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for an invalid annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_FromText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for the "REVIEW" annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_ToText_Review()
+    {
+        Assert.AreEqual("REVIEW", SpdxAnnotationType.Review.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for an invalid annotation type.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_ToText_Invalid()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+    }
 }

@@ -54,7 +54,7 @@ public static class SpdxAnnotationTypeExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxAnnotationType FromText(string annotationType)
     {
-        return annotationType switch
+        return annotationType.ToUpperInvariant() switch
         {
             "" => SpdxAnnotationType.Missing,
             "REVIEW" => SpdxAnnotationType.Review,

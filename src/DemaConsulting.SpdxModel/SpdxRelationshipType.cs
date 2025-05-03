@@ -269,7 +269,7 @@ public static class SpdxRelationshipTypeExtensions
     /// <exception cref="InvalidOperationException">on error</exception>
     public static SpdxRelationshipType FromText(string relationshipType)
     {
-        return relationshipType switch
+        return relationshipType.ToUpperInvariant() switch
         {
             "" => SpdxRelationshipType.Missing,
             "DESCRIBES" => SpdxRelationshipType.Describes,

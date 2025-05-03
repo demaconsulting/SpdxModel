@@ -123,4 +123,40 @@ public class SpdxChecksumTests
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
         Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", checksums[1].Value);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksumAlgorithmExtensions_FromText_Sha256()
+    {
+        Assert.AreEqual(SpdxChecksumAlgorithm.Sha256, SpdxChecksumAlgorithmExtensions.FromText("SHA256"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksumAlgorithmExtensions_FromText_InvalidAlgorithm()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksumAlgorithmExtensions_ToText_Sha256()
+    {
+        Assert.AreEqual("SHA256", SpdxChecksumAlgorithm.Sha256.ToText());
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)"/> method.
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksumAlgorithmExtensions_ToText_InvalidAlgorithm()
+    {
+        Assert.ThrowsException<InvalidOperationException>(() => ((SpdxChecksumAlgorithm)1000).ToText());
+    }
 }
