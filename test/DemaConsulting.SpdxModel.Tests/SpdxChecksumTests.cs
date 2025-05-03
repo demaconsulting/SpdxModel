@@ -158,7 +158,7 @@ public class SpdxChecksumTests
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_InvalidAlgorithm()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
         Assert.AreEqual("Unsupported SPDX Checksum Algorithm 'unknown'", exception.Message);
     }
 
@@ -193,7 +193,7 @@ public class SpdxChecksumTests
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_InvalidAlgorithm()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxChecksumAlgorithm)1000).ToText());
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxChecksumAlgorithm)1000).ToText());
         Assert.AreEqual("Unsupported SPDX Checksum Algorithm '1000'", exception.Message);
     }
 }

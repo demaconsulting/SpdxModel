@@ -244,7 +244,7 @@ public class SpdxRelationshipTests
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("invalid"));
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Relationship Type 'invalid'", exception.Message);
     }
 
@@ -307,7 +307,7 @@ public class SpdxRelationshipTests
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_ToText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxRelationshipType)1000).ToText());
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxRelationshipType)1000).ToText());
         Assert.AreEqual("Unsupported SPDX Relationship Type '1000'", exception.Message);
     }
 }

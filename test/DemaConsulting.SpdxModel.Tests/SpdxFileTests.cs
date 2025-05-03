@@ -229,7 +229,7 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("invalid"));
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX File Type 'invalid'", exception.Message);
     }
 
@@ -258,7 +258,7 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxFileType)1000).ToText());
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxFileType)1000).ToText());
         Assert.AreEqual("Unsupported SPDX File Type '1000'", exception.Message);
     }
 }

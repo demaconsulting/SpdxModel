@@ -159,7 +159,7 @@ public class SpdxExternalReferenceTests
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Reference Category 'invalid'", exception.Message);
     }
 
@@ -181,7 +181,7 @@ public class SpdxExternalReferenceTests
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_ToText_Invalid()
     {
-        var exception = Assert.ThrowsException<InvalidOperationException>(() => ((SpdxReferenceCategory)1000).ToText());
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxReferenceCategory)1000).ToText());
         Assert.AreEqual("Unsupported SPDX Reference Category '1000'", exception.Message);
     }
 }
