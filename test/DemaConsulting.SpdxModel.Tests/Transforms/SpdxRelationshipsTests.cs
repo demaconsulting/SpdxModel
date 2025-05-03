@@ -66,7 +66,8 @@ public class SpdxRelationshipsTests
                     RelatedSpdxElement = "SPDXRef-Package-2",
                     RelationshipType = SpdxRelationshipType.DependsOn
                 });
-        }, "Expected exception for invalid SPDX ID was not thrown.");
+        });
+        Assert.AreEqual("Invalid SPDX ID: SPDXRef-Package-Missing", exception.Message, "Unexpected exception message.");
 
         // Assert
         Assert.AreEqual(0, document.Relationships.Length);
