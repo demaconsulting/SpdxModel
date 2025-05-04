@@ -110,13 +110,13 @@ public sealed class SpdxFile : SpdxLicenseElement
             FileTypes = [..FileTypes],
             Checksums = [..Checksums.Select(c => c.DeepCopy())],
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoInFiles = [..LicenseInfoInFiles],
+            LicenseInfoInFiles = (string[])LicenseInfoInFiles.Clone(),
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
             Comment = Comment,
             Notice = Notice,
-            Contributors = [..Contributors],
-            AttributionText = [..AttributionText],
+            Contributors = (string[])Contributors.Clone(),
+            AttributionText = (string[])AttributionText.Clone(),
             Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 

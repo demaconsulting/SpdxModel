@@ -130,12 +130,18 @@ public class SpdxRelationshipTests
             Comment = "Package 1 contains Package 2"
         };
 
+        // Make deep copy
         var r2 = r1.DeepCopy();
-        r2.Id = "SPDXRef-Package3";
 
+        // Assert both objects are equal
+        Assert.AreEqual(r1, r2, SpdxRelationship.Same);
+        Assert.AreEqual(r1.Id, r2.Id);
+        Assert.AreEqual(r1.RelationshipType, r2.RelationshipType);
+        Assert.AreEqual(r1.RelatedSpdxElement, r2.RelatedSpdxElement);
+        Assert.AreEqual(r1.Comment, r2.Comment);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(r1, r2));
-        Assert.AreEqual("SPDXRef-Package1", r1.Id);
-        Assert.AreEqual("SPDXRef-Package3", r2.Id);
     }
 
     /// <summary>

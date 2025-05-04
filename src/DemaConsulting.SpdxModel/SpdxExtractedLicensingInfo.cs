@@ -82,7 +82,7 @@ public sealed class SpdxExtractedLicensingInfo
             LicenseId = LicenseId,
             ExtractedText = ExtractedText,
             Name = Name,
-            CrossReferences = [..CrossReferences],
+            CrossReferences = (string[])CrossReferences.Clone(),
             Comment = Comment
         };
 

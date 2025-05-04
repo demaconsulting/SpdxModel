@@ -86,7 +86,7 @@ public sealed class SpdxCreationInformation
     public SpdxCreationInformation DeepCopy() =>
         new()
         {
-            Creators = [..Creators],
+            Creators = (string[])Creators.Clone(),
             Created = Created,
             Comment = Comment,
             LicenseListVersion = LicenseListVersion

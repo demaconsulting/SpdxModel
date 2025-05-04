@@ -82,15 +82,24 @@ public class SpdxSnippetTests
         {
             SnippetFromFile = "SPDXRef-File1",
             SnippetByteStart = 100,
-            SnippetByteEnd = 200
+            SnippetByteEnd = 200,
+            Comment = "Found snippet",
+            ConcludedLicense = "MIT"
         };
 
+        // Make deep copy
         var s2 = s1.DeepCopy();
-        s2.SnippetFromFile = "SPDXRef-File2";
 
+        // Assert both objects are equal
+        Assert.AreEqual(s1, s2, SpdxSnippet.Same);
+        Assert.AreEqual(s1.SnippetFromFile, s2.SnippetFromFile);
+        Assert.AreEqual(s1.SnippetByteStart, s2.SnippetByteStart);
+        Assert.AreEqual(s1.SnippetByteEnd, s2.SnippetByteEnd);
+        Assert.AreEqual(s1.Comment, s2.Comment);
+        Assert.AreEqual(s1.ConcludedLicense, s2.ConcludedLicense);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(s1, s2));
-        Assert.AreEqual("SPDXRef-File1", s1.SnippetFromFile);
-        Assert.AreEqual("SPDXRef-File2", s2.SnippetFromFile);
     }
 
     /// <summary>

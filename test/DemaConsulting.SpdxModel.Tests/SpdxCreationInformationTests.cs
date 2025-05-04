@@ -40,12 +40,18 @@ public class SpdxCreationInformationTests
             LicenseListVersion = "3.9"
         };
 
+        // Make deep copy
         var c2 = c1.DeepCopy();
-        c2.Creators[2] = "Person: Malcolm Nixon";
 
+        // Assert both objects are equal
+        CollectionAssert.AreEqual(c1.Creators, c2.Creators);
+        Assert.AreEqual(c1.Created, c2.Created);
+        Assert.AreEqual(c1.Comment, c2.Comment);
+        Assert.AreEqual(c1.LicenseListVersion, c2.LicenseListVersion);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(c1, c2));
-        Assert.AreEqual("Person: Jane Doe ()", c1.Creators[2]);
-        Assert.AreEqual("Person: Malcolm Nixon", c2.Creators[2]);
+        Assert.IsFalse(ReferenceEquals(c1.Creators, c2.Creators));
     }
 
     /// <summary>

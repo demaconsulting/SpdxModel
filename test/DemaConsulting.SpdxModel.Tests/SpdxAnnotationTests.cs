@@ -87,12 +87,18 @@ public class SpdxAnnotationTests
             Comment = "Looks good"
         };
 
+        // Make deep copy
         var a2 = a1.DeepCopy();
-        a2.Comment = "Looks bad";
 
+        // Assert both objects are equal
+        Assert.AreEqual(a1, a2, SpdxAnnotation.Same);
+        Assert.AreEqual(a1.Annotator, a2.Annotator);
+        Assert.AreEqual(a1.Date, a2.Date);
+        Assert.AreEqual(a1.Type, a2.Type);
+        Assert.AreEqual(a1.Comment, a2.Comment);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(a1, a2));
-        Assert.AreEqual("Looks good", a1.Comment);
-        Assert.AreEqual("Looks bad", a2.Comment);
     }
 
     /// <summary>

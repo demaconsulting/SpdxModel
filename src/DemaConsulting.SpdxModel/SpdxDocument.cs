@@ -163,7 +163,7 @@ public sealed class SpdxDocument : SpdxElement
             Packages = [.. Packages.Select(p => p.DeepCopy())],
             Snippets = [.. Snippets.Select(s => s.DeepCopy())],
             Relationships = [.. Relationships.Select(r => r.DeepCopy())],
-            Describes = [..Describes]
+            Describes = (string[])Describes.Clone()
         };
 
     /// <summary>

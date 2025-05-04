@@ -80,15 +80,58 @@ public class SpdxPackageTests
         {
             Id = "SPDXRef-Package1",
             Name = "DemaConsulting.SpdxModel",
-            Version = "0.0.0"
+            Version = "0.0.0",
+            Checksums =
+            [
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha1,
+                    Value = "d6a770ba38583ed4bb4525bd96e50461655d2759"
+                }
+            ],
+            ExternalReferences =
+            [
+                new SpdxExternalReference
+                {
+                    Category = SpdxReferenceCategory.Security,
+                    Type = "cpe23Type",
+                    Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*"
+                }
+            ],
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "Person: Malcolm Nixon",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Looks good"
+                }
+            ]
         };
 
         var p2 = p1.DeepCopy();
-        p2.Id = "SPDXRef-Package2";
-        
+
+        // Assert both objects are equal
+        Assert.AreEqual(p1, p2, SpdxPackage.Same);
+        Assert.AreEqual(p1.Id, p2.Id);
+        Assert.AreEqual(p1.Name, p2.Name);
+        Assert.AreEqual(p1.Version, p2.Version);
+        CollectionAssert.AreEquivalent(p1.HasFiles, p2.HasFiles);
+        CollectionAssert.AreEquivalent(p1.Checksums, p2.Checksums, SpdxChecksum.Same);
+        CollectionAssert.AreEquivalent(p1.LicenseInfoFromFiles, p2.LicenseInfoFromFiles);
+        CollectionAssert.AreEquivalent(p1.ExternalReferences, p2.ExternalReferences, SpdxExternalReference.Same);
+        CollectionAssert.AreEquivalent(p1.AttributionText, p2.AttributionText);
+        CollectionAssert.AreEquivalent(p1.Annotations, p2.Annotations, SpdxAnnotation.Same);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(p1, p2));
-        Assert.AreEqual("SPDXRef-Package1", p1.Id);
-        Assert.AreEqual("SPDXRef-Package2", p2.Id);
+        Assert.IsFalse(ReferenceEquals(p1.HasFiles, p2.HasFiles));
+        Assert.IsFalse(ReferenceEquals(p1.Checksums, p2.Checksums));
+        Assert.IsFalse(ReferenceEquals(p1.LicenseInfoFromFiles, p2.LicenseInfoFromFiles));
+        Assert.IsFalse(ReferenceEquals(p1.ExternalReferences, p2.ExternalReferences));
+        Assert.IsFalse(ReferenceEquals(p1.AttributionText, p2.AttributionText));
+        Assert.IsFalse(ReferenceEquals(p1.Annotations, p2.Annotations));
     }
 
     /// <summary>
