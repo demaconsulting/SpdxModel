@@ -79,12 +79,16 @@ public class SpdxChecksumTests
             Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
         };
 
+        // Make deep copy
         var c2 = c1.DeepCopy();
-        c2.Value = "d6a770ba38583ed4bb4525bd96e50461655d2759";
 
+        // Assert both objects are equal
+        Assert.AreEqual(c1, c2, SpdxChecksum.Same);
+        Assert.AreEqual(c1.Algorithm, c2.Algorithm);
+        Assert.AreEqual(c1.Value, c2.Value);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(c1, c2));
-        Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", c1.Value);
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", c2.Value);
     }
 
     /// <summary>

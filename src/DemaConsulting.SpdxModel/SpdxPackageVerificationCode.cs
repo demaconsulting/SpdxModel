@@ -69,7 +69,7 @@ public sealed class SpdxPackageVerificationCode
     public SpdxPackageVerificationCode DeepCopy() =>
         new()
         {
-            ExcludedFiles = [..ExcludedFiles],
+            ExcludedFiles = (string[])ExcludedFiles.Clone(),
             Value = Value
         };
 
@@ -80,7 +80,7 @@ public sealed class SpdxPackageVerificationCode
     public void Enhance(SpdxPackageVerificationCode other)
     {
         // Merge the excluded files
-        ExcludedFiles = ExcludedFiles.Concat(other.ExcludedFiles).Distinct().ToArray();
+        ExcludedFiles = [..ExcludedFiles.Concat(other.ExcludedFiles).Distinct()];
 
         // Populate the value field if missing
         Value = SpdxHelpers.EnhanceString(Value, other.Value) ?? "";

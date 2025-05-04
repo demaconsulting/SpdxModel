@@ -77,12 +77,17 @@ public class SpdxPackageVerificationCodeTests
             Value = "d6a770ba38583ed4bb4525bd96e50461655d2758"
         };
 
+        // Make deep copy
         var v2 = v1.DeepCopy();
-        v2.ExcludedFiles[0] = "./test.spdx";
-        
+
+        // Assert both objects are equal
+        Assert.AreEqual(v1, v2, SpdxPackageVerificationCode.Same);
+        CollectionAssert.AreEqual(v1.ExcludedFiles, v2.ExcludedFiles);
+        Assert.AreEqual(v1.Value, v2.Value);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(v1, v2));
-        Assert.AreEqual("./package.spdx", v1.ExcludedFiles[0]);
-        Assert.AreEqual("./test.spdx", v2.ExcludedFiles[0]);
+        Assert.IsFalse(ReferenceEquals(v1.ExcludedFiles, v2.ExcludedFiles));
     }
 
     /// <summary>

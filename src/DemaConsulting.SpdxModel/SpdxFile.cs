@@ -110,13 +110,13 @@ public sealed class SpdxFile : SpdxLicenseElement
             FileTypes = [..FileTypes],
             Checksums = [..Checksums.Select(c => c.DeepCopy())],
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoInFiles = [..LicenseInfoInFiles],
+            LicenseInfoInFiles = (string[])LicenseInfoInFiles.Clone(),
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
             Comment = Comment,
             Notice = Notice,
-            Contributors = [..Contributors],
-            AttributionText = [..AttributionText],
+            Contributors = (string[])Contributors.Clone(),
+            AttributionText = (string[])AttributionText.Clone(),
             Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
@@ -133,13 +133,13 @@ public sealed class SpdxFile : SpdxLicenseElement
         FileName = SpdxHelpers.EnhanceString(FileName, other.FileName) ?? "";
 
         // Merge the file types
-        FileTypes = FileTypes.Concat(other.FileTypes).Distinct().ToArray();
+        FileTypes = [..FileTypes.Concat(other.FileTypes).Distinct()];
 
         // Enhance the checksums
         Checksums = SpdxChecksum.Enhance(Checksums, other.Checksums);
 
         // Merge the license info in files
-        LicenseInfoInFiles = LicenseInfoInFiles.Concat(other.LicenseInfoInFiles).Distinct().ToArray();
+        LicenseInfoInFiles = [..LicenseInfoInFiles.Concat(other.LicenseInfoInFiles).Distinct()];
 
         // Populate the comment if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
@@ -148,7 +148,7 @@ public sealed class SpdxFile : SpdxLicenseElement
         Notice = SpdxHelpers.EnhanceString(Notice, other.Notice);
 
         // Merge the contributors
-        Contributors = Contributors.Concat(other.Contributors).Distinct().ToArray();
+        Contributors = [..Contributors.Concat(other.Contributors).Distinct()];
     }
 
     /// <summary>

@@ -161,7 +161,7 @@ public static class Spdx2JsonDeserializer
         {
             Id = ParseString(json, SpdxConstants.FieldSpdxId),
             FileName = ParseString(json, SpdxConstants.FieldFileName),
-            FileTypes = ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText).ToArray(),
+            FileTypes = [..ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText)],
             Checksums = DeserializeChecksums(json?[SpdxConstants.FieldChecksums]?.AsArray()),
             ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
             LicenseInfoInFiles = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInFiles),

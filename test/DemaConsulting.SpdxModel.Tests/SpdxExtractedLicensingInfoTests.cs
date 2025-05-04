@@ -81,12 +81,17 @@ public class SpdxExtractedLicensingInfoTests
             Comment = "Extracted from files"
         };
 
+        // Make deep copy
         var l2 = l1.DeepCopy();
-        l2.ExtractedText = "Different License";
 
+        // Assert both objects are equal
+        Assert.AreEqual(l1, l2, SpdxExtractedLicensingInfo.Same);
+        Assert.AreEqual(l1.LicenseId, l2.LicenseId);
+        Assert.AreEqual(l1.ExtractedText, l2.ExtractedText);
+        Assert.AreEqual(l1.Comment, l2.Comment);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(l1, l2));
-        Assert.AreEqual("The CyberNeko Software License", l1.ExtractedText);
-        Assert.AreEqual("Different License", l2.ExtractedText);
     }
 
     /// <summary>

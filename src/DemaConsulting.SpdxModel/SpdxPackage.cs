@@ -254,26 +254,26 @@ public sealed class SpdxPackage : SpdxLicenseElement
             Originator = Originator,
             DownloadLocation = DownloadLocation,
             FilesAnalyzed = FilesAnalyzed,
-            HasFiles = [..HasFiles],
+            HasFiles = (string[])HasFiles.Clone(),
             VerificationCode = VerificationCode?.DeepCopy(),
-            Checksums = Checksums.Select(c => c.DeepCopy()).ToArray(),
+            Checksums = [..Checksums.Select(c => c.DeepCopy())],
             HomePage = HomePage,
             SourceInformation = SourceInformation,
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoFromFiles = [..LicenseInfoFromFiles],
+            LicenseInfoFromFiles = (string[])LicenseInfoFromFiles.Clone(),
             DeclaredLicense = DeclaredLicense,
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
             Summary = Summary,
             Description = Description,
             Comment = Comment,
-            ExternalReferences = ExternalReferences.Select(r => r.DeepCopy()).ToArray(),
-            AttributionText = [..AttributionText],
+            ExternalReferences = [..ExternalReferences.Select(r => r.DeepCopy())],
+            AttributionText = (string[])AttributionText.Clone(),
             PrimaryPackagePurpose = PrimaryPackagePurpose,
             ReleaseDate = ReleaseDate,
             BuiltDate = BuiltDate,
             ValidUntilDate = ValidUntilDate,
-            Annotations = Annotations.Select(a => a.DeepCopy()).ToArray()
+            Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
     /// <summary>
@@ -319,7 +319,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
         SourceInformation = SpdxHelpers.EnhanceString(SourceInformation, other.SourceInformation);
 
         // Merge the license-info-from-files entries
-        LicenseInfoFromFiles = LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct().ToArray();
+        LicenseInfoFromFiles = [..LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct()];
 
         // Populate the declared-license field if missing
         DeclaredLicense = SpdxHelpers.EnhanceString(DeclaredLicense, other.DeclaredLicense) ?? "";

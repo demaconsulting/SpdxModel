@@ -111,7 +111,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
             CopyrightText = CopyrightText,
             Comment = Comment,
             Name = Name,
-            AttributionText = [..AttributionText],
+            AttributionText = (string[])AttributionText.Clone(),
             Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
 
@@ -144,7 +144,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
             SnippetLineEnd = other.SnippetLineEnd;
 
         // Merge the license-info-in-snippet entries
-        LicenseInfoInSnippet = LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct().ToArray();
+        LicenseInfoInSnippet = [..LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct()];
 
         // Populate the comment field if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);

@@ -170,6 +170,52 @@ public class SpdxDocumentTests
             Id = "SPDXRef-DOCUMENT",
             Version = "SPDX-2.2",
             Name = "DemaConsulting.SpdxModel-0.0.0",
+            ExternalDocumentReferences =
+            [
+                new SpdxExternalDocumentReference
+                {
+                    ExternalDocumentId = "DocumentRef-spdx-tool-1.2",
+                    Checksum = new SpdxChecksum
+                    {
+                        Algorithm = SpdxChecksumAlgorithm.Sha1,
+                        Value = "d6a770ba38583ed4bb4525bd96e50461655d2759"
+                    }
+                }
+            ],
+            ExtractedLicensingInfo =
+            [
+                new SpdxExtractedLicensingInfo
+                {
+                    LicenseId = "LicenseRef-1",
+                    ExtractedText = "The CyberNeko Software License"
+                }
+            ],
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "Person: Malcolm Nixon",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Looks good"
+                }
+            ],
+            Files =
+            [
+                new SpdxFile
+                {
+                    Id = "SPDXRef-File",
+                    FileName = "test.txt",
+                    Checksums =
+                    [
+                        new SpdxChecksum
+                        {
+                            Algorithm = SpdxChecksumAlgorithm.Sha1,
+                            Value = "d6a770ba38583ed4bb4525bd96e50461655d2759"
+                        }
+                    ]
+                }
+            ],
             Packages =
             [
                 new SpdxPackage
@@ -179,6 +225,22 @@ public class SpdxDocumentTests
                     Version = "0.0.0"
                 }
             ],
+            Snippets = [
+                new SpdxSnippet
+                {
+                    SnippetFromFile = "SPDXRef-File1",
+                    SnippetByteStart = 100,
+                    SnippetByteEnd = 200
+                }
+            ],
+            Relationships = [
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-DOCUMENT",
+                    RelationshipType = SpdxRelationshipType.Describes,
+                    RelatedSpdxElement = "SPDXRef-Package-SpdxModel"
+                }
+            ],
             Describes =
             [
                 "SPDXRef-Package-SpdxModel"
@@ -186,11 +248,31 @@ public class SpdxDocumentTests
         };
 
         var d2 = d1.DeepCopy();
-        d2.Name = "TestName";
 
+        // Assert both objects are equal
+        Assert.AreEqual(d1, d2, SpdxDocument.Same);
+        Assert.AreEqual(d1.Id, d2.Id);
+        Assert.AreEqual(d1.Version, d2.Version);
+        Assert.AreEqual(d1.Name, d2.Name);
+        CollectionAssert.AreEquivalent(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences, SpdxExternalDocumentReference.Same);
+        CollectionAssert.AreEquivalent(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo, SpdxExtractedLicensingInfo.Same);
+        CollectionAssert.AreEquivalent(d1.Annotations, d2.Annotations, SpdxAnnotation.Same);
+        CollectionAssert.AreEquivalent(d1.Files, d2.Files, SpdxFile.Same);
+        CollectionAssert.AreEquivalent(d1.Packages, d2.Packages, SpdxPackage.Same);
+        CollectionAssert.AreEquivalent(d1.Snippets, d2.Snippets, SpdxSnippet.Same);
+        CollectionAssert.AreEquivalent(d1.Relationships, d2.Relationships, SpdxRelationship.Same);
+        CollectionAssert.AreEqual(d1.Describes, d2.Describes);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(d1, d2));
-        Assert.AreEqual("DemaConsulting.SpdxModel-0.0.0", d1.Name);
-        Assert.AreEqual("TestName", d2.Name);
+        Assert.IsFalse(ReferenceEquals(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences));
+        Assert.IsFalse(ReferenceEquals(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo));
+        Assert.IsFalse(ReferenceEquals(d1.Annotations, d2.Annotations));
+        Assert.IsFalse(ReferenceEquals(d1.Files, d2.Files));
+        Assert.IsFalse(ReferenceEquals(d1.Packages, d2.Packages));
+        Assert.IsFalse(ReferenceEquals(d1.Snippets, d2.Snippets));
+        Assert.IsFalse(ReferenceEquals(d1.Relationships, d2.Relationships));
+        Assert.IsFalse(ReferenceEquals(d1.Describes, d2.Describes));
     }
 
     /// <summary>

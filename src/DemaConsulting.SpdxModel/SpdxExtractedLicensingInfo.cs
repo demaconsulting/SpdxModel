@@ -82,7 +82,7 @@ public sealed class SpdxExtractedLicensingInfo
             LicenseId = LicenseId,
             ExtractedText = ExtractedText,
             Name = Name,
-            CrossReferences = [..CrossReferences],
+            CrossReferences = (string[])CrossReferences.Clone(),
             Comment = Comment
         };
 
@@ -102,7 +102,7 @@ public sealed class SpdxExtractedLicensingInfo
         Name = SpdxHelpers.EnhanceString(Name, other.Name);
 
         // Merge the cross-references
-        CrossReferences = CrossReferences.Concat(other.CrossReferences).Distinct().ToArray();
+        CrossReferences = [..CrossReferences.Concat(other.CrossReferences).Distinct()];
 
         // Populate the comment field if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);

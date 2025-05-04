@@ -85,12 +85,18 @@ public class SpdxExternalReferenceTests
             Comment = "CPE23 Standard Identifier"
         };
 
+        // Make deep copy
         var r2 = r1.DeepCopy();
-        r2.Category = SpdxReferenceCategory.Other;
 
+        // Assert both objects are equal
+        Assert.AreEqual(r1, r2, SpdxExternalReference.Same);
+        Assert.AreEqual(r1.Category, r2.Category);
+        Assert.AreEqual(r1.Type, r2.Type);
+        Assert.AreEqual(r1.Locator, r2.Locator);
+        Assert.AreEqual(r1.Comment, r2.Comment);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(r1, r2));
-        Assert.AreEqual(SpdxReferenceCategory.Security, r1.Category);
-        Assert.AreEqual(SpdxReferenceCategory.Other, r2.Category);
     }
 
     /// <summary>

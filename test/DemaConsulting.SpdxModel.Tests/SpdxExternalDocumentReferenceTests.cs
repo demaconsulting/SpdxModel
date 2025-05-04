@@ -99,12 +99,18 @@ public class SpdxExternalDocumentReferenceTests
             Document = "http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301"
         };
 
+        // Make deep copy
         var r2 = r1.DeepCopy();
-        r2.Document = "http://demo.com/some-document";
 
+        // Assert both objects are equal
+        Assert.AreEqual(r1, r2, SpdxExternalDocumentReference.Same);
+        Assert.AreEqual(r1.ExternalDocumentId, r2.ExternalDocumentId);
+        Assert.AreEqual(r1.Checksum, r2.Checksum, SpdxChecksum.Same);
+        Assert.AreEqual(r1.Document, r2.Document);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(r1, r2));
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301", r1.Document);
-        Assert.AreEqual("http://demo.com/some-document", r2.Document);
+        Assert.IsFalse(ReferenceEquals(r1.Checksum, r2.Checksum));
     }
 
     /// <summary>

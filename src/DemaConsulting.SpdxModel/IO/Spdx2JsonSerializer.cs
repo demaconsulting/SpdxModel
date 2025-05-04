@@ -171,7 +171,7 @@ public static class Spdx2JsonSerializer
         var json = new JsonObject();
         EmitString(json, SpdxConstants.FieldSpdxId, file.Id);
         EmitString(json, SpdxConstants.FieldFileName, file.FileName);
-        EmitOptionalStrings(json, SpdxConstants.FieldFileTypes, file.FileTypes.Select(SpdxFileTypeExtensions.ToText).ToArray());
+        EmitOptionalStrings(json, SpdxConstants.FieldFileTypes, [..file.FileTypes.Select(SpdxFileTypeExtensions.ToText)]);
         json[SpdxConstants.FieldChecksums] = SerializeChecksums(file.Checksums);
         EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, file.ConcludedLicense);
         EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoInFiles, file.LicenseInfoInFiles);

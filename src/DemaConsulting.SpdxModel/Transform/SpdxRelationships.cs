@@ -17,10 +17,9 @@ public static class SpdxRelationships
         if (replace)
         {
             // Remove all relationships that refer to the same elements as the new relationships
-            document.Relationships = document.Relationships
+            document.Relationships = [..document.Relationships
                 .Where(r => !relationships.Any(
-                    r2 => SpdxRelationship.SameElements.Equals(r, r2)))
-                .ToArray();
+                    r2 => SpdxRelationship.SameElements.Equals(r, r2)))];
         }
 
         // Add the new relationships

@@ -121,12 +121,19 @@ public class SpdxFileTests
             Comment = "File 1"
         };
 
+        // Make deep copy
         var f2 = f1.DeepCopy();
-        f2.Checksums[0].Value = "d6a770ba38583ed4bb4525bd96e50461655d2759";
 
+        // Assert both objects are equal
+        Assert.AreEqual(f1, f2, SpdxFile.Same);
+        Assert.AreEqual(f1.Id, f2.Id);
+        Assert.AreEqual(f1.FileName, f2.FileName);
+        CollectionAssert.AreEquivalent(f1.Checksums, f2.Checksums, SpdxChecksum.Same);
+        Assert.AreEqual(f1.Comment, f2.Comment);
+
+        // Assert separate instances
         Assert.IsFalse(ReferenceEquals(f1, f2));
-        Assert.AreEqual("85ed0817af83a24ad8da68c2b5094de69833983c", f1.Checksums[0].Value);
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", f2.Checksums[0].Value);
+        Assert.IsFalse(ReferenceEquals(f1.Checksums, f2.Checksums));
     }
 
     /// <summary>

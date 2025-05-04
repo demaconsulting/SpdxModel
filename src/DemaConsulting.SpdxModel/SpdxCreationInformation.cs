@@ -86,7 +86,7 @@ public sealed class SpdxCreationInformation
     public SpdxCreationInformation DeepCopy() =>
         new()
         {
-            Creators = [..Creators],
+            Creators = (string[])Creators.Clone(),
             Created = Created,
             Comment = Comment,
             LicenseListVersion = LicenseListVersion
@@ -99,7 +99,7 @@ public sealed class SpdxCreationInformation
     public void Enhance(SpdxCreationInformation other)
     {
         // Merge the creators
-        Creators = Creators.Concat(other.Creators).Distinct().ToArray();
+        Creators = [..Creators.Concat(other.Creators).Distinct()];
 
         // Populate the created field if missing
         Created = SpdxHelpers.EnhanceString(Created, other.Created) ?? "";
