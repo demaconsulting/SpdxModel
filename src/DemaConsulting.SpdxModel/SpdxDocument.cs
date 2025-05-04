@@ -156,13 +156,13 @@ public sealed class SpdxDocument : SpdxElement
             DocumentNamespace = DocumentNamespace,
             Comment = Comment,
             CreationInformation = CreationInformation.DeepCopy(),
-            ExternalDocumentReferences = [.. ExternalDocumentReferences.Select(r => r.DeepCopy())],
-            ExtractedLicensingInfo = [.. ExtractedLicensingInfo.Select(l => l.DeepCopy())],
-            Annotations = [.. Annotations.Select(a => a.DeepCopy())],
-            Files = [.. Files.Select(f => f.DeepCopy())],
-            Packages = [.. Packages.Select(p => p.DeepCopy())],
-            Snippets = [.. Snippets.Select(s => s.DeepCopy())],
-            Relationships = [.. Relationships.Select(r => r.DeepCopy())],
+            ExternalDocumentReferences = [..ExternalDocumentReferences.Select(r => r.DeepCopy())],
+            ExtractedLicensingInfo = [..ExtractedLicensingInfo.Select(l => l.DeepCopy())],
+            Annotations = [..Annotations.Select(a => a.DeepCopy())],
+            Files = [..Files.Select(f => f.DeepCopy())],
+            Packages = [..Packages.Select(p => p.DeepCopy())],
+            Snippets = [..Snippets.Select(s => s.DeepCopy())],
+            Relationships = [..Relationships.Select(r => r.DeepCopy())],
             Describes = (string[])Describes.Clone()
         };
 
