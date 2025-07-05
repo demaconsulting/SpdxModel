@@ -27,10 +27,10 @@ namespace DemaConsulting.SpdxModel.Tests;
 public class SpdxSnippetTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxSnippet.Same"/> comparer.
+    ///     Tests the <see cref="SpdxSnippet.Same"/> comparer compares snippets correctly.
     /// </summary>
     [TestMethod]
-    public void SnippetSameComparer()
+    public void SpdxSnippet_SameComparer_ComparesCorrectly()
     {
         var s1 = new SpdxSnippet
         {
@@ -73,11 +73,12 @@ public class SpdxSnippetTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxSnippet.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxSnippet.DeepCopy"/> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create a SpdxSnippet instance with various properties
         var s1 = new SpdxSnippet
         {
             SnippetFromFile = "SPDXRef-File1",
@@ -87,10 +88,10 @@ public class SpdxSnippetTests
             ConcludedLicense = "MIT"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the SpdxSnippet instance
         var s2 = s1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify the deep-copy is equal to the original
         Assert.AreEqual(s1, s2, SpdxSnippet.Same);
         Assert.AreEqual(s1.SnippetFromFile, s2.SnippetFromFile);
         Assert.AreEqual(s1.SnippetByteStart, s2.SnippetByteStart);
@@ -98,16 +99,17 @@ public class SpdxSnippetTests
         Assert.AreEqual(s1.Comment, s2.Comment);
         Assert.AreEqual(s1.ConcludedLicense, s2.ConcludedLicense);
 
-        // Assert separate instances
+        // Assert: Verify the deep-copy is a distinct instance
         Assert.IsFalse(ReferenceEquals(s1, s2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])"/> method.
+    ///     Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])"/> method adds or updates information correctly.
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of SpdxSnippet objects
         var snippets = new[]
         {
             new SpdxSnippet
@@ -118,6 +120,7 @@ public class SpdxSnippetTests
             }
         };
 
+        // Act: Enhance the snippets with additional information
         snippets = SpdxSnippet.Enhance(
             snippets,
             [
@@ -137,6 +140,7 @@ public class SpdxSnippetTests
                 }
             ]);
 
+        // Assert: Check that the snippets array has been enhanced correctly
         Assert.AreEqual(2, snippets.Length);
         Assert.AreEqual("SPDXRef-File1", snippets[0].SnippetFromFile);
         Assert.AreEqual(100, snippets[0].SnippetByteStart);
@@ -146,5 +150,30 @@ public class SpdxSnippetTests
         Assert.AreEqual("SPDXRef-File2", snippets[1].SnippetFromFile);
         Assert.AreEqual(10, snippets[1].SnippetByteStart);
         Assert.AreEqual(40, snippets[1].SnippetByteEnd);
+    }
+
+
+    /// <summary>
+    ///     Tests that an invalid snippet ID fails validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxSnippet_Validate_ReportsInvalidSnippetId()
+    {
+        // Arrange: Create a SpdxSnippet with an invalid ID
+        var snippet = new SpdxSnippet
+        {
+            Id = "Invalid_ID",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Check that the issues list contains the expected error message
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Snippet Invalid SPDX Identifier Field")));
     }
 }

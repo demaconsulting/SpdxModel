@@ -194,7 +194,7 @@ public sealed class SpdxFile : SpdxLicenseElement
             issues.Add($"File {FileName} Invalid File Name Field");
 
         // Validate File SPDX Identifier Field
-        if (!Id.StartsWith("SPDXRef-"))
+        if (!SpdxRefRegex.IsMatch(Id))
             issues.Add($"File {FileName} Invalid SPDX Identifier Field");
 
         // Validate Checksums

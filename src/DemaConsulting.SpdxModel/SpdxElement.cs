@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text.RegularExpressions;
+
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
@@ -25,6 +27,14 @@ namespace DemaConsulting.SpdxModel;
 /// </summary>
 public abstract class SpdxElement
 {
+    /// <summary>
+    /// Regular expression for checking element IDs of the form "SPDXRef-name"
+    /// </summary>
+    protected static readonly Regex SpdxRefRegex = new(
+        "^SPDXRef-[a-zA-Z0-9,-]+$",
+        RegexOptions.None,
+        TimeSpan.FromMilliseconds(100));
+
     /// <summary>
     /// No Assertion value
     /// </summary>
