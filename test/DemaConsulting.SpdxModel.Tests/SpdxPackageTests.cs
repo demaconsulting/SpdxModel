@@ -175,4 +175,70 @@ public class SpdxPackageTests
         Assert.AreEqual("SomePackage", packages[1].Name);
         Assert.AreEqual("1.2.3", packages[1].Version);
     }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxPackage.Validate"/> method detects valid package names.
+    /// </summary>
+    [TestMethod]
+    public void ValidateValidPackageNames()
+    {
+        var validNames = new[]
+        {
+            "glibc",
+            "Apache Commons Lang",
+            "DemaConsulting.SpdxModel",
+            "package-with-hyphens",
+            "package123",
+            "Package123",
+            "Jena",
+            "Saxon"
+        };
+
+        foreach (var name in validNames)
+        {
+            var package = new SpdxPackage
+            {
+                Name = name,
+                DownloadLocation = "http://example.com/download"
+            };
+
+            var issues = new List<string>();
+            package.Validate(issues, null);
+
+            // Should not have package name validation issues
+            Assert.IsFalse(issues.Any(i => i.Contains("Invalid Package Name")), 
+                $"Package name '{name}' should be valid but validation failed");
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="SpdxPackage.Validate"/> method detects invalid package names.
+    /// </summary>
+    [TestMethod]
+    public void ValidateInvalidPackageNames()
+    {
+        var invalidNames = new[]
+        {
+            "package_with_underscores",
+            "package_name",
+            "test_package",
+            "my_package_name"
+        };
+
+        foreach (var name in invalidNames)
+        {
+            var package = new SpdxPackage
+            {
+                Name = name,
+                DownloadLocation = "http://example.com/download"
+            };
+
+            var issues = new List<string>();
+            package.Validate(issues, null);
+
+            // Should have package name validation issues
+            Assert.IsTrue(issues.Any(i => i.Contains("Invalid Package Name")), 
+                $"Package name '{name}' should be invalid but validation passed");
+        }
+    }
 }

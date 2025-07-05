@@ -393,6 +393,10 @@ public sealed class SpdxPackage : SpdxLicenseElement
         if (Name.Length == 0)
             issues.Add("Package Invalid Package Name Field");
 
+        // Validate Package Name contains only valid characters
+        if (Name.Contains('_'))
+            issues.Add($"Package {Name} Invalid Package Name Field");
+
         // Validate Package Download Location Field
         if (DownloadLocation.Length == 0)
             issues.Add($"Package {Name} Invalid Package Download Location Field");
