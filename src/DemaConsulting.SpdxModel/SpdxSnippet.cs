@@ -192,7 +192,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     public void Validate(List<string> issues)
     {
         // Validate Snippet SPDX Identifier Field
-        if (!Id.StartsWith("SPDXRef-"))
+        if (!SpdxRefRegex.IsMatch(Id))
             issues.Add("Snippet Invalid SPDX Identifier Field");
 
         // Validate Snippet From File Field

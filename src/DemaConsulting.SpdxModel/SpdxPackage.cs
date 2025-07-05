@@ -393,6 +393,10 @@ public sealed class SpdxPackage : SpdxLicenseElement
         if (Name.Length == 0)
             issues.Add("Package Invalid Package Name Field");
 
+        // SPDX NTIA Unique Identifier Check
+        if (!SpdxRefRegex.IsMatch(Id))
+            issues.Add($"Package {Name} Invalid SPDX Identifier Field");
+
         // Validate Package Download Location Field
         if (DownloadLocation.Length == 0)
             issues.Add($"Package {Name} Invalid Package Download Location Field");
@@ -433,10 +437,6 @@ public sealed class SpdxPackage : SpdxLicenseElement
         // SPDX NTIA Version String Check
         if (ntia && string.IsNullOrEmpty(Version))
             issues.Add($"NTIA: Package {Name} Missing Version");
-
-        // SPDX NTIA Unique Identifier Check
-        if (ntia && string.IsNullOrEmpty(Id))
-            issues.Add($"NTIA: Package {Name} Missing Unique Identifier");
 
         // Release Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(ReleaseDate))

@@ -27,11 +27,12 @@ namespace DemaConsulting.SpdxModel.Tests;
 public class SpdxFileTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxFile.Same"/> comparer.
+    ///     Tests the <see cref="SpdxFile.Same"/> comparer compares files correctly.
     /// </summary>
     [TestMethod]
-    public void FileSameComparer()
+    public void SpdxFile_SameComparer_ComparesCorrectly()
     {
+        // Arrange: Create several SpdxFile instances with different IDs, names, and checksums
         var f1 = new SpdxFile
         {
             FileName = "./file1.txt",
@@ -44,7 +45,6 @@ public class SpdxFileTests
                 }
             ]
         };
-
         var f2 = new SpdxFile
         {
             Id = "SPDXRef-File1",
@@ -64,7 +64,6 @@ public class SpdxFileTests
             ],
             Comment = "File 1"
         };
-
         var f3 = new SpdxFile
         {
             FileName = "./file2.txt",
@@ -78,12 +77,12 @@ public class SpdxFileTests
             ]
         };
 
-        // Assert files compare to themselves
+        // Assert: Verify files compare to themselves
         Assert.IsTrue(SpdxFile.Same.Equals(f1, f1));
         Assert.IsTrue(SpdxFile.Same.Equals(f2, f2));
         Assert.IsTrue(SpdxFile.Same.Equals(f3, f3));
 
-        // Assert files compare correctly
+        // Assert: Verify files compare correctly
         Assert.IsTrue(SpdxFile.Same.Equals(f1, f2));
         Assert.IsTrue(SpdxFile.Same.Equals(f2, f1));
         Assert.IsFalse(SpdxFile.Same.Equals(f1, f3));
@@ -91,16 +90,17 @@ public class SpdxFileTests
         Assert.IsFalse(SpdxFile.Same.Equals(f2, f3));
         Assert.IsFalse(SpdxFile.Same.Equals(f3, f2));
 
-        // Assert same files have identical hashes
+        // Assert: Verify same files have identical hashes
         Assert.AreEqual(SpdxFile.Same.GetHashCode(f1), SpdxFile.Same.GetHashCode(f2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFile.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxFile.DeepCopy"/> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxFile_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create an SpdxFile instance with checksums and comments
         var f1 = new SpdxFile
         {
             Id = "SPDXRef-File1",
@@ -121,27 +121,28 @@ public class SpdxFileTests
             Comment = "File 1"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the SpdxFile instance
         var f2 = f1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         Assert.AreEqual(f1, f2, SpdxFile.Same);
         Assert.AreEqual(f1.Id, f2.Id);
         Assert.AreEqual(f1.FileName, f2.FileName);
         CollectionAssert.AreEquivalent(f1.Checksums, f2.Checksums, SpdxChecksum.Same);
         Assert.AreEqual(f1.Comment, f2.Comment);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instances
         Assert.IsFalse(ReferenceEquals(f1, f2));
         Assert.IsFalse(ReferenceEquals(f1.Checksums, f2.Checksums));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])"/> method.
+    /// Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])"/> method correctly adds or updates information
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of SpdxFile objects with one file
         var files = new[]
         {
             new SpdxFile
@@ -158,6 +159,7 @@ public class SpdxFileTests
             }
         };
 
+        // Act: Enhance the files with additional information
         files = SpdxFile.Enhance(
             files,
             [
@@ -194,6 +196,7 @@ public class SpdxFileTests
                 }
             ]);
 
+        // Assert: Verify the files array has been enhanced correctly
         Assert.AreEqual(2, files.Length);
         Assert.AreEqual("SPDXRef-File1", files[0].Id);
         Assert.AreEqual("./file1.txt", files[0].FileName);
@@ -210,7 +213,37 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method.
+    ///     Tests that an invalid file ID fails validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFile_Validate_ReportsInvalidFileId()
+    {
+        // Arrange: Create an SpdxFile instance with an invalid ID format
+        var spdxFile = new SpdxFile
+        {
+            Id = "Invalid_ID",
+            FileName = "./file1.txt",
+            Checksums =
+            [
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha1,
+                    Value = "85ed0817af83a24ad8da68c2b5094de69833983c"
+                }
+            ]
+        };
+
+        // Act: Perform validation on the SpdxFile instance.
+        var issues = new List<string>();
+        spdxFile.Validate(issues);
+
+        // Assert: Verify that the validation fails and the error message includes the invalid ID.
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("File ./file1.txt Invalid SPDX Identifier Field")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method with valid inputs.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Valid()
@@ -231,7 +264,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Invalid()
@@ -241,7 +274,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method with valid inputs
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Valid()
@@ -260,7 +293,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Invalid()
