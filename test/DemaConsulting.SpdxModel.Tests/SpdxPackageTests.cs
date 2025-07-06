@@ -203,4 +203,28 @@ public class SpdxPackageTests
         Assert.IsTrue(
             issues.Any(i => i.StartsWith("Package TestPackage Invalid SPDX Identifier Field")));
     }
+
+    /// <summary>
+    ///     Tests that a valid package passes validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_Success()
+    {
+        // Arrange: Construct a valid SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify that the validation reports no issues.
+        Assert.AreEqual(0, issues.Count);
+    }
 }
