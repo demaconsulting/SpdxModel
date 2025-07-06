@@ -21,43 +21,43 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Reference Category enumeration
+///     SPDX Reference Category enumeration
 /// </summary>
 public enum SpdxReferenceCategory
 {
     /// <summary>
-    /// Missing reference category
+    ///     Missing reference category
     /// </summary>
     Missing = -1,
 
     /// <summary>
-    /// Reference for security-related information
+    ///     Reference for security-related information
     /// </summary>
     Security,
 
     /// <summary>
-    /// Reference for package management information
+    ///     Reference for package management information
     /// </summary>
     PackageManager,
 
     /// <summary>
-    /// Reference for software heritage archive persistent identifier
+    ///     Reference for software heritage archive persistent identifier
     /// </summary>
     PersistentId,
 
     /// <summary>
-    /// Reference for other reasons
+    ///     Reference for other reasons
     /// </summary>
     Other
 }
 
 /// <summary>
-/// SPDX Reference Category Extensions
+///     SPDX Reference Category Extensions
 /// </summary>
 public static class SpdxReferenceCategoryExtensions
 {
     /// <summary>
-    /// Convert text to SpdxReferenceCategory
+    ///     Convert text to SpdxReferenceCategory
     /// </summary>
     /// <param name="category">Reference Category text</param>
     /// <returns>SpdxReferenceCategory</returns>
@@ -77,7 +77,7 @@ public static class SpdxReferenceCategoryExtensions
     }
 
     /// <summary>
-    /// Convert SpdxReferenceCategory to text
+    ///     Convert SpdxReferenceCategory to text
     /// </summary>
     /// <param name="category">SpdxReferenceCategory</param>
     /// <returns>Reference Category text</returns>

@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxAnnotation"/> to JSON.
+///     Tests for serializing <see cref="SpdxAnnotation" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeAnnotation
 {
     /// <summary>
-    /// Tests serializing an annotation.
+    ///     Tests serializing an annotation.
     /// </summary>
     [TestMethod]
-    public void SerializeAnnotation()
+    public void Spdx2JsonSerializer_SerializeAnnotation_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample annotation
         var annotation = new SpdxAnnotation
         {
             Id = "SPDXRef-Annotation",
@@ -44,10 +44,10 @@ public class Spdx2JsonSerializeAnnotation
             Comment = "This is a comment"
         };
 
-        // Act
+        // Act: Serialize the annotation to JSON
         var json = Spdx2JsonSerializer.SerializeAnnotation(annotation);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("John Doe", json["annotator"]);
         SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json["annotationDate"]);
@@ -56,12 +56,12 @@ public class Spdx2JsonSerializeAnnotation
     }
 
     /// <summary>
-    /// Tests serializing multiple annotations.
+    ///     Tests serializing multiple annotations.
     /// </summary>
     [TestMethod]
-    public void SerializeAnnotations()
+    public void Spdx2JsonSerializer_SerializeAnnotations_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample list of annotations
         var annotations = new[]
         {
             new SpdxAnnotation
@@ -82,10 +82,10 @@ public class Spdx2JsonSerializeAnnotation
             }
         };
 
-        // Act
+        // Act: Serialize the annotations to JSON
         var json = Spdx2JsonSerializer.SerializeAnnotations(annotations);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation1", json[0]?["SPDXID"]);

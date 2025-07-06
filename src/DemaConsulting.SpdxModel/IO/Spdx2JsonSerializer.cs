@@ -25,12 +25,12 @@ using System.Text.Json.Serialization.Metadata;
 namespace DemaConsulting.SpdxModel.IO;
 
 /// <summary>
-/// JSON Serializer class
+///     JSON Serializer class
 /// </summary>
 public static class Spdx2JsonSerializer
 {
     /// <summary>
-    /// Serialize SPDX Document
+    ///     Serialize SPDX Document
     /// </summary>
     /// <param name="document">SPDX Document</param>
     /// <returns>Json string</returns>
@@ -49,7 +49,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Document
+    ///     Serialize SPDX Document
     /// </summary>
     /// <param name="document">SPDX Document</param>
     /// <returns>Json object</returns>
@@ -64,9 +64,11 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, SpdxConstants.FieldComment, document.Comment);
         json[SpdxConstants.FieldCreationInfo] = SerializeCreationInformation(document.CreationInformation);
         if (document.ExternalDocumentReferences.Length > 0)
-            json[SpdxConstants.FieldExternalDocumentRefs] = SerializeExternalDocumentReferences(document.ExternalDocumentReferences);
+            json[SpdxConstants.FieldExternalDocumentRefs] =
+                SerializeExternalDocumentReferences(document.ExternalDocumentReferences);
         if (document.ExtractedLicensingInfo.Length > 0)
-            json[SpdxConstants.FieldHasExtractedLicensingInfos] = SerializeExtractedLicensingInfos(document.ExtractedLicensingInfo);
+            json[SpdxConstants.FieldHasExtractedLicensingInfos] =
+                SerializeExtractedLicensingInfos(document.ExtractedLicensingInfo);
         if (document.Annotations.Length > 0)
             json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(document.Annotations);
         json[SpdxConstants.FieldFiles] = SerializeFiles(document.Files);
@@ -78,7 +80,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Creation information to JSON object
+    ///     Serialize SPDX Creation information to JSON object
     /// </summary>
     /// <param name="info">SPDX Creation Information</param>
     /// <returns>JSON object</returns>
@@ -93,7 +95,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX External Document References to JSON array
+    ///     Serialize array of SPDX External Document References to JSON array
     /// </summary>
     /// <param name="references">SPDX External Document References</param>
     /// <returns>JSON array</returns>
@@ -106,7 +108,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX External Document Reference to JSON object
+    ///     Serialize SPDX External Document Reference to JSON object
     /// </summary>
     /// <param name="reference">SPDX External Document Reference</param>
     /// <returns>JSON object</returns>
@@ -120,7 +122,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Extracted Licensing Infos to JSON array
+    ///     Serialize array of SPDX Extracted Licensing Infos to JSON array
     /// </summary>
     /// <param name="infos">SPDX Extracted Licensing Infos</param>
     /// <returns>JSON array</returns>
@@ -133,7 +135,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Extracted Licensing Info to JSON object
+    ///     Serialize SPDX Extracted Licensing Info to JSON object
     /// </summary>
     /// <param name="info">SPDX Extracted Licensing Info</param>
     /// <returns>JSON object</returns>
@@ -149,7 +151,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Files to JSON array
+    ///     Serialize array of SPDX Files to JSON array
     /// </summary>
     /// <param name="files">SPDX Files</param>
     /// <returns>JSON array</returns>
@@ -162,7 +164,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX File to JSON object
+    ///     Serialize SPDX File to JSON object
     /// </summary>
     /// <param name="file">SPDX File</param>
     /// <returns>JSON object</returns>
@@ -171,7 +173,8 @@ public static class Spdx2JsonSerializer
         var json = new JsonObject();
         EmitString(json, SpdxConstants.FieldSpdxId, file.Id);
         EmitString(json, SpdxConstants.FieldFileName, file.FileName);
-        EmitOptionalStrings(json, SpdxConstants.FieldFileTypes, [..file.FileTypes.Select(SpdxFileTypeExtensions.ToText)]);
+        EmitOptionalStrings(json, SpdxConstants.FieldFileTypes,
+            [..file.FileTypes.Select(SpdxFileTypeExtensions.ToText)]);
         json[SpdxConstants.FieldChecksums] = SerializeChecksums(file.Checksums);
         EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, file.ConcludedLicense);
         EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoInFiles, file.LicenseInfoInFiles);
@@ -187,7 +190,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Packages to JSON array
+    ///     Serialize array of SPDX Packages to JSON array
     /// </summary>
     /// <param name="packages">SPDX Packages</param>
     /// <returns>JSON array</returns>
@@ -200,7 +203,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Package to JSON object
+    ///     Serialize SPDX Package to JSON object
     /// </summary>
     /// <param name="package">SPDX Package</param>
     /// <returns>JSON object</returns>
@@ -244,7 +247,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Snippets to JSON array
+    ///     Serialize array of SPDX Snippets to JSON array
     /// </summary>
     /// <param name="snippets">SPDX Snippets</param>
     /// <returns>JSON array</returns>
@@ -257,7 +260,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Snippet to JSON object
+    ///     Serialize SPDX Snippet to JSON object
     /// </summary>
     /// <param name="snippet">SPDX Snippet</param>
     /// <returns>JSON object</returns>
@@ -312,7 +315,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Relationships to JSON array
+    ///     Serialize array of SPDX Relationships to JSON array
     /// </summary>
     /// <param name="relationships">SPDX Relationships</param>
     /// <returns>JSON array</returns>
@@ -325,7 +328,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Relationship to JSON object
+    ///     Serialize SPDX Relationship to JSON object
     /// </summary>
     /// <param name="relationship">SPDX Relationship</param>
     /// <returns>JSON object</returns>
@@ -340,7 +343,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Package Verification Code to JSON object
+    ///     Serialize SPDX Package Verification Code to JSON object
     /// </summary>
     /// <param name="code">SPDX Package Verification Code</param>
     /// <returns>JSON object</returns>
@@ -353,7 +356,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX External References to JSON array
+    ///     Serialize array of SPDX External References to JSON array
     /// </summary>
     /// <param name="references">SPDX External References</param>
     /// <returns>JSON array</returns>
@@ -366,7 +369,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX External Reference to JSON object
+    ///     Serialize SPDX External Reference to JSON object
     /// </summary>
     /// <param name="reference">SPDX External Reference</param>
     /// <returns>JSON object</returns>
@@ -381,7 +384,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Checksums to JSON array
+    ///     Serialize array of SPDX Checksums to JSON array
     /// </summary>
     /// <param name="checksums">SPDX Checksums</param>
     /// <returns>JSON array</returns>
@@ -394,7 +397,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Checksum to JSON object
+    ///     Serialize SPDX Checksum to JSON object
     /// </summary>
     /// <param name="checksum">SPDX Checksum</param>
     /// <returns>JSON object</returns>
@@ -407,7 +410,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize array of SPDX Annotations to JSON array
+    ///     Serialize array of SPDX Annotations to JSON array
     /// </summary>
     /// <param name="annotations">SPDX Annotations</param>
     /// <returns>JSON array</returns>
@@ -420,7 +423,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Serialize SPDX Annotation to JSON object
+    ///     Serialize SPDX Annotation to JSON object
     /// </summary>
     /// <param name="annotation">SPDX Annotation to serialize</param>
     /// <returns>JSON object</returns>
@@ -436,7 +439,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Emit a string property into a JSON object
+    ///     Emit a string property into a JSON object
     /// </summary>
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>
@@ -447,7 +450,7 @@ public static class Spdx2JsonSerializer
     }
 
     /// <summary>
-    /// Emit an optional string property into a JSON object
+    ///     Emit an optional string property into a JSON object
     /// </summary>
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>

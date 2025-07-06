@@ -21,16 +21,16 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxChecksum"/> class.
+///     Tests for the <see cref="SpdxChecksum" /> class.
 /// </summary>
 [TestClass]
 public class SpdxChecksumTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxChecksum.Same"/> comparer.
+    ///     Tests the <see cref="SpdxChecksum.Same" /> comparer compares checksums correctly.
     /// </summary>
     [TestMethod]
-    public void ChecksumSameComparer()
+    public void SpdxChecksum_SameComparer_ComparesCorrectly()
     {
         var c1 = new SpdxChecksum
         {
@@ -68,35 +68,38 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksum.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxChecksum.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create a checksum instance
         var c1 = new SpdxChecksum
         {
             Algorithm = SpdxChecksumAlgorithm.Sha1,
             Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the original checksum
         var c2 = c1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         Assert.AreEqual(c1, c2, SpdxChecksum.Same);
         Assert.AreEqual(c1.Algorithm, c2.Algorithm);
         Assert.AreEqual(c1.Value, c2.Value);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(c1, c2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])"/> method.
+    ///     Tests the <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])" /> method adds or updates information
+    ///     correctly.
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxChecksum_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an original checksum
         var checksums = new[]
         {
             new SpdxChecksum
@@ -106,6 +109,7 @@ public class SpdxChecksumTests
             }
         };
 
+        // Act: Enhance with additional checksums
         checksums = SpdxChecksum.Enhance(
             checksums,
             [
@@ -121,6 +125,7 @@ public class SpdxChecksumTests
                 }
             ]);
 
+        // Assert: Verify checksums contain the expected values
         Assert.AreEqual(2, checksums.Length);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", checksums[0].Value);
@@ -129,7 +134,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)"/> method.
+    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
     /// </summary>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_Valid()
@@ -157,17 +162,18 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)"/> method.
+    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
     /// </summary>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_InvalidAlgorithm()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
+        var exception =
+            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
         Assert.AreEqual("Unsupported SPDX Checksum Algorithm 'unknown'", exception.Message);
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)"/> method.
+    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
     /// </summary>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_Valid()
@@ -192,7 +198,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)"/> method.
+    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
     /// </summary>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_InvalidAlgorithm()

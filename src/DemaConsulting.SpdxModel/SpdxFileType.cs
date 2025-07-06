@@ -21,73 +21,73 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX File Type enumeration
+///     SPDX File Type enumeration
 /// </summary>
 public enum SpdxFileType
 {
     /// <summary>
-    /// Human-readable source code
+    ///     Human-readable source code
     /// </summary>
     Source,
 
     /// <summary>
-    /// Compiled object, target image or binary executable
+    ///     Compiled object, target image or binary executable
     /// </summary>
     Binary,
 
     /// <summary>
-    /// File represents an archive
+    ///     File represents an archive
     /// </summary>
     Archive,
 
     /// <summary>
-    /// Application file
+    ///     Application file
     /// </summary>
     Application,
 
     /// <summary>
-    /// Audio file
+    ///     Audio file
     /// </summary>
     Audio,
 
     /// <summary>
-    /// Image file
+    ///     Image file
     /// </summary>
     Image,
 
     /// <summary>
-    /// Human-readable text file
+    ///     Human-readable text file
     /// </summary>
     Text,
 
     /// <summary>
-    /// Video file
+    ///     Video file
     /// </summary>
     Video,
 
     /// <summary>
-    /// Documentation file
+    ///     Documentation file
     /// </summary>
     Documentation,
 
     /// <summary>
-    /// SPDX document
+    ///     SPDX document
     /// </summary>
     Spdx,
 
     /// <summary>
-    /// Other type of document not matching standard categories
+    ///     Other type of document not matching standard categories
     /// </summary>
     Other
 }
 
 /// <summary>
-/// SPDX File Type Extensions
+///     SPDX File Type Extensions
 /// </summary>
 public static class SpdxFileTypeExtensions
 {
     /// <summary>
-    /// Convert text to SpdxFileType
+    ///     Convert text to SpdxFileType
     /// </summary>
     /// <param name="fileType">File Type text</param>
     /// <returns>SpdxFileType</returns>
@@ -112,7 +112,7 @@ public static class SpdxFileTypeExtensions
     }
 
     /// <summary>
-    /// Convert SpdxFileType to text
+    ///     Convert SpdxFileType to text
     /// </summary>
     /// <param name="fileType">SpdxFileType</param>
     /// <returns>Annotation Type text</returns>

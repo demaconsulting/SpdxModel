@@ -23,77 +23,79 @@ using System.Text.RegularExpressions;
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Creation Information
+///     SPDX Creation Information
 /// </summary>
 /// <remarks>
-/// One instance is required for each SPDX file produced. It provides the
-/// necessary information for forward and backward compatibility for
-/// processing tools.
+///     One instance is required for each SPDX file produced. It provides the
+///     necessary information for forward and backward compatibility for
+///     processing tools.
 /// </remarks>
 public sealed class SpdxCreationInformation
 {
     /// <summary>
-    /// Regular expression for checking license list versions
+    ///     Regular expression for checking license list versions
     /// </summary>
     private static readonly Regex LicenseListVersionRegex = new(
-        @"\d+\.\d+",
+        @"^\d+\.\d+$",
         RegexOptions.None,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
-    /// Creator Field
+    ///     Creator Field
     /// </summary>
     /// <remarks>
-    /// Identify who (or what, in the case of a tool) created the SPDX
-    /// document. If the SPDX document was created by an individual, indicate
-    /// the person's name. If the SPDX document was created on behalf of a
-    /// company or organization, indicate the entity name. If the SPDX
-    /// document was created using a software tool, indicate the name and
-    /// version for that tool. If multiple participants or tools were
-    /// involved, use multiple instances of this field. Person name or
-    /// organization name may be designated as “anonymous” if appropriate.
+    ///     Identify who (or what, in the case of a tool) created the SPDX
+    ///     document. If the SPDX document was created by an individual, indicate
+    ///     the person's name. If the SPDX document was created on behalf of a
+    ///     company or organization, indicate the entity name. If the SPDX
+    ///     document was created using a software tool, indicate the name and
+    ///     version for that tool. If multiple participants or tools were
+    ///     involved, use multiple instances of this field. Person name or
+    ///     organization name may be designated as “anonymous” if appropriate.
     /// </remarks>
     public string[] Creators { get; set; } = [];
 
     /// <summary>
-    /// Created Field
+    ///     Created Field
     /// </summary>
     /// <remarks>
-    /// Identify when the SPDX document was originally created. The date is to
-    /// be specified according to combined date and time in UTC format as
-    /// specified in ISO 8601 standard.
+    ///     Identify when the SPDX document was originally created. The date is to
+    ///     be specified according to combined date and time in UTC format as
+    ///     specified in ISO 8601 standard.
     /// </remarks>
     public string Created { get; set; } = "";
 
     /// <summary>
-    /// Creator Comment Field (optional)
+    ///     Creator Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// License List Version Field (optional)
+    ///     License List Version Field (optional)
     /// </summary>
     /// <remarks>
-    /// An optional field for creators of the SPDX file to provide the
-    /// version of the SPDX License List used when the SPDX file was created.
+    ///     An optional field for creators of the SPDX file to provide the
+    ///     version of the SPDX License List used when the SPDX file was created.
     /// </remarks>
     public string? LicenseListVersion { get; set; }
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxCreationInformation DeepCopy() =>
-        new()
+    public SpdxCreationInformation DeepCopy()
+    {
+        return new SpdxCreationInformation
         {
             Creators = (string[])Creators.Clone(),
             Created = Created,
             Comment = Comment,
             LicenseListVersion = LicenseListVersion
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the creation information
+    ///     Enhance missing fields in the creation information
     /// </summary>
     /// <param name="other">Other creation information to enhance with</param>
     public void Enhance(SpdxCreationInformation other)
@@ -112,7 +114,7 @@ public sealed class SpdxCreationInformation
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)

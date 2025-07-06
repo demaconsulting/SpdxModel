@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxCreationInformation"/> to JSON.
+///     Tests for serializing <see cref="SpdxCreationInformation" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeCreationInformation
 {
     /// <summary>
-    /// Tests serializing creation information.
+    ///     Tests serializing creation information.
     /// </summary>
     [TestMethod]
-    public void SerializeCreationInformation()
+    public void Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxCreationInformation object
         var creationInformation = new SpdxCreationInformation
         {
             Comment =
@@ -49,10 +49,10 @@ public class Spdx2JsonSerializeCreationInformation
             LicenseListVersion = "3.17"
         };
 
-        // Act
+        // Act: Serialize the creation information to JSON
         var json = Spdx2JsonSerializer.SerializeCreationInformation(creationInformation);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         SpdxJsonHelpers.AssertEqual(
             "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             json["comment"]);

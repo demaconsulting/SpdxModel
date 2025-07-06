@@ -1,12 +1,12 @@
 ﻿namespace DemaConsulting.SpdxModel.Transform;
 
 /// <summary>
-/// Transformations for SPDX relationships.
+///     Transformations for SPDX relationships.
 /// </summary>
 public static class SpdxRelationships
 {
     /// <summary>
-    /// Add new relationships to the SPDX document.
+    ///     Add new relationships to the SPDX document.
     /// </summary>
     /// <param name="document">SPDX document</param>
     /// <param name="relationships">New relationships to add</param>
@@ -15,22 +15,19 @@ public static class SpdxRelationships
     {
         // Handle replacing existing relationships
         if (replace)
-        {
             // Remove all relationships that refer to the same elements as the new relationships
-            document.Relationships = [..document.Relationships
-                .Where(r => !relationships.Any(
-                    r2 => SpdxRelationship.SameElements.Equals(r, r2)))];
-        }
+            document.Relationships =
+            [
+                ..document.Relationships
+                    .Where(r => !relationships.Any(r2 => SpdxRelationship.SameElements.Equals(r, r2)))
+            ];
 
         // Add the new relationships
-        foreach (var relationship in relationships)
-        {
-            Add(document, relationship);
-        }
+        foreach (var relationship in relationships) Add(document, relationship);
     }
 
     /// <summary>
-    /// Add a relationship to the SPDX document.
+    ///     Add a relationship to the SPDX document.
     /// </summary>
     /// <param name="document">SPDX document</param>
     /// <param name="relationship">SPDX relationship to add</param>
@@ -43,7 +40,8 @@ public static class SpdxRelationships
 
         // Ensure the relationship related-element ID matches an element
         if (document.GetElement(relationship.RelatedSpdxElement) == null)
-            throw new ArgumentException($"Element {relationship.RelatedSpdxElement} not found in SPDX document", nameof(relationship));
+            throw new ArgumentException($"Element {relationship.RelatedSpdxElement} not found in SPDX document",
+                nameof(relationship));
 
         // Look for an existing relationship
         var existing = Array.Find(document.Relationships, r => SpdxRelationship.Same.Equals(r, relationship));

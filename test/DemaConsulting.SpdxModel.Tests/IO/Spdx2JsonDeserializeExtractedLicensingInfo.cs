@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX extracted licensing information to <see cref="SpdxExtractedLicensingInfo"/> classes.
+///     Tests for deserializing SPDX extracted licensing information to <see cref="SpdxExtractedLicensingInfo" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeExtractedLicensingInfo
 {
     /// <summary>
-    /// Tests deserializing an extracted licensing information.
+    ///     Tests deserializing an extracted licensing information.
     /// </summary>
     [TestMethod]
-    public void DeserializeExtractedLicensingInfo()
+    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing extracted licensing information
         var json = new JsonObject
         {
             ["licenseId"] = "MIT",
@@ -45,10 +45,10 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
             ["comment"] = "This is a comment"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxExtractedLicensingInfo object
         var extractedLicensingInfo = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfo(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("MIT", extractedLicensingInfo.LicenseId);
         Assert.AreEqual("This is the MIT license", extractedLicensingInfo.ExtractedText);
         Assert.AreEqual("MIT License", extractedLicensingInfo.Name);
@@ -58,12 +58,12 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
     }
 
     /// <summary>
-    /// Tests deserializing multiple extracted licensing information.
+    ///     Tests deserializing multiple extracted licensing information.
     /// </summary>
     [TestMethod]
-    public void DeserializeExtractedLicensingInfos()
+    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple extracted licensing information
         var json = new JsonArray
         {
             new JsonObject
@@ -76,10 +76,10 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxExtractedLicensingInfo objects
         var extractedLicensingInfos = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfos(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected properties
         Assert.AreEqual(1, extractedLicensingInfos.Length);
         Assert.AreEqual("MIT", extractedLicensingInfos[0].LicenseId);
         Assert.AreEqual("This is the MIT license", extractedLicensingInfos[0].ExtractedText);

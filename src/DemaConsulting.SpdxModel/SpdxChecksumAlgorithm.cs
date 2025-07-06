@@ -21,108 +21,108 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Checksum Algorithm enumeration
+///     SPDX Checksum Algorithm enumeration
 /// </summary>
 public enum SpdxChecksumAlgorithm
 {
     /// <summary>
-    /// Missing checksum algorithm
+    ///     Missing checksum algorithm
     /// </summary>
     Missing = -1,
 
     /// <summary>
-    /// SHA-1 checksum algorithm
+    ///     SHA-1 checksum algorithm
     /// </summary>
     Sha1,
 
     /// <summary>
-    /// SHA-224 checksum algorithm
+    ///     SHA-224 checksum algorithm
     /// </summary>
     Sha224,
 
     /// <summary>
-    /// SHA-256 checksum algorithm
+    ///     SHA-256 checksum algorithm
     /// </summary>
     Sha256,
 
     /// <summary>
-    /// SHA-384 checksum algorithm
+    ///     SHA-384 checksum algorithm
     /// </summary>
     Sha384,
 
     /// <summary>
-    /// SHA-512 checksum algorithm
+    ///     SHA-512 checksum algorithm
     /// </summary>
     Sha512,
 
     /// <summary>
-    /// MD2 checksum algorithm
+    ///     MD2 checksum algorithm
     /// </summary>
     Md2,
 
     /// <summary>
-    /// MD4 checksum algorithm
+    ///     MD4 checksum algorithm
     /// </summary>
     Md4,
 
     /// <summary>
-    /// MD5 checksum algorithm
+    ///     MD5 checksum algorithm
     /// </summary>
     Md5,
 
     /// <summary>
-    /// MD6 checksum algorithm
+    ///     MD6 checksum algorithm
     /// </summary>
     Md6,
 
     /// <summary>
-    /// SHA3-256 checksum algorithm
+    ///     SHA3-256 checksum algorithm
     /// </summary>
     Sha3256,
 
     /// <summary>
-    /// SHA3-384 checksum algorithm
+    ///     SHA3-384 checksum algorithm
     /// </summary>
     Sha3384,
 
     /// <summary>
-    /// SHA3-512 checksum algorithm
+    ///     SHA3-512 checksum algorithm
     /// </summary>
     Sha3512,
 
     /// <summary>
-    /// BLAKE2b-256 checksum algorithm
+    ///     BLAKE2b-256 checksum algorithm
     /// </summary>
     Blake2B256,
 
     /// <summary>
-    /// BLAKE2b-384 checksum algorithm
+    ///     BLAKE2b-384 checksum algorithm
     /// </summary>
     Blake2B384,
 
     /// <summary>
-    /// BLAKE2b-512 checksum algorithm
+    ///     BLAKE2b-512 checksum algorithm
     /// </summary>
     Blake2B512,
 
     /// <summary>
-    /// BLAKE3 checksum algorithm
+    ///     BLAKE3 checksum algorithm
     /// </summary>
     Blake3,
 
     /// <summary>
-    /// ADLER32 checksum algorithm
+    ///     ADLER32 checksum algorithm
     /// </summary>
     Adler32
 }
 
 /// <summary>
-/// SPDX Checksum Algorithm Extensions
+///     SPDX Checksum Algorithm Extensions
 /// </summary>
 public static class SpdxChecksumAlgorithmExtensions
 {
     /// <summary>
-    /// Convert text to SpdxChecksumAlgorithm
+    ///     Convert text to SpdxChecksumAlgorithm
     /// </summary>
     /// <param name="checksumAlgorithm">Checksum algorithm text</param>
     /// <returns>SpdxChecksumAlgorithm</returns>
@@ -154,7 +154,7 @@ public static class SpdxChecksumAlgorithmExtensions
     }
 
     /// <summary>
-    /// Convert SpdxChecksumAlgorithm to text
+    ///     Convert SpdxChecksumAlgorithm to text
     /// </summary>
     /// <param name="checksumAlgorithm">SpdxChecksumAlgorithm</param>
     /// <returns>Checksum Algorithm text</returns>

@@ -21,76 +21,78 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Relationship class
+///     SPDX Relationship class
 /// </summary>
 /// <remarks>
-/// Relationships referenced in the SPDX document.
+///     Relationships referenced in the SPDX document.
 /// </remarks>
 public sealed class SpdxRelationship : SpdxElement
 {
     /// <summary>
-    /// Equality comparer for the same relationship
+    ///     Equality comparer for the same relationship
     /// </summary>
     /// <remarks>
-    /// This considers relationships as being the same if they have the same
-    /// elements and relationship type. Note that this does not work across
-    /// documents as the element IDs are document-specific.
+    ///     This considers relationships as being the same if they have the same
+    ///     elements and relationship type. Note that this does not work across
+    ///     documents as the element IDs are document-specific.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxRelationship> Same = new SpdxRelationshipSame();
 
     /// <summary>
-    /// Equality comparer for the same relationship elements
+    ///     Equality comparer for the same relationship elements
     /// </summary>
     /// <remarks>
-    /// This considers relationships as being the same if they have the same
-    /// elements. Note that this does not work across documents as the element
-    /// IDs are document-specific.
+    ///     This considers relationships as being the same if they have the same
+    ///     elements. Note that this does not work across documents as the element
+    ///     IDs are document-specific.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxRelationship> SameElements = new SpdxRelationshipSameElements();
 
     /// <summary>
-    /// Related SPDX Element Field
+    ///     Related SPDX Element Field
     /// </summary>
     /// <remarks>
-    /// SPDX ID for SpdxElement.  A related SpdxElement.
+    ///     SPDX ID for SpdxElement.  A related SpdxElement.
     /// </remarks>
     public string RelatedSpdxElement { get; set; } = "";
 
     /// <summary>
-    /// Relationship Type Field
+    ///     Relationship Type Field
     /// </summary>
     /// <remarks>
-    /// Describes the type of relationship between two SPDX elements.
+    ///     Describes the type of relationship between two SPDX elements.
     /// </remarks>
     public SpdxRelationshipType RelationshipType { get; set; } = SpdxRelationshipType.Missing;
 
     /// <summary>
-    /// Relationship Comment Field
+    ///     Relationship Comment Field
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxRelationship DeepCopy() =>
-        new()
+    public SpdxRelationship DeepCopy()
+    {
+        return new SpdxRelationship
         {
             Id = Id,
             RelatedSpdxElement = RelatedSpdxElement,
             RelationshipType = RelationshipType,
             Comment = Comment
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the relationship
+    ///     Enhance missing fields in the relationship
     /// </summary>
     /// <param name="other">Other relationship to enhance with</param>
     public void Enhance(SpdxRelationship other)
     {
         // Enhance the element information
         EnhanceElement(other);
-        
+
         // Populate the related-element field if missing
         RelatedSpdxElement = SpdxHelpers.EnhanceString(RelatedSpdxElement, other.RelatedSpdxElement) ?? "";
 
@@ -103,7 +105,7 @@ public sealed class SpdxRelationship : SpdxElement
     }
 
     /// <summary>
-    /// Enhance missing relationships in array
+    ///     Enhance missing relationships in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -119,15 +121,11 @@ public sealed class SpdxRelationship : SpdxElement
             // Check if other item is the same as one we have
             var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
-            {
                 // Enhance our item with the other information
                 annotation.Enhance(other);
-            }
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -135,7 +133,7 @@ public sealed class SpdxRelationship : SpdxElement
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="doc">Optional document for checking references</param>
@@ -150,7 +148,8 @@ public sealed class SpdxRelationship : SpdxElement
         // Validate Related SPDX Element Field - can be NOASSERTION or external reference
         if (RelatedSpdxElement.Length == 0)
             issues.Add("Relationship Invalid Related SPDX Element Field");
-        else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != NoAssertion && doc != null && doc.GetElement(RelatedSpdxElement) == null)
+        else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != NoAssertion && doc != null &&
+                 doc.GetElement(RelatedSpdxElement) == null)
             issues.Add($"Relationship Invalid Related SPDX Element Field: {RelatedSpdxElement}");
 
         // Validate Relationship Type Field
@@ -159,7 +158,7 @@ public sealed class SpdxRelationship : SpdxElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same relationship
+    ///     Equality Comparer to test for the same relationship
     /// </summary>
     private sealed class SpdxRelationshipSame : IEqualityComparer<SpdxRelationship>
     {
@@ -185,7 +184,7 @@ public sealed class SpdxRelationship : SpdxElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same elements
+    ///     Equality Comparer to test for the same elements
     /// </summary>
     private sealed class SpdxRelationshipSameElements : IEqualityComparer<SpdxRelationship>
     {

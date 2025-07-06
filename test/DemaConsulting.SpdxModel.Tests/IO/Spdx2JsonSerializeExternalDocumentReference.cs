@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxExternalDocumentReference"/> to JSON.
+///     Tests for serializing <see cref="SpdxExternalDocumentReference" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeExternalDocumentReference
 {
     /// <summary>
-    /// Tests serializing an external document reference.
+    ///     Tests serializing an external document reference.
     /// </summary>
     [TestMethod]
-    public void SerializeExternalDocumentReference()
+    public void Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxExternalDocumentReference object
         var reference = new SpdxExternalDocumentReference
         {
             ExternalDocumentId = "DocumentRef-spdx-tool-1.2",
@@ -46,10 +46,10 @@ public class Spdx2JsonSerializeExternalDocumentReference
             Document = "http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301"
         };
 
-        // Act
+        // Act: Serialize the external document reference to JSON
         var json = Spdx2JsonSerializer.SerializeExternalDocumentReference(reference);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         SpdxJsonHelpers.AssertEqual("DocumentRef-spdx-tool-1.2", json["externalDocumentId"]);
         SpdxJsonHelpers.AssertEqual("SHA1", json["checksum"]?["algorithm"]);
         SpdxJsonHelpers.AssertEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json["checksum"]?["checksumValue"]);
@@ -58,12 +58,12 @@ public class Spdx2JsonSerializeExternalDocumentReference
     }
 
     /// <summary>
-    /// Tests serializing multiple external document references.
+    ///     Tests serializing multiple external document references.
     /// </summary>
     [TestMethod]
-    public void SerializeExternalDocumentReferences()
+    public void Spdx2JsonSerializer_SerializeExternalDocumentReferences_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample array of SpdxExternalDocumentReference objects
         var references = new[]
         {
             new SpdxExternalDocumentReference
@@ -78,10 +78,10 @@ public class Spdx2JsonSerializeExternalDocumentReference
             }
         };
 
-        // Act
+        // Act: Serialize the array of external document references to JSON
         var json = Spdx2JsonSerializer.SerializeExternalDocumentReferences(references);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
         SpdxJsonHelpers.AssertEqual("DocumentRef-spdx-tool-1.2", json[0]?["externalDocumentId"]);

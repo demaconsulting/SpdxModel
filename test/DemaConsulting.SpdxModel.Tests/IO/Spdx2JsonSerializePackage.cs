@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxPackage"/> to JSON.
+///     Tests for serializing <see cref="SpdxPackage" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializePackage
 {
     /// <summary>
-    /// Tests serializing a package.
+    ///     Tests serializing a package.
     /// </summary>
     [TestMethod]
-    public void SerializePackage()
+    public void Spdx2JsonSerializer_SerializePackage_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxPackage object
         var package = new SpdxPackage
         {
             Id = "SPDXRef-Package",
@@ -93,10 +93,10 @@ public class Spdx2JsonSerializePackage
             }
         };
 
-        // Act
+        // Act: Serialize the package to JSON
         var json = Spdx2JsonSerializer.SerializePackage(package);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("glibc", json["name"]);
@@ -134,12 +134,12 @@ public class Spdx2JsonSerializePackage
     }
 
     /// <summary>
-    /// Tests serializing multiple packages.
+    ///     Tests serializing multiple packages.
     /// </summary>
     [TestMethod]
-    public void SerializePackages()
+    public void Spdx2JsonSerializer_SerializePackages_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample array of SpdxPackage objects
         var packages = new[]
         {
             new SpdxPackage
@@ -201,10 +201,10 @@ public class Spdx2JsonSerializePackage
             }
         };
 
-        // Act
+        // Act: Serialize the array of packages to JSON
         var json = Spdx2JsonSerializer.SerializePackages(packages);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json[0]?["SPDXID"]);

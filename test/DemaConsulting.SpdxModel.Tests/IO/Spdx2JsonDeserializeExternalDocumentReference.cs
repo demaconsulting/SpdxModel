@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX external document references to <see cref="SpdxExternalDocumentReference"/> classes.
+///     Tests for deserializing SPDX external document references to <see cref="SpdxExternalDocumentReference" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeExternalDocumentReference
 {
     /// <summary>
-    /// Tests deserializing an external document reference.
+    ///     Tests deserializing an external document reference.
     /// </summary>
     [TestMethod]
-    public void DeserializeExternalDocumentReference()
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing an external document reference
         var json = new JsonObject
         {
             ["externalDocumentId"] = "DocumentRef-1",
@@ -48,10 +48,10 @@ public class Spdx2JsonDeserializeExternalDocumentReference
             ["spdxDocument"] = "SPDXRef-Document"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxExternalDocumentReference object
         var externalDocumentReference = Spdx2JsonDeserializer.DeserializeExternalDocumentReference(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("DocumentRef-1", externalDocumentReference.ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReference.Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReference.Checksum.Value);
@@ -59,12 +59,12 @@ public class Spdx2JsonDeserializeExternalDocumentReference
     }
 
     /// <summary>
-    /// Tests deserializing multiple external document references.
+    ///     Tests deserializing multiple external document references.
     /// </summary>
     [TestMethod]
-    public void DeserializeExternalDocumentReferences()
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple external document references
         var json = new JsonArray
         {
             new JsonObject
@@ -80,10 +80,10 @@ public class Spdx2JsonDeserializeExternalDocumentReference
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxExternalDocumentReference objects
         var externalDocumentReferences = Spdx2JsonDeserializer.DeserializeExternalDocumentReferences(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected number of references and their properties
         Assert.AreEqual(1, externalDocumentReferences.Length);
         Assert.AreEqual("DocumentRef-1", externalDocumentReferences[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReferences[0].Checksum.Algorithm);

@@ -21,72 +21,74 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX External Reference Field
+///     SPDX External Reference Field
 /// </summary>
 /// <remarks>
-/// An External Reference allows a Package to reference an external source of
-/// additional information, metadata, enumerations, asset identifiers, or
-/// downloadable content believed to be relevant to the Package.
+///     An External Reference allows a Package to reference an external source of
+///     additional information, metadata, enumerations, asset identifiers, or
+///     downloadable content believed to be relevant to the Package.
 /// </remarks>
 public sealed class SpdxExternalReference
 {
     /// <summary>
-    /// Equality comparer for the same external reference
+    ///     Equality comparer for the same external reference
     /// </summary>
     /// <remarks>
-    /// This considers external references to be the same if they have the same
-    /// category, type, and locator.
+    ///     This considers external references to be the same if they have the same
+    ///     category, type, and locator.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxExternalReference> Same = new SpdxExternalReferenceSame();
 
     /// <summary>
-    /// External Reference Category Field
+    ///     External Reference Category Field
     /// </summary>
     /// <remarks>
-    /// Category for the external reference
+    ///     Category for the external reference
     /// </remarks>
     public SpdxReferenceCategory Category { get; set; } = SpdxReferenceCategory.Missing;
 
     /// <summary>
-    /// External Reference Type Field
+    ///     External Reference Type Field
     /// </summary>
     /// <remarks>
-    /// Type of the external reference. These are defined in an appendix in
-    /// the SPDX specification.
+    ///     Type of the external reference. These are defined in an appendix in
+    ///     the SPDX specification.
     /// </remarks>
     public string Type { get; set; } = "";
 
     /// <summary>
-    /// External Reference Locator Field
+    ///     External Reference Locator Field
     /// </summary>
     /// <remarks>
-    /// The unique string with no spaces necessary to access the
-    /// package-specific information, metadata, or content within the target
-    /// location. The format of the locator is subject to constraints defined
-    /// by the type.
+    ///     The unique string with no spaces necessary to access the
+    ///     package-specific information, metadata, or content within the target
+    ///     location. The format of the locator is subject to constraints defined
+    ///     by the type.
     /// </remarks>
     public string Locator { get; set; } = "";
 
     /// <summary>
-    /// External Reference Comment Field (optional)
+    ///     External Reference Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxExternalReference DeepCopy() =>
-        new()
+    public SpdxExternalReference DeepCopy()
+    {
+        return new SpdxExternalReference
         {
             Category = Category,
             Type = Type,
             Locator = Locator,
             Comment = Comment
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the external reference
+    ///     Enhance missing fields in the external reference
     /// </summary>
     /// <param name="other">Other external reference to enhance with</param>
     public void Enhance(SpdxExternalReference other)
@@ -106,7 +108,7 @@ public sealed class SpdxExternalReference
     }
 
     /// <summary>
-    /// Enhance missing external references in array
+    ///     Enhance missing external references in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -122,15 +124,11 @@ public sealed class SpdxExternalReference
             // Check if other item is the same as one we have
             var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
-            {
                 // Enhance our item with the other information
                 annotation.Enhance(other);
-            }
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -138,7 +136,7 @@ public sealed class SpdxExternalReference
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="package">Package name</param>
     /// <param name="issues">List to populate with issues</param>
@@ -158,7 +156,7 @@ public sealed class SpdxExternalReference
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same external reference
+    ///     Equality Comparer to test for the same external reference
     /// </summary>
     private sealed class SpdxExternalReferenceSame : IEqualityComparer<SpdxExternalReference>
     {

@@ -21,55 +21,57 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Checksum class
+///     SPDX Checksum class
 /// </summary>
 /// <remarks>
-/// A Checksum is value that allows the contents of a file to be authenticated.
-/// Even small changes to the content of the file will change its checksum.
-/// This class allows the results of a variety of checksum and cryptographic
-/// message digest algorithms to be represented.
+///     A Checksum is value that allows the contents of a file to be authenticated.
+///     Even small changes to the content of the file will change its checksum.
+///     This class allows the results of a variety of checksum and cryptographic
+///     message digest algorithms to be represented.
 /// </remarks>
 public sealed class SpdxChecksum
 {
     /// <summary>
-    /// Equality comparer for the same checksum
+    ///     Equality comparer for the same checksum
     /// </summary>
     /// <remarks>
-    /// This considers checksums as being the same if they have the same
-    /// algorithm and value.
+    ///     This considers checksums as being the same if they have the same
+    ///     algorithm and value.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxChecksum> Same = new SpdxChecksumSame();
 
     /// <summary>
-    /// Checksum Algorithm Field
+    ///     Checksum Algorithm Field
     /// </summary>
     /// <remarks>
-    /// Identifies the algorithm used to produce the subject Checksum.
+    ///     Identifies the algorithm used to produce the subject Checksum.
     /// </remarks>
     public SpdxChecksumAlgorithm Algorithm { get; set; } = SpdxChecksumAlgorithm.Missing;
 
     /// <summary>
-    /// Checksum Value Field
+    ///     Checksum Value Field
     /// </summary>
     /// <remarks>
-    /// The checksumValue property provides a lower case hexadecimal encoded
-    /// digest value produced using a specific algorithm.
+    ///     The checksumValue property provides a lower case hexadecimal encoded
+    ///     digest value produced using a specific algorithm.
     /// </remarks>
     public string Value { get; set; } = "";
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxChecksum DeepCopy() =>
-        new()
+    public SpdxChecksum DeepCopy()
+    {
+        return new SpdxChecksum
         {
             Algorithm = Algorithm,
             Value = Value
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the checksum
+    ///     Enhance missing fields in the checksum
     /// </summary>
     /// <param name="other">Other checksum to enhance with</param>
     public void Enhance(SpdxChecksum other)
@@ -83,7 +85,7 @@ public sealed class SpdxChecksum
     }
 
     /// <summary>
-    /// Enhance missing checksums in array
+    ///     Enhance missing checksums in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -99,15 +101,11 @@ public sealed class SpdxChecksum
             // Check if other item is the same as one we have
             var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
-            {
                 // Enhance our item with the other information
                 annotation.Enhance(other);
-            }
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -115,7 +113,7 @@ public sealed class SpdxChecksum
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="fileName">Associated file name</param>
     /// <param name="issues">List to populate with issues</param>
@@ -131,7 +129,7 @@ public sealed class SpdxChecksum
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same relationship
+    ///     Equality Comparer to test for the same relationship
     /// </summary>
     private sealed class SpdxChecksumSame : IEqualityComparer<SpdxChecksum>
     {

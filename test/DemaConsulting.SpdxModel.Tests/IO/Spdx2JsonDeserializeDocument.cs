@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX documents to <see cref="SpdxDocument"/> classes.
+///     Tests for deserializing SPDX documents to <see cref="SpdxDocument" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeDocument
 {
     /// <summary>
-    /// Tests deserializing a document.
+    ///     Tests deserializing a document.
     /// </summary>
     [TestMethod]
-    public void DeserializeDocument()
+    public void Spdx2JsonDeserializer_DeserializeDocument_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing a document
         var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-DOCUMENT",
@@ -72,10 +72,10 @@ public class Spdx2JsonDeserializeDocument
             ["relationships"] = new JsonArray()
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxDocument object
         var document = Spdx2JsonDeserializer.DeserializeDocument(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-DOCUMENT", document.Id);
         Assert.AreEqual("SPDX-2.3", document.Version);
         Assert.AreEqual("SPDX-Tools-v2.0", document.Name);

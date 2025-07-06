@@ -21,230 +21,225 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Package class
+///     SPDX Package class
 /// </summary>
 public sealed class SpdxPackage : SpdxLicenseElement
 {
     /// <summary>
-    /// Equality comparer for the same package
+    ///     Equality comparer for the same package
     /// </summary>
     /// <remarks>
-    /// This considers packages as being the same if they have the same name
-    /// and version.
+    ///     This considers packages as being the same if they have the same name
+    ///     and version.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxPackage> Same = new SpdxPackageSame();
 
     /// <summary>
-    /// Package Name Field
+    ///     Package Name Field
     /// </summary>
     /// <remarks>
-    /// Name of this package.
+    ///     Name of this package.
     /// </remarks>
     public string Name { get; set; } = "";
 
     /// <summary>
-    /// Package Version Field (optional)
+    ///     Package Version Field (optional)
     /// </summary>
     /// <remarks>
-    /// Provides an indication of the version of the package.
+    ///     Provides an indication of the version of the package.
     /// </remarks>
     public string? Version { get; set; }
 
     /// <summary>
-    /// Package File Name Field (optional)
+    ///     Package File Name Field (optional)
     /// </summary>
     /// <remarks>
-    /// The base name of the package file name.
+    ///     The base name of the package file name.
     /// </remarks>
     public string? FileName { get; set; }
 
     /// <summary>
-    /// Package Supplier Field (optional)
+    ///     Package Supplier Field (optional)
     /// </summary>
     /// <remarks>
-    /// The name and, optionally, contact information of the person or
-    /// organization who was the immediate supplier of this package to the
-    /// recipient.
-    ///
-    /// The supplier may be different from originator when the software has
-    /// been repackaged.
-    ///
-    /// Values of this property must conform to the agent and tool syntax.
+    ///     The name and, optionally, contact information of the person or
+    ///     organization who was the immediate supplier of this package to the
+    ///     recipient.
+    ///     The supplier may be different from originator when the software has
+    ///     been repackaged.
+    ///     Values of this property must conform to the agent and tool syntax.
     /// </remarks>
     public string? Supplier { get; set; }
 
     /// <summary>
-    /// Package Originator Field (optional)
+    ///     Package Originator Field (optional)
     /// </summary>
     /// <remarks>
-    /// The name and, optionally, contact information of the person or
-    /// organization that originally created the package. Values of this
-    /// property must conform to the agent and tool syntax.
+    ///     The name and, optionally, contact information of the person or
+    ///     organization that originally created the package. Values of this
+    ///     property must conform to the agent and tool syntax.
     /// </remarks>
     public string? Originator { get; set; }
 
     /// <summary>
-    /// Package Download Location Field
+    ///     Package Download Location Field
     /// </summary>
     /// <remarks>
-    /// The URI at which this package is available for download. Private
-    /// (i.e., not publicly reachable) URIs are acceptable as values of this
-    /// property.
-    /// 
-    /// The values http://spdx.org/rdf/terms#none and
-    /// http://spdx.org/rdf/terms#noassertion may be used to specify that the
-    /// package is not downloadable or that no attempt was made to determine
-    /// its download location, respectively.
+    ///     The URI at which this package is available for download. Private
+    ///     (i.e., not publicly reachable) URIs are acceptable as values of this
+    ///     property.
+    ///     The values http://spdx.org/rdf/terms#none and
+    ///     http://spdx.org/rdf/terms#noassertion may be used to specify that the
+    ///     package is not downloadable or that no attempt was made to determine
+    ///     its download location, respectively.
     /// </remarks>
     public string DownloadLocation { get; set; } = "";
 
     /// <summary>
-    /// Files Analyzed Field (optional)
+    ///     Files Analyzed Field (optional)
     /// </summary>
     /// <remarks>
-    /// Indicates whether the file content of this package has been available
-    /// for or subjected to analysis when creating the SPDX document. If false
-    /// indicates packages that represent metadata or URI references to a
-    /// project, product, artifact, distribution or a component. If set to
-    /// false, the package must not contain any files.
+    ///     Indicates whether the file content of this package has been available
+    ///     for or subjected to analysis when creating the SPDX document. If false
+    ///     indicates packages that represent metadata or URI references to a
+    ///     project, product, artifact, distribution or a component. If set to
+    ///     false, the package must not contain any files.
     /// </remarks>
     public bool? FilesAnalyzed { get; set; }
 
     /// <summary>
-    /// Has Files (optional)
+    ///     Has Files (optional)
     /// </summary>
     /// <remarks>
-    /// SPDX ID for files. Indicates that a particular file belongs to this
-    /// package.
+    ///     SPDX ID for files. Indicates that a particular file belongs to this
+    ///     package.
     /// </remarks>
     public string[] HasFiles { get; set; } = [];
 
     /// <summary>
-    /// Package Verification Code (optional)
+    ///     Package Verification Code (optional)
     /// </summary>
     /// <remarks>
-    /// A manifest based verification code of the package.
+    ///     A manifest based verification code of the package.
     /// </remarks>
     public SpdxPackageVerificationCode? VerificationCode { get; set; }
 
     /// <summary>
-    /// Package Checksum Field (optional)
+    ///     Package Checksum Field (optional)
     /// </summary>
     public SpdxChecksum[] Checksums { get; set; } = [];
 
     /// <summary>
-    /// Package Home Page Field (optional)
+    ///     Package Home Page Field (optional)
     /// </summary>
     public string? HomePage { get; set; }
 
     /// <summary>
-    /// Source Information Field (optional)
+    ///     Source Information Field (optional)
     /// </summary>
     /// <remarks>
-    /// Allows the producer(s) of the SPDX document to describe how the package
-    /// was acquired and/or changed from the original source.
+    ///     Allows the producer(s) of the SPDX document to describe how the package
+    ///     was acquired and/or changed from the original source.
     /// </remarks>
     public string? SourceInformation { get; set; }
 
     /// <summary>
-    /// All Licenses Information From Files Field
+    ///     All Licenses Information From Files Field
     /// </summary>
     /// <remarks>
-    /// License expressions. See SPDX Annex D for the license expression syntax.
-    ///
-    /// The licensing information that was discovered directly within the package.
-    ///
-    /// If not present and FilesAnalyzed property is true or omitted, it implies
-    /// an equivalent meaning to NOASSERTION.
+    ///     License expressions. See SPDX Annex D for the license expression syntax.
+    ///     The licensing information that was discovered directly within the package.
+    ///     If not present and FilesAnalyzed property is true or omitted, it implies
+    ///     an equivalent meaning to NOASSERTION.
     /// </remarks>
     public string[] LicenseInfoFromFiles { get; set; } = [];
 
     /// <summary>
-    /// Declared License Field
+    ///     Declared License Field
     /// </summary>
     /// <remarks>
-    /// License expression. See SPDX Annex D for the license expression syntax.
-    /// 
-    /// The licensing that the creators of the software in the package, or the
-    /// packager, have declared. Declarations by the original software creator
-    /// should be preferred, if they exist.
+    ///     License expression. See SPDX Annex D for the license expression syntax.
+    ///     The licensing that the creators of the software in the package, or the
+    ///     packager, have declared. Declarations by the original software creator
+    ///     should be preferred, if they exist.
     /// </remarks>
     public string DeclaredLicense { get; set; } = "";
 
     /// <summary>
-    /// Package Summary Description Field (optional)
+    ///     Package Summary Description Field (optional)
     /// </summary>
     /// <remarks>
-    /// Provides a short description of the package.
+    ///     Provides a short description of the package.
     /// </remarks>
     public string? Summary { get; set; }
 
     /// <summary>
-    /// Package Detailed Description Field (optional)
+    ///     Package Detailed Description Field (optional)
     /// </summary>
     /// <remarks>
-    /// Provides a detailed description of the package.
+    ///     Provides a detailed description of the package.
     /// </remarks>
     public string? Description { get; set; }
 
     /// <summary>
-    /// Package Comment Field (optional)
+    ///     Package Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// External References Field (optional)
+    ///     External References Field (optional)
     /// </summary>
     /// <remarks>
-    /// An External Reference allows a Package to reference an external source
-    /// of additional information, metadata, enumerations, asset identifiers,
-    /// or downloadable content believed to be relevant to the Package.
+    ///     An External Reference allows a Package to reference an external source
+    ///     of additional information, metadata, enumerations, asset identifiers,
+    ///     or downloadable content believed to be relevant to the Package.
     /// </remarks>
     public SpdxExternalReference[] ExternalReferences { get; set; } = [];
 
     /// <summary>
-    /// Primary Package Purpose Field (optional)
+    ///     Primary Package Purpose Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field provides information about the primary purpose of the
-    /// identified package. Package Purpose is intrinsic to how the package
-    /// is being used rather than the content of the package.
+    ///     This field provides information about the primary purpose of the
+    ///     identified package. Package Purpose is intrinsic to how the package
+    ///     is being used rather than the content of the package.
     /// </remarks>
     public string? PrimaryPackagePurpose { get; set; }
 
     /// <summary>
-    /// Release Date Field (optional)
+    ///     Release Date Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field provides a place for recording the date the package was
-    /// released.
+    ///     This field provides a place for recording the date the package was
+    ///     released.
     /// </remarks>
     public string? ReleaseDate { get; set; }
 
     /// <summary>
-    /// Built Date Field (optional)
+    ///     Built Date Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field provides a place for recording the actual date the package
-    /// was built.
+    ///     This field provides a place for recording the actual date the package
+    ///     was built.
     /// </remarks>
     public string? BuiltDate { get; set; }
 
     /// <summary>
-    /// Valid Until Date Field (optional)
+    ///     Valid Until Date Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field provides a place for recording the end of the support
-    /// period for a package from the supplier.
+    ///     This field provides a place for recording the end of the support
+    ///     period for a package from the supplier.
     /// </remarks>
     public string? ValidUntilDate { get; set; }
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxPackage DeepCopy() =>
-        new()
+    public SpdxPackage DeepCopy()
+    {
+        return new SpdxPackage
         {
             Id = Id,
             Name = Name,
@@ -275,9 +270,10 @@ public sealed class SpdxPackage : SpdxLicenseElement
             ValidUntilDate = ValidUntilDate,
             Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the package
+    ///     Enhance missing fields in the package
     /// </summary>
     /// <param name="other">Other package to enhance with</param>
     public void Enhance(SpdxPackage other)
@@ -350,7 +346,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Enhance missing packages in array
+    ///     Enhance missing packages in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -366,15 +362,11 @@ public sealed class SpdxPackage : SpdxLicenseElement
             // Check if other item is the same as one we have
             var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
-            {
                 // Enhance our item with the other information
                 annotation.Enhance(other);
-            }
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -382,7 +374,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="doc">Optional document for checking file-references</param>
@@ -402,8 +394,8 @@ public sealed class SpdxPackage : SpdxLicenseElement
             issues.Add($"Package {Name} Invalid Package Download Location Field");
 
         // Validate Package Supplier Field
-        if (Supplier != null && 
-            Supplier != NoAssertion && 
+        if (Supplier != null &&
+            Supplier != NoAssertion &&
             !Supplier.StartsWith("Person:") &&
             !Supplier.StartsWith("Organization:"))
             issues.Add($"Package {Name} Invalid Package Supplier Field");
@@ -452,7 +444,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same package
+    ///     Equality Comparer to test for the same package
     /// </summary>
     private sealed class SpdxPackageSame : IEqualityComparer<SpdxPackage>
     {

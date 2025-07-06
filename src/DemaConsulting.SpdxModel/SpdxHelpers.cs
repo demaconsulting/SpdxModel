@@ -25,13 +25,13 @@ namespace DemaConsulting.SpdxModel;
 internal static partial class SpdxHelpers
 {
     /// <summary>
-    /// Regular expression for checking date/time formats
+    ///     Regular expression for checking date/time formats
     /// </summary>
-    [GeneratedRegex(@"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", RegexOptions.None, 100)]
+    [GeneratedRegex(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", RegexOptions.None, 100)]
     private static partial Regex DateTimeRegex();
 
     /// <summary>
-    /// Test if a string is a valid SPDX date/time field (which include null/empty)
+    ///     Test if a string is a valid SPDX date/time field (which include null/empty)
     /// </summary>
     /// <param name="value">String value</param>
     /// <returns>True if valid</returns>
@@ -41,7 +41,7 @@ internal static partial class SpdxHelpers
     }
 
     /// <summary>
-    /// This method picks the best string.
+    ///     This method picks the best string.
     /// </summary>
     /// <param name="values">String values to pick from</param>
     /// <returns>Best string</returns>

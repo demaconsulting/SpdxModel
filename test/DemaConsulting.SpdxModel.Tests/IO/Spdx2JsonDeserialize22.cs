@@ -18,33 +18,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using DemaConsulting.SpdxModel.IO;
+
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX 2.2 JSON documents to <see cref="SpdxDocument"/> classes.
+///     Tests for deserializing SPDX 2.2 JSON documents to <see cref="SpdxDocument" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserialize22
 {
     /// <summary>
-    /// Test parsing SPDX 2.2 JSON document.
+    ///     Test parsing SPDX 2.2 JSON document.
     /// </summary>
     [TestMethod]
-    public void Deserialize_ValidSpdx22Json_ReturnsExpectedDocument()
+    public void Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument()
     {
+        // Arrange: Load the SPDX 2.2 JSON example from embedded resources
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.2.spdx.json");
-
-        // Deserialize the document
-        var doc = SpdxModel.IO.Spdx2JsonDeserializer.Deserialize(json22Example);
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
         Assert.IsNotNull(doc);
 
-        // Validate the document
+        // Act: Validate the document
         var issues = new List<string>();
         doc.Validate(issues);
+
+        // Assert: Verify that there are no validation issues
         Assert.AreEqual(0, issues.Count);
 
-        // Verify document
+        // Assert: Verify the document properties
         Assert.AreEqual("SPDX-Tools-v2.0", doc.Name);
         Assert.AreEqual("SPDX-2.2", doc.Version);
         Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.2-444504E0-4F89-41D3-9A0C-0305E82C3301",
@@ -58,7 +61,7 @@ public class Spdx2JsonDeserialize22
         StringAssert.StartsWith(doc.CreationInformation.Comment, "This package has been shipped in source and");
         Assert.AreEqual("3.9", doc.CreationInformation.LicenseListVersion);
 
-        // Verify external document references
+        // Assert: Verify external document references
         Assert.AreEqual(1, doc.ExternalDocumentReferences.Length);
         Assert.AreEqual("DocumentRef-spdx-tool-1.2", doc.ExternalDocumentReferences[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, doc.ExternalDocumentReferences[0].Checksum.Algorithm);
@@ -66,12 +69,13 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
             doc.ExternalDocumentReferences[0].Document);
 
-        // Verify extracted licensing info
+        // Assert: Verify extracted licensing info
         Assert.AreEqual(5, doc.ExtractedLicensingInfo.Length);
         Assert.AreEqual("LicenseRef-Beerware-4.2", doc.ExtractedLicensingInfo[0].LicenseId);
         StringAssert.StartsWith(doc.ExtractedLicensingInfo[0].ExtractedText, "\"THE BEER-WARE LICENSE\"");
         Assert.AreEqual("LicenseRef-4", doc.ExtractedLicensingInfo[1].LicenseId);
-        StringAssert.StartsWith(doc.ExtractedLicensingInfo[1].ExtractedText, "/*\n * (c) Copyright 2009 University of Bristol");
+        StringAssert.StartsWith(doc.ExtractedLicensingInfo[1].ExtractedText,
+            "/*\n * (c) Copyright 2009 University of Bristol");
         Assert.AreEqual("LicenseRef-3", doc.ExtractedLicensingInfo[2].LicenseId);
         StringAssert.StartsWith(doc.ExtractedLicensingInfo[2].ExtractedText, "The CyberNeko Software License");
         Assert.AreEqual("CyberNeko License", doc.ExtractedLicensingInfo[2].Name);
@@ -85,7 +89,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual("LicenseRef-1", doc.ExtractedLicensingInfo[4].LicenseId);
         StringAssert.StartsWith(doc.ExtractedLicensingInfo[4].ExtractedText, "/*\n * (c) Copyright 2000, 2001, 2002");
 
-        // Verify annotations
+        // Assert: Verify annotations
         Assert.AreEqual(3, doc.Annotations.Length);
         Assert.AreEqual("Person: Jane Doe ()", doc.Annotations[0].Annotator);
         Assert.AreEqual("2010-01-29T18:30:22Z", doc.Annotations[0].Date);
@@ -100,7 +104,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual(SpdxAnnotationType.Review, doc.Annotations[2].Type);
         StringAssert.StartsWith(doc.Annotations[2].Comment, "This is just an example");
 
-        // Verify files
+        // Assert: Verify files
         Assert.AreEqual(4, doc.Files.Length);
         Assert.AreEqual("SPDXRef-DoapSource", doc.Files[0].Id);
         Assert.AreEqual("./src/org/spdx/parser/DOAPProject.java", doc.Files[0].FileName);
@@ -133,7 +137,7 @@ public class Spdx2JsonDeserialize22
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, doc.Files[3].Checksums[1].Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2758", doc.Files[3].Checksums[1].Value);
 
-        // Verify snippets
+        // Assert: Verify snippets
         Assert.AreEqual(1, doc.Snippets.Length);
         Assert.AreEqual("SPDXRef-Snippet", doc.Snippets[0].Id);
         Assert.AreEqual("SPDXRef-DoapSource", doc.Snippets[0].SnippetFromFile);
@@ -149,7 +153,7 @@ public class Spdx2JsonDeserialize22
         StringAssert.StartsWith(doc.Snippets[0].Comment, "This snippet was identified as significant");
         Assert.AreEqual("from linux kernel", doc.Snippets[0].Name);
 
-        // Verify relationships
+        // Assert: Verify relationships
         Assert.AreEqual(9, doc.Relationships.Length);
         Assert.AreEqual("SPDXRef-DOCUMENT", doc.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package", doc.Relationships[0].RelatedSpdxElement);

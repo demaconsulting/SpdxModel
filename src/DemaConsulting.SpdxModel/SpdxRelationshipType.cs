@@ -21,248 +21,248 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Relationship Type enumeration
+///     SPDX Relationship Type enumeration
 /// </summary>
 public enum SpdxRelationshipType
 {
     /// <summary>
-    /// Missing relationship type
+    ///     Missing relationship type
     /// </summary>
     Missing = -1,
 
     /// <summary>
-    /// Element describes the related element
+    ///     Element describes the related element
     /// </summary>
     Describes,
 
     /// <summary>
-    /// Element is described by the related element
+    ///     Element is described by the related element
     /// </summary>
     DescribedBy,
 
     /// <summary>
-    /// Element contains the related element
+    ///     Element contains the related element
     /// </summary>
     Contains,
 
     /// <summary>
-    /// Element is contained by the related element
+    ///     Element is contained by the related element
     /// </summary>
     ContainedBy,
 
     /// <summary>
-    /// Element depends on the related element
+    ///     Element depends on the related element
     /// </summary>
     DependsOn,
 
     /// <summary>
-    /// Element is a dependency of the related element
+    ///     Element is a dependency of the related element
     /// </summary>
     DependencyOf,
 
     /// <summary>
-    /// Element is a manifest file that lists a set of dependencies for the related element
+    ///     Element is a manifest file that lists a set of dependencies for the related element
     /// </summary>
     DependencyManifestOf,
 
     /// <summary>
-    /// Element is a build dependency of the related element
+    ///     Element is a build dependency of the related element
     /// </summary>
     BuildDependencyOf,
 
     /// <summary>
-    /// Element is a development dependency of the related element
+    ///     Element is a development dependency of the related element
     /// </summary>
     DevDependencyOf,
 
     /// <summary>
-    /// Element is an optional dependency of the related element
+    ///     Element is an optional dependency of the related element
     /// </summary>
     OptionalDependencyOf,
 
     /// <summary>
-    /// Element is a to-be-provided dependency of the related element
+    ///     Element is a to-be-provided dependency of the related element
     /// </summary>
     ProvidedDependencyOf,
 
     /// <summary>
-    /// Element is a test dependency of the related element
+    ///     Element is a test dependency of the related element
     /// </summary>
     TestDependencyOf,
 
     /// <summary>
-    /// Element is a dependency required for the execution of the related element
+    ///     Element is a dependency required for the execution of the related element
     /// </summary>
     RuntimeDependencyOf,
 
     /// <summary>
-    /// Element is an example of the related element
+    ///     Element is an example of the related element
     /// </summary>
     ExampleOf,
 
     /// <summary>
-    /// Element generates the related element
+    ///     Element generates the related element
     /// </summary>
     Generates,
 
     /// <summary>
-    /// Element was generated from the related element
+    ///     Element was generated from the related element
     /// </summary>
     GeneratedFrom,
 
     /// <summary>
-    /// Element is an ancestor (same lineage but pre-dated) the related element
+    ///     Element is an ancestor (same lineage but pre-dated) the related element
     /// </summary>
     AncestorOf,
 
     /// <summary>
-    /// Element is a descendant of (same lineage but post-dates) the related element
+    ///     Element is a descendant of (same lineage but post-dates) the related element
     /// </summary>
     DescendantOf,
 
     /// <summary>
-    /// Element is a variant of (same lineage but not clear which came first) the related element
+    ///     Element is a variant of (same lineage but not clear which came first) the related element
     /// </summary>
     VariantOf,
 
     /// <summary>
-    /// Element is a distribution artifact of the related element
+    ///     Element is a distribution artifact of the related element
     /// </summary>
     DistributionArtifact,
 
     /// <summary>
-    /// Element is a patch file for (to be applied to) the related element
+    ///     Element is a patch file for (to be applied to) the related element
     /// </summary>
     PatchFor,
 
     /// <summary>
-    /// Element is a patch file that has been applied to the related element
+    ///     Element is a patch file that has been applied to the related element
     /// </summary>
     PatchApplied,
 
     /// <summary>
-    /// Element is an exact copy of the related element
+    ///     Element is an exact copy of the related element
     /// </summary>
     CopyOf,
 
     /// <summary>
-    /// Element is a file that was added to the related element
+    ///     Element is a file that was added to the related element
     /// </summary>
     FileAdded,
 
     /// <summary>
-    /// Element is a file that was deleted from the related element
+    ///     Element is a file that was deleted from the related element
     /// </summary>
     FileDeleted,
 
     /// <summary>
-    /// Element is a file that was modified from the related element
+    ///     Element is a file that was modified from the related element
     /// </summary>
     FileModified,
 
     /// <summary>
-    /// Element has been expanded from an archive file
+    ///     Element has been expanded from an archive file
     /// </summary>
     ExpandedFromArchive,
 
     /// <summary>
-    /// Element dynamically links to the related element
+    ///     Element dynamically links to the related element
     /// </summary>
     DynamicLink,
 
     /// <summary>
-    /// Element statically links to the related element
+    ///     Element statically links to the related element
     /// </summary>
     StaticLink,
 
     /// <summary>
-    /// Element is a data file used by the related element
+    ///     Element is a data file used by the related element
     /// </summary>
     DataFileOf,
 
     /// <summary>
-    /// Element is a test cased used in testing the related element
+    ///     Element is a test cased used in testing the related element
     /// </summary>
     TestCaseOf,
 
     /// <summary>
-    /// Element is used to build the related element
+    ///     Element is used to build the related element
     /// </summary>
     BuildToolOf,
 
     /// <summary>
-    /// Element is used as a development tool for the related element
+    ///     Element is used as a development tool for the related element
     /// </summary>
     DevToolOf,
 
     /// <summary>
-    /// Element is used for testing the related element
+    ///     Element is used for testing the related element
     /// </summary>
     TestOf,
 
     /// <summary>
-    /// Element is used as a test tool for the related element
+    ///     Element is used as a test tool for the related element
     /// </summary>
     TestToolOf,
 
     /// <summary>
-    /// Element provides documentation of the related element
+    ///     Element provides documentation of the related element
     /// </summary>
     DocumentationOf,
 
     /// <summary>
-    /// Element is an optional component of the related element
+    ///     Element is an optional component of the related element
     /// </summary>
     OptionalComponentOf,
 
     /// <summary>
-    /// Element is a metafile of the related element
+    ///     Element is a metafile of the related element
     /// </summary>
     MetafileOf,
 
     /// <summary>
-    /// Element is a package as part of the related element
+    ///     Element is a package as part of the related element
     /// </summary>
     PackageOf,
 
     /// <summary>
-    /// Element is an SPDX document amending the SPDX information in the related element
+    ///     Element is an SPDX document amending the SPDX information in the related element
     /// </summary>
     Amends,
 
     /// <summary>
-    /// Element is a prerequisite for the related element
+    ///     Element is a prerequisite for the related element
     /// </summary>
     PrerequisiteFor,
 
     /// <summary>
-    /// Element has a prerequisite of the related element
+    ///     Element has a prerequisite of the related element
     /// </summary>
     HasPrerequisite,
 
     /// <summary>
-    /// Element describes, illustrates, or specifies a requirement statement for the related element
+    ///     Element describes, illustrates, or specifies a requirement statement for the related element
     /// </summary>
     RequirementDescriptionFor,
 
     /// <summary>
-    /// Element describes, illustrates, or defines a design specification for the related element
+    ///     Element describes, illustrates, or defines a design specification for the related element
     /// </summary>
     SpecificationFor,
 
     /// <summary>
-    /// Element has a relationship with the related element described in the comment field
+    ///     Element has a relationship with the related element described in the comment field
     /// </summary>
     Other
 }
 
 /// <summary>
-/// SPDX Relationship Type Extensions
+///     SPDX Relationship Type Extensions
 /// </summary>
 public static class SpdxRelationshipTypeExtensions
 {
     /// <summary>
-    /// Convert text to SpdxRelationshipType
+    ///     Convert text to SpdxRelationshipType
     /// </summary>
     /// <param name="relationshipType">Relationship Type text</param>
     /// <returns>SpdxRelationshipType</returns>
@@ -322,7 +322,7 @@ public static class SpdxRelationshipTypeExtensions
     }
 
     /// <summary>
-    /// Convert SpdxRelationshipType to text
+    ///     Convert SpdxRelationshipType to text
     /// </summary>
     /// <param name="relationshipType">SpdxRelationshipType</param>
     /// <returns>Relationship Type text</returns>

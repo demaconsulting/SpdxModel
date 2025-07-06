@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX files to <see cref="SpdxFile"/> classes.
+///     Tests for deserializing SPDX files to <see cref="SpdxFile" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeFile
 {
     /// <summary>
-    /// Tests deserializing a file.
+    ///     Tests deserializing a file.
     /// </summary>
     [TestMethod]
-    public void DeserializeFile()
+    public void Spdx2JsonDeserializer_DeserializeFile_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing a file
         var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-File",
@@ -56,10 +56,10 @@ public class Spdx2JsonDeserializeFile
             ["noticeText"] = "This is a notice"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxFile object
         var file = Spdx2JsonDeserializer.DeserializeFile(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-File", file.Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", file.FileName);
         Assert.AreEqual(1, file.FileTypes.Length);
@@ -76,12 +76,12 @@ public class Spdx2JsonDeserializeFile
     }
 
     /// <summary>
-    /// Tests deserializing multiple files.
+    ///     Tests deserializing multiple files.
     /// </summary>
     [TestMethod]
-    public void DeserializeFiles()
+    public void Spdx2JsonDeserializer_DeserializeFiles_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple files
         var json = new JsonArray
         {
             new JsonObject
@@ -105,10 +105,10 @@ public class Spdx2JsonDeserializeFile
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxFile objects
         var files = Spdx2JsonDeserializer.DeserializeFiles(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected properties
         Assert.AreEqual(1, files.Length);
         Assert.AreEqual("SPDXRef-File", files[0].Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", files[0].FileName);

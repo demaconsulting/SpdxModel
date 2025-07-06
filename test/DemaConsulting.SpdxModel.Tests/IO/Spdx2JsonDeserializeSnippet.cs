@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX snippets to <see cref="SpdxSnippet"/> classes.
+///     Tests for deserializing SPDX snippets to <see cref="SpdxSnippet" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeSnippet
 {
     /// <summary>
-    /// Tests deserializing a snippet.
+    ///     Tests deserializing a snippet.
     /// </summary>
     [TestMethod]
-    public void DeserializeSnippet()
+    public void Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing a snippet
         var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-Snippet",
@@ -82,10 +82,10 @@ public class Spdx2JsonDeserializeSnippet
             ["snippetFromFile"] = "SPDXRef-DoapSource"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxSnippet object
         var snippet = Spdx2JsonDeserializer.DeserializeSnippet(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-Snippet", snippet.Id);
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
@@ -106,12 +106,12 @@ public class Spdx2JsonDeserializeSnippet
     }
 
     /// <summary>
-    /// Tests deserializing multiple snippets.
+    ///     Tests deserializing multiple snippets.
     /// </summary>
     [TestMethod]
-    public void DeserializeSnippets()
+    public void Spdx2JsonDeserializer_DeserializeSnippets_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple snippets
         var json = new JsonArray
         {
             new JsonObject
@@ -161,10 +161,10 @@ public class Spdx2JsonDeserializeSnippet
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxSnippet objects
         var snippets = Spdx2JsonDeserializer.DeserializeSnippets(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected properties
         Assert.AreEqual(1, snippets.Length);
         Assert.AreEqual("SPDXRef-Snippet", snippets[0].Id);
         Assert.AreEqual(

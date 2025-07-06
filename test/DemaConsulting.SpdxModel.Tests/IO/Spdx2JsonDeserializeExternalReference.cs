@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX external references to <see cref="SpdxExternalReference"/> classes.
+///     Tests for deserializing SPDX external references to <see cref="SpdxExternalReference" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeExternalReference
 {
     /// <summary>
-    /// Tests deserializing an external reference.
+    ///     Tests deserializing an external reference.
     /// </summary>
     [TestMethod]
-    public void DeserializeExternalReference()
+    public void Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing an external reference
         var json = new JsonObject
         {
             ["comment"] = "This is just an example",
@@ -44,10 +44,10 @@ public class Spdx2JsonDeserializeExternalReference
             ["referenceCategory"] = "SECURITY"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxExternalReference object
         var reference = Spdx2JsonDeserializer.DeserializeExternalReference(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties  
         Assert.AreEqual("This is just an example", reference.Comment);
         Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", reference.Locator);
         Assert.AreEqual("cpe23Type", reference.Type);
@@ -55,12 +55,12 @@ public class Spdx2JsonDeserializeExternalReference
     }
 
     /// <summary>
-    /// Tests deserializing multiple external references.
+    ///     Tests deserializing multiple external references.
     /// </summary>
     [TestMethod]
-    public void DeserializeExternalReferences()
+    public void Spdx2JsonDeserializer_DeserializeExternalReferences_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple external references
         var json = new JsonArray
         {
             new JsonObject
@@ -80,10 +80,10 @@ public class Spdx2JsonDeserializeExternalReference
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxExternalReference objects
         var references = Spdx2JsonDeserializer.DeserializeExternalReferences(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected number of references and their properties
         Assert.AreEqual(2, references.Length);
         Assert.AreEqual("This is just an example", references[0].Comment);
         Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", references[0].Locator);

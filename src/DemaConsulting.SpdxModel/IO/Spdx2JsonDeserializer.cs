@@ -24,12 +24,12 @@ using System.Text.Json.Nodes;
 namespace DemaConsulting.SpdxModel.IO;
 
 /// <summary>
-/// JSON Deserializer class
+///     JSON Deserializer class
 /// </summary>
 public static class Spdx2JsonDeserializer
 {
     /// <summary>
-    /// Deserialize SPDX Document
+    ///     Deserialize SPDX Document
     /// </summary>
     /// <param name="json">Json string</param>
     /// <returns>SPDX Document</returns>
@@ -45,7 +45,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize the SPDX Document
+    ///     Deserialize the SPDX Document
     /// </summary>
     /// <param name="json">Json Document Node</param>
     /// <returns>SPDX Document</returns>
@@ -60,8 +60,10 @@ public static class Spdx2JsonDeserializer
             DocumentNamespace = ParseString(json, SpdxConstants.FieldDocumentNamespace),
             Comment = ParseOptionalString(json, SpdxConstants.FieldComment),
             CreationInformation = DeserializeCreationInformation(json[SpdxConstants.FieldCreationInfo]),
-            ExternalDocumentReferences = DeserializeExternalDocumentReferences(json[SpdxConstants.FieldExternalDocumentRefs]?.AsArray()),
-            ExtractedLicensingInfo = DeserializeExtractedLicensingInfos(json[SpdxConstants.FieldHasExtractedLicensingInfos]?.AsArray()),
+            ExternalDocumentReferences =
+                DeserializeExternalDocumentReferences(json[SpdxConstants.FieldExternalDocumentRefs]?.AsArray()),
+            ExtractedLicensingInfo =
+                DeserializeExtractedLicensingInfos(json[SpdxConstants.FieldHasExtractedLicensingInfos]?.AsArray()),
             Annotations = DeserializeAnnotations(json[SpdxConstants.FieldAnnotations]?.AsArray()),
             Files = DeserializeFiles(json[SpdxConstants.FieldFiles]?.AsArray()),
             Packages = DeserializePackages(json[SpdxConstants.FieldPackages]?.AsArray()),
@@ -72,7 +74,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Creation Information
+    ///     Deserialize SPDX Creation Information
     /// </summary>
     /// <param name="json">Json Creation Information Node</param>
     /// <returns>SPDX Document</returns>
@@ -88,7 +90,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX External Document References
+    ///     Deserialize SPDX External Document References
     /// </summary>
     /// <param name="json">Json External Document References Array</param>
     /// <returns>SPDX External Document References</returns>
@@ -99,7 +101,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX External Document Reference
+    ///     Deserialize SPDX External Document Reference
     /// </summary>
     /// <param name="json">Json External Document Reference Node</param>
     /// <returns>SPDX External Document Reference</returns>
@@ -114,7 +116,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Extracted Licensing Infos
+    ///     Deserialize SPDX Extracted Licensing Infos
     /// </summary>
     /// <param name="json">Json Extracted Licensing Info Array</param>
     /// <returns>SPDX Extracted Licensing Infos</returns>
@@ -124,7 +126,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Extracted Licensing Info
+    ///     Deserialize SPDX Extracted Licensing Info
     /// </summary>
     /// <param name="json">Json Extracted Licensing Info Node</param>
     /// <returns>SPDX Extracted Licensing Info</returns>
@@ -141,7 +143,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Files
+    ///     Deserialize SPDX Files
     /// </summary>
     /// <param name="json">Json Files Array</param>
     /// <returns>SPDX Files</returns>
@@ -151,7 +153,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX File
+    ///     Deserialize SPDX File
     /// </summary>
     /// <param name="json">Json File Node</param>
     /// <returns>SPDX File</returns>
@@ -161,7 +163,8 @@ public static class Spdx2JsonDeserializer
         {
             Id = ParseString(json, SpdxConstants.FieldSpdxId),
             FileName = ParseString(json, SpdxConstants.FieldFileName),
-            FileTypes = [..ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText)],
+            FileTypes =
+                [..ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText)],
             Checksums = DeserializeChecksums(json?[SpdxConstants.FieldChecksums]?.AsArray()),
             ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
             LicenseInfoInFiles = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInFiles),
@@ -176,7 +179,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Packages
+    ///     Deserialize SPDX Packages
     /// </summary>
     /// <param name="json">Json Packages Array</param>
     /// <returns>SPDX Packages</returns>
@@ -186,7 +189,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Package
+    ///     Deserialize SPDX Package
     /// </summary>
     /// <param name="json">Json Package Node</param>
     /// <returns>SPDX Package</returns>
@@ -226,7 +229,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Snippets
+    ///     Deserialize SPDX Snippets
     /// </summary>
     /// <param name="json">Json Snippets Array</param>
     /// <returns>SPDX Snippets</returns>
@@ -236,7 +239,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Snippet
+    ///     Deserialize SPDX Snippet
     /// </summary>
     /// <param name="json">Json Snippet Node</param>
     /// <returns>SPDX Snippet</returns>
@@ -246,10 +249,14 @@ public static class Spdx2JsonDeserializer
         {
             Id = ParseString(json, SpdxConstants.FieldSpdxId),
             SnippetFromFile = ParseString(json, SpdxConstants.FieldSnippetFromFile),
-            SnippetByteStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer, SpdxConstants.FieldOffset)?.ToString() ?? ""),
-            SnippetByteEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer, SpdxConstants.FieldOffset)?.ToString() ?? ""),
-            SnippetLineStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer, SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
-            SnippetLineEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer, SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
+            SnippetByteStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer,
+                SpdxConstants.FieldOffset)?.ToString() ?? ""),
+            SnippetByteEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer,
+                SpdxConstants.FieldOffset)?.ToString() ?? ""),
+            SnippetLineStart = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldStartPointer,
+                SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
+            SnippetLineEnd = Convert.ToInt32(Find(json, SpdxConstants.FieldRanges, SpdxConstants.FieldEndPointer,
+                SpdxConstants.FieldLineNumber)?.ToString() ?? ""),
             ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
             LicenseInfoInSnippet = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInSnippets),
             LicenseComments = ParseOptionalString(json, SpdxConstants.FieldLicenseComments),
@@ -262,7 +269,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Relationships
+    ///     Deserialize SPDX Relationships
     /// </summary>
     /// <param name="json">Json Relationships Array</param>
     /// <returns>SPDX Relationships</returns>
@@ -272,7 +279,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Relationship
+    ///     Deserialize SPDX Relationship
     /// </summary>
     /// <param name="json">Json Relationship Node</param>
     /// <returns>SPDX Relationship</returns>
@@ -282,13 +289,14 @@ public static class Spdx2JsonDeserializer
         {
             Id = ParseString(json, SpdxConstants.FieldSpdxElementId),
             RelatedSpdxElement = ParseString(json, SpdxConstants.FieldRelatedSpdxElement),
-            RelationshipType = SpdxRelationshipTypeExtensions.FromText(ParseString(json, SpdxConstants.FieldRelationshipType)),
+            RelationshipType =
+                SpdxRelationshipTypeExtensions.FromText(ParseString(json, SpdxConstants.FieldRelationshipType)),
             Comment = ParseOptionalString(json, SpdxConstants.FieldComment)
         };
     }
 
     /// <summary>
-    /// Deserialize SPDX Package Verification Code
+    ///     Deserialize SPDX Package Verification Code
     /// </summary>
     /// <param name="json">Json Package Verification Code Node</param>
     /// <returns>SPDX Package Verification Code</returns>
@@ -304,7 +312,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX External References
+    ///     Deserialize SPDX External References
     /// </summary>
     /// <param name="json">Json External References Array</param>
     /// <returns>SPDX External References</returns>
@@ -314,7 +322,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX External Reference
+    ///     Deserialize SPDX External Reference
     /// </summary>
     /// <param name="json">Json External Reference Node</param>
     /// <returns>SPDX External Reference</returns>
@@ -322,7 +330,8 @@ public static class Spdx2JsonDeserializer
     {
         return new SpdxExternalReference
         {
-            Category = SpdxReferenceCategoryExtensions.FromText(ParseString(json, SpdxConstants.FieldReferenceCategory)),
+            Category =
+                SpdxReferenceCategoryExtensions.FromText(ParseString(json, SpdxConstants.FieldReferenceCategory)),
             Type = ParseString(json, SpdxConstants.FieldReferenceType),
             Locator = ParseString(json, SpdxConstants.FieldReferenceLocator),
             Comment = ParseOptionalString(json, SpdxConstants.FieldComment)
@@ -330,7 +339,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Checksums
+    ///     Deserialize SPDX Checksums
     /// </summary>
     /// <param name="json">Json Checksums Array</param>
     /// <returns>SPDX Checksums</returns>
@@ -340,7 +349,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Checksum
+    ///     Deserialize SPDX Checksum
     /// </summary>
     /// <param name="json">Json Checksum Node</param>
     /// <returns>SPDX Checksum</returns>
@@ -354,7 +363,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Annotations
+    ///     Deserialize SPDX Annotations
     /// </summary>
     /// <param name="json">Json Annotations Array</param>
     /// <returns>SPDX Annotations</returns>
@@ -364,7 +373,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize SPDX Annotation
+    ///     Deserialize SPDX Annotation
     /// </summary>
     /// <param name="json">Json Annotation Node</param>
     /// <returns>SPDX Annotation</returns>
@@ -381,7 +390,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize JSON String
+    ///     Deserialize JSON String
     /// </summary>
     /// <param name="node">Json Node</param>
     /// <param name="name">String Name</param>
@@ -392,7 +401,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize JSON Optional String
+    ///     Deserialize JSON Optional String
     /// </summary>
     /// <param name="node">Json Node</param>
     /// <param name="name">String Name</param>
@@ -403,7 +412,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize Json String Array
+    ///     Deserialize Json String Array
     /// </summary>
     /// <param name="node">Json Node</param>
     /// <param name="name">Strings Name</param>
@@ -414,7 +423,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Deserialize Json Boolean
+    ///     Deserialize Json Boolean
     /// </summary>
     /// <param name="node">Json Node</param>
     /// <param name="name">Bool Name</param>
@@ -425,7 +434,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Find a node
+    ///     Find a node
     /// </summary>
     /// <param name="node">Starting node</param>
     /// <param name="names">Node search path</param>
@@ -436,7 +445,7 @@ public static class Spdx2JsonDeserializer
     }
 
     /// <summary>
-    /// Find a named node
+    ///     Find a named node
     /// </summary>
     /// <param name="node">Starting node</param>
     /// <param name="idx">Name index</param>

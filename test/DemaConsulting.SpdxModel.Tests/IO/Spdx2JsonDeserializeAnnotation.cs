@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer"/> classes.
+///     Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeAnnotation
 {
     /// <summary>
-    /// Tests deserializing an annotation.
+    ///     Tests deserializing an annotation.
     /// </summary>
     [TestMethod]
-    public void DeserializeAnnotation()
+    public void Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing an annotation
         var json = new JsonObject
         {
             ["annotationDate"] = "2010-01-29T18:30:22Z",
@@ -44,10 +44,10 @@ public class Spdx2JsonDeserializeAnnotation
             ["comment"] = "Document level annotation"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxAnnotation object
         var annotation = Spdx2JsonDeserializer.DeserializeAnnotation(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("2010-01-29T18:30:22Z", annotation.Date);
         Assert.AreEqual(SpdxAnnotationType.Other, annotation.Type);
         Assert.AreEqual("Person: Jane Doe ()", annotation.Annotator);
@@ -55,12 +55,12 @@ public class Spdx2JsonDeserializeAnnotation
     }
 
     /// <summary>
-    /// Tests deserializing multiple annotations.
+    ///     Tests deserializing multiple annotations.
     /// </summary>
     [TestMethod]
-    public void DeserializeAnnotations()
+    public void Spdx2JsonDeserializer_DeserializeAnnotations_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple annotations
         var json = new JsonArray
         {
             new JsonObject
@@ -80,10 +80,10 @@ public class Spdx2JsonDeserializeAnnotation
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxAnnotation objects
         var annotations = Spdx2JsonDeserializer.DeserializeAnnotations(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected number of annotations and their properties
         Assert.AreEqual(2, annotations.Length);
         Assert.AreEqual("2010-01-29T18:30:22Z", annotations[0].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, annotations[0].Type);

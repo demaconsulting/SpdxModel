@@ -21,89 +21,88 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX File Information Element
+///     SPDX File Information Element
 /// </summary>
 public sealed class SpdxFile : SpdxLicenseElement
 {
     /// <summary>
-    /// Equality comparer for the same file
+    ///     Equality comparer for the same file
     /// </summary>
     /// <remarks>
-    /// This considers files as being the same if they have the same file name
-    /// and there is no differing SHA1 digest.
+    ///     This considers files as being the same if they have the same file name
+    ///     and there is no differing SHA1 digest.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxFile> Same = new SpdxFileSame();
 
     /// <summary>
-    /// File Name Field
+    ///     File Name Field
     /// </summary>
     /// <remarks>
-    /// The name of the file relative to the root of the package.
+    ///     The name of the file relative to the root of the package.
     /// </remarks>
     public string FileName { get; set; } = "";
 
     /// <summary>
-    /// File Types Field
+    ///     File Types Field
     /// </summary>
     /// <remarks>
-    /// The type of the file.
+    ///     The type of the file.
     /// </remarks>
     public SpdxFileType[] FileTypes { get; set; } = [];
 
     /// <summary>
-    /// File Checksums
+    ///     File Checksums
     /// </summary>
     /// <remarks>
-    /// The checksum property provides a mechanism that can be used to verify
-    /// that the contents of a file have not changed.
+    ///     The checksum property provides a mechanism that can be used to verify
+    ///     that the contents of a file have not changed.
     /// </remarks>
     public SpdxChecksum[] Checksums { get; set; } = [];
 
     /// <summary>
-    /// License Information In File Field
+    ///     License Information In File Field
     /// </summary>
     /// <remarks>
-    /// License expressions. See SPDX Annex D for the license expression syntax.
-    /// 
-    /// Licensing information that was discovered directly in the subject file.
-    /// This is also considered a declared license for the file.
-    ///
-    /// If not present for a file, it implies an equivalent meaning to NOASSERTION.
+    ///     License expressions. See SPDX Annex D for the license expression syntax.
+    ///     Licensing information that was discovered directly in the subject file.
+    ///     This is also considered a declared license for the file.
+    ///     If not present for a file, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
     public string[] LicenseInfoInFiles { get; set; } = [];
 
     /// <summary>
-    /// File Comment Field (optional)
+    ///     File Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// File Notice Field (optional)
+    ///     File Notice Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field provides a place for the SPDX file creator to record
-    /// potential legal notices found in the file. This may or may not
-    /// include copyright statements.
+    ///     This field provides a place for the SPDX file creator to record
+    ///     potential legal notices found in the file. This may or may not
+    ///     include copyright statements.
     /// </remarks>
     public string? Notice { get; set; }
 
     /// <summary>
-    /// File Contributors Field
+    ///     File Contributors Field
     /// </summary>
     /// <remarks>
-    /// This field provides a place for the SPDX file creator to record file
-    /// contributors. Contributors could include names of copyright holders
-    /// and/or authors who may not be copyright holders yet contributed to the
-    /// file content.
+    ///     This field provides a place for the SPDX file creator to record file
+    ///     contributors. Contributors could include names of copyright holders
+    ///     and/or authors who may not be copyright holders yet contributed to the
+    ///     file content.
     /// </remarks>
     public string[] Contributors { get; set; } = [];
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxFile DeepCopy() =>
-        new()
+    public SpdxFile DeepCopy()
+    {
+        return new SpdxFile
         {
             Id = Id,
             FileName = FileName,
@@ -119,9 +118,10 @@ public sealed class SpdxFile : SpdxLicenseElement
             AttributionText = (string[])AttributionText.Clone(),
             Annotations = [..Annotations.Select(a => a.DeepCopy())]
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the file
+    ///     Enhance missing fields in the file
     /// </summary>
     /// <param name="other">Other file to enhance with</param>
     public void Enhance(SpdxFile other)
@@ -152,7 +152,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Enhance missing files in array
+    ///     Enhance missing files in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -168,15 +168,11 @@ public sealed class SpdxFile : SpdxLicenseElement
             // Check if other item is the same as one we have
             var annotation = list.Find(a => Same.Equals(a, other));
             if (annotation != null)
-            {
                 // Enhance our item with the other information
                 annotation.Enhance(other);
-            }
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -184,7 +180,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
@@ -209,7 +205,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same file
+    ///     Equality Comparer to test for the same file
     /// </summary>
     private sealed class SpdxFileSame : IEqualityComparer<SpdxFile>
     {

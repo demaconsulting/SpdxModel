@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX packages to <see cref="SpdxPackage"/> classes.
+///     Tests for deserializing SPDX packages to <see cref="SpdxPackage" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializePackage
 {
     /// <summary>
-    /// Tests deserializing a package.
+    ///     Tests deserializing a package.
     /// </summary>
     [TestMethod]
-    public void DeserializePackage()
+    public void Spdx2JsonDeserializer_DeserializePackage_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing a package
         var json = new JsonObject
         {
             ["SPDXID"] = "SPDXRef-Package",
@@ -87,10 +87,10 @@ public class Spdx2JsonDeserializePackage
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxPackage object
         var package = Spdx2JsonDeserializer.DeserializePackage(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-Package", package.Id);
         Assert.AreEqual(1, package.Annotations.Length);
         Assert.AreEqual("2011-01-29T18:30:22Z", package.Annotations[0].Date);
@@ -122,12 +122,12 @@ public class Spdx2JsonDeserializePackage
     }
 
     /// <summary>
-    /// Tests deserializing multiple packages.
+    ///     Tests deserializing multiple packages.
     /// </summary>
     [TestMethod]
-    public void DeserializePackages()
+    public void Spdx2JsonDeserializer_DeserializePackages_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple packages
         var json = new JsonArray
         {
             new JsonObject
@@ -182,10 +182,10 @@ public class Spdx2JsonDeserializePackage
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxPackage objects
         var packages = Spdx2JsonDeserializer.DeserializePackages(json);
 
-        // Assert
+        // Assert: Verify the deserialized array has the expected number of packages and their properties
         Assert.AreEqual(1, packages.Length);
         Assert.AreEqual("SPDXRef-Package", packages[0].Id);
         Assert.AreEqual(1, packages[0].Annotations.Length);

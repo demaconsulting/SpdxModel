@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxPackageVerificationCode"/> to JSON.
+///     Tests for serializing <see cref="SpdxPackageVerificationCode" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializePackageVerificationCode
 {
     /// <summary>
-    /// Tests serializing a package verification code.
+    ///     Tests serializing a package verification code.
     /// </summary>
     [TestMethod]
-    public void SerializePackageVerificationCode()
+    public void Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxPackageVerificationCode object
         var code = new SpdxPackageVerificationCode
         {
             Value = "d3b07384d113edec49eaa6238ad5ff00",
@@ -45,10 +45,10 @@ public class Spdx2JsonSerializePackageVerificationCode
             ]
         };
 
-        // Act
+        // Act: Serialize the package verification code to JSON
         var json = Spdx2JsonSerializer.SerializeVerificationCode(code);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         SpdxJsonHelpers.AssertEqual("d3b07384d113edec49eaa6238ad5ff00", json["packageVerificationCodeValue"]);
         SpdxJsonHelpers.AssertEqual("file1.txt", json["packageVerificationCodeExcludedFiles"]?[0]);

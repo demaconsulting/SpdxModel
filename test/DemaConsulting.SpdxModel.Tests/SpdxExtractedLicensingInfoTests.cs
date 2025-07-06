@@ -21,42 +21,41 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxExtractedLicensingInfo"/> class.
+///     Tests for the <see cref="SpdxExtractedLicensingInfo" /> class.
 /// </summary>
 [TestClass]
 public class SpdxExtractedLicensingInfoTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxExtractedLicensingInfo.Same"/> comparer.
+    ///     Tests the <see cref="SpdxExtractedLicensingInfo.Same" /> comparer compares extracted licensing infos correctly.
     /// </summary>
     [TestMethod]
-    public void ExtractedLicensingInfoSameComparer()
+    public void SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly()
     {
+        // Arrange: Create three extracted licensing infos with different properties
         var l1 = new SpdxExtractedLicensingInfo
         {
             LicenseId = "LicenseRef-1",
             ExtractedText = "The CyberNeko Software License"
         };
-
         var l2 = new SpdxExtractedLicensingInfo
         {
             LicenseId = "LicenseRef-1",
             ExtractedText = "The CyberNeko Software License",
             Comment = "Extracted from files"
         };
-
         var l3 = new SpdxExtractedLicensingInfo
         {
             LicenseId = "LicenseRef-2",
             ExtractedText = "Some Random License"
         };
 
-        // Assert extracted-licensing-infos compare to themselves
+        // Assert: Verify extracted-licensing-infos compare to themselves
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l1, l1));
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l2, l2));
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l3, l3));
 
-        // Assert extracted-licensing-infos compare correctly
+        // Assert: Verify extracted-licensing-infos compare correctly
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l1, l2));
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l2, l1));
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l1, l3));
@@ -64,16 +63,18 @@ public class SpdxExtractedLicensingInfoTests
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l2, l3));
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l3, l2));
 
-        // Assert same extracted-licensing-infos have identical hashes
-        Assert.AreEqual(SpdxExtractedLicensingInfo.Same.GetHashCode(l1), SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
+        // Assert: Verify same extracted-licensing-infos have identical hashes
+        Assert.AreEqual(SpdxExtractedLicensingInfo.Same.GetHashCode(l1),
+            SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxExtractedLicensingInfo.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxExtractedLicensingInfo.DeepCopy" /> method.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create an extracted licensing info object
         var l1 = new SpdxExtractedLicensingInfo
         {
             LicenseId = "LicenseRef-1",
@@ -81,25 +82,28 @@ public class SpdxExtractedLicensingInfoTests
             Comment = "Extracted from files"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the object
         var l2 = l1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         Assert.AreEqual(l1, l2, SpdxExtractedLicensingInfo.Same);
         Assert.AreEqual(l1.LicenseId, l2.LicenseId);
         Assert.AreEqual(l1.ExtractedText, l2.ExtractedText);
         Assert.AreEqual(l1.Comment, l2.Comment);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(l1, l2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxExtractedLicensingInfo.Enhance(SpdxExtractedLicensingInfo[], SpdxExtractedLicensingInfo[])"/> method.
+    ///     Tests the
+    ///     <see cref="SpdxExtractedLicensingInfo.Enhance(SpdxExtractedLicensingInfo[], SpdxExtractedLicensingInfo[])" />
+    ///     method adds or updates information correctly.
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxExtractedLicensingInfo_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of extracted licensing infos
         var infos = new[]
         {
             new SpdxExtractedLicensingInfo
@@ -109,6 +113,7 @@ public class SpdxExtractedLicensingInfoTests
             }
         };
 
+        // Act: Enhance the extracted licensing infos with additional infos
         infos = SpdxExtractedLicensingInfo.Enhance(
             infos,
             [
@@ -125,6 +130,7 @@ public class SpdxExtractedLicensingInfoTests
                 }
             ]);
 
+        // Assert: Verify the infos array has correct information
         Assert.AreEqual(2, infos.Length);
         Assert.AreEqual("LicenseRef-1", infos[0].LicenseId);
         Assert.AreEqual("The CyberNeko Software License", infos[0].ExtractedText);

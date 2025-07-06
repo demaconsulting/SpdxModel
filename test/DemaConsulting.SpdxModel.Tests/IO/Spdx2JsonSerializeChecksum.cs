@@ -23,40 +23,40 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxChecksum"/> to JSON.
+///     Tests for serializing <see cref="SpdxChecksum" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeChecksum
 {
     /// <summary>
-    /// Tests serializing a checksum.
+    ///     Tests serializing a checksum.
     /// </summary>
     [TestMethod]
-    public void SerializeChecksum()
+    public void Spdx2JsonSerializer_SerializeChecksum_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample checksum
         var checksum = new SpdxChecksum
         {
             Algorithm = SpdxChecksumAlgorithm.Sha1,
             Value = "2fd4e1c67a2d28f123849ee1bb76e7391b93eb12"
         };
 
-        // Act
+        // Act: Serialize the checksum to JSON
         var json = Spdx2JsonSerializer.SerializeChecksum(checksum);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         SpdxJsonHelpers.AssertEqual("SHA1", json["algorithm"]);
         SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json["checksumValue"]);
     }
 
     /// <summary>
-    /// Tests serializing multiple checksums.
+    ///     Tests serializing multiple checksums.
     /// </summary>
     [TestMethod]
-    public void SerializeChecksums()
+    public void Spdx2JsonSerializer_SerializeChecksums_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create sample checksums
         var checksums = new[]
         {
             new SpdxChecksum
@@ -71,10 +71,10 @@ public class Spdx2JsonSerializeChecksum
             }
         };
 
-        // Act
+        // Act: Serialize the checksums to JSON
         var json = Spdx2JsonSerializer.SerializeChecksums(checksums);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["algorithm"]);
