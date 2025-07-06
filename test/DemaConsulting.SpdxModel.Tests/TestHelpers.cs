@@ -21,12 +21,12 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Test helpers class
+///     Test helpers class
 /// </summary>
 internal static class SpdxTestHelpers
 {
     /// <summary>
-    /// Get an embedded resource as a string
+    ///     Get an embedded resource as a string
     /// </summary>
     /// <param name="resourceName">Resource name</param>
     /// <returns>Resource string</returns>

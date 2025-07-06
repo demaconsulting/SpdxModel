@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX creation information to <see cref="SpdxCreationInformation"/> classes.
+///     Tests for deserializing SPDX creation information to <see cref="SpdxCreationInformation" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeCreationInformation
 {
     /// <summary>
-    /// Tests deserializing creation information.
+    ///     Tests deserializing creation information.
     /// </summary>
     [TestMethod]
-    public void DeserializeCreationInformation()
+    public void Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing creation information
         var json = new JsonObject
         {
             ["comment"] =
@@ -50,10 +50,10 @@ public class Spdx2JsonDeserializeCreationInformation
             ["licenseListVersion"] = "3.17"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxCreationInformation object
         var creationInformation = Spdx2JsonDeserializer.DeserializeCreationInformation(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual(
             "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             creationInformation.Comment);

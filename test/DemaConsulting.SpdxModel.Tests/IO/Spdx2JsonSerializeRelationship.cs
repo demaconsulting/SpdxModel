@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxRelationship"/> to JSON.
+///     Tests for serializing <see cref="SpdxRelationship" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeRelationship
 {
     /// <summary>
-    /// Tests serializing a relationship.
+    ///     Tests serializing a relationship.
     /// </summary>
     [TestMethod]
-    public void SerializeRelationship()
+    public void Spdx2JsonSerializer_SerializeRelationship_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxRelationship object
         var relationship = new SpdxRelationship
         {
             Id = "SPDXRef-DOCUMENT",
@@ -43,10 +43,10 @@ public class Spdx2JsonSerializeRelationship
             Comment = "Example Comment"
         };
 
-        // Act
+        // Act: Serialize the relationship to JSON
         var json = Spdx2JsonSerializer.SerializeRelationship(relationship);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json["spdxElementId"]);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json["relatedSpdxElement"]);
@@ -55,12 +55,12 @@ public class Spdx2JsonSerializeRelationship
     }
 
     /// <summary>
-    /// Tests serializing multiple relationships.
+    ///     Tests serializing multiple relationships.
     /// </summary>
     [TestMethod]
-    public void SerializeRelationships()
+    public void Spdx2JsonSerializer_SerializeRelationships_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create an array of sample SpdxRelationship objects
         var relationships = new[]
         {
             new SpdxRelationship
@@ -79,10 +79,10 @@ public class Spdx2JsonSerializeRelationship
             }
         };
 
-        // Act
+        // Act: Serialize the array of relationships to JSON
         var json = Spdx2JsonSerializer.SerializeRelationships(relationships);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json[0]?["spdxElementId"]);

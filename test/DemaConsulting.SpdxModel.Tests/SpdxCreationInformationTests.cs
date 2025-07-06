@@ -21,17 +21,18 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxCreationInformation"/> class.
+///     Tests for the <see cref="SpdxCreationInformation" /> class.
 /// </summary>
 [TestClass]
 public class SpdxCreationInformationTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxCreationInformation.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxCreationInformation.DeepCopy" /> method successfully creates a deep copy
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create an instance of SpdxCreationInformation with multiple creators
         var c1 = new SpdxCreationInformation
         {
             Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()", "Person: Jane Doe ()"],
@@ -40,26 +41,27 @@ public class SpdxCreationInformationTests
             LicenseListVersion = "3.9"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the SpdxCreationInformation instance
         var c2 = c1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         CollectionAssert.AreEqual(c1.Creators, c2.Creators);
         Assert.AreEqual(c1.Created, c2.Created);
         Assert.AreEqual(c1.Comment, c2.Comment);
         Assert.AreEqual(c1.LicenseListVersion, c2.LicenseListVersion);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instances
         Assert.IsFalse(ReferenceEquals(c1, c2));
         Assert.IsFalse(ReferenceEquals(c1.Creators, c2.Creators));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxCreationInformation.Enhance"/> method.
+    ///     Tests the <see cref="SpdxCreationInformation.Enhance" /> method adds or updates information correctly
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an instance of SpdxCreationInformation with initial values
         var info = new SpdxCreationInformation
         {
             Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
@@ -67,6 +69,7 @@ public class SpdxCreationInformationTests
             Comment = "This package has been shipped in source and binary form."
         };
 
+        // Act: Enhance the instance with additional information
         info.Enhance(
             new SpdxCreationInformation
             {
@@ -74,6 +77,7 @@ public class SpdxCreationInformationTests
                 LicenseListVersion = "3.9"
             });
 
+        // Assert: Verify the enhanced information
         Assert.AreEqual(3, info.Creators.Length);
         Assert.AreEqual("Tool: LicenseFind-1.0", info.Creators[0]);
         Assert.AreEqual("Organization: ExampleCodeInspect ()", info.Creators[1]);

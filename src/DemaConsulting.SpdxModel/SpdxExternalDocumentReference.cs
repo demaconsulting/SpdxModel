@@ -21,54 +21,58 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX External Document Reference
+///     SPDX External Document Reference
 /// </summary>
 /// <remarks>
-/// Information about an external SPDX document reference including the
-/// checksum. This allows for verification of the external references.
+///     Information about an external SPDX document reference including the
+///     checksum. This allows for verification of the external references.
 /// </remarks>
 public sealed class SpdxExternalDocumentReference
 {
     /// <summary>
-    /// Equality comparer for the same external document reference
+    ///     Equality comparer for the same external document reference
     /// </summary>
     /// <remarks>
-    /// This considers packages as being the same if they have the same document.
+    ///     This considers packages as being the same if they have the same document.
     /// </remarks>
-    public static readonly IEqualityComparer<SpdxExternalDocumentReference> Same = new SpdxExternalDocumentReferenceSame();
+    public static readonly IEqualityComparer<SpdxExternalDocumentReference> Same =
+        new SpdxExternalDocumentReferenceSame();
 
     /// <summary>
-    /// External Document ID Field
+    ///     External Document ID Field
     /// </summary>
     /// <remarks>
-    /// A string containing letters, numbers, ., - and/or + which uniquely identifies an external document within this document.
+    ///     A string containing letters, numbers, ., - and/or + which uniquely identifies an external document within this
+    ///     document.
     /// </remarks>
     public string ExternalDocumentId { get; set; } = "";
 
     /// <summary>
-    /// External Document Checksum Field
+    ///     External Document Checksum Field
     /// </summary>
     public SpdxChecksum Checksum { get; set; } = new();
 
     /// <summary>
-    /// SPDX Document URI Field
+    ///     SPDX Document URI Field
     /// </summary>
     public string Document { get; set; } = "";
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxExternalDocumentReference DeepCopy() =>
-        new()
+    public SpdxExternalDocumentReference DeepCopy()
+    {
+        return new SpdxExternalDocumentReference
         {
             ExternalDocumentId = ExternalDocumentId,
             Checksum = Checksum.DeepCopy(),
             Document = Document
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the checksum
+    ///     Enhance missing fields in the checksum
     /// </summary>
     /// <param name="other">Other checksum to enhance with</param>
     public void Enhance(SpdxExternalDocumentReference other)
@@ -84,12 +88,13 @@ public sealed class SpdxExternalDocumentReference
     }
 
     /// <summary>
-    /// Enhance missing external document references in array
+    ///     Enhance missing external document references in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
-    public static SpdxExternalDocumentReference[] Enhance(SpdxExternalDocumentReference[] array, SpdxExternalDocumentReference[] others)
+    public static SpdxExternalDocumentReference[] Enhance(SpdxExternalDocumentReference[] array,
+        SpdxExternalDocumentReference[] others)
     {
         // Convert to list
         var list = array.ToList();
@@ -98,17 +103,13 @@ public sealed class SpdxExternalDocumentReference
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.Find(a => Same.Equals(a, other));
-            if (annotation != null)
-            {
+            var existing = list.Find(a => Same.Equals(a, other));
+            if (existing != null)
                 // Enhance our item with the other information
-                annotation.Enhance(other);
-            }
+                existing.Enhance(other);
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -116,7 +117,7 @@ public sealed class SpdxExternalDocumentReference
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
@@ -134,7 +135,7 @@ public sealed class SpdxExternalDocumentReference
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same external document reference
+    ///     Equality Comparer to test for the same external document reference
     /// </summary>
     private sealed class SpdxExternalDocumentReferenceSame : IEqualityComparer<SpdxExternalDocumentReference>
     {

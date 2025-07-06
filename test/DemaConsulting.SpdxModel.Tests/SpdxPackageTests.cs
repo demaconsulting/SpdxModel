@@ -21,13 +21,13 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-///     Tests for the <see cref="SpdxPackage"/> class.
+///     Tests for the <see cref="SpdxPackage" /> class.
 /// </summary>
 [TestClass]
 public class SpdxPackageTests
 {
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Same"/> comparer compares packages correctly.
+    ///     Tests the <see cref="SpdxPackage.Same" /> comparer compares packages correctly.
     /// </summary>
     [TestMethod]
     public void SpdxPackage_SameComparer_ComparesCorrectly()
@@ -70,7 +70,7 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.DeepCopy"/> method successfully creates a deep copy.
+    ///     Tests the <see cref="SpdxPackage.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
     public void SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance()
@@ -136,7 +136,8 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Enhance(SpdxPackage[], SpdxPackage[])"/> method correctly adds or updates packages.
+    ///     Tests the <see cref="SpdxPackage.Enhance(SpdxPackage[], SpdxPackage[])" /> method correctly adds or updates
+    ///     packages.
     /// </summary>
     [TestMethod]
     public void SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly()

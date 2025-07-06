@@ -21,13 +21,13 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxFile"/> class.
+///     Tests for the <see cref="SpdxFile" /> class.
 /// </summary>
 [TestClass]
 public class SpdxFileTests
 {
     /// <summary>
-    ///     Tests the <see cref="SpdxFile.Same"/> comparer compares files correctly.
+    ///     Tests the <see cref="SpdxFile.Same" /> comparer compares files correctly.
     /// </summary>
     [TestMethod]
     public void SpdxFile_SameComparer_ComparesCorrectly()
@@ -95,7 +95,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxFile.DeepCopy"/> method successfully creates a deep copy.
+    ///     Tests the <see cref="SpdxFile.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
     public void SpdxFile_DeepCopy_CreatesEqualButDistinctInstance()
@@ -137,7 +137,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])"/> method correctly adds or updates information
+    ///     Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])" /> method correctly adds or updates information
     /// </summary>
     [TestMethod]
     public void SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly()
@@ -243,7 +243,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method with valid inputs.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)" /> method with valid inputs.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Valid()
@@ -264,17 +264,18 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)"/> method with invalid input.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)" /> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("invalid"));
+        var exception =
+            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX File Type 'invalid'", exception.Message);
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method with valid inputs
+    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText" /> method with valid inputs
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Valid()
@@ -293,7 +294,7 @@ public class SpdxFileTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText"/> method with invalid input.
+    ///     Tests the <see cref="SpdxFileTypeExtensions.ToText" /> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Invalid()

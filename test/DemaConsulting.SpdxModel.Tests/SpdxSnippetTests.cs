@@ -21,13 +21,13 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxSnippet"/> class.
+///     Tests for the <see cref="SpdxSnippet" /> class.
 /// </summary>
 [TestClass]
 public class SpdxSnippetTests
 {
     /// <summary>
-    ///     Tests the <see cref="SpdxSnippet.Same"/> comparer compares snippets correctly.
+    ///     Tests the <see cref="SpdxSnippet.Same" /> comparer compares snippets correctly.
     /// </summary>
     [TestMethod]
     public void SpdxSnippet_SameComparer_ComparesCorrectly()
@@ -73,7 +73,7 @@ public class SpdxSnippetTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxSnippet.DeepCopy"/> method successfully creates a deep copy.
+    ///     Tests the <see cref="SpdxSnippet.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
     public void SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance()
@@ -104,7 +104,8 @@ public class SpdxSnippetTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])"/> method adds or updates information correctly.
+    ///     Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])" /> method adds or updates information
+    ///     correctly.
     /// </summary>
     [TestMethod]
     public void SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly()

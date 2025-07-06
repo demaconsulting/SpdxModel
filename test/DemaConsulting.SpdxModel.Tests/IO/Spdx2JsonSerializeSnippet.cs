@@ -23,18 +23,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for serializing <see cref="SpdxSnippet"/> to JSON.
+///     Tests for serializing <see cref="SpdxSnippet" /> to JSON.
 /// </summary>
 [TestClass]
 public class Spdx2JsonSerializeSnippet
 {
     /// <summary>
-    /// Tests serializing a snippet.
+    ///     Tests serializing a snippet.
     /// </summary>
     [TestMethod]
-    public void SerializeSnippet()
+    public void Spdx2JsonSerializer_SerializeSnippet_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample SpdxSnippet object
         var snippet = new SpdxSnippet
         {
             Id = "SPDXRef-Snippet",
@@ -52,10 +52,10 @@ public class Spdx2JsonSerializeSnippet
             AttributionText = ["AttributionText"]
         };
 
-        // Act
+        // Act: Serialize the snippet to JSON
         var json = Spdx2JsonSerializer.SerializeSnippet(snippet);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Snippet", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("SnippetFromFile", json["snippetFromFile"]);
@@ -77,12 +77,12 @@ public class Spdx2JsonSerializeSnippet
     }
 
     /// <summary>
-    /// Tests serializing multiple snippets.
+    ///     Tests serializing multiple snippets.
     /// </summary>
     [TestMethod]
-    public void SerializeSnippets()
+    public void Spdx2JsonSerializer_SerializeSnippets_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample array of SpdxSnippet objects
         var snippets = new[]
         {
             new SpdxSnippet
@@ -103,10 +103,10 @@ public class Spdx2JsonSerializeSnippet
             }
         };
 
-        // Act
+        // Act: Serialize the array of snippets to JSON
         var json = Spdx2JsonSerializer.SerializeSnippets(snippets);
 
-        // Assert
+        // Assert: Verify the JSON is not null and has the expected structure
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Snippet", json[0]?["SPDXID"]);

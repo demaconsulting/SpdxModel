@@ -24,18 +24,18 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-/// Tests for deserializing SPDX relationships to <see cref="SpdxRelationship"/> classes.
+///     Tests for deserializing SPDX relationships to <see cref="SpdxRelationship" /> classes.
 /// </summary>
 [TestClass]
 public class Spdx2JsonDeserializeRelationship
 {
     /// <summary>
-    /// Tests deserializing a relationship.
+    ///     Tests deserializing a relationship.
     /// </summary>
     [TestMethod]
-    public void DeserializeRelationship()
+    public void Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON object representing a relationship
         var json = new JsonObject
         {
             ["spdxElementId"] = "SPDXRef-DOCUMENT",
@@ -44,10 +44,10 @@ public class Spdx2JsonDeserializeRelationship
             ["comment"] = "This is just an example"
         };
 
-        // Act
+        // Act: Deserialize the JSON object to an SpdxRelationship object
         var relationship = Spdx2JsonDeserializer.DeserializeRelationship(json);
 
-        // Assert
+        // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-DOCUMENT", relationship.Id);
         Assert.AreEqual("SPDXRef-Package", relationship.RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Describes, relationship.RelationshipType);
@@ -55,12 +55,12 @@ public class Spdx2JsonDeserializeRelationship
     }
 
     /// <summary>
-    /// Tests deserializing multiple relationships.
+    ///     Tests deserializing multiple relationships.
     /// </summary>
     [TestMethod]
-    public void DeserializeRelationships()
+    public void Spdx2JsonDeserializer_DeserializeRelationships_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a JSON array representing multiple relationships
         var json = new JsonArray
         {
             new JsonObject
@@ -79,10 +79,10 @@ public class Spdx2JsonDeserializeRelationship
             }
         };
 
-        // Act
+        // Act: Deserialize the JSON array to an array of SpdxRelationship objects
         var relationships = Spdx2JsonDeserializer.DeserializeRelationships(json);
 
-        // Assert
+        // Assert: Verify the deserialized objects have the expected properties
         Assert.AreEqual(2, relationships.Length);
         Assert.AreEqual("SPDXRef-DOCUMENT", relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package", relationships[0].RelatedSpdxElement);

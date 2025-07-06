@@ -23,12 +23,17 @@ using System.Text.RegularExpressions;
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Element base class
+///     SPDX Element base class
 /// </summary>
 public abstract class SpdxElement
 {
     /// <summary>
-    /// Regular expression for checking element IDs of the form "SPDXRef-name"
+    ///     No Assertion value
+    /// </summary>
+    public const string NoAssertion = "NOASSERTION";
+
+    /// <summary>
+    ///     Regular expression for checking element IDs of the form "SPDXRef-name"
     /// </summary>
     protected static readonly Regex SpdxRefRegex = new(
         "^SPDXRef-[a-zA-Z0-9,-]+$",
@@ -36,21 +41,16 @@ public abstract class SpdxElement
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
-    /// No Assertion value
-    /// </summary>
-    public const string NoAssertion = "NOASSERTION";
-
-    /// <summary>
-    /// Gets or sets the Element ID
+    ///     Gets or sets the Element ID
     /// </summary>
     /// <remarks>
-    /// Uniquely identify any element in an SPDX document which may be
-    /// referenced by other elements.
+    ///     Uniquely identify any element in an SPDX document which may be
+    ///     referenced by other elements.
     /// </remarks>
     public string Id { get; set; } = "";
 
     /// <summary>
-    /// Enhance missing fields in the element
+    ///     Enhance missing fields in the element
     /// </summary>
     /// <param name="other">Other element to enhance with</param>
     protected void EnhanceElement(SpdxElement other)

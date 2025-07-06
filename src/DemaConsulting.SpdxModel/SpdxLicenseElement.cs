@@ -21,62 +21,59 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Element with License
+///     SPDX Element with License
 /// </summary>
 public abstract class SpdxLicenseElement : SpdxElement
 {
     /// <summary>
-    /// Concluded License Field (optional)
+    ///     Concluded License Field (optional)
     /// </summary>
     /// <remarks>
-    /// License expression. See SPDX Annex D for the license expression syntax.
-    /// 
-    /// The licensing that the preparer of this SPDX document has concluded,
-    /// based on the evidence, actually applies to the SPDX Item.
-    ///
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
+    ///     License expression. See SPDX Annex D for the license expression syntax.
+    ///     The licensing that the preparer of this SPDX document has concluded,
+    ///     based on the evidence, actually applies to the SPDX Item.
+    ///     If not present, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
     public string ConcludedLicense { get; set; } = "";
 
     /// <summary>
-    /// Comments On License Field (optional)
+    ///     Comments On License Field (optional)
     /// </summary>
     /// <remarks>
-    /// This property allows the preparer of the SPDX document to describe why
-    /// the ConcludedLicense was chosen.
+    ///     This property allows the preparer of the SPDX document to describe why
+    ///     the ConcludedLicense was chosen.
     /// </remarks>
     public string? LicenseComments { get; set; }
 
     /// <summary>
-    /// Copyright Text Field (optional)
+    ///     Copyright Text Field (optional)
     /// </summary>
     /// <remarks>
-    /// The text of copyright declarations.
-    ///
-    /// If not present, it implies an equivalent meaning to NOASSERTION.
+    ///     The text of copyright declarations.
+    ///     If not present, it implies an equivalent meaning to NOASSERTION.
     /// </remarks>
     public string CopyrightText { get; set; } = "";
 
     /// <summary>
-    /// Attribution Text Field
+    ///     Attribution Text Field
     /// </summary>
     /// <remarks>
-    /// This field provides a place for the SPDX data creator to record
-    /// acknowledgements that may be required to be communicated in some
-    /// contexts.
+    ///     This field provides a place for the SPDX data creator to record
+    ///     acknowledgements that may be required to be communicated in some
+    ///     contexts.
     /// </remarks>
     public string[] AttributionText { get; set; } = [];
 
     /// <summary>
-    /// Annotations
+    ///     Annotations
     /// </summary>
     /// <remarks>
-    /// Provide additional information about this element.
+    ///     Provide additional information about this element.
     /// </remarks>
     public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
-    /// Enhance missing fields in the license element
+    ///     Enhance missing fields in the license element
     /// </summary>
     /// <param name="other">Other license element to enhance with</param>
     protected void EnhanceLicenseElement(SpdxLicenseElement other)

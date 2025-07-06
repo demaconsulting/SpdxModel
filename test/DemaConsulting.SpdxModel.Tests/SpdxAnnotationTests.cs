@@ -21,17 +21,18 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxAnnotation"/> class.
+///     Tests for the <see cref="SpdxAnnotation" /> class.
 /// </summary>
 [TestClass]
 public class SpdxAnnotationTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotation.Same"/> comparer.
+    ///     Tests the <see cref="SpdxAnnotation.Same" /> comparer compares annotations correctly.
     /// </summary>
     [TestMethod]
-    public void AnnotationSameComparer()
+    public void SpdxAnnotation_SameComparer_ComparesCorrectly()
     {
+        // Arrange: Create three annotations with different properties
         var a1 = new SpdxAnnotation
         {
             Annotator = "Person: Malcolm Nixon",
@@ -39,7 +40,6 @@ public class SpdxAnnotationTests
             Type = SpdxAnnotationType.Review,
             Comment = "Looks good"
         };
-
         var a2 = new SpdxAnnotation
         {
             Id = "SPDXRef-Annotation1",
@@ -48,7 +48,6 @@ public class SpdxAnnotationTests
             Type = SpdxAnnotationType.Review,
             Comment = "Looks good"
         };
-
         var a3 = new SpdxAnnotation
         {
             Annotator = "Person: John Doe",
@@ -56,12 +55,12 @@ public class SpdxAnnotationTests
             Type = SpdxAnnotationType.Other
         };
 
-        // Assert annotations compare to themselves
+        // Assert: Verify annotations compare to themselves
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a1));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a2));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a3, a3));
 
-        // Assert annotations compare correctly
+        // Assert: Verify annotations compare correctly
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a2));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a1));
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a1, a3));
@@ -69,16 +68,17 @@ public class SpdxAnnotationTests
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a2, a3));
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a3, a2));
 
-        // Assert same annotations have identical hashes
+        // Assert: Verify same annotations have identical hashes
         Assert.AreEqual(SpdxAnnotation.Same.GetHashCode(a1), SpdxAnnotation.Same.GetHashCode(a2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotation.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxAnnotation.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create an original SpdxAnnotation object
         var a1 = new SpdxAnnotation
         {
             Annotator = "Person: Malcolm Nixon",
@@ -87,26 +87,28 @@ public class SpdxAnnotationTests
             Comment = "Looks good"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the original object
         var a2 = a1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         Assert.AreEqual(a1, a2, SpdxAnnotation.Same);
         Assert.AreEqual(a1.Annotator, a2.Annotator);
         Assert.AreEqual(a1.Date, a2.Date);
         Assert.AreEqual(a1.Type, a2.Type);
         Assert.AreEqual(a1.Comment, a2.Comment);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(a1, a2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotation.Enhance(SpdxAnnotation[], SpdxAnnotation[])"/> method.
+    ///     Tests the <see cref="SpdxAnnotation.Enhance(SpdxAnnotation[], SpdxAnnotation[])" /> method adds or updates
+    ///     information correctly
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of annotations with one annotation
         var annotations = new[]
         {
             new SpdxAnnotation
@@ -118,6 +120,7 @@ public class SpdxAnnotationTests
             }
         };
 
+        // Act: Enhance the annotations with additional annotations
         annotations = SpdxAnnotation.Enhance(
             annotations,
             [
@@ -138,6 +141,7 @@ public class SpdxAnnotationTests
                 }
             ]);
 
+        // Assert: Verify the annotations array has correct information
         Assert.AreEqual(2, annotations.Length);
         Assert.AreEqual("SPDXRef-Annotation1", annotations[0].Id);
         Assert.AreEqual("Person: Malcolm Nixon", annotations[0].Annotator);
@@ -150,7 +154,7 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for valid annotation types.
+    ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for valid annotation types.
     /// </summary>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Valid()
@@ -165,17 +169,18 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)"/> method for an invalid annotation type.
+    ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for an invalid annotation type.
     /// </summary>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        var exception =
+            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Annotation Type 'invalid'", exception.Message);
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for valid annotation types.
+    ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for valid annotation types.
     /// </summary>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Valid()
@@ -185,7 +190,8 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)"/> method for an invalid annotation type.
+    ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for an invalid annotation
+    ///     type.
     /// </summary>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()

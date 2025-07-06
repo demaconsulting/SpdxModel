@@ -21,63 +21,64 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Extracted Licensing Information class
+///     SPDX Extracted Licensing Information class
 /// </summary>
 /// <remarks>
-/// Represents a license or licensing notice that was found in a package,
-/// file or snippet. Any license text that is recognized as a license may be
-/// represented as a License rather than an ExtractedLicensingInfo.
+///     Represents a license or licensing notice that was found in a package,
+///     file or snippet. Any license text that is recognized as a license may be
+///     represented as a License rather than an ExtractedLicensingInfo.
 /// </remarks>
 public sealed class SpdxExtractedLicensingInfo
 {
     /// <summary>
-    /// Equality comparer for the same extracted licensing info
+    ///     Equality comparer for the same extracted licensing info
     /// </summary>
     /// <remarks>
-    /// This considers packages as being the same if they have the same
-    /// extracted text.
+    ///     This considers packages as being the same if they have the same
+    ///     extracted text.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxExtractedLicensingInfo> Same = new SpdxExtractedLicensingInfoSame();
 
     /// <summary>
-    /// License Identifier Field (optional)
+    ///     License Identifier Field (optional)
     /// </summary>
     /// <remarks>
-    /// A human-readable short form license identifier for a license.
+    ///     A human-readable short form license identifier for a license.
     /// </remarks>
     public string LicenseId { get; set; } = "";
 
     /// <summary>
-    /// Extracted Text Field
+    ///     Extracted Text Field
     /// </summary>
     /// <remarks>
-    /// Provide a copy of the actual text of the license reference extracted
-    /// from the package, file or snippet that is associated with the License
-    /// Identifier to aid in future analysis.
+    ///     Provide a copy of the actual text of the license reference extracted
+    ///     from the package, file or snippet that is associated with the License
+    ///     Identifier to aid in future analysis.
     /// </remarks>
     public string ExtractedText { get; set; } = "";
 
     /// <summary>
-    /// License Name Field
+    ///     License Name Field
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
-    /// License Cross-Reference Field (optional)
+    ///     License Cross-Reference Field (optional)
     /// </summary>
     public string[] CrossReferences { get; set; } = [];
 
     /// <summary>
-    /// License Comment Field (optional)
+    ///     License Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxExtractedLicensingInfo DeepCopy() =>
-        new()
+    public SpdxExtractedLicensingInfo DeepCopy()
+    {
+        return new SpdxExtractedLicensingInfo
         {
             LicenseId = LicenseId,
             ExtractedText = ExtractedText,
@@ -85,9 +86,10 @@ public sealed class SpdxExtractedLicensingInfo
             CrossReferences = (string[])CrossReferences.Clone(),
             Comment = Comment
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the extracted licensing info
+    ///     Enhance missing fields in the extracted licensing info
     /// </summary>
     /// <param name="other">Other extracted licensing info to enhance with</param>
     public void Enhance(SpdxExtractedLicensingInfo other)
@@ -109,12 +111,13 @@ public sealed class SpdxExtractedLicensingInfo
     }
 
     /// <summary>
-    /// Enhance missing extracted licensing info in array
+    ///     Enhance missing extracted licensing info in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
-    public static SpdxExtractedLicensingInfo[] Enhance(SpdxExtractedLicensingInfo[] array, SpdxExtractedLicensingInfo[] others)
+    public static SpdxExtractedLicensingInfo[] Enhance(SpdxExtractedLicensingInfo[] array,
+        SpdxExtractedLicensingInfo[] others)
     {
         // Convert to list
         var list = array.ToList();
@@ -123,17 +126,13 @@ public sealed class SpdxExtractedLicensingInfo
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.Find(a => Same.Equals(a, other));
-            if (annotation != null)
-            {
+            var existing = list.Find(a => Same.Equals(a, other));
+            if (existing != null)
                 // Enhance our item with the other information
-                annotation.Enhance(other);
-            }
+                existing.Enhance(other);
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
@@ -141,7 +140,7 @@ public sealed class SpdxExtractedLicensingInfo
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
@@ -156,7 +155,7 @@ public sealed class SpdxExtractedLicensingInfo
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same external document reference
+    ///     Equality Comparer to test for the same external document reference
     /// </summary>
     private sealed class SpdxExtractedLicensingInfoSame : IEqualityComparer<SpdxExtractedLicensingInfo>
     {

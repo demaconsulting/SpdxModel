@@ -23,131 +23,132 @@ using System.Text.RegularExpressions;
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Document class
+///     SPDX Document class
 /// </summary>
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>
-    /// Regular expression for checking SPDX version fields
+    ///     Regular expression for checking SPDX version fields
     /// </summary>
     private static readonly Regex VersionRegex = new(
-        @"SPDX-\d+\.\d+",
+        @"^SPDX-\d+\.\d+$",
         RegexOptions.None,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
-    /// Equality comparer for the same document
+    ///     Equality comparer for the same document
     /// </summary>
     /// <remarks>
-    /// This considers documents to be the same if they have the same name and
-    /// describe the same root packages (as compared using the
-    /// SpdxPackage.Same equality comparer).
+    ///     This considers documents to be the same if they have the same name and
+    ///     describe the same root packages (as compared using the
+    ///     SpdxPackage.Same equality comparer).
     /// </remarks>
     public static readonly IEqualityComparer<SpdxDocument> Same = new SpdxDocumentSame();
 
     /// <summary>
-    /// Document Name Field
+    ///     Document Name Field
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// SPDX Version field
+    ///     SPDX Version field
     /// </summary>
     /// <remarks>
-    /// Provide a reference number that can be used to understand how to parse
-    /// and interpret the rest of the file. It will enable both future changes
-    /// to the specification and to support backward compatibility. The version
-    /// number consists of a major and minor version indicator. The major field
-    /// will be incremented when incompatible changes between versions are made
-    /// (one or more sections are created, modified or deleted). The minor
-    /// field will be incremented when backwards compatible changes are made.
+    ///     Provide a reference number that can be used to understand how to parse
+    ///     and interpret the rest of the file. It will enable both future changes
+    ///     to the specification and to support backward compatibility. The version
+    ///     number consists of a major and minor version indicator. The major field
+    ///     will be incremented when incompatible changes between versions are made
+    ///     (one or more sections are created, modified or deleted). The minor
+    ///     field will be incremented when backwards compatible changes are made.
     /// </remarks>
     public string Version { get; set; } = string.Empty;
 
     /// <summary>
-    /// Data License field
+    ///     Data License field
     /// </summary>
     /// <remarks>
-    /// License expression for dataLicense. See SPDX Annex D for the license
-    /// expression syntax.  Compliance with the SPDX specification includes
-    /// populating the SPDX fields therein with data related to such fields
-    /// ("SPDX-Metadata").
+    ///     License expression for dataLicense. See SPDX Annex D for the license
+    ///     expression syntax.  Compliance with the SPDX specification includes
+    ///     populating the SPDX fields therein with data related to such fields
+    ///     ("SPDX-Metadata").
     /// </remarks>
     public string DataLicense { get; set; } = string.Empty;
 
     /// <summary>
-    /// SPDX Document Namespace Field
+    ///     SPDX Document Namespace Field
     /// </summary>
     public string DocumentNamespace { get; set; } = string.Empty;
 
     /// <summary>
-    /// Document Comment Field (optional)
+    ///     Document Comment Field (optional)
     /// </summary>
     public string? Comment { get; set; }
 
     /// <summary>
-    /// Creation Information
+    ///     Creation Information
     /// </summary>
     public SpdxCreationInformation CreationInformation { get; set; } = new();
 
     /// <summary>
-    /// External Document References
+    ///     External Document References
     /// </summary>
     /// <remarks>
-    /// Identify any external SPDX documents referenced within this SPDX
-    /// document.
+    ///     Identify any external SPDX documents referenced within this SPDX
+    ///     document.
     /// </remarks>
     public SpdxExternalDocumentReference[] ExternalDocumentReferences { get; set; } =
         [];
 
     /// <summary>
-    /// Extracted Licensing Information
+    ///     Extracted Licensing Information
     /// </summary>
     public SpdxExtractedLicensingInfo[] ExtractedLicensingInfo { get; set; } =
         [];
 
     /// <summary>
-    /// Annotations
+    ///     Annotations
     /// </summary>
     public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
-    /// Files
+    ///     Files
     /// </summary>
     public SpdxFile[] Files { get; set; } = [];
 
     /// <summary>
-    /// Packages
+    ///     Packages
     /// </summary>
     /// <remarks>
-    /// Packages referenced in the SPDX document.
+    ///     Packages referenced in the SPDX document.
     /// </remarks>
     public SpdxPackage[] Packages { get; set; } = [];
 
     /// <summary>
-    /// Snippets
+    ///     Snippets
     /// </summary>
     public SpdxSnippet[] Snippets { get; set; } = [];
 
     /// <summary>
-    /// Relationships
+    ///     Relationships
     /// </summary>
     public SpdxRelationship[] Relationships { get; set; } = [];
 
     /// <summary>
-    /// Document Describes field (optional)
+    ///     Document Describes field (optional)
     /// </summary>
     /// <remarks>
-    /// Packages, files and/or Snippets described by this SPDX document.
+    ///     Packages, files and/or Snippets described by this SPDX document.
     /// </remarks>
     public string[] Describes { get; set; } = [];
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxDocument DeepCopy() =>
-        new()
+    public SpdxDocument DeepCopy()
+    {
+        return new SpdxDocument
         {
             Id = Id,
             Name = Name,
@@ -165,9 +166,10 @@ public sealed class SpdxDocument : SpdxElement
             Relationships = [..Relationships.Select(r => r.DeepCopy())],
             Describes = (string[])Describes.Clone()
         };
+    }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="ntia">Perform NTIA validation</param>
@@ -231,7 +233,7 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
-    /// Get the root packages this document claims to describe
+    ///     Get the root packages this document claims to describe
     /// </summary>
     /// <returns>Array of packages described by this document</returns>
     public SpdxPackage[] GetRootPackages()
@@ -241,18 +243,21 @@ public sealed class SpdxDocument : SpdxElement
 
         // Ensure we have packages this document claims to describe (by relationship)
         packageNames.UnionWith(
-            Relationships.Where(r => r.RelationshipType == SpdxRelationshipType.Describes && r.Id == Id).Select(r => r.RelatedSpdxElement));
+            Relationships.Where(r => r.RelationshipType == SpdxRelationshipType.Describes && r.Id == Id)
+                .Select(r => r.RelatedSpdxElement));
 
         // Ensure we have packages claiming to be described by this document (by relationship)
         packageNames.UnionWith(
-            Relationships.Where(r => r.RelationshipType == SpdxRelationshipType.DescribedBy && r.RelatedSpdxElement == Id).Select(r => r.Id));
+            Relationships
+                .Where(r => r.RelationshipType == SpdxRelationshipType.DescribedBy && r.RelatedSpdxElement == Id)
+                .Select(r => r.Id));
 
         // Return the packages
         return [.. Packages.Where(p => packageNames.Contains(p.Id))];
     }
 
     /// <summary>
-    /// Get all SPDX elements in the document
+    ///     Get all SPDX elements in the document
     /// </summary>
     /// <returns>Enumerable of all elements</returns>
     public IEnumerable<SpdxElement> GetAllElements()
@@ -270,7 +275,7 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
-    /// Get an SPDX element by ID
+    ///     Get an SPDX element by ID
     /// </summary>
     /// <param name="id">Element ID</param>
     /// <returns>SPDX element or null</returns>
@@ -280,7 +285,7 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
-    /// Get an SPDX element of a specific type
+    ///     Get an SPDX element of a specific type
     /// </summary>
     /// <typeparam name="T">SPDX element type</typeparam>
     /// <param name="id">Element ID</param>
@@ -291,7 +296,7 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same relationship
+    ///     Equality Comparer to test for the same relationship
     /// </summary>
     private sealed class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
     {

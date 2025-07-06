@@ -21,24 +21,24 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxRelationship"/> class.
+///     Tests for the <see cref="SpdxRelationship" /> class.
 /// </summary>
 [TestClass]
 public class SpdxRelationshipTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxRelationship.Same"/> comparer.
+    ///     Tests the <see cref="SpdxRelationship.Same" /> comparer compares relationships correctly.
     /// </summary>
     [TestMethod]
-    public void RelationshipSameComparer()
+    public void SpdxRelationship_SameComparer_ComparesCorrectly()
     {
+        // Arrange: Create three relationships with different properties
         var r1 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
             RelationshipType = SpdxRelationshipType.Contains,
             RelatedSpdxElement = "SPDXRef-Package2"
         };
-
         var r2 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
@@ -46,7 +46,6 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package2",
             Comment = "Package 1 contains Package 2"
         };
-
         var r3 = new SpdxRelationship
         {
             Id = "SPDXRef-Package3",
@@ -54,12 +53,12 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Assert relationships compare to themselves
+        // Assert: Verify relationships compare to themselves
         Assert.IsTrue(SpdxRelationship.Same.Equals(r1, r1));
         Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r2));
         Assert.IsTrue(SpdxRelationship.Same.Equals(r3, r3));
 
-        // Assert relationships compare correctly
+        // Assert: Verify relationships compare correctly
         Assert.IsTrue(SpdxRelationship.Same.Equals(r1, r2));
         Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r1));
         Assert.IsFalse(SpdxRelationship.Same.Equals(r1, r3));
@@ -67,23 +66,24 @@ public class SpdxRelationshipTests
         Assert.IsFalse(SpdxRelationship.Same.Equals(r2, r3));
         Assert.IsFalse(SpdxRelationship.Same.Equals(r3, r2));
 
-        // Assert same relationships have identical hashes
+        // Assert: Verify same relationships have identical hashes
         Assert.AreEqual(SpdxRelationship.Same.GetHashCode(r1), SpdxRelationship.Same.GetHashCode(r2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationship.SameElements"/> comparer.
+    ///     Tests the <see cref="SpdxRelationship.SameElements" /> comparer compares relationships with the same elements
+    ///     correctly,
     /// </summary>
     [TestMethod]
-    public void RelationshipSameElementsComparer()
+    public void SpdxRelationship_SameElementsComparer_ComparesCorrectly()
     {
+        // Arrange: Create three relationships with different properties
         var r1 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
             RelationshipType = SpdxRelationshipType.Contains,
             RelatedSpdxElement = "SPDXRef-Package2"
         };
-
         var r2 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
@@ -91,7 +91,6 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package2",
             Comment = "Package 1 builds Package 2"
         };
-
         var r3 = new SpdxRelationship
         {
             Id = "SPDXRef-Package3",
@@ -99,12 +98,12 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Assert relationships compare to themselves
+        // Assert: Verifies relationships compare to themselves
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r1));
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r2));
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r3, r3));
 
-        // Assert relationships compare correctly
+        // Assert: Verifies relationships compare correctly
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r2));
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r1));
         Assert.IsFalse(SpdxRelationship.SameElements.Equals(r1, r3));
@@ -112,16 +111,17 @@ public class SpdxRelationshipTests
         Assert.IsFalse(SpdxRelationship.SameElements.Equals(r2, r3));
         Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r2));
 
-        // Assert same relationships have identical hashes
+        // Assert: Verifies same relationships have identical hashes
         Assert.AreEqual(SpdxRelationship.SameElements.GetHashCode(r1), SpdxRelationship.SameElements.GetHashCode(r2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationship.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxRelationship.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create a relationship with properties
         var r1 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
@@ -130,26 +130,28 @@ public class SpdxRelationshipTests
             Comment = "Package 1 contains Package 2"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the relationship
         var r2 = r1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verifies deep-copy is equal to original
         Assert.AreEqual(r1, r2, SpdxRelationship.Same);
         Assert.AreEqual(r1.Id, r2.Id);
         Assert.AreEqual(r1.RelationshipType, r2.RelationshipType);
         Assert.AreEqual(r1.RelatedSpdxElement, r2.RelatedSpdxElement);
         Assert.AreEqual(r1.Comment, r2.Comment);
 
-        // Assert separate instances
+        // Assert: Verifies deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(r1, r2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationship.Enhance(SpdxRelationship[], SpdxRelationship[])"/> method.
+    ///     Tests the <see cref="SpdxRelationship.Enhance(SpdxRelationship[], SpdxRelationship[])" /> method adds or updates
+    ///     information correctly.
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxRelationship_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of relationships
         var relationships = new[]
         {
             new SpdxRelationship
@@ -160,6 +162,7 @@ public class SpdxRelationshipTests
             }
         };
 
+        // Act: Enhance the relationships with additional relationships
         relationships = SpdxRelationship.Enhance(
             relationships,
             [
@@ -178,6 +181,7 @@ public class SpdxRelationshipTests
                 }
             ]);
 
+        // Assert: Verify the relationships array has correct information
         Assert.AreEqual(2, relationships.Length);
         Assert.AreEqual("SPDXRef-Package1", relationships[0].Id);
         Assert.AreEqual(SpdxRelationshipType.Contains, relationships[0].RelationshipType);
@@ -189,7 +193,8 @@ public class SpdxRelationshipTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)"/> method for the "CONTAINS" relationship type.
+    ///     Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)" /> method for the "CONTAINS" relationship
+    ///     type.
     /// </summary>
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_FromText_Valid()
@@ -203,27 +208,36 @@ public class SpdxRelationshipTests
         Assert.AreEqual(SpdxRelationshipType.ContainedBy, SpdxRelationshipTypeExtensions.FromText("CONTAINED_BY"));
         Assert.AreEqual(SpdxRelationshipType.DependsOn, SpdxRelationshipTypeExtensions.FromText("DEPENDS_ON"));
         Assert.AreEqual(SpdxRelationshipType.DependencyOf, SpdxRelationshipTypeExtensions.FromText("DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.DependencyManifestOf, SpdxRelationshipTypeExtensions.FromText("DEPENDENCY_MANIFEST_OF"));
-        Assert.AreEqual(SpdxRelationshipType.BuildDependencyOf, SpdxRelationshipTypeExtensions.FromText("BUILD_DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.DevDependencyOf, SpdxRelationshipTypeExtensions.FromText("DEV_DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.OptionalDependencyOf, SpdxRelationshipTypeExtensions.FromText("OPTIONAL_DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.ProvidedDependencyOf, SpdxRelationshipTypeExtensions.FromText("PROVIDED_DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.TestDependencyOf, SpdxRelationshipTypeExtensions.FromText("TEST_DEPENDENCY_OF"));
-        Assert.AreEqual(SpdxRelationshipType.RuntimeDependencyOf, SpdxRelationshipTypeExtensions.FromText("RUNTIME_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.DependencyManifestOf,
+            SpdxRelationshipTypeExtensions.FromText("DEPENDENCY_MANIFEST_OF"));
+        Assert.AreEqual(SpdxRelationshipType.BuildDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("BUILD_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.DevDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("DEV_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.OptionalDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("OPTIONAL_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.ProvidedDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("PROVIDED_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.TestDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("TEST_DEPENDENCY_OF"));
+        Assert.AreEqual(SpdxRelationshipType.RuntimeDependencyOf,
+            SpdxRelationshipTypeExtensions.FromText("RUNTIME_DEPENDENCY_OF"));
         Assert.AreEqual(SpdxRelationshipType.ExampleOf, SpdxRelationshipTypeExtensions.FromText("EXAMPLE_OF"));
         Assert.AreEqual(SpdxRelationshipType.Generates, SpdxRelationshipTypeExtensions.FromText("GENERATES"));
         Assert.AreEqual(SpdxRelationshipType.GeneratedFrom, SpdxRelationshipTypeExtensions.FromText("GENERATED_FROM"));
         Assert.AreEqual(SpdxRelationshipType.AncestorOf, SpdxRelationshipTypeExtensions.FromText("ANCESTOR_OF"));
         Assert.AreEqual(SpdxRelationshipType.DescendantOf, SpdxRelationshipTypeExtensions.FromText("DESCENDANT_OF"));
         Assert.AreEqual(SpdxRelationshipType.VariantOf, SpdxRelationshipTypeExtensions.FromText("VARIANT_OF"));
-        Assert.AreEqual(SpdxRelationshipType.DistributionArtifact, SpdxRelationshipTypeExtensions.FromText("DISTRIBUTION_ARTIFACT"));
+        Assert.AreEqual(SpdxRelationshipType.DistributionArtifact,
+            SpdxRelationshipTypeExtensions.FromText("DISTRIBUTION_ARTIFACT"));
         Assert.AreEqual(SpdxRelationshipType.PatchFor, SpdxRelationshipTypeExtensions.FromText("PATCH_FOR"));
         Assert.AreEqual(SpdxRelationshipType.PatchApplied, SpdxRelationshipTypeExtensions.FromText("PATCH_APPLIED"));
         Assert.AreEqual(SpdxRelationshipType.CopyOf, SpdxRelationshipTypeExtensions.FromText("COPY_OF"));
         Assert.AreEqual(SpdxRelationshipType.FileAdded, SpdxRelationshipTypeExtensions.FromText("FILE_ADDED"));
         Assert.AreEqual(SpdxRelationshipType.FileDeleted, SpdxRelationshipTypeExtensions.FromText("FILE_DELETED"));
         Assert.AreEqual(SpdxRelationshipType.FileModified, SpdxRelationshipTypeExtensions.FromText("FILE_MODIFIED"));
-        Assert.AreEqual(SpdxRelationshipType.ExpandedFromArchive, SpdxRelationshipTypeExtensions.FromText("EXPANDED_FROM_ARCHIVE"));
+        Assert.AreEqual(SpdxRelationshipType.ExpandedFromArchive,
+            SpdxRelationshipTypeExtensions.FromText("EXPANDED_FROM_ARCHIVE"));
         Assert.AreEqual(SpdxRelationshipType.DynamicLink, SpdxRelationshipTypeExtensions.FromText("DYNAMIC_LINK"));
         Assert.AreEqual(SpdxRelationshipType.StaticLink, SpdxRelationshipTypeExtensions.FromText("STATIC_LINK"));
         Assert.AreEqual(SpdxRelationshipType.DataFileOf, SpdxRelationshipTypeExtensions.FromText("DATA_FILE_OF"));
@@ -232,30 +246,38 @@ public class SpdxRelationshipTests
         Assert.AreEqual(SpdxRelationshipType.DevToolOf, SpdxRelationshipTypeExtensions.FromText("DEV_TOOL_OF"));
         Assert.AreEqual(SpdxRelationshipType.TestOf, SpdxRelationshipTypeExtensions.FromText("TEST_OF"));
         Assert.AreEqual(SpdxRelationshipType.TestToolOf, SpdxRelationshipTypeExtensions.FromText("TEST_TOOL_OF"));
-        Assert.AreEqual(SpdxRelationshipType.DocumentationOf, SpdxRelationshipTypeExtensions.FromText("DOCUMENTATION_OF"));
-        Assert.AreEqual(SpdxRelationshipType.OptionalComponentOf, SpdxRelationshipTypeExtensions.FromText("OPTIONAL_COMPONENT_OF"));
+        Assert.AreEqual(SpdxRelationshipType.DocumentationOf,
+            SpdxRelationshipTypeExtensions.FromText("DOCUMENTATION_OF"));
+        Assert.AreEqual(SpdxRelationshipType.OptionalComponentOf,
+            SpdxRelationshipTypeExtensions.FromText("OPTIONAL_COMPONENT_OF"));
         Assert.AreEqual(SpdxRelationshipType.MetafileOf, SpdxRelationshipTypeExtensions.FromText("METAFILE_OF"));
         Assert.AreEqual(SpdxRelationshipType.PackageOf, SpdxRelationshipTypeExtensions.FromText("PACKAGE_OF"));
         Assert.AreEqual(SpdxRelationshipType.Amends, SpdxRelationshipTypeExtensions.FromText("AMENDS"));
-        Assert.AreEqual(SpdxRelationshipType.PrerequisiteFor, SpdxRelationshipTypeExtensions.FromText("PREREQUISITE_FOR"));
-        Assert.AreEqual(SpdxRelationshipType.HasPrerequisite, SpdxRelationshipTypeExtensions.FromText("HAS_PREREQUISITE"));
-        Assert.AreEqual(SpdxRelationshipType.RequirementDescriptionFor, SpdxRelationshipTypeExtensions.FromText("REQUIREMENT_DESCRIPTION_FOR"));
-        Assert.AreEqual(SpdxRelationshipType.SpecificationFor, SpdxRelationshipTypeExtensions.FromText("SPECIFICATION_FOR"));
+        Assert.AreEqual(SpdxRelationshipType.PrerequisiteFor,
+            SpdxRelationshipTypeExtensions.FromText("PREREQUISITE_FOR"));
+        Assert.AreEqual(SpdxRelationshipType.HasPrerequisite,
+            SpdxRelationshipTypeExtensions.FromText("HAS_PREREQUISITE"));
+        Assert.AreEqual(SpdxRelationshipType.RequirementDescriptionFor,
+            SpdxRelationshipTypeExtensions.FromText("REQUIREMENT_DESCRIPTION_FOR"));
+        Assert.AreEqual(SpdxRelationshipType.SpecificationFor,
+            SpdxRelationshipTypeExtensions.FromText("SPECIFICATION_FOR"));
         Assert.AreEqual(SpdxRelationshipType.Other, SpdxRelationshipTypeExtensions.FromText("OTHER"));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)"/> method for an invalid relationship type.
+    ///     Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)" /> method for an invalid relationship type.
     /// </summary>
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("invalid"));
+        var exception =
+            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Relationship Type 'invalid'", exception.Message);
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)"/> method for the "CONTAINS" relationship type.
+    ///     Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)" /> method for the "CONTAINS"
+    ///     relationship type.
     /// </summary>
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_ToText_Valid()
@@ -308,7 +330,8 @@ public class SpdxRelationshipTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)"/> method for an invalid relationship type.
+    ///     Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)" /> method for an invalid
+    ///     relationship type.
     /// </summary>
     [TestMethod]
     public void SpdxRelationshipTypeExtensions_ToText_Invalid()

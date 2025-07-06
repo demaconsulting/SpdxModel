@@ -21,60 +21,62 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Package Verification Code
+///     SPDX Package Verification Code
 /// </summary>
 /// <remarks>
-/// A manifest based verification code (the algorithm is defined in section 4.7
-/// of the full specification) of the SPDX Item. This allows consumers of this
-/// data and/or database to determine if an SPDX item they have in hand is
-/// identical to the SPDX item from which the data was produced. This
-/// algorithm works even if the SPDX document is included in the SPDX item.
+///     A manifest based verification code (the algorithm is defined in section 4.7
+///     of the full specification) of the SPDX Item. This allows consumers of this
+///     data and/or database to determine if an SPDX item they have in hand is
+///     identical to the SPDX item from which the data was produced. This
+///     algorithm works even if the SPDX document is included in the SPDX item.
 /// </remarks>
 public sealed class SpdxPackageVerificationCode
 {
     /// <summary>
-    /// Equality comparer for the same package verification code
+    ///     Equality comparer for the same package verification code
     /// </summary>
     /// <remarks>
-    /// This considers annotations as being the same if they have the same
-    /// value.
+    ///     This considers annotations as being the same if they have the same
+    ///     value.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxPackageVerificationCode> Same = new SpdxPackageVerificationCodeSame();
 
     /// <summary>
-    /// Excluded Files Field
+    ///     Excluded Files Field
     /// </summary>
     /// <remarks>
-    /// Files that was excluded when calculating the package verification code.
-    /// This is usually a file containing SPDX data regarding the package.
-    /// If a package contains more than one SPDX file all SPDX files must be
-    /// excluded from the package verification code. If this is not done it
-    /// would be impossible to correctly calculate the verification codes in
-    /// both files.
+    ///     Files that was excluded when calculating the package verification code.
+    ///     This is usually a file containing SPDX data regarding the package.
+    ///     If a package contains more than one SPDX file all SPDX files must be
+    ///     excluded from the package verification code. If this is not done it
+    ///     would be impossible to correctly calculate the verification codes in
+    ///     both files.
     /// </remarks>
     public string[] ExcludedFiles { get; set; } = [];
 
     /// <summary>
-    /// Verification Code Value Field
+    ///     Verification Code Value Field
     /// </summary>
     /// <remarks>
-    /// The actual package verification code as a hex encoded value.
+    ///     The actual package verification code as a hex encoded value.
     /// </remarks>
     public string Value { get; set; } = "";
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxPackageVerificationCode DeepCopy() =>
-        new()
+    public SpdxPackageVerificationCode DeepCopy()
+    {
+        return new SpdxPackageVerificationCode
         {
             ExcludedFiles = (string[])ExcludedFiles.Clone(),
             Value = Value
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the verification code
+    ///     Enhance missing fields in the verification code
     /// </summary>
     /// <param name="other">Other verification code to enhance with</param>
     public void Enhance(SpdxPackageVerificationCode other)
@@ -87,7 +89,7 @@ public sealed class SpdxPackageVerificationCode
     }
 
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="package">Associated package</param>
     /// <param name="issues">List to populate with issues</param>
@@ -99,7 +101,7 @@ public sealed class SpdxPackageVerificationCode
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same package verification code
+    ///     Equality Comparer to test for the same package verification code
     /// </summary>
     private sealed class SpdxPackageVerificationCodeSame : IEqualityComparer<SpdxPackageVerificationCode>
     {

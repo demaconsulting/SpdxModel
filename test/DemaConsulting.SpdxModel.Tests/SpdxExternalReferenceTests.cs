@@ -21,24 +21,24 @@
 namespace DemaConsulting.SpdxModel.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SpdxExternalReference"/> class.
+///     Tests for the <see cref="SpdxExternalReference" /> class.
 /// </summary>
 [TestClass]
 public class SpdxExternalReferenceTests
 {
     /// <summary>
-    /// Tests the <see cref="SpdxExternalReference.Same"/> comparer.
+    ///     Tests the <see cref="SpdxExternalReference.Same" /> comparer compares external references correctly.
     /// </summary>
     [TestMethod]
-    public void ExternalReferenceSameComparer()
+    public void SpdxExternalReference_SameComparer_ComparesCorrectly()
     {
+        // Arrange: Create three external references with different properties
         var r1 = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Security,
             Type = "cpe23Type",
             Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*"
         };
-
         var r2 = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Security,
@@ -46,7 +46,6 @@ public class SpdxExternalReferenceTests
             Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*",
             Comment = "CPE23 Standard Identifier"
         };
-
         var r3 = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.PackageManager,
@@ -54,12 +53,12 @@ public class SpdxExternalReferenceTests
             Locator = "pkg:nuget/SomePackage@0.0.0"
         };
 
-        // Assert external-references compare to themselves
+        // Assert: Verify external-references compare to themselves
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r1, r1));
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r2, r2));
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r3, r3));
 
-        // Assert external-references compare correctly
+        // Assert: Verify external-references compare correctly
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r1, r2));
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r2, r1));
         Assert.IsFalse(SpdxExternalReference.Same.Equals(r1, r3));
@@ -67,16 +66,17 @@ public class SpdxExternalReferenceTests
         Assert.IsFalse(SpdxExternalReference.Same.Equals(r2, r3));
         Assert.IsFalse(SpdxExternalReference.Same.Equals(r3, r2));
 
-        // Assert same external-references have identical hashes
+        // Assert: Verify same external-references have identical hashes
         Assert.AreEqual(SpdxExternalReference.Same.GetHashCode(r1), SpdxExternalReference.Same.GetHashCode(r2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxExternalReference.DeepCopy"/> method.
+    ///     Tests the <see cref="SpdxExternalReference.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     [TestMethod]
-    public void DeepCopy()
+    public void SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance()
     {
+        // Arrange: Create an external reference
         var r1 = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Security,
@@ -85,26 +85,28 @@ public class SpdxExternalReferenceTests
             Comment = "CPE23 Standard Identifier"
         };
 
-        // Make deep copy
+        // Act: Create a deep copy of the original external reference
         var r2 = r1.DeepCopy();
 
-        // Assert both objects are equal
+        // Assert: Verify deep-copy is equal to original
         Assert.AreEqual(r1, r2, SpdxExternalReference.Same);
         Assert.AreEqual(r1.Category, r2.Category);
         Assert.AreEqual(r1.Type, r2.Type);
         Assert.AreEqual(r1.Locator, r2.Locator);
         Assert.AreEqual(r1.Comment, r2.Comment);
 
-        // Assert separate instances
+        // Assert: Verify deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(r1, r2));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxExternalReference.Enhance(SpdxExternalReference[], SpdxExternalReference[])"/> method.
+    ///     Tests the <see cref="SpdxExternalReference.Enhance(SpdxExternalReference[], SpdxExternalReference[])" /> method
+    ///     adds or updates information correctly.
     /// </summary>
     [TestMethod]
-    public void Enhance()
+    public void SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly()
     {
+        // Arrange: Create an array of external references
         var references = new[]
         {
             new SpdxExternalReference
@@ -115,6 +117,7 @@ public class SpdxExternalReferenceTests
             }
         };
 
+        // Act: Enhance the external references with additional references
         references = SpdxExternalReference.Enhance(
             references,
             [
@@ -133,6 +136,7 @@ public class SpdxExternalReferenceTests
                 }
             ]);
 
+        // Assert: Verify the references array has correct information
         Assert.AreEqual(2, references.Length);
         Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);
         Assert.AreEqual("cpe23Type", references[0].Type);
@@ -144,7 +148,7 @@ public class SpdxExternalReferenceTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)"/> method with valid input.
+    ///     Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)" /> method with valid input.
     /// </summary>
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_FromText_Valid()
@@ -153,24 +157,27 @@ public class SpdxExternalReferenceTests
         Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("SECURITY"));
         Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("security"));
         Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("Security"));
-        Assert.AreEqual(SpdxReferenceCategory.PackageManager, SpdxReferenceCategoryExtensions.FromText("PACKAGE-MANAGER"));
-        Assert.AreEqual(SpdxReferenceCategory.PackageManager, SpdxReferenceCategoryExtensions.FromText("PACKAGE_MANAGER"));
+        Assert.AreEqual(SpdxReferenceCategory.PackageManager,
+            SpdxReferenceCategoryExtensions.FromText("PACKAGE-MANAGER"));
+        Assert.AreEqual(SpdxReferenceCategory.PackageManager,
+            SpdxReferenceCategoryExtensions.FromText("PACKAGE_MANAGER"));
         Assert.AreEqual(SpdxReferenceCategory.PersistentId, SpdxReferenceCategoryExtensions.FromText("PERSISTENT-ID"));
         Assert.AreEqual(SpdxReferenceCategory.Other, SpdxReferenceCategoryExtensions.FromText("OTHER"));
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)"/> method with invalid input.
+    ///     Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)" /> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_FromText_Invalid()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
+        var exception =
+            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Reference Category 'invalid'", exception.Message);
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxReferenceCategoryExtensions.ToText"/> method with valid input.
+    ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with valid input.
     /// </summary>
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_ToText_Valid()
@@ -182,7 +189,7 @@ public class SpdxExternalReferenceTests
     }
 
     /// <summary>
-    /// Tests the <see cref="SpdxReferenceCategoryExtensions.ToText"/> method with invalid input.
+    ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with invalid input.
     /// </summary>
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_ToText_Invalid()

@@ -21,33 +21,33 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Annotation Type enumeration
+///     SPDX Annotation Type enumeration
 /// </summary>
 public enum SpdxAnnotationType
 {
     /// <summary>
-    /// Missing annotation type
+    ///     Missing annotation type
     /// </summary>
     Missing = -1,
 
     /// <summary>
-    /// Annotation created during review
+    ///     Annotation created during review
     /// </summary>
     Review,
 
     /// <summary>
-    /// Annotation created for other reasons
+    ///     Annotation created for other reasons
     /// </summary>
     Other
 }
 
 /// <summary>
-/// SPDX Annotation Type Extensions
+///     SPDX Annotation Type Extensions
 /// </summary>
 public static class SpdxAnnotationTypeExtensions
 {
     /// <summary>
-    /// Convert text to SpdxAnnotationType
+    ///     Convert text to SpdxAnnotationType
     /// </summary>
     /// <param name="annotationType">Annotation Type text</param>
     /// <returns>SpdxAnnotationType</returns>
@@ -64,7 +64,7 @@ public static class SpdxAnnotationTypeExtensions
     }
 
     /// <summary>
-    /// Convert SpdxAnnotationType to text
+    ///     Convert SpdxAnnotationType to text
     /// </summary>
     /// <param name="annotationType">SpdxAnnotationType</param>
     /// <returns>Annotation Type text</returns>

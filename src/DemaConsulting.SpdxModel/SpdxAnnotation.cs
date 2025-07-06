@@ -21,57 +21,58 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-/// SPDX Annotation class
+///     SPDX Annotation class
 /// </summary>
 /// <remarks>
-/// An Annotation is a comment on an SpdxItem by an agent.
+///     An Annotation is a comment on an SpdxItem by an agent.
 /// </remarks>
 public sealed class SpdxAnnotation : SpdxElement
 {
     /// <summary>
-    /// Equality comparer for the same annotation
+    ///     Equality comparer for the same annotation
     /// </summary>
     /// <remarks>
-    /// This considers annotations as being the same if they have the same
-    /// annotator, date, type, and comment.
+    ///     This considers annotations as being the same if they have the same
+    ///     annotator, date, type, and comment.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxAnnotation> Same = new SpdxAnnotationSame();
-    
+
     /// <summary>
-    /// Annotator Field (optional)
+    ///     Annotator Field (optional)
     /// </summary>
     /// <remarks>
-    /// This field identifies the person, organization, or tool that has
-    /// commented on a file, package, snippet, or the entire document.
+    ///     This field identifies the person, organization, or tool that has
+    ///     commented on a file, package, snippet, or the entire document.
     /// </remarks>
     public string Annotator { get; set; } = "";
 
     /// <summary>
-    /// Annotation Date Field (optional)
+    ///     Annotation Date Field (optional)
     /// </summary>
     /// <remarks>
-    /// Identify when the comment was made. This is to be specified according
-    /// to the combined date and time in the UTC format, as specified in the
-    /// ISO 8601 standard.
+    ///     Identify when the comment was made. This is to be specified according
+    ///     to the combined date and time in the UTC format, as specified in the
+    ///     ISO 8601 standard.
     /// </remarks>
     public string Date { get; set; } = "";
 
     /// <summary>
-    /// Annotation Type Field (optional)
+    ///     Annotation Type Field (optional)
     /// </summary>
     public SpdxAnnotationType Type { get; set; } = SpdxAnnotationType.Missing;
 
     /// <summary>
-    /// Annotation Comment field (optional)
+    ///     Annotation Comment field (optional)
     /// </summary>
     public string Comment { get; set; } = "";
 
     /// <summary>
-    /// Make a deep-copy of this object
+    ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
-    public SpdxAnnotation DeepCopy() =>
-        new()
+    public SpdxAnnotation DeepCopy()
+    {
+        return new SpdxAnnotation
         {
             Id = Id,
             Annotator = Annotator,
@@ -79,9 +80,10 @@ public sealed class SpdxAnnotation : SpdxElement
             Type = Type,
             Comment = Comment
         };
+    }
 
     /// <summary>
-    /// Enhance missing fields in the annotation
+    ///     Enhance missing fields in the annotation
     /// </summary>
     /// <param name="other">Other annotation to enhance with</param>
     public void Enhance(SpdxAnnotation other)
@@ -104,7 +106,7 @@ public sealed class SpdxAnnotation : SpdxElement
     }
 
     /// <summary>
-    /// Enhance missing annotations in array
+    ///     Enhance missing annotations in array
     /// </summary>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
@@ -118,25 +120,21 @@ public sealed class SpdxAnnotation : SpdxElement
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.Find(a => Same.Equals(a, other));
-            if (annotation != null)
-            {
+            var existing = list.Find(a => Same.Equals(a, other));
+            if (existing != null)
                 // Enhance our item with the other information
-                annotation.Enhance(other);
-            }
+                existing.Enhance(other);
             else
-            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
-            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
-    
+
     /// <summary>
-    /// Perform validation of information
+    ///     Perform validation of information
     /// </summary>
     /// <param name="parent">Associated parent node</param>
     /// <param name="issues">List to populate with issues</param>
@@ -160,7 +158,7 @@ public sealed class SpdxAnnotation : SpdxElement
     }
 
     /// <summary>
-    /// Equality Comparer to test for the same annotation
+    ///     Equality Comparer to test for the same annotation
     /// </summary>
     private sealed class SpdxAnnotationSame : IEqualityComparer<SpdxAnnotation>
     {
