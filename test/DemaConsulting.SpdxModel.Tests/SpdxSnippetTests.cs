@@ -153,7 +153,6 @@ public class SpdxSnippetTests
         Assert.AreEqual(40, snippets[1].SnippetByteEnd);
     }
 
-
     /// <summary>
     ///     Tests that an invalid snippet ID fails validation.
     /// </summary>
@@ -176,5 +175,30 @@ public class SpdxSnippetTests
         // Assert: Check that the issues list contains the expected error message
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Snippet Invalid SPDX Identifier Field")));
+    }
+
+    /// <summary>
+    ///     Tests that a valid snippet passes validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxSnippet_Validate_Success()
+    {
+        // Arrange: Create a valid SpdxSnippet
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify that the validation reports no issues.
+        Assert.AreEqual(0, issues.Count);
     }
 }

@@ -243,6 +243,40 @@ public class SpdxFileTests
     }
 
     /// <summary>
+    ///     Tests that a valid file passes validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFile_Validate_Success()
+    {
+        // Arrange: Create a valid SpdxFile instance
+        var spdxFile = new SpdxFile
+        {
+            Id = "SPDXRef-File--file1.txt-85ed0817af83a24ad8da68c2b5094de69833983c",
+            FileName = "./file1.txt",
+            Checksums =
+            [
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha1,
+                    Value = "85ed0817af83a24ad8da68c2b5094de69833983c"
+                },
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha256,
+                    Value = "2e5c078f9471ccf53c786b3949b34dbb9d2937da0752317f79693879ddf34d5b"
+                }
+            ]
+        };
+
+        // Act: Perform validation on the SpdxFile instance.
+        var issues = new List<string>();
+        spdxFile.Validate(issues);
+
+        // Assert: Verify that the validation reports no issues.
+        Assert.AreEqual(0, issues.Count);
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)" /> method with valid inputs.
     /// </summary>
     [TestMethod]

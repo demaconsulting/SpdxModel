@@ -36,7 +36,7 @@ public abstract class SpdxElement
     ///     Regular expression for checking element IDs of the form "SPDXRef-name"
     /// </summary>
     protected static readonly Regex SpdxRefRegex = new(
-        "^SPDXRef-[a-zA-Z0-9,-]+$",
+        "^SPDXRef-[a-zA-Z0-9.-]+$",
         RegexOptions.None,
         TimeSpan.FromMilliseconds(100));
 
