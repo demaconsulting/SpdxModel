@@ -15,15 +15,20 @@ public static class SpdxRelationships
     {
         // Handle replacing existing relationships
         if (replace)
+        {
             // Remove all relationships that refer to the same elements as the new relationships
             document.Relationships =
             [
                 ..document.Relationships
                     .Where(r => !relationships.Any(r2 => SpdxRelationship.SameElements.Equals(r, r2)))
             ];
+        }
 
         // Add the new relationships
-        foreach (var relationship in relationships) Add(document, relationship);
+        foreach (var relationship in relationships)
+        {
+            Add(document, relationship);
+        }
     }
 
     /// <summary>

@@ -120,10 +120,10 @@ public sealed class SpdxAnnotation : SpdxElement
         foreach (var other in others)
         {
             // Check if other item is the same as one we have
-            var annotation = list.Find(a => Same.Equals(a, other));
-            if (annotation != null)
+            var existing = list.Find(a => Same.Equals(a, other));
+            if (existing != null)
                 // Enhance our item with the other information
-                annotation.Enhance(other);
+                existing.Enhance(other);
             else
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
