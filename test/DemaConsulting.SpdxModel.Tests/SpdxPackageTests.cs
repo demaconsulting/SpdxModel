@@ -172,7 +172,7 @@ public class SpdxPackageTests
             ]);
 
         // Assert: Verify the resulting packages are as expected.
-        Assert.AreEqual(2, packages.Length);
+        Assert.HasCount(2, packages);
         Assert.AreEqual("SPDXRef-Package1", packages[0].Id);
         Assert.AreEqual("DemaConsulting.SpdxModel", packages[0].Name);
         Assert.AreEqual("0.0.0", packages[0].Version);
@@ -225,6 +225,6 @@ public class SpdxPackageTests
         package.Validate(issues, null, true);
 
         // Assert: Verify that the validation reports no issues.
-        Assert.AreEqual(0, issues.Count);
+        Assert.IsEmpty(issues);
     }
 }

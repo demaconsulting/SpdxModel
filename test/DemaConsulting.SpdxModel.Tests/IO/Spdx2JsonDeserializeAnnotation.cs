@@ -84,7 +84,7 @@ public class Spdx2JsonDeserializeAnnotation
         var annotations = Spdx2JsonDeserializer.DeserializeAnnotations(json);
 
         // Assert: Verify the deserialized array has the expected number of annotations and their properties
-        Assert.AreEqual(2, annotations.Length);
+        Assert.HasCount(2, annotations);
         Assert.AreEqual("2010-01-29T18:30:22Z", annotations[0].Date);
         Assert.AreEqual(SpdxAnnotationType.Other, annotations[0].Type);
         Assert.AreEqual("Person: Jane Doe ()", annotations[0].Annotator);

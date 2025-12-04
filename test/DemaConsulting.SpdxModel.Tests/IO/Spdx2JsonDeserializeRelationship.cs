@@ -83,7 +83,7 @@ public class Spdx2JsonDeserializeRelationship
         var relationships = Spdx2JsonDeserializer.DeserializeRelationships(json);
 
         // Assert: Verify the deserialized objects have the expected properties
-        Assert.AreEqual(2, relationships.Length);
+        Assert.HasCount(2, relationships);
         Assert.AreEqual("SPDXRef-DOCUMENT", relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package", relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.Describes, relationships[0].RelationshipType);

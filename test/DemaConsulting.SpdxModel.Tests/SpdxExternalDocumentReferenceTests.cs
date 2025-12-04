@@ -159,7 +159,7 @@ public class SpdxExternalDocumentReferenceTests
             ]);
 
         // Assert: Verify the references array has correct information
-        Assert.AreEqual(2, references.Length);
+        Assert.HasCount(2, references);
         Assert.AreEqual("DocumentRef-spdx-tool-1.2", references[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, references[0].Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", references[0].Checksum.Value);

@@ -83,15 +83,15 @@ public class Spdx2JsonDeserializeDocument
         Assert.AreEqual("This document was created using SPDX 2.0 using licenses from the web site.", document.Comment);
         Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             document.DocumentNamespace);
-        Assert.AreEqual(3, document.Describes.Length);
+        Assert.HasCount(3, document.Describes);
         Assert.AreEqual("SPDXRef-File", document.Describes[0]);
         Assert.AreEqual("SPDXRef-File", document.Describes[1]);
         Assert.AreEqual("SPDXRef-Package", document.Describes[2]);
-        Assert.AreEqual(0, document.ExternalDocumentReferences.Length);
-        Assert.AreEqual(0, document.ExtractedLicensingInfo.Length);
-        Assert.AreEqual(0, document.Packages.Length);
-        Assert.AreEqual(0, document.Files.Length);
-        Assert.AreEqual(0, document.Snippets.Length);
-        Assert.AreEqual(0, document.Relationships.Length);
+        Assert.IsEmpty(document.ExternalDocumentReferences);
+        Assert.IsEmpty(document.ExtractedLicensingInfo);
+        Assert.IsEmpty(document.Packages);
+        Assert.IsEmpty(document.Files);
+        Assert.IsEmpty(document.Snippets);
+        Assert.IsEmpty(document.Relationships);
     }
 }

@@ -182,7 +182,7 @@ public class SpdxRelationshipTests
             ]);
 
         // Assert: Verify the relationships array has correct information
-        Assert.AreEqual(2, relationships.Length);
+        Assert.HasCount(2, relationships);
         Assert.AreEqual("SPDXRef-Package1", relationships[0].Id);
         Assert.AreEqual(SpdxRelationshipType.Contains, relationships[0].RelationshipType);
         Assert.AreEqual("SPDXRef-Package2", relationships[0].RelatedSpdxElement);

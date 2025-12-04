@@ -95,7 +95,7 @@ public class Spdx2JsonDeserializeSnippet
             "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
             snippet.LicenseComments);
         Assert.AreEqual("GPL-2.0-only", snippet.ConcludedLicense);
-        Assert.AreEqual(1, snippet.LicenseInfoInSnippet.Length);
+        Assert.HasCount(1, snippet.LicenseInfoInSnippet);
         Assert.AreEqual("GPL-2.0-only", snippet.LicenseInfoInSnippet[0]);
         Assert.AreEqual("from linux kernel", snippet.Name);
         Assert.AreEqual(420, snippet.SnippetByteEnd);
@@ -165,7 +165,7 @@ public class Spdx2JsonDeserializeSnippet
         var snippets = Spdx2JsonDeserializer.DeserializeSnippets(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.AreEqual(1, snippets.Length);
+        Assert.HasCount(1, snippets);
         Assert.AreEqual("SPDXRef-Snippet", snippets[0].Id);
         Assert.AreEqual(
             "This snippet was identified as significant and highlighted in this Apache-2.0 file, when a commercial scanner identified it as being derived from file foo.c in package xyz which is licensed under GPL-2.0.",
@@ -175,7 +175,7 @@ public class Spdx2JsonDeserializeSnippet
             "The concluded license was taken from package xyz, from which the snippet was copied into the current file. The concluded license information was found in the COPYING.txt file in package xyz.",
             snippets[0].LicenseComments);
         Assert.AreEqual("GPL-2.0-only", snippets[0].ConcludedLicense);
-        Assert.AreEqual(1, snippets[0].LicenseInfoInSnippet.Length);
+        Assert.HasCount(1, snippets[0].LicenseInfoInSnippet);
         Assert.AreEqual("GPL-2.0-only", snippets[0].LicenseInfoInSnippet[0]);
         Assert.AreEqual("from linux kernel", snippets[0].Name);
         Assert.AreEqual(420, snippets[0].SnippetByteEnd);

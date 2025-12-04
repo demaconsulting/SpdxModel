@@ -84,7 +84,7 @@ public class Spdx2JsonDeserializeExternalDocumentReference
         var externalDocumentReferences = Spdx2JsonDeserializer.DeserializeExternalDocumentReferences(json);
 
         // Assert: Verify the deserialized array has the expected number of references and their properties
-        Assert.AreEqual(1, externalDocumentReferences.Length);
+        Assert.HasCount(1, externalDocumentReferences);
         Assert.AreEqual("DocumentRef-1", externalDocumentReferences[0].ExternalDocumentId);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReferences[0].Checksum.Algorithm);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReferences[0].Checksum.Value);

@@ -52,7 +52,7 @@ public class Spdx2JsonDeserializePackageVerificationCode
 
         // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("d3b07384d113edec49eaa6238ad5ff00", packageVerificationCode.Value);
-        Assert.AreEqual(2, packageVerificationCode.ExcludedFiles.Length);
+        Assert.HasCount(2, packageVerificationCode.ExcludedFiles);
         Assert.AreEqual("file1.txt", packageVerificationCode.ExcludedFiles[0]);
         Assert.AreEqual("file2.txt", packageVerificationCode.ExcludedFiles[1]);
     }

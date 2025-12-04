@@ -126,7 +126,7 @@ public class SpdxChecksumTests
             ]);
 
         // Assert: Verify checksums contain the expected values
-        Assert.AreEqual(2, checksums.Length);
+        Assert.HasCount(2, checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", checksums[0].Value);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);

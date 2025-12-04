@@ -142,7 +142,7 @@ public class SpdxAnnotationTests
             ]);
 
         // Assert: Verify the annotations array has correct information
-        Assert.AreEqual(2, annotations.Length);
+        Assert.HasCount(2, annotations);
         Assert.AreEqual("SPDXRef-Annotation1", annotations[0].Id);
         Assert.AreEqual("Person: Malcolm Nixon", annotations[0].Annotator);
         Assert.AreEqual("2024-05-28T01:30:00Z", annotations[0].Date);

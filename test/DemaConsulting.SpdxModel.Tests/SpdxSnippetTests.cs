@@ -142,7 +142,7 @@ public class SpdxSnippetTests
             ]);
 
         // Assert: Check that the snippets array has been enhanced correctly
-        Assert.AreEqual(2, snippets.Length);
+        Assert.HasCount(2, snippets);
         Assert.AreEqual("SPDXRef-File1", snippets[0].SnippetFromFile);
         Assert.AreEqual(100, snippets[0].SnippetByteStart);
         Assert.AreEqual(200, snippets[0].SnippetByteEnd);
@@ -199,6 +199,6 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify that the validation reports no issues.
-        Assert.AreEqual(0, issues.Count);
+        Assert.IsEmpty(issues);
     }
 }

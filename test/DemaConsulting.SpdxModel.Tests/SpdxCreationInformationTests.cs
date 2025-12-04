@@ -78,7 +78,7 @@ public class SpdxCreationInformationTests
             });
 
         // Assert: Verify the enhanced information
-        Assert.AreEqual(3, info.Creators.Length);
+        Assert.HasCount(3, info.Creators);
         Assert.AreEqual("Tool: LicenseFind-1.0", info.Creators[0]);
         Assert.AreEqual("Organization: ExampleCodeInspect ()", info.Creators[1]);
         Assert.AreEqual("Person: Jane Doe ()", info.Creators[2]);

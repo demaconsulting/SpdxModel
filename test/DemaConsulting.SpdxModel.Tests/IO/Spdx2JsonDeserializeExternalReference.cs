@@ -84,7 +84,7 @@ public class Spdx2JsonDeserializeExternalReference
         var references = Spdx2JsonDeserializer.DeserializeExternalReferences(json);
 
         // Assert: Verify the deserialized array has the expected number of references and their properties
-        Assert.AreEqual(2, references.Length);
+        Assert.HasCount(2, references);
         Assert.AreEqual("This is just an example", references[0].Comment);
         Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", references[0].Locator);
         Assert.AreEqual("cpe23Type", references[0].Type);

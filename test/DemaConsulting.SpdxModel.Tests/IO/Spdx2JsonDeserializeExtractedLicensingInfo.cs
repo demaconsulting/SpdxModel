@@ -52,7 +52,7 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
         Assert.AreEqual("MIT", extractedLicensingInfo.LicenseId);
         Assert.AreEqual("This is the MIT license", extractedLicensingInfo.ExtractedText);
         Assert.AreEqual("MIT License", extractedLicensingInfo.Name);
-        Assert.AreEqual(1, extractedLicensingInfo.CrossReferences.Length);
+        Assert.HasCount(1, extractedLicensingInfo.CrossReferences);
         Assert.AreEqual("https://opensource.org/licenses/MIT", extractedLicensingInfo.CrossReferences[0]);
         Assert.AreEqual("This is a comment", extractedLicensingInfo.Comment);
     }
@@ -80,11 +80,11 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
         var extractedLicensingInfos = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfos(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.AreEqual(1, extractedLicensingInfos.Length);
+        Assert.HasCount(1, extractedLicensingInfos);
         Assert.AreEqual("MIT", extractedLicensingInfos[0].LicenseId);
         Assert.AreEqual("This is the MIT license", extractedLicensingInfos[0].ExtractedText);
         Assert.AreEqual("MIT License", extractedLicensingInfos[0].Name);
-        Assert.AreEqual(1, extractedLicensingInfos[0].CrossReferences.Length);
+        Assert.HasCount(1, extractedLicensingInfos[0].CrossReferences);
         Assert.AreEqual("https://opensource.org/licenses/MIT", extractedLicensingInfos[0].CrossReferences[0]);
         Assert.AreEqual("This is a comment", extractedLicensingInfos[0].Comment);
     }

@@ -58,7 +58,7 @@ public class Spdx2JsonDeserializeCreationInformation
             "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             creationInformation.Comment);
         Assert.AreEqual("2010-01-29T18:30:22Z", creationInformation.Created);
-        Assert.AreEqual(3, creationInformation.Creators.Length);
+        Assert.HasCount(3, creationInformation.Creators);
         Assert.AreEqual("Tool: LicenseFind-1.0", creationInformation.Creators[0]);
         Assert.AreEqual("Organization: ExampleCodeInspect ()", creationInformation.Creators[1]);
         Assert.AreEqual("Person: Jane Doe ()", creationInformation.Creators[2]);
