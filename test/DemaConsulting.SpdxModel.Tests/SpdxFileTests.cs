@@ -197,17 +197,17 @@ public class SpdxFileTests
             ]);
 
         // Assert: Verify the files array has been enhanced correctly
-        Assert.AreEqual(2, files.Length);
+        Assert.HasCount(2, files);
         Assert.AreEqual("SPDXRef-File1", files[0].Id);
         Assert.AreEqual("./file1.txt", files[0].FileName);
-        Assert.AreEqual(2, files[0].Checksums.Length);
+        Assert.HasCount(2, files[0].Checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, files[0].Checksums[0].Algorithm);
         Assert.AreEqual("85ed0817af83a24ad8da68c2b5094de69833983c", files[0].Checksums[0].Value);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, files[0].Checksums[1].Algorithm);
         Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", files[0].Checksums[1].Value);
         Assert.AreEqual("File 1", files[0].Comment);
         Assert.AreEqual("./file2.txt", files[1].FileName);
-        Assert.AreEqual(1, files[1].Checksums.Length);
+        Assert.HasCount(1, files[1].Checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, files[1].Checksums[0].Algorithm);
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", files[1].Checksums[0].Value);
     }
@@ -273,7 +273,7 @@ public class SpdxFileTests
         spdxFile.Validate(issues);
 
         // Assert: Verify that the validation reports no issues.
-        Assert.AreEqual(0, issues.Count);
+        Assert.IsEmpty(issues);
     }
 
     /// <summary>

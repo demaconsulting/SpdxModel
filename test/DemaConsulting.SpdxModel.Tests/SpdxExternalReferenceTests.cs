@@ -137,7 +137,7 @@ public class SpdxExternalReferenceTests
             ]);
 
         // Assert: Verify the references array has correct information
-        Assert.AreEqual(2, references.Length);
+        Assert.HasCount(2, references);
         Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);
         Assert.AreEqual("cpe23Type", references[0].Type);
         Assert.AreEqual("cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*", references[0].Locator);

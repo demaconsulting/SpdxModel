@@ -75,7 +75,7 @@ public class Spdx2JsonDeserializeChecksum
         var checksums = Spdx2JsonDeserializer.DeserializeChecksums(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.AreEqual(2, checksums.Length);
+        Assert.HasCount(2, checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
         Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksums[0].Value);
         Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);

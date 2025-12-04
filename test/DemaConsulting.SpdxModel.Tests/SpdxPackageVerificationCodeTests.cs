@@ -112,7 +112,7 @@ public class SpdxPackageVerificationCodeTests
             });
 
         // Assert: Verify the excluded files and value are updated correctly
-        Assert.AreEqual(1, info.ExcludedFiles.Length);
+        Assert.HasCount(1, info.ExcludedFiles);
         Assert.AreEqual("./package.spdx", info.ExcludedFiles[0]);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2758", info.Value);
     }

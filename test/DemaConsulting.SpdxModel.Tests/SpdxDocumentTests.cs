@@ -77,7 +77,7 @@ public class SpdxDocumentTests
         var packages = document.GetRootPackages();
 
         // Assert: Verify the correct root packages are returned
-        Assert.AreEqual(2, packages.Length);
+        Assert.HasCount(2, packages);
         Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package1"));
         Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package2"));
     }
@@ -300,7 +300,7 @@ public class SpdxDocumentTests
         doc.Validate(issues);
 
         // Ensure no validation issues
-        Assert.AreEqual(0, issues.Count);
+        Assert.IsEmpty(issues);
     }
 
     /// <summary>
@@ -343,7 +343,7 @@ public class SpdxDocumentTests
         doc.Validate(issues);
 
         // Assert: Verify duplicate ID reported
-        Assert.IsTrue(issues.Contains("Document Duplicate Element ID: SPDXRef-Package1"));
+        Assert.Contains("Document Duplicate Element ID: SPDXRef-Package1", issues);
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public class SpdxDocumentTests
         doc.Validate(issues);
 
         // Assert: Verify relationship to non-existent package reported
-        Assert.IsTrue(issues.Contains("Relationship Invalid Related SPDX Element Field: SPDXRef-Package2"));
+        Assert.Contains("Relationship Invalid Related SPDX Element Field: SPDXRef-Package2", issues);
     }
 
     /// <summary>
@@ -402,10 +402,10 @@ public class SpdxDocumentTests
         doc.Validate(issues, true);
 
         // Assert: Verify expected NTIA validation issues are reported.
-        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Supplier"));
-        Assert.IsTrue(issues.Contains("NTIA: Package Apache Commons Lang Missing Version"));
-        Assert.IsTrue(issues.Contains("NTIA: Package Jena Missing Supplier"));
-        Assert.IsTrue(issues.Contains("NTIA: Package Saxon Missing Supplier"));
+        Assert.Contains("NTIA: Package Apache Commons Lang Missing Supplier", issues);
+        Assert.Contains("NTIA: Package Apache Commons Lang Missing Version", issues);
+        Assert.Contains("NTIA: Package Jena Missing Supplier", issues);
+        Assert.Contains("NTIA: Package Saxon Missing Supplier", issues);
     }
 
     /// <summary>

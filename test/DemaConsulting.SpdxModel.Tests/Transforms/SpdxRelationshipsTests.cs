@@ -71,7 +71,7 @@ public class SpdxRelationshipsTests
         // Assert: Verify the exception message and that no relationships were added
         Assert.AreEqual("Element SPDXRef-Package-Missing not found in SPDX document (Parameter 'relationship')",
             ex.Message);
-        Assert.AreEqual(0, document.Relationships.Length);
+        Assert.IsEmpty(document.Relationships);
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class SpdxRelationshipsTests
         // Assert: Verify the exception message and that no relationships were added
         Assert.AreEqual("Element SPDXRef-Package-Missing not found in SPDX document (Parameter 'relationship')",
             ex.Message);
-        Assert.AreEqual(0, document.Relationships.Length);
+        Assert.IsEmpty(document.Relationships);
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added correctly
-        Assert.AreEqual(1, document.Relationships.Length);
+        Assert.HasCount(1, document.Relationships);
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
@@ -156,7 +156,7 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added only once
-        Assert.AreEqual(1, document.Relationships.Length);
+        Assert.HasCount(1, document.Relationships);
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
@@ -184,7 +184,7 @@ public class SpdxRelationshipsTests
             ]);
 
         // Assert: Verify the relationship was added correctly
-        Assert.AreEqual(1, document.Relationships.Length);
+        Assert.HasCount(1, document.Relationships);
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
@@ -218,7 +218,7 @@ public class SpdxRelationshipsTests
             ]);
 
         // Assert: Verify the relationship was added only once
-        Assert.AreEqual(1, document.Relationships.Length);
+        Assert.HasCount(1, document.Relationships);
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
@@ -253,7 +253,7 @@ public class SpdxRelationshipsTests
             true);
 
         // Assert: Verify the relationship was replaced with the new type
-        Assert.AreEqual(1, document.Relationships.Length);
+        Assert.HasCount(1, document.Relationships);
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.BuildToolOf, document.Relationships[0].RelationshipType);

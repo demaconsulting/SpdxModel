@@ -131,7 +131,7 @@ public class SpdxExtractedLicensingInfoTests
             ]);
 
         // Assert: Verify the infos array has correct information
-        Assert.AreEqual(2, infos.Length);
+        Assert.HasCount(2, infos);
         Assert.AreEqual("LicenseRef-1", infos[0].LicenseId);
         Assert.AreEqual("The CyberNeko Software License", infos[0].ExtractedText);
         Assert.AreEqual("Extracted from files", infos[0].Comment);

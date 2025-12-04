@@ -62,13 +62,13 @@ public class Spdx2JsonDeserializeFile
         // Assert: Verify the deserialized object has the expected properties
         Assert.AreEqual("SPDXRef-File", file.Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", file.FileName);
-        Assert.AreEqual(1, file.FileTypes.Length);
+        Assert.HasCount(1, file.FileTypes);
         Assert.AreEqual(SpdxFileType.Source, file.FileTypes[0]);
-        Assert.AreEqual(1, file.Checksums.Length);
+        Assert.HasCount(1, file.Checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, file.Checksums[0].Algorithm);
         Assert.AreEqual("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", file.Checksums[0].Value);
         Assert.AreEqual("MIT", file.ConcludedLicense);
-        Assert.AreEqual(1, file.LicenseInfoInFiles.Length);
+        Assert.HasCount(1, file.LicenseInfoInFiles);
         Assert.AreEqual("MIT", file.LicenseInfoInFiles[0]);
         Assert.AreEqual("This is the MIT license", file.LicenseComments);
         Assert.AreEqual("This is a comment", file.Comment);
@@ -109,16 +109,16 @@ public class Spdx2JsonDeserializeFile
         var files = Spdx2JsonDeserializer.DeserializeFiles(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.AreEqual(1, files.Length);
+        Assert.HasCount(1, files);
         Assert.AreEqual("SPDXRef-File", files[0].Id);
         Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", files[0].FileName);
-        Assert.AreEqual(1, files[0].FileTypes.Length);
+        Assert.HasCount(1, files[0].FileTypes);
         Assert.AreEqual(SpdxFileType.Source, files[0].FileTypes[0]);
-        Assert.AreEqual(1, files[0].Checksums.Length);
+        Assert.HasCount(1, files[0].Checksums);
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, files[0].Checksums[0].Algorithm);
         Assert.AreEqual("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", files[0].Checksums[0].Value);
         Assert.AreEqual("MIT", files[0].ConcludedLicense);
-        Assert.AreEqual(1, files[0].LicenseInfoInFiles.Length);
+        Assert.HasCount(1, files[0].LicenseInfoInFiles);
         Assert.AreEqual("MIT", files[0].LicenseInfoInFiles[0]);
         Assert.AreEqual("This is the MIT license", files[0].LicenseComments);
         Assert.AreEqual("This is a comment", files[0].Comment);
