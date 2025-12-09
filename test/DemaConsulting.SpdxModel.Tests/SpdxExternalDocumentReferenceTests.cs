@@ -170,4 +170,48 @@ public class SpdxExternalDocumentReferenceTests
         Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", references[1].Checksum.Value);
         Assert.AreEqual("http://demo.com/some-document", references[1].Document);
     }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalDocumentReference_Validate_MissingId()
+    {
+        // Arrange: Create a bad reference
+        var reference = new SpdxExternalDocumentReference
+        {
+            ExternalDocumentId = "",
+            Document = "http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301"
+        };
+
+        // Act: Perform validation on the SpdxExternalDocumentReference instance.
+        var issues = new List<string>();
+        reference.Validate(issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalDocumentReference_Validate_MissingDocument()
+    {
+        // Arrange: Create a bad reference
+        var reference = new SpdxExternalDocumentReference
+        {
+            ExternalDocumentId = "DocumentRef-spdx-tool-1.2",
+            Document = ""
+        };
+
+        // Act: Perform validation on the SpdxExternalDocumentReference instance.
+        var issues = new List<string>();
+        reference.Validate(issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty")));
+    }
 }

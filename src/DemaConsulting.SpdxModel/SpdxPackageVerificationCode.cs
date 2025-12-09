@@ -97,7 +97,7 @@ public sealed class SpdxPackageVerificationCode
     {
         // Validate Package Verification Code Value Field
         if (Value.Length != 40)
-            issues.Add($"Package {package} Invalid Package Verification Code Value");
+            issues.Add($"Package '{package}' Invalid Package Verification Code Value '{Value}'");
     }
 
     /// <summary>

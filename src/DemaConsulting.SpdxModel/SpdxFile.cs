@@ -187,21 +187,21 @@ public sealed class SpdxFile : SpdxLicenseElement
     {
         // Validate File Name Field
         if (!FileName.StartsWith("./"))
-            issues.Add($"File {FileName} Invalid File Name Field");
+            issues.Add($"File '{FileName}' Invalid File Name Field");
 
         // Validate File SPDX Identifier Field
         if (!SpdxRefRegex.IsMatch(Id))
-            issues.Add($"File {FileName} Invalid SPDX Identifier Field");
+            issues.Add($"File '{FileName}' Invalid SPDX Identifier Field '{Id}'");
 
         // Validate Checksums
         if (!Array.Exists(Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1))
-            issues.Add($"File {FileName} Invalid Checksum Field (missing SHA1)");
+            issues.Add($"File '{FileName}' Invalid Checksum Field (missing SHA1)");
         foreach (var checksum in Checksums)
-            checksum.Validate(FileName, issues);
+            checksum.Validate($"File '{FileName}'", issues);
 
         // Validate Annotations
         foreach (var annotation in Annotations)
-            annotation.Validate($"File {FileName}", issues);
+            annotation.Validate($"File '{FileName}'", issues);
     }
 
     /// <summary>

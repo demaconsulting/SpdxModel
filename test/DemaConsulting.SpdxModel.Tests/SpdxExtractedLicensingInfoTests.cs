@@ -138,4 +138,48 @@ public class SpdxExtractedLicensingInfoTests
         Assert.AreEqual("LicenseRef-2", infos[1].LicenseId);
         Assert.AreEqual("Some Random License", infos[1].ExtractedText);
     }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad license IDs
+    /// </summary>
+    [TestMethod]
+    public void SpdxExtractedLicensingInfo_Validate_BadLicenseId()
+    {
+        // Arrange: Create a bad licensing info
+        var info = new SpdxExtractedLicensingInfo
+        {
+            LicenseId = "",
+            ExtractedText = "The CyberNeko Software License"
+        };
+
+        // Act: Perform validation on the SpdxExtractedLicensingInfo instance.
+        var issues = new List<string>();
+        info.Validate(issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Extracted License Information Invalid License ID Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad extracted text
+    /// </summary>
+    [TestMethod]
+    public void SpdxExtractedLicensingInfo_Validate_BadExtractedText()
+    {
+        // Arrange: Create a bad licensing info
+        var info = new SpdxExtractedLicensingInfo
+        {
+            LicenseId = "LicenseRef-1",
+            ExtractedText = ""
+        };
+
+        // Act: Perform validation on the SpdxExtractedLicensingInfo instance.
+        var issues = new List<string>();
+        info.Validate(issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Extracted License Information 'LicenseRef-1' Invalid Extracted Text Field - Empty")));
+    }
 }

@@ -154,6 +154,102 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotators
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotation_Validate_BadAnnotator()
+    {
+        // Arrange: Create a bad annotation
+        var annotation = new SpdxAnnotation
+        {
+            Annotator = "",
+            Date = "2024-05-28T01:30:00Z",
+            Type = SpdxAnnotationType.Review,
+            Comment = "Looks good"
+        };
+
+        // Act: Perform validation on the SpdxAnnotation instance.
+        var issues = new List<string>();
+        annotation.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Annotator Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad dates
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotation_Validate_BadDate()
+    {
+        // Arrange: Create a bad annotation
+        var annotation = new SpdxAnnotation
+        {
+            Annotator = "Person: Malcolm Nixon",
+            Date = "BadDate",
+            Type = SpdxAnnotationType.Review,
+            Comment = "Looks good"
+        };
+
+        // Act: Perform validation on the SpdxAnnotation instance.
+        var issues = new List<string>();
+        annotation.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Annotation Date Field 'BadDate'")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotation types
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotation_Validate_BadType()
+    {
+        // Arrange: Create a bad annotation
+        var annotation = new SpdxAnnotation
+        {
+            Annotator = "Person: Malcolm Nixon",
+            Date = "2024-05-28T01:30:00Z",
+            Type = SpdxAnnotationType.Missing,
+            Comment = "Looks good"
+        };
+
+        // Act: Perform validation on the SpdxAnnotation instance.
+        var issues = new List<string>();
+        annotation.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Annotation Type Field - Missing")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad comments
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotation_Validate_BadComment()
+    {
+        // Arrange: Create a bad annotation
+        var annotation = new SpdxAnnotation
+        {
+            Annotator = "Person: Malcolm Nixon",
+            Date = "2024-05-28T01:30:00Z",
+            Type = SpdxAnnotationType.Missing,
+            Comment = ""
+        };
+
+        // Act: Perform validation on the SpdxAnnotation instance.
+        var issues = new List<string>();
+        annotation.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Annotation Comment - Empty")));
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for valid annotation types.
     /// </summary>
     [TestMethod]

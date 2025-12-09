@@ -142,19 +142,19 @@ public sealed class SpdxAnnotation : SpdxElement
     {
         // Validate Annotator Field
         if (Annotator.Length == 0)
-            issues.Add($"{parent} Invalid Annotator Field");
+            issues.Add($"{parent} Invalid Annotator Field - Empty");
 
         // Validate Annotation Date Field
         if (!SpdxHelpers.IsValidSpdxDateTime(Date))
-            issues.Add($"{parent} Invalid Annotation Date Field");
+            issues.Add($"{parent} Invalid Annotation Date Field '{Date}'");
 
         // Validate Annotation Type Field
         if (Type == SpdxAnnotationType.Missing)
-            issues.Add($"{parent} Invalid Annotation Type Field");
+            issues.Add($"{parent} Invalid Annotation Type Field - Missing");
 
         // Validate Annotation Comment Field
         if (Comment.Length == 0)
-            issues.Add($"{parent} Invalid Annotation Comment");
+            issues.Add($"{parent} Invalid Annotation Comment - Empty");
     }
 
     /// <summary>

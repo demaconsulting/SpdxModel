@@ -193,6 +193,75 @@ public class SpdxRelationshipTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing ids
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationship_Validate_MissingId()
+    {
+        // Arrange: Create a bad relationship
+        var relationship = new SpdxRelationship()
+        {
+            Id = "",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+
+        // Act: Perform validation on the SpdxRelationship instance.
+        var issues = new List<string>();
+        relationship.Validate(issues, null);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Relationship Invalid SPDX Element ID Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing ids
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationship_Validate_MissingRelatedId()
+    {
+        // Arrange: Create a bad relationship
+        var relationship = new SpdxRelationship()
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = ""
+        };
+
+        // Act: Perform validation on the SpdxRelationship instance.
+        var issues = new List<string>();
+        relationship.Validate(issues, null);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Relationship Invalid Related SPDX Element Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing relationships
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationship_Validate_MissingRelationship()
+    {
+        // Arrange: Create a bad relationship
+        var relationship = new SpdxRelationship()
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Missing,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+
+        // Act: Perform validation on the SpdxRelationship instance.
+        var issues = new List<string>();
+        relationship.Validate(issues, null);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Relationship Invalid Relationship Type Field - Missing")));
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)" /> method for the "CONTAINS" relationship
     ///     type.
     /// </summary>

@@ -383,36 +383,36 @@ public sealed class SpdxPackage : SpdxLicenseElement
     {
         // Validate Package Name Field
         if (Name.Length == 0)
-            issues.Add("Package Invalid Package Name Field");
+            issues.Add("Package Invalid Package Name Field - Empty");
 
         // SPDX NTIA Unique Identifier Check
         if (!SpdxRefRegex.IsMatch(Id))
-            issues.Add($"Package {Name} Invalid SPDX Identifier Field");
+            issues.Add($"Package '{Name}' Invalid SPDX Identifier Field '{Id}'");
 
         // Validate Package Download Location Field
         if (DownloadLocation.Length == 0)
-            issues.Add($"Package {Name} Invalid Package Download Location Field");
+            issues.Add($"Package '{Name}' Invalid Package Download Location Field - Empty");
 
         // Validate Package Supplier Field
         if (Supplier != null &&
             Supplier != NoAssertion &&
             !Supplier.StartsWith("Person:") &&
             !Supplier.StartsWith("Organization:"))
-            issues.Add($"Package {Name} Invalid Package Supplier Field");
+            issues.Add($"Package '{Name}' Invalid Package Supplier Field '{Supplier}'");
 
         // Validate Package Originator Field
         if (Originator != null &&
             Originator != NoAssertion &&
             !Originator.StartsWith("Person:") &&
             !Originator.StartsWith("Organization:"))
-            issues.Add($"Package {Name} Invalid Package Originator Field");
+            issues.Add($"Package '{Name}' Invalid Package Originator Field '{Originator}'");
 
         // Validate verification code
         VerificationCode?.Validate(Name, issues);
 
         // Validate checksums
         foreach (var checksum in Checksums)
-            checksum.Validate($"Package {Name}", issues);
+            checksum.Validate($"Package '{Name}'", issues);
 
         // Validate external references
         foreach (var externalReference in ExternalReferences)
@@ -420,27 +420,27 @@ public sealed class SpdxPackage : SpdxLicenseElement
 
         // If the document is provided then ensure all referenced files exist
         if (doc != null && Array.Exists(HasFiles, file => Array.TrueForAll(doc.Files, df => df.Id != file)))
-            issues.Add($"Package {Name} HasFiles references missing files");
+            issues.Add($"Package '{Name}' HasFiles references missing files");
 
         // SPDX NTIA Supplier Name Check
         if (ntia && string.IsNullOrEmpty(Supplier))
-            issues.Add($"NTIA: Package {Name} Missing Supplier");
+            issues.Add($"NTIA: Package '{Name}' Missing Supplier");
 
         // SPDX NTIA Version String Check
         if (ntia && string.IsNullOrEmpty(Version))
-            issues.Add($"NTIA: Package {Name} Missing Version");
+            issues.Add($"NTIA: Package '{Name}' Missing Version");
 
         // Release Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(ReleaseDate))
-            issues.Add($"Package {Name} Invalid Release Date Field");
+            issues.Add($"Package '{Name}' Invalid Release Date Field '{ReleaseDate}'");
 
         // Built Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(BuiltDate))
-            issues.Add($"Package {Name} Invalid Built Date Field");
+            issues.Add($"Package '{Name}' Invalid Built Date Field '{BuiltDate}'");
 
         // Valid Until Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(ValidUntilDate))
-            issues.Add($"Package {Name} Invalid Valid Until Date Field");
+            issues.Add($"Package '{Name}' Invalid Valid Until Date Field '{ValidUntilDate}'");
     }
 
     /// <summary>

@@ -115,17 +115,17 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Perform validation of information
     /// </summary>
-    /// <param name="fileName">Associated file name</param>
+    /// <param name="parent">Associated parent node</param>
     /// <param name="issues">List to populate with issues</param>
-    public void Validate(string fileName, List<string> issues)
+    public void Validate(string parent, List<string> issues)
     {
         // Validate Algorithm Field
         if (Algorithm == SpdxChecksumAlgorithm.Missing)
-            issues.Add($"File {fileName} Invalid Checksum Algorithm Field");
+            issues.Add($"{parent} Invalid Checksum Algorithm Field - Missing");
 
         // Validate Checksum Value Field
         if (Value.Length == 0)
-            issues.Add($"File {fileName} Invalid Checksum Value Field");
+            issues.Add($"{parent} Invalid Checksum Value Field - Empty");
     }
 
     /// <summary>

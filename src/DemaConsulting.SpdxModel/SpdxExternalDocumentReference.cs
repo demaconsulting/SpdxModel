@@ -124,14 +124,14 @@ public sealed class SpdxExternalDocumentReference
     {
         // Validate External Document ID Field
         if (ExternalDocumentId.Length == 0)
-            issues.Add("External Document Reference Invalid External Document ID Field");
+            issues.Add("External Document Reference Invalid External Document ID Field - Empty");
 
         // Validate External Document Checksum Field
-        Checksum.Validate($"External Document Reference {ExternalDocumentId}", issues);
+        Checksum.Validate($"External Document Reference '{ExternalDocumentId}'", issues);
 
         // Validate SPDX Document URI Field
         if (Document.Length == 0)
-            issues.Add($"External Document Reference {ExternalDocumentId} Invalid  SPDX Document URI Field");
+            issues.Add($"External Document Reference '{ExternalDocumentId}' Invalid SPDX Document URI Field - Empty");
     }
 
     /// <summary>

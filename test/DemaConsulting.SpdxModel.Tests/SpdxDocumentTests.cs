@@ -304,6 +304,126 @@ public class SpdxDocumentTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method reports bad IDs.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_BadId()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Corrupt the document
+        doc.Id = "BadId";
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure issue reported
+        Assert.Contains("Document Invalid SPDX Identifier Field 'BadId'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method reports bad names.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_BadName()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Corrupt the document
+        doc.Name = "";
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure issue reported
+        Assert.Contains("Document Invalid Document Name Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method reports bad versions.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_BadVersion()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Corrupt the document
+        doc.Version = "BadVersion";
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure issue reported
+        Assert.Contains("Document Invalid SPDX Version Field 'BadVersion'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method reports bad data licenses.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_BadDataLicense()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Corrupt the document
+        doc.DataLicense = "BadLicense";
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure issue reported
+        Assert.Contains("Document Invalid Data License Field 'BadLicense'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method reports bad data licenses.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_BadNameSpace()
+    {
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+
+        // Deserialize the document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Corrupt the document
+        doc.DocumentNamespace = "";
+
+        // Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Ensure issue reported
+        Assert.Contains("Document Invalid SPDX Document Namespace Field - Empty", issues);
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method detects duplicate IDs.
     /// </summary>
     [TestMethod]
@@ -343,7 +463,7 @@ public class SpdxDocumentTests
         doc.Validate(issues);
 
         // Assert: Verify duplicate ID reported
-        Assert.Contains("Document Duplicate Element ID: SPDXRef-Package1", issues);
+        Assert.Contains("Document Duplicate Element ID 'SPDXRef-Package1'", issues);
     }
 
     /// <summary>
@@ -382,7 +502,7 @@ public class SpdxDocumentTests
         doc.Validate(issues);
 
         // Assert: Verify relationship to non-existent package reported
-        Assert.Contains("Relationship Invalid Related SPDX Element Field: SPDXRef-Package2", issues);
+        Assert.Contains("Relationship Invalid Related SPDX Element Field 'SPDXRef-Package2'", issues);
     }
 
     /// <summary>
@@ -402,10 +522,10 @@ public class SpdxDocumentTests
         doc.Validate(issues, true);
 
         // Assert: Verify expected NTIA validation issues are reported.
-        Assert.Contains("NTIA: Package Apache Commons Lang Missing Supplier", issues);
-        Assert.Contains("NTIA: Package Apache Commons Lang Missing Version", issues);
-        Assert.Contains("NTIA: Package Jena Missing Supplier", issues);
-        Assert.Contains("NTIA: Package Saxon Missing Supplier", issues);
+        Assert.Contains("NTIA: Package 'Apache Commons Lang' Missing Supplier", issues);
+        Assert.Contains("NTIA: Package 'Apache Commons Lang' Missing Version", issues);
+        Assert.Contains("NTIA: Package 'Jena' Missing Supplier", issues);
+        Assert.Contains("NTIA: Package 'Saxon' Missing Supplier", issues);
     }
 
     /// <summary>

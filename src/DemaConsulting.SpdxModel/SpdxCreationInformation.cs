@@ -121,21 +121,21 @@ public sealed class SpdxCreationInformation
     {
         // Validate Creator Field
         if (Creators.Length == 0)
-            issues.Add("Document Invalid Creator Field");
+            issues.Add("Document Invalid Creator Field - Empty");
 
         // Validate Creators Field Entries
         foreach (var creator in Creators)
             if (!creator.StartsWith("Person:") &&
                 !creator.StartsWith("Organization:") &&
                 !creator.StartsWith("Tool:"))
-                issues.Add($"Document Invalid Creator Entry: {creator}");
+                issues.Add($"Document Invalid Creator Entry '{creator}'");
 
         // Validate Created Field
         if (!SpdxHelpers.IsValidSpdxDateTime(Created))
-            issues.Add("Document Invalid Created Field");
+            issues.Add($"Document Invalid Created Field '{Created}'");
 
         // Validate License List Version Field
         if (!string.IsNullOrEmpty(LicenseListVersion) && !LicenseListVersionRegex.IsMatch(LicenseListVersion))
-            issues.Add("Document Invalid License List Version Field");
+            issues.Add($"Document Invalid License List Version Field '{LicenseListVersion}'");
     }
 }

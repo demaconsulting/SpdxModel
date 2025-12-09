@@ -239,7 +239,7 @@ public class SpdxFileTests
 
         // Assert: Verify that the validation fails and the error message includes the invalid ID.
         Assert.IsTrue(
-            issues.Any(issue => issue.Contains("File ./file1.txt Invalid SPDX Identifier Field")));
+            issues.Any(issue => issue.Contains("File './file1.txt' Invalid SPDX Identifier Field")));
     }
 
     /// <summary>

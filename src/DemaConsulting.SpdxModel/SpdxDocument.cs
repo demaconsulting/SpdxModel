@@ -177,23 +177,23 @@ public sealed class SpdxDocument : SpdxElement
     {
         // Validate SPDX Identifier Field
         if (Id != "SPDXRef-DOCUMENT")
-            issues.Add("Document Invalid SPDX Identifier Field");
+            issues.Add($"Document Invalid SPDX Identifier Field '{Id}'");
 
         // Validate Document Name Field
         if (Name.Length == 0)
-            issues.Add("Document Invalid Document Name Field");
+            issues.Add("Document Invalid Document Name Field - Empty");
 
         // Validate SPDX Version Field
         if (!VersionRegex.IsMatch(Version))
-            issues.Add("Document Invalid SPDX Version Field");
+            issues.Add($"Document Invalid SPDX Version Field '{Version}'");
 
         // Validate Data License Field
         if (DataLicense != "CC0-1.0")
-            issues.Add("Document Invalid Data License Field");
+            issues.Add($"Document Invalid Data License Field '{DataLicense}'");
 
         // Validate SPDX Document Namespace Field
         if (DocumentNamespace.Length == 0)
-            issues.Add("Document Invalid SPDX Document Namespace Field");
+            issues.Add("Document Invalid SPDX Document Namespace Field - Empty");
 
         // Validate Creation Information
         CreationInformation.Validate(issues);
@@ -225,7 +225,7 @@ public sealed class SpdxDocument : SpdxElement
         // Check for duplicate elements
         var elements = GetAllElements().GroupBy(e => e.Id).Where(g => g.Count() > 1);
         foreach (var element in elements.Where(e => !string.IsNullOrWhiteSpace(e.Key)))
-            issues.Add($"Document Duplicate Element ID: {element.Key}");
+            issues.Add($"Document Duplicate Element ID '{element.Key}'");
 
         // SPDX NTIA Relationship Check
         if (ntia && GetRootPackages().Length == 0)

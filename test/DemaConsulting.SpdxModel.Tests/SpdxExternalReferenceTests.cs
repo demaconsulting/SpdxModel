@@ -148,6 +148,78 @@ public class SpdxExternalReferenceTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad categories
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalReference_Validate_BadCategory()
+    {
+        // Arrange: Create a bad external reference
+        var reference = new SpdxExternalReference
+        {
+            Category = SpdxReferenceCategory.Missing,
+            Type = "cpe23Type",
+            Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*",
+            Comment = "CPE23 Standard Identifier"
+        };
+
+        // Act: Perform validation on the SpdxExternalReference instance.
+        var issues = new List<string>();
+        reference.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad types
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalReference_Validate_BadType()
+    {
+        // Arrange: Create a bad external reference
+        var reference = new SpdxExternalReference
+        {
+            Category = SpdxReferenceCategory.Security,
+            Type = "",
+            Locator = "cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*",
+            Comment = "CPE23 Standard Identifier"
+        };
+
+        // Act: Perform validation on the SpdxExternalReference instance.
+        var issues = new List<string>();
+        reference.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad locators
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalReference_Validate_BadLocator()
+    {
+        // Arrange: Create a bad external reference
+        var reference = new SpdxExternalReference
+        {
+            Category = SpdxReferenceCategory.Security,
+            Type = "cpe23Type",
+            Locator = "",
+            Comment = "CPE23 Standard Identifier"
+        };
+
+        // Act: Perform validation on the SpdxExternalReference instance.
+        var issues = new List<string>();
+        reference.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty")));
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)" /> method with valid input.
     /// </summary>
     [TestMethod]

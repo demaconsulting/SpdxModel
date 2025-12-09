@@ -147,11 +147,11 @@ public sealed class SpdxExtractedLicensingInfo
     {
         // Validate Extracted License ID ID Field
         if (LicenseId.Length == 0)
-            issues.Add("Extracted License Information Invalid License ID Field");
+            issues.Add("Extracted License Information Invalid License ID Field - Empty");
 
         // Validate Extracted Text Field
         if (ExtractedText.Length == 0)
-            issues.Add($"Extracted License Information {LicenseId} Invalid Extracted Text Field");
+            issues.Add($"Extracted License Information '{LicenseId}' Invalid Extracted Text Field - Empty");
     }
 
     /// <summary>
