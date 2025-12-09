@@ -141,20 +141,20 @@ public sealed class SpdxRelationship : SpdxElement
     {
         // Validate SPDX Element ID Field - must refer to an element in this document
         if (Id.Length == 0)
-            issues.Add("Relationship Invalid SPDX Element ID Field");
+            issues.Add("Relationship Invalid SPDX Element ID Field - Empty");
         else if (doc != null && doc.GetElement(Id) == null)
-            issues.Add($"Relationship Invalid SPDX Element ID Field: {Id}");
+            issues.Add($"Relationship Invalid SPDX Element ID Field '{Id}'");
 
         // Validate Related SPDX Element Field - can be NOASSERTION or external reference
         if (RelatedSpdxElement.Length == 0)
-            issues.Add("Relationship Invalid Related SPDX Element Field");
+            issues.Add("Relationship Invalid Related SPDX Element Field - Empty");
         else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != NoAssertion && doc != null &&
                  doc.GetElement(RelatedSpdxElement) == null)
-            issues.Add($"Relationship Invalid Related SPDX Element Field: {RelatedSpdxElement}");
+            issues.Add($"Relationship Invalid Related SPDX Element Field '{RelatedSpdxElement}'");
 
         // Validate Relationship Type Field
         if (RelationshipType == SpdxRelationshipType.Missing)
-            issues.Add("Relationship Invalid Relationship Type Field");
+            issues.Add("Relationship Invalid Relationship Type Field - Missing");
     }
 
     /// <summary>

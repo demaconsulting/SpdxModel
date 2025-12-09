@@ -189,27 +189,27 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     {
         // Validate Snippet SPDX Identifier Field
         if (!SpdxRefRegex.IsMatch(Id))
-            issues.Add("Snippet Invalid SPDX Identifier Field");
+            issues.Add($"Snippet Invalid SPDX Identifier Field '{Id}'");
 
         // Validate Snippet From File Field
         if (SnippetFromFile.Length == 0)
-            issues.Add($"Snippet {Id} Invalid Snippet From File Field");
+            issues.Add($"Snippet '{Id}' Invalid Snippet From File Field - Empty");
 
         // Validate Snippet Byte Range Start Field
         if (SnippetByteStart < 1)
-            issues.Add($"Snippet {Id} Invalid Snippet Byte Range Start Field");
+            issues.Add($"Snippet '{Id}' Invalid Snippet Byte Range Start Field '{SnippetByteStart}'");
 
         // Validate Snippet Byte Range End Field
         if (SnippetByteEnd < SnippetByteStart)
-            issues.Add($"Snippet {Id} Invalid Snippet Byte Range End Field");
+            issues.Add($"Snippet {Id} Invalid Snippet Byte Range End Field '{SnippetByteEnd}' < '{SnippetByteStart}'");
 
         // Validate Concluded License Field
         if (ConcludedLicense.Length == 0)
-            issues.Add($"Snippet {Id} Invalid Concluded License Field");
+            issues.Add($"Snippet {Id} Invalid Concluded License Field - Empty");
 
         // Validate Copyright Text Field
         if (CopyrightText.Length == 0)
-            issues.Add($"Snippet {Id} Invalid Copyright Text Field");
+            issues.Add($"Snippet {Id} Invalid Copyright Text Field - Empty");
     }
 
     /// <summary>

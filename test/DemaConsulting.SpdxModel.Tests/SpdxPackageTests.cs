@@ -182,29 +182,6 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests that an invalid package ID fails validation.
-    /// </summary>
-    [TestMethod]
-    public void SpdxPackage_Validate_ReportsInvalidPackageIds()
-    {
-        // Arrange: Construct a SpdxPackage with an invalid ID format
-        var package = new SpdxPackage
-        {
-            Id = "Invalid_Id",
-            Name = "TestPackage",
-            Version = "1.0.0"
-        };
-
-        // Act: Validate the package
-        var issues = new List<string>();
-        package.Validate(issues, null, true);
-
-        // Assert: Verify the invalid ID is reported
-        Assert.IsTrue(
-            issues.Any(i => i.StartsWith("Package TestPackage Invalid SPDX Identifier Field")));
-    }
-
-    /// <summary>
     ///     Tests that a valid package passes validation.
     /// </summary>
     [TestMethod]
@@ -226,5 +203,201 @@ public class SpdxPackageTests
 
         // Assert: Verify that the validation reports no issues.
         Assert.IsEmpty(issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing package names
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_MissingPackageName()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package Invalid Package Name Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid package IDs
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_InvalidPackageId()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "BadId",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid SPDX Identifier Field 'BadId'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing download locations
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_MissingDownload()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "",
+            Supplier = "Organization: DemaConsulting"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Package Download Location Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad suppliers
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_BadSupplier()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "BadSupplier"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Package Supplier Field 'BadSupplier'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad originators
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_BadOriginator()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            Originator = "BadOriginator"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Package Originator Field 'BadOriginator'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad release dates
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_BadReleaseDate()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            ReleaseDate = "BadDate"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Release Date Field 'BadDate'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad built dates
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_BadBuiltDate()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            BuiltDate = "BadDate"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Built Date Field 'BadDate'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad valid until dates
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_BadValidUntilDate()
+    {
+        // Arrange: Construct a bad SpdxPackage
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            ValidUntilDate = "BadDate"
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Valid Until Date Field 'BadDate'", issues);
     }
 }

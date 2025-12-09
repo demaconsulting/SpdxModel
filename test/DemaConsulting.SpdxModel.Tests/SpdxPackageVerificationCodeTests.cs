@@ -116,4 +116,25 @@ public class SpdxPackageVerificationCodeTests
         Assert.AreEqual("./package.spdx", info.ExcludedFiles[0]);
         Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2758", info.Value);
     }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackageVerificationCode.Validate" /> method reports bad annotators
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackageVerificationCode_Validate_BadAnnotator()
+    {
+        // Arrange: Create a bad package verification code
+        var info = new SpdxPackageVerificationCode
+        {
+            Value = "BadValue"
+        };
+
+        // Act: Perform validation on the SpdxPackageVerificationCode instance.
+        var issues = new List<string>();
+        info.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Package 'Test' Invalid Package Verification Code Value 'BadValue'")));
+    }
 }

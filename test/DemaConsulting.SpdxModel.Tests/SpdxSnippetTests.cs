@@ -174,7 +174,7 @@ public class SpdxSnippetTests
 
         // Assert: Check that the issues list contains the expected error message
         Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Snippet Invalid SPDX Identifier Field")));
+            issues.Any(issue => issue.Contains("Snippet Invalid SPDX Identifier Field 'Invalid_ID'")));
     }
 
     /// <summary>

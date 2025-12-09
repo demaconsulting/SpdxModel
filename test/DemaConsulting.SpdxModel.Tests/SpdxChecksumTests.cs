@@ -134,6 +134,50 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad algorithms
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksum_Validate_BadAlgorithm()
+    {
+        // Arrange: Create a bad instance
+        var checksum = new SpdxChecksum
+        {
+            Algorithm = SpdxChecksumAlgorithm.Missing,
+            Value = "c2b4e1c67a2d28fced849ee1bb76e7391b93f125"
+        };
+
+        // Act: Perform validation on the SpdxChecksum instance.
+        var issues = new List<string>();
+        checksum.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Checksum Algorithm Field - Missing")));
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad values
+    /// </summary>
+    [TestMethod]
+    public void SpdxChecksum_Validate_BadValue()
+    {
+        // Arrange: Create a bad instance
+        var checksum = new SpdxChecksum
+        {
+            Algorithm = SpdxChecksumAlgorithm.Sha1,
+            Value = ""
+        };
+
+        // Act: Perform validation on the SpdxChecksum instance.
+        var issues = new List<string>();
+        checksum.Validate("Test", issues);
+
+        // Assert: Verify that the validation fails and the error message includes the description
+        Assert.IsTrue(
+            issues.Any(issue => issue.Contains("Test Invalid Checksum Value Field - Empty")));
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
     /// </summary>
     [TestMethod]

@@ -144,15 +144,15 @@ public sealed class SpdxExternalReference
     {
         // Validate External Reference Category Field
         if (Category == SpdxReferenceCategory.Missing)
-            issues.Add($"Package {package} Invalid External Reference Category Field");
+            issues.Add($"Package '{package}' Invalid External Reference Category Field - Missing");
 
         // Validate External Reference Type Field
         if (Type.Length == 0)
-            issues.Add($"Package {package} Invalid External Reference Type Field");
+            issues.Add($"Package '{package}' Invalid External Reference Type Field - Empty");
 
         // Validate External Reference Locator Field
         if (Locator.Length == 0)
-            issues.Add($"Package {package} Invalid External Reference Locator Field");
+            issues.Add($"Package '{package}' Invalid External Reference Locator Field - Empty");
     }
 
     /// <summary>
