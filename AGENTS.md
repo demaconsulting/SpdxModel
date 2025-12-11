@@ -60,8 +60,8 @@ Use these commands to perform common development tasks:
 ## Code Style and Conventions
 
 * Follow standard C# naming conventions (PascalCase for classes/methods/properties, camelCase for local variables).
-* Use nullable reference types (`#nullable enable`).
-* Warnings are treated as errors (`<WarningsAsErrors>true</WarningsAsErrors>`).
+* Nullable reference types are enabled at the project level (`<Nullable>enable</Nullable>` in .csproj files). Do not use file-level `#nullable enable` directives.
+* Warnings are treated as errors (`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`).
 * Avoid public fields; prefer properties.
 
 
