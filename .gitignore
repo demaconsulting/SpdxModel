@@ -1,6 +1,21 @@
 .vs
 *.bak
+*.user
+*.suo
+*.cache
 
+# Build artifacts
 bin/
 obj/
 TestResults/
+
+# Coverage reports
+coverage/
+*.opencover.xml
+*.coverage
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
