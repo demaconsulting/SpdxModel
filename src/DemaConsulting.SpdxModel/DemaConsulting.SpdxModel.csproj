@@ -42,8 +42,6 @@
     <None Remove="DemaConsulting.SpdxModel.csproj.DotSettings" />
   </ItemGroup>
 
-
-
   <ItemGroup>
     <None Include="..\..\Icon.png">
       <Pack>True</Pack>

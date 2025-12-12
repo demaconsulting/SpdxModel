@@ -18,8 +18,6 @@
 		<None Remove="IO\Examples\SPDXJSONExample-v2.3.spdx.json" />
 	</ItemGroup>
 
-
-
 	<ItemGroup>
 		<EmbeddedResource Include="IO\Examples\SPDXJSONExample-v2.2.spdx.json" />
 		<EmbeddedResource Include="IO\Examples\SPDXJSONExample-v2.3.spdx.json" />
