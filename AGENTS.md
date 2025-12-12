@@ -65,6 +65,70 @@ Use these commands to perform common development tasks:
 * Avoid public fields; prefer properties.
 
 
+## Code Quality Tools
+
+The project uses several code quality and analysis tools:
+
+* **Code Analyzers**:
+  - `Microsoft.CodeAnalysis.NetAnalyzers`: Provides .NET-specific code analysis including security, performance, and design rules
+  - All warnings are treated as errors (`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`)
+  - Certain analyzer rules are configured to 'suggestion' or 'none' in `.editorconfig` to align with existing codebase patterns
+
+* **Code Coverage**:
+  - `coverlet.collector` is used for collecting code coverage
+  - Coverage reports are generated in OpenCover format
+  - Aim for high test coverage (80%+ for new code)
+
+* **Static Analysis**:
+  - SonarCloud integration for continuous code quality monitoring
+  - CodeQL for security analysis
+  - All code changes must pass static analysis checks
+
+* **Editor Configuration**:
+  - `.editorconfig` defines consistent code style rules
+  - Ensure your editor respects EditorConfig settings
+
+## Code Coverage Requirements
+
+* All new features must include comprehensive unit tests
+* Bug fixes should include tests that verify the fix
+* Aim for 80%+ code coverage for new code
+* Run tests with coverage: `dotnet test --collect:"XPlat Code Coverage;Format=opencover"`
+
+## Documentation Standards
+
+* All public APIs must have XML documentation comments
+* Include `<summary>`, `<param>`, `<returns>`, and `<exception>` tags as appropriate
+* XML documentation is generated during build (`<GenerateDocumentationFile>True</GenerateDocumentationFile>`)
+* Keep documentation clear, concise, and up-to-date with code changes
+
+## Performance Testing
+
+* While there are currently no formal performance benchmarks, consider performance implications for:
+  - Large SPDX document parsing and serialization
+  - Memory usage when working with many packages or files
+  - Relationship graph traversal operations
+* If adding features that may impact performance, consider adding benchmark tests using BenchmarkDotNet
+
+## Security Guidelines
+
+* Never introduce security vulnerabilities
+* Be cautious with untrusted input (especially when deserializing SPDX documents)
+* Regular expressions must have timeout limits to prevent ReDoS attacks
+* Follow secure coding practices for C# and .NET
+* Review the [SECURITY.md](SECURITY.md) file for security policies
+
+## Continuous Integration
+
+* All changes are validated by GitHub Actions CI
+* CI pipeline includes:
+  - Building on multiple .NET versions (8, 9, 10)
+  - Running all unit tests
+  - Code coverage collection
+  - SonarCloud analysis
+  - SBOM generation
+* All CI checks must pass before merging
+
 ## Boundaries and Guardrails
 
 * **NEVER** modify files within the `/obj/` or `/bin/` directories.
