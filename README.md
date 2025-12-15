@@ -136,10 +136,10 @@ var rootPackages = document.GetRootPackages();
 ## Documentation
 
 - [API Documentation](https://github.com/demaconsulting/SpdxModel/wiki) - Detailed API reference
-- [Contributing Guide](CONTRIBUTING.md) - How to contribute to the project
-- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
-- [Security Policy](SECURITY.md) - Security vulnerability reporting
-- [AGENTS.md](AGENTS.md) - Instructions for AI coding agents
+- [Contributing Guide](https://github.com/demaconsulting/SpdxModel/blob/main/CONTRIBUTING.md) - How to contribute to the project
+- [Code of Conduct](https://github.com/demaconsulting/SpdxModel/blob/main/CODE_OF_CONDUCT.md) - Community guidelines
+- [Security Policy](https://github.com/demaconsulting/SpdxModel/blob/main/SECURITY.md) - Security vulnerability reporting
+- [AGENTS.md](https://github.com/demaconsulting/SpdxModel/blob/main/AGENTS.md) - Instructions for AI coding agents
 
 ## Requirements
 
@@ -173,7 +173,7 @@ dotnet test --collect:"XPlat Code Coverage;Format=opencover"
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+We welcome contributions! Please see our [Contributing Guide](https://github.com/demaconsulting/SpdxModel/blob/main/CONTRIBUTING.md) for details on:
 
 - Setting up your development environment
 - Coding standards and guidelines
@@ -182,7 +182,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/demaconsulting/SpdxModel/blob/main/LICENSE) file for details.
 
 ## Support
 
