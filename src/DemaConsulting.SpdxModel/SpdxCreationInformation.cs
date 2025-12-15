@@ -124,11 +124,13 @@ public sealed class SpdxCreationInformation
             issues.Add("Document Invalid Creator Field - Empty");
 
         // Validate Creators Field Entries
-        foreach (var creator in Creators)
-            if (!creator.StartsWith("Person:") &&
-                !creator.StartsWith("Organization:") &&
-                !creator.StartsWith("Tool:"))
-                issues.Add($"Document Invalid Creator Entry '{creator}'");
+        foreach (var creator in Creators.Where(c =>
+            !c.StartsWith("Person:") &&
+            !c.StartsWith("Organization:") &&
+            !c.StartsWith("Tool:")))
+        {
+            issues.Add($"Document Invalid Creator Entry '{creator}'");
+        }
 
         // Validate Created Field
         if (!SpdxHelpers.IsValidSpdxDateTime(Created))
