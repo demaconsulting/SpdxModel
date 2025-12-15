@@ -136,10 +136,10 @@ var rootPackages = document.GetRootPackages();
 ## Documentation
 
 - [API Documentation](https://github.com/demaconsulting/SpdxModel/wiki) - Detailed API reference
-- [Contributing Guide](CONTRIBUTING.md) - How to contribute to the project
-- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
-- [Security Policy](SECURITY.md) - Security vulnerability reporting
-- [AGENTS.md](AGENTS.md) - Instructions for AI coding agents
+- [Contributing Guide][contributing] - How to contribute to the project
+- [Code of Conduct][code-of-conduct] - Community guidelines
+- [Security Policy][security] - Security vulnerability reporting
+- [AGENTS.md][agents] - Instructions for AI coding agents
 
 ## Requirements
 
@@ -173,7 +173,7 @@ dotnet test --collect:"XPlat Code Coverage;Format=opencover"
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+We welcome contributions! Please see our [Contributing Guide][contributing] for details on:
 
 - Setting up your development environment
 - Coding standards and guidelines
@@ -182,7 +182,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE][license] file for details.
 
 ## Support
 
@@ -201,3 +201,9 @@ This project follows the [SPDX specification](https://spdx.dev/) maintained by t
 ---
 
 Made with ❤️ by [DEMA Consulting](https://github.com/demaconsulting)
+
+[contributing]: https://github.com/demaconsulting/SpdxModel/blob/main/CONTRIBUTING.md
+[code-of-conduct]: https://github.com/demaconsulting/SpdxModel/blob/main/CODE_OF_CONDUCT.md
+[security]: https://github.com/demaconsulting/SpdxModel/blob/main/SECURITY.md
+[agents]: https://github.com/demaconsulting/SpdxModel/blob/main/AGENTS.md
+[license]: https://github.com/demaconsulting/SpdxModel/blob/main/LICENSE
