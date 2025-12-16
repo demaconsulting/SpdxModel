@@ -20,7 +20,7 @@ The SpdxModel team takes security bugs seriously. We appreciate your efforts to 
 If you discover a security vulnerability, please follow these steps:
 
 1. **Do not** open a public GitHub issue
-2. Email the maintainers with details of the vulnerability
+2. Report the vulnerability using the [Security tab](https://github.com/demaconsulting/SpdxModel/security/advisories/new) of this GitHub repository
 3. Include the following information in your report:
    - Description of the vulnerability
    - Steps to reproduce the issue
@@ -109,7 +109,7 @@ We would like to thank the following individuals for responsibly disclosing secu
 
 ## Contact
 
-For security-related inquiries, please use the project's GitHub issue tracker (for non-sensitive issues) or contact the maintainers directly (for sensitive security issues).
+For security-related inquiries, please use the project's GitHub issue tracker (for non-sensitive issues) or the [Security tab](https://github.com/demaconsulting/SpdxModel/security/advisories/new) (for sensitive security issues).
 
 ## Additional Resources
 
