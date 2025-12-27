@@ -84,6 +84,13 @@ The project uses several code quality and analysis tools:
   - CodeQL for security analysis
   - All code changes must pass static analysis checks
 
+* **Linting and Code Quality**:
+  - `cspell` for spell checking (configured in `.cspell.json`)
+  - `markdownlint-cli2` for Markdown file linting (configured in `.markdownlint.json`)
+  - `yamllint` for YAML file linting (configured in `.yamllint.yaml`)
+  - Code quality checks run automatically in CI pipeline
+  - Run locally: `npx cspell lint "**/*.md"`, `npx markdownlint-cli2 "**/*.md"`, `yamllint .`
+
 * **Editor Configuration**:
   - `.editorconfig` defines consistent code style rules
   - Ensure your editor respects EditorConfig settings
@@ -122,6 +129,7 @@ The project uses several code quality and analysis tools:
 
 * All changes are validated by GitHub Actions CI
 * CI pipeline includes:
+  - Code quality checks (spell checking, Markdown linting, YAML linting)
   - Building on multiple .NET versions (8, 9, 10)
   - Running all unit tests
   - Code coverage collection

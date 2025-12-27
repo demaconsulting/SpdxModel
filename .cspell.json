@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "SPDX",
+    "SpdxModel",
+    "DemaConsulting",
+    "SBOM",
+    "sbom",
+    "dotnet",
+    "NuGet",
+    "nuget",
+    "spdx",
+    "deserializer",
+    "serializer",
+    "Dema",
+    "workflow",
+    "workflows",
+    "yamllint",
+    "markdownlint",
+    "cspell",
+    "Copilot",
+    "opencover",
+    "OpenCover"
+  ],
+  "ignorePaths": [
+    "**/*.spdx.json",
+    "**/bin/**",
+    "**/obj/**",
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/*.nupkg",
+    "**/*.snupkg"
+  ]
+}
