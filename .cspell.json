@@ -24,7 +24,10 @@
     "OpenCover",
     "snupkg",
     "Anson",
-    "ibiqlik"
+    "ibiqlik",
+    "sonarscanner",
+    "ncipollo",
+    "DEMACONSULTINGNUGETKEY"
   ],
   "ignorePaths": [
     "**/*.spdx.json",
