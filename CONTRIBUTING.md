@@ -1,6 +1,7 @@
 # Contributing to SpdxModel
 
-Thank you for your interest in contributing to SpdxModel! This document provides guidelines and instructions for contributing to this project.
+Thank you for your interest in contributing to SpdxModel! This document provides guidelines and instructions for
+contributing to this project.
 
 ## Table of Contents
 
@@ -16,7 +17,8 @@ Thank you for your interest in contributing to SpdxModel! This document provides
 
 ## Code of Conduct
 
-This project adheres to a Code of Conduct (see CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
+This project adheres to a Code of Conduct (see CODE_OF_CONDUCT.md). By participating, you are expected to uphold
+this code. Please report unacceptable behavior to the project maintainers.
 
 ## Getting Started
 
@@ -75,7 +77,8 @@ We welcome various types of contributions:
 
 ### Before You Start
 
-1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if your issue or feature has already been reported
+1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if your issue or feature
+   has already been reported
 2. For major changes, please open an issue first to discuss what you would like to change
 3. Ensure your development environment is properly set up
 
@@ -149,6 +152,7 @@ public void MethodName_Scenario_ExpectedBehavior()
 ## Pull Request Process
 
 1. **Create a Branch**: Create a feature branch from `main`
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -158,21 +162,25 @@ public void MethodName_Scenario_ExpectedBehavior()
 3. **Write Tests**: Add or update tests to cover your changes
 
 4. **Run Tests**: Ensure all tests pass
+
    ```bash
    dotnet test
    ```
 
 5. **Build Verification**: Ensure the project builds without errors or warnings
+
    ```bash
    dotnet build
    ```
 
 6. **Commit Changes**: Use clear and descriptive commit messages
+
    ```bash
    git commit -m "Add feature: brief description"
    ```
 
 7. **Push Changes**: Push your branch to your fork
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -219,7 +227,8 @@ public void MethodName_Scenario_ExpectedBehavior()
 
 We welcome feature suggestions! To suggest a new feature:
 
-1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if the feature has already been suggested
+1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if the feature has already
+   been suggested
 2. Open a new issue with the "enhancement" label
 3. Provide a clear description of the feature
 4. Explain the use case and benefits

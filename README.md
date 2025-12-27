@@ -9,7 +9,8 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=demaconsulting_SpdxModel&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=demaconsulting_SpdxModel)
 [![NuGet](https://img.shields.io/nuget/v/DemaConsulting.SpdxModel.svg)](https://www.nuget.org/packages/DemaConsulting.SpdxModel/)
 
-A modern C# library for working with SPDX (Software Package Data Exchange) documents. This library provides a comprehensive in-memory model for reading, manipulating, and writing SPDX Software Bill of Materials (SBOM) files.
+A modern C# library for working with SPDX (Software Package Data Exchange) documents. This library provides a
+comprehensive in-memory model for reading, manipulating, and writing SPDX Software Bill of Materials (SBOM) files.
 
 ## Features
 
