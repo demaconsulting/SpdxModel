@@ -21,7 +21,10 @@
     "cspell",
     "Copilot",
     "opencover",
-    "OpenCover"
+    "OpenCover",
+    "snupkg",
+    "Anson",
+    "ibiqlik"
   ],
   "ignorePaths": [
     "**/*.spdx.json",
