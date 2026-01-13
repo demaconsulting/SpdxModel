@@ -31,6 +31,7 @@
   ],
   "ignorePaths": [
     "**/*.spdx.json",
+    "**/*.csproj",
     "**/bin/**",
     "**/obj/**",
     "**/.git/**",
