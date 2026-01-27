@@ -8,6 +8,7 @@
 bin/
 obj/
 TestResults/
+test-results/
 
 # Coverage reports
 coverage/
@@ -26,5 +27,7 @@ node_modules/
 # Generated documentation
 docs/*.html
 docs/*.pdf
+docs/requirements/requirements.md
+docs/tracematrix/tracematrix.md
 *.err
 package-lock.json
