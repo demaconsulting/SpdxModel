@@ -337,7 +337,7 @@ var package = new SpdxPackage
         {
             Category = SpdxReferenceCategory.Security,
             Type = "cpe23Type",
-            Locator = "cpe:2.3:a:example:mypackage:1.0.0:*:*:*:*:*:*:*"
+            Locator = "cpe:2.3:a:example:my-package:1.0.0:*:*:*:*:*:*:*"
         },
         new SpdxExternalReference
         {
@@ -368,7 +368,7 @@ var file = new SpdxFile
         new SpdxChecksum
         {
             Algorithm = SpdxChecksumAlgorithm.SHA256,
-            Value = "aabbccdd..."
+            Value = "abc123def456..."
         }
     ],
     
