@@ -31,7 +31,13 @@
     "Alsos",
     "pandoc",
     "weasyprint",
-    "mermaid"
+    "mermaid",
+    "hotspots",
+    "CodeQL",
+    "SonarCloud",
+    "sonarcloud",
+    "sonarmark",
+    "sarifmark"
   ],
   "ignorePaths": [
     "**/*.spdx.json",
