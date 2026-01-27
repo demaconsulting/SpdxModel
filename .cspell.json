@@ -27,7 +27,11 @@
     "ibiqlik",
     "sonarscanner",
     "ncipollo",
-    "DEMACONSULTINGNUGETKEY"
+    "DEMACONSULTINGNUGETKEY",
+    "Alsos",
+    "pandoc",
+    "weasyprint",
+    "mermaid"
   ],
   "ignorePaths": [
     "**/*.spdx.json",

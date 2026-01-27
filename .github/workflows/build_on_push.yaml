@@ -8,49 +8,13 @@ on:
     - cron: '0 17 * * 1'
 
 jobs:
-  code-quality:
-    name: Code Quality
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read  # To read repository contents
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Check Spelling
-        uses: streetsidesoftware/cspell-action@v8
-
-      - name: Check Markdown
-        uses: DavidAnson/markdownlint-cli2-action@v22
-        with:
-          globs: '**/*.md'
-
-      - name: Check YAML
-        uses: ibiqlik/action-yamllint@v3
-        with:
-          file_or_dir: .
-          config_file: .yamllint.yaml
-
-  build-windows:
-    name: Build Windows
+  build:
+    name: Build
     permissions:
       contents: read        # To read repository contents
       pull-requests: write  # To write pull requests analysis results and artifacts
     uses: ./.github/workflows/build.yaml
     with:
-      os: windows-latest
-      version: 0.0.0-run.${{ github.run_number }}
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  build-linux:
-    name: Build Linux
-    permissions:
-      contents: read        # To read repository contents
-      pull-requests: write  # To write pull requests analysis results and artifacts
-    uses: ./.github/workflows/build.yaml
-    with:
-      os: ubuntu-latest
       version: 0.0.0-run.${{ github.run_number }}
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
