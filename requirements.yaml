@@ -23,7 +23,6 @@ sections:
             title: "The library shall support serializing SPDX documents to JSON format."
             tests:
               - "Spdx2JsonSerializer_SerializeDocument_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeWithIndentation_CorrectFormat"
 
           - id: "REQ-FUNC-004"
             title: "The library shall support SPDX document creation information."
@@ -115,8 +114,8 @@ sections:
           - id: "REQ-FUNC-015"
             title: "The library shall provide utilities for manipulating SPDX relationships."
             tests:
-              - "SpdxRelationships_AddRelationship_AddsCorrectly"
-              - "SpdxRelationships_FindRelationships_FindsCorrectly"
+              - "SpdxRelationships_AddSingle_Success"
+              - "SpdxRelationships_AddMultiple_Success"
 
           - id: "REQ-FUNC-016"
             title: "The library shall support retrieving root packages from an SPDX document."
