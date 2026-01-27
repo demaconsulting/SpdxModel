@@ -259,7 +259,7 @@ jobs:
       - name: Download Test Results
         uses: actions/download-artifact@v7
         with:
-          pattern: test-results-*-latest
+          pattern: test-results-*
           path: test-results
           merge-multiple: true
 
