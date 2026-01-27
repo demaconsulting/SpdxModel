@@ -26,4 +26,5 @@ node_modules/
 # Generated documentation
 docs/**/*.html
 docs/**/*.pdf
+*.err
 package-lock.json
