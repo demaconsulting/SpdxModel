@@ -464,14 +464,14 @@ var document = new SpdxDocument
 {
     // ... other fields ...
     
-    OtherLicensingInformation =
+    ExtractedLicensingInfo =
     [
-        new SpdxLicense
+        new SpdxExtractedLicensingInfo
         {
-            Id = "LicenseRef-CustomLicense",
+            LicenseId = "LicenseRef-CustomLicense",
             ExtractedText = "Full license text here...",
             Name = "Custom License",
-            SeeAlsos = ["https://example.com/license"]
+            CrossReferences = ["https://example.com/license"]
         }
     ]
 };

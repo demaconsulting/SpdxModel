@@ -61,6 +61,7 @@ jobs:
     permissions:
       contents: read  # To read repository contents
 
+    # Note: Must run on Windows because weasyprint tool only supports Windows
     runs-on: windows-latest
 
     steps:
