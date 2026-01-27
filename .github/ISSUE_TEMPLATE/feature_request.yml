@@ -1,32 +1,21 @@
 ---
 name: ✨ Feature Request
-description: Suggest a new feature or enhancement for SpdxModel
+description: Suggest a new feature or enhancement for the SpdxModel library
 title: "[Feature]: "
 labels: ["enhancement"]
+assignees: []
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting a new feature! Please provide as much detail as possible to help us understand your
-        request.
-
-  - type: textarea
-    id: summary
-    attributes:
-      label: Feature Summary
-      description: A clear and concise summary of the feature you'd like to see.
-      placeholder: Briefly describe the feature...
-    validations:
-      required: true
+        Thanks for suggesting a feature! Please fill out the sections below to help us understand your request.
 
   - type: textarea
     id: problem
     attributes:
       label: Problem Statement
-      description: Describe the problem or limitation this feature would solve.
-      placeholder: |
-        Is your feature request related to a problem? Please describe.
-        Example: I'm always frustrated when...
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: I'm frustrated when... / I need to be able to...
     validations:
       required: true
 
@@ -34,10 +23,8 @@ body:
     id: solution
     attributes:
       label: Proposed Solution
-      description: Describe the solution you'd like to see implemented.
-      placeholder: |
-        A clear and concise description of what you want to happen.
-        Include any specific API designs, usage examples, or implementation ideas.
+      description: Describe the solution you'd like to see
+      placeholder: A clear and concise description of what you want to happen
     validations:
       required: true
 
@@ -45,35 +32,30 @@ body:
     id: alternatives
     attributes:
       label: Alternatives Considered
-      description: Describe any alternative solutions or features you've considered.
-      placeholder: What other approaches have you thought about?
+      description: Describe any alternative solutions or features you've considered
+      placeholder: A clear and concise description of any alternative solutions or features
 
   - type: textarea
-    id: example
+    id: examples
     attributes:
-      label: Usage Example
-      description: If applicable, provide an example of how you would use this feature.
+      label: Usage Examples
+      description: If applicable, provide examples of how this feature would be used
       placeholder: |
         ```csharp
-        // Example of how you envision using the feature
+        // Example usage
+        var document = new SpdxDocument
+        {
+            // Your example here
+        };
         ```
       render: csharp
 
-  - type: dropdown
-    id: category
+  - type: textarea
+    id: benefits
     attributes:
-      label: Feature Category
-      description: What category best describes this feature?
-      options:
-        - API Enhancement
-        - New API
-        - Performance Improvement
-        - Documentation
-        - Developer Experience
-        - SPDX Specification Support
-        - Serialization/Deserialization
-        - Validation
-        - Other
+      label: Benefits
+      description: Explain why this enhancement would be useful to SpdxModel users
+      placeholder: This would be useful because...
     validations:
       required: true
 
@@ -83,65 +65,41 @@ body:
       label: Priority
       description: How important is this feature to you?
       options:
-        - Critical - Blocking my work
-        - High - Important for my use case
-        - Medium - Would be nice to have
-        - Low - Minor improvement
+        - Low - Nice to have
+        - Medium - Would improve my workflow
+        - High - Blocking my use case
     validations:
       required: true
-
-  - type: textarea
-    id: use-case
-    attributes:
-      label: Use Case
-      description: Describe your specific use case for this feature.
-      placeholder: |
-        Help us understand how you plan to use this feature in your project.
-        What are you trying to accomplish?
-    validations:
-      required: true
-
-  - type: textarea
-    id: benefits
-    attributes:
-      label: Benefits
-      description: What benefits would this feature provide?
-      placeholder: |
-        - Improved performance
-        - Better developer experience
-        - Support for new SPDX specification features
-        - etc.
 
   - type: dropdown
-    id: willing-to-contribute
+    id: willingness
     attributes:
-      label: Willing to Contribute
-      description: Are you willing to help implement this feature?
+      label: Willingness to Contribute
+      description: Would you be willing to contribute this feature?
       options:
         - "Yes, I can submit a pull request"
-        - "Yes, I can help with testing"
-        - "Yes, I can help with documentation"
-        - "No, but I can provide feedback"
-        - "No, I just want to suggest the idea"
+        - "Yes, with guidance from maintainers"
+        - "No, but I can help test it"
+        - "No, I'm just suggesting"
     validations:
       required: true
 
   - type: textarea
-    id: context
+    id: additional-context
     attributes:
       label: Additional Context
-      description: Add any other context, screenshots, links, or references about the feature request here.
-      placeholder: Any additional information that might help...
+      description: Add any other context, screenshots, or links about the feature request here
+      placeholder: Any additional information...
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
-      description: Please confirm the following before submitting
+      description: Please confirm the following
       options:
-        - label: I have searched existing issues to ensure this feature hasn't been requested before
+        - label: I have searched existing issues to ensure this is not a duplicate
           required: true
-        - label: This feature aligns with the goals and scope of the SpdxModel project
+        - label: I have provided a clear description of the feature
           required: true
-        - label: I have provided all the information requested above
+        - label: I have explained why this feature would be useful
           required: true
