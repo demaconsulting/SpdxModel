@@ -54,3 +54,54 @@ jobs:
       version: 0.0.0-run.${{ github.run_number }}
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build-docs:
+    name: Build Documentation
+    needs: [build-windows, build-linux]
+    permissions:
+      contents: read  # To read repository contents
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            10.x
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Install dotnet tools
+        run: dotnet tool restore
+
+      - name: Generate User Guide HTML with Pandoc
+        run: >
+          dotnet pandoc
+          docs/guide/title.txt
+          --defaults docs/guide/definition.yaml
+          --filter node_modules/.bin/mermaid-filter.cmd
+          --output docs/guide/guide.html
+
+      - name: Generate User Guide PDF with Weasyprint
+        run: >
+          dotnet weasyprint
+          docs/guide/guide.html
+          "docs/SpdxModel User Guide.pdf"
+
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v6
+        with:
+          name: documentation
+          path: docs/*.pdf
+

@@ -54,6 +54,12 @@ jobs:
           name: artifacts-ubuntu-latest
           path: artifacts
 
+      - name: Download Documentation
+        uses: actions/download-artifact@v7
+        with:
+          name: documentation
+          path: artifacts
+
       - name: Clean Artifacts
         shell: bash
         run: rm -rf artifacts/test
