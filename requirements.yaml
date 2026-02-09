@@ -5,168 +5,260 @@
 # Requirements are verified through tests and documented in the requirements and trace matrix documents.
 
 sections:
-  - title: "SpdxModel Library Requirements"
+  - title: SpdxModel Library Requirements
     sections:
-      - title: "Functional Requirements"
+      - title: Functional Requirements
         requirements:
-          - id: "REQ-FUNC-001"
-            title: "The library shall support deserializing SPDX 2.2 JSON documents."
+          - id: REQ-FUNC-001
+            title: The library shall support deserializing SPDX 2.2 JSON documents.
+            justification: |
+              Deserializing SPDX 2.2 JSON documents is essential for backward compatibility and
+              interoperability with systems using the SPDX 2.2 specification. This ensures that the
+              library can read and process existing SPDX 2.2 documents from various sources.
             tests:
-              - "Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
 
-          - id: "REQ-FUNC-002"
-            title: "The library shall support deserializing SPDX 2.3 JSON documents."
+          - id: REQ-FUNC-002
+            title: The library shall support deserializing SPDX 2.3 JSON documents.
+            justification: |
+              Support for SPDX 2.3 JSON documents ensures the library remains current with the latest
+              SPDX specification. This allows users to leverage new features and improvements introduced
+              in SPDX 2.3 while maintaining compatibility with modern SBOM tools.
             tests:
-              - "Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument"
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
 
-          - id: "REQ-FUNC-003"
-            title: "The library shall support serializing SPDX documents to JSON format."
+          - id: REQ-FUNC-003
+            title: The library shall support serializing SPDX documents to JSON format.
+            justification: |
+              Serialization capability is fundamental for creating and exporting SPDX documents in JSON
+              format. This enables users to generate SBOMs programmatically and share them with other
+              systems and tools in the SPDX ecosystem.
             tests:
-              - "Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+              - Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-          - id: "REQ-FUNC-004"
-            title: "The library shall support SPDX document creation information."
+          - id: REQ-FUNC-004
+            title: The library shall support SPDX document creation information.
+            justification: |
+              Creation information is a required element of SPDX documents that provides metadata about
+              who created the document and when. Supporting this element is essential for SPDX compliance
+              and traceability of document provenance.
             tests:
-              - "SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults"
+              - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults
+              - Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults
 
-          - id: "REQ-FUNC-005"
-            title: "The library shall support SPDX packages."
+          - id: REQ-FUNC-005
+            title: The library shall support SPDX packages.
+            justification: |
+              Packages are core elements in SPDX documents representing software packages in an SBOM.
+              Supporting package elements is fundamental to the library's purpose of managing software
+              bill of materials and dependency information.
             tests:
-              - "SpdxPackage_SameComparer_ComparesCorrectly"
-              - "SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializePackage_CorrectResults"
-              - "Spdx2JsonSerializer_SerializePackage_CorrectResults"
+              - SpdxPackage_SameComparer_ComparesCorrectly
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializePackage_CorrectResults
+              - Spdx2JsonSerializer_SerializePackage_CorrectResults
 
-          - id: "REQ-FUNC-006"
-            title: "The library shall support SPDX files."
+          - id: REQ-FUNC-006
+            title: The library shall support SPDX files.
+            justification: |
+              Files are essential components in SPDX documents for detailed SBOM creation. Supporting
+              file elements enables fine-grained tracking of individual source files, binaries, and
+              their associated licensing and copyright information.
             tests:
-              - "SpdxFile_SameComparer_ComparesCorrectly"
-              - "SpdxFile_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeFile_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeFile_CorrectResults"
+              - SpdxFile_SameComparer_ComparesCorrectly
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeFile_CorrectResults
+              - Spdx2JsonSerializer_SerializeFile_CorrectResults
 
-          - id: "REQ-FUNC-007"
-            title: "The library shall support SPDX snippets."
+          - id: REQ-FUNC-007
+            title: The library shall support SPDX snippets.
+            justification: |
+              Snippets represent portions of files and are important for documenting code reuse at a
+              granular level. This supports compliance scenarios where specific code segments have
+              different licensing or provenance than their containing files.
             tests:
-              - "SpdxSnippet_SameComparer_ComparesCorrectly"
-              - "SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeSnippet_CorrectResults"
+              - SpdxSnippet_SameComparer_ComparesCorrectly
+              - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults
+              - Spdx2JsonSerializer_SerializeSnippet_CorrectResults
 
-          - id: "REQ-FUNC-008"
-            title: "The library shall support SPDX relationships."
+          - id: REQ-FUNC-008
+            title: The library shall support SPDX relationships.
+            justification: |
+              Relationships define connections between SPDX elements and are critical for expressing
+              dependency graphs, containment hierarchies, and other associations in SBOMs. This is
+              fundamental to representing complex software structures.
             tests:
-              - "SpdxRelationship_SameComparer_ComparesCorrectly"
-              - "SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeRelationship_CorrectResults"
+              - SpdxRelationship_SameComparer_ComparesCorrectly
+              - SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults
+              - Spdx2JsonSerializer_SerializeRelationship_CorrectResults
 
-          - id: "REQ-FUNC-009"
-            title: "The library shall support SPDX annotations."
+          - id: REQ-FUNC-009
+            title: The library shall support SPDX annotations.
+            justification: |
+              Annotations allow adding review and assessment information to SPDX elements. This supports
+              compliance workflows where reviewers need to document their findings and decisions about
+              software components.
             tests:
-              - "SpdxAnnotation_SameComparer_ComparesCorrectly"
-              - "SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeAnnotation_CorrectResults"
+              - SpdxAnnotation_SameComparer_ComparesCorrectly
+              - SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults
+              - Spdx2JsonSerializer_SerializeAnnotation_CorrectResults
 
-          - id: "REQ-FUNC-010"
-            title: "The library shall support SPDX checksums with multiple algorithms."
+          - id: REQ-FUNC-010
+            title: The library shall support SPDX checksums with multiple algorithms.
+            justification: |
+              Checksums with multiple algorithms provide integrity verification for files and packages.
+              Supporting multiple algorithms ensures flexibility and compatibility with different security
+              requirements and organizational policies.
             tests:
-              - "SpdxChecksum_SameComparer_ComparesCorrectly"
-              - "SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeChecksum_CorrectResults"
+              - SpdxChecksum_SameComparer_ComparesCorrectly
+              - SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults
+              - Spdx2JsonSerializer_SerializeChecksum_CorrectResults
 
-          - id: "REQ-FUNC-011"
-            title: "The library shall support SPDX external references."
+          - id: REQ-FUNC-011
+            title: The library shall support SPDX external references.
+            justification: |
+              External references enable linking SPDX elements to external resources like package
+              registries, vulnerability databases, and documentation. This enriches SBOMs with contextual
+              information from authoritative sources.
             tests:
-              - "SpdxExternalReference_SameComparer_ComparesCorrectly"
-              - "SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeExternalReference_CorrectResults"
+              - SpdxExternalReference_SameComparer_ComparesCorrectly
+              - SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults
+              - Spdx2JsonSerializer_SerializeExternalReference_CorrectResults
 
-          - id: "REQ-FUNC-012"
-            title: "The library shall support SPDX external document references."
+          - id: REQ-FUNC-012
+            title: The library shall support SPDX external document references.
+            justification: |
+              External document references allow SPDX documents to reference other SPDX documents,
+              enabling modular SBOM construction and linking between related software inventories. This
+              is essential for managing complex multi-component software systems.
             tests:
-              - "SpdxExternalDocumentReference_SameComparer_ComparesCorrectly"
-              - "SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults"
+              - SpdxExternalDocumentReference_SameComparer_ComparesCorrectly
+              - SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults
+              - Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults
 
-          - id: "REQ-FUNC-013"
-            title: "The library shall support SPDX extracted licensing information."
+          - id: REQ-FUNC-013
+            title: The library shall support SPDX extracted licensing information.
+            justification: |
+              Extracted licensing information supports documenting non-standard licenses found in
+              software packages. This is critical for compliance when software contains licenses not
+              in the SPDX license list.
             tests:
-              - "SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly"
-              - "SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults"
-              - "Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults"
+              - SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly
+              - SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults
+              - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults
 
-          - id: "REQ-FUNC-014"
-            title: "The library shall support SPDX package verification codes."
+          - id: REQ-FUNC-014
+            title: The library shall support SPDX package verification codes.
+            justification: |
+              Package verification codes provide a way to verify package contents integrity. This
+              cryptographic verification mechanism is important for ensuring that package contents
+              have not been tampered with or corrupted.
             tests:
-              - "SpdxPackageVerificationCode_SameComparer_ComparesCorrectly"
-              - "SpdxPackageVerificationCode_DeepCopy_CreatesEqualButDistinctInstance"
-              - "Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults"
-              - "Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults"
+              - SpdxPackageVerificationCode_SameComparer_ComparesCorrectly
+              - SpdxPackageVerificationCode_DeepCopy_CreatesEqualButDistinctInstance
+              - Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults
+              - Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults
 
-          - id: "REQ-FUNC-015"
-            title: "The library shall provide utilities for manipulating SPDX relationships."
+          - id: REQ-FUNC-015
+            title: The library shall provide utilities for manipulating SPDX relationships.
+            justification: |
+              Relationship manipulation utilities simplify common operations on SPDX documents such as
+              adding and managing relationships between elements. This improves developer productivity
+              and reduces errors when constructing complex SBOMs.
             tests:
-              - "SpdxRelationships_AddSingle_Success"
-              - "SpdxRelationships_AddMultiple_Success"
+              - SpdxRelationships_AddSingle_Success
+              - SpdxRelationships_AddMultiple_Success
 
-          - id: "REQ-FUNC-016"
-            title: "The library shall support retrieving root packages from an SPDX document."
+          - id: REQ-FUNC-016
+            title: The library shall support retrieving root packages from an SPDX document.
+            justification: |
+              Retrieving root packages helps identify top-level components in an SBOM. This is essential
+              for understanding the primary software packages in a document and navigating the dependency
+              graph from its entry points.
             tests:
-              - "SpdxDocument_GetRootPackages_CorrectPackages"
+              - SpdxDocument_GetRootPackages_CorrectPackages
 
-          - id: "REQ-FUNC-017"
-            title: "The library shall support deep copying of SPDX elements."
+          - id: REQ-FUNC-017
+            title: The library shall support deep copying of SPDX elements.
+            justification: |
+              Deep copying enables creating independent copies of SPDX elements for modification without
+              affecting the original. This is crucial for SBOM manipulation scenarios like merging,
+              filtering, or transforming documents.
             tests:
-              - "SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance"
-              - "SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance"
-              - "SpdxFile_DeepCopy_CreatesEqualButDistinctInstance"
+              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
 
-          - id: "REQ-FUNC-018"
-            title: "The library shall support validation of SPDX elements."
+          - id: REQ-FUNC-018
+            title: The library shall support validation of SPDX elements.
+            justification: |
+              Validation ensures SPDX documents and elements conform to the specification requirements.
+              This helps users catch errors early and produce compliant SBOMs that will be accepted by
+              other tools in the SPDX ecosystem.
             tests:
-              - "SpdxDocument_Validate_NoIssues"
-              - "SpdxAnnotation_Validate_BadAnnotator"
-              - "SpdxChecksum_Validate_BadAlgorithm"
-              - "SpdxCreationInformation_Validate_MissingCreators"
+              - SpdxDocument_Validate_NoIssues
+              - SpdxAnnotation_Validate_BadAnnotator
+              - SpdxChecksum_Validate_BadAlgorithm
+              - SpdxCreationInformation_Validate_MissingCreators
 
-      - title: "Quality Requirements"
+      - title: Quality Requirements
         requirements:
-          - id: "REQ-QUAL-001"
-            title: "The library shall support .NET 8 runtime."
+          - id: REQ-QUAL-001
+            title: The library shall support .NET 8 runtime.
+            justification: |
+              .NET 8 is a long-term support (LTS) release and provides a stable foundation for
+              enterprise applications. Supporting .NET 8 ensures the library can be used in production
+              environments requiring long-term stability and support.
             tests:
-              - "net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
-              - "net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+              - net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+              - net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-          - id: "REQ-QUAL-002"
-            title: "The library shall support .NET 9 runtime."
+          - id: REQ-QUAL-002
+            title: The library shall support .NET 9 runtime.
+            justification: |
+              .NET 9 is a standard-term support (STS) release providing newer features and performance
+              improvements. Supporting .NET 9 allows users to leverage the latest .NET capabilities while
+              the framework is current.
             tests:
-              - "net9.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
-              - "net9.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+              - net9.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+              - net9.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-          - id: "REQ-QUAL-003"
-            title: "The library shall support .NET 10 runtime."
+          - id: REQ-QUAL-003
+            title: The library shall support .NET 10 runtime.
+            justification: |
+              .NET 10 represents the latest .NET platform release. Supporting .NET 10 ensures users
+              can adopt the most recent framework version and benefit from the latest performance,
+              security, and feature improvements.
             tests:
-              - "net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
-              - "net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+              - net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+              - net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-          - id: "REQ-QUAL-004"
-            title: "The library shall provide type-safe APIs with nullable reference types."
+          - id: REQ-QUAL-004
+            title: The library shall provide type-safe APIs with nullable reference types.
+            justification: |
+              Nullable reference types enhance type safety by making nullability explicit in the type
+              system. This improves code quality, reduces null reference exceptions, and makes the API
+              more intuitive for consumers.
             tests:
-              - "SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance"
-              - "SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance"
+              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
 
-          - id: "REQ-QUAL-005"
-            title: "The library shall provide comparison utilities for SPDX elements."
+          - id: REQ-QUAL-005
+            title: The library shall provide comparison utilities for SPDX elements.
+            justification: |
+              Comparison utilities enable applications to determine equality and equivalence between
+              SPDX elements. This is essential for testing, change detection, and implementing operations
+              like document merging or deduplication.
             tests:
-              - "SpdxDocument_SameComparer_ComparesCorrectly"
-              - "SpdxPackage_SameComparer_ComparesCorrectly"
-              - "SpdxFile_SameComparer_ComparesCorrectly"
-              - "SpdxRelationship_SameComparer_ComparesCorrectly"
+              - SpdxDocument_SameComparer_ComparesCorrectly
+              - SpdxPackage_SameComparer_ComparesCorrectly
+              - SpdxFile_SameComparer_ComparesCorrectly
+              - SpdxRelationship_SameComparer_ComparesCorrectly

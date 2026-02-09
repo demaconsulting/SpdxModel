@@ -1,0 +1,16 @@
+---
+title: SpdxModel Library
+subtitle: Requirements Justifications
+author: DEMA Consulting
+description: Requirements justifications for the SpdxModel C# library documenting the rationale behind each requirement
+lang: en-US
+keywords:
+  - SpdxModel
+  - Requirements
+  - Justifications
+  - C#
+  - .NET
+  - SPDX
+  - SBOM
+  - Software Bill of Materials
+---
