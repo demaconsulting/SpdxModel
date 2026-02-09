@@ -263,13 +263,14 @@ jobs:
           path: test-results
           merge-multiple: true
 
-      - name: Generate Requirements Report and Trace Matrix
+      - name: Generate Requirements Report, Trace Matrix, and Justifications
         run: >
           dotnet reqstream
           --requirements requirements.yaml
           --tests "test-results/**/*.trx"
           --report docs/requirements/requirements.md
           --matrix docs/tracematrix/tracematrix.md
+          --justifications docs/justifications/justifications.md
           --enforce
 
       - name: Generate User Guide HTML with Pandoc
@@ -311,6 +312,19 @@ jobs:
           dotnet weasyprint
           docs/tracematrix/tracematrix.html
           "docs/SpdxModel Trace Matrix.pdf"
+
+      - name: Generate Justifications HTML with Pandoc
+        run: >
+          dotnet pandoc
+          docs/justifications/title.txt
+          --defaults docs/justifications/definition.yaml
+          --output docs/justifications/justifications.html
+
+      - name: Generate Justifications PDF with Weasyprint
+        run: >
+          dotnet weasyprint
+          docs/justifications/justifications.html
+          "docs/SpdxModel Requirements Justifications.pdf"
 
       - name: Generate CodeQL Quality Report with SarifMark
         shell: pwsh
