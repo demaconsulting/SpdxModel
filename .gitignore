@@ -29,5 +29,6 @@ docs/*.html
 docs/*.pdf
 docs/requirements/requirements.md
 docs/tracematrix/tracematrix.md
+docs/justifications/justifications.md
 *.err
 package-lock.json

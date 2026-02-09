@@ -274,10 +274,13 @@ jobs:
           --enforce
 
       - name: Generate User Guide HTML with Pandoc
+        shell: bash
         run: >
           dotnet pandoc
           docs/guide/title.txt
           --defaults docs/guide/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --filter node_modules/.bin/mermaid-filter.cmd
           --output docs/guide/guide.html
 
@@ -288,10 +291,13 @@ jobs:
           "docs/SpdxModel User Guide.pdf"
 
       - name: Generate Requirements HTML with Pandoc
+        shell: bash
         run: >
           dotnet pandoc
           docs/requirements/title.txt
           --defaults docs/requirements/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --output docs/requirements/requirements.html
 
       - name: Generate Requirements PDF with Weasyprint
@@ -301,10 +307,13 @@ jobs:
           "docs/SpdxModel Requirements.pdf"
 
       - name: Generate Trace Matrix HTML with Pandoc
+        shell: bash
         run: >
           dotnet pandoc
           docs/tracematrix/title.txt
           --defaults docs/tracematrix/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --output docs/tracematrix/tracematrix.html
 
       - name: Generate Trace Matrix PDF with Weasyprint
@@ -314,10 +323,13 @@ jobs:
           "docs/SpdxModel Trace Matrix.pdf"
 
       - name: Generate Justifications HTML with Pandoc
+        shell: bash
         run: >
           dotnet pandoc
           docs/justifications/title.txt
           --defaults docs/justifications/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --output docs/justifications/justifications.html
 
       - name: Generate Justifications PDF with Weasyprint
@@ -361,10 +373,13 @@ jobs:
           Get-Content docs/quality/sonar-quality.md
 
       - name: Generate Code Quality HTML with Pandoc
+        shell: bash
         run: >
           dotnet pandoc
           docs/quality/title.txt
           --defaults docs/quality/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --output docs/quality/quality.html
 
       - name: Generate Code Quality PDF with Weasyprint
