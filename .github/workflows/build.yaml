@@ -409,7 +409,10 @@ jobs:
         shell: bash
         run: >
           dotnet pandoc
+          docs/buildnotes/title.txt
           --defaults docs/buildnotes/definition.yaml
+          --metadata version="${{ inputs.version }}"
+          --metadata date="$(date +'%Y-%m-%d')"
           --filter node_modules/.bin/mermaid-filter.cmd
           --output docs/buildnotes/buildnotes.html
 
