@@ -389,8 +389,26 @@ jobs:
           docs/quality/quality.html
           "docs/SpdxModel Code Quality.pdf"
 
+      - name: Generate Build Notes with BuildMark
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: >
+          dotnet buildmark
+          --build-version ${{ inputs.version }}
+          --report docs/buildnotes.md
+          --report-depth 1
+
+      - name: Display Build Notes Report
+        shell: pwsh
+        run: |
+          echo "=== Build Notes Report ==="
+          Get-Content docs/buildnotes.md
+
       - name: Upload Documentation
         uses: actions/upload-artifact@v6
         with:
           name: documentation
-          path: docs/*.pdf
+          path: |
+            docs/*.pdf
+            docs/buildnotes.md
