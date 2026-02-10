@@ -25,6 +25,11 @@ coverage/
 node_modules/
 
 # Generated documentation
+docs/guide/*.html
+docs/requirements/*.html
+docs/tracematrix/*.html
+docs/justifications/*.html
+docs/quality/*.html
 docs/buildnotes/*.html
 docs/*.pdf
 docs/requirements/requirements.md
