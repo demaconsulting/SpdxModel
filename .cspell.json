@@ -37,7 +37,20 @@
     "SonarCloud",
     "sonarcloud",
     "sonarmark",
-    "sarifmark"
+    "sarifmark",
+    "SPDXID",
+    "ntia",
+    "NTIA",
+    "Ntia",
+    "NOASSERTION",
+    "SPDXJSON",
+    "Neko",
+    "Cyper",
+    "Doap",
+    "DOAP",
+    "Protecode",
+    "acmecorp",
+    "acmenator"
   ],
   "ignorePaths": [
     "**/*.spdx.json",
