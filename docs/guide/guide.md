@@ -1,26 +1,6 @@
-# SpdxModel Library - User Guide
+# Introduction
 
-A comprehensive guide to using the SpdxModel library for working with SPDX documents in C#.
-
-## Quick Navigation
-
-This section provides quick links to major sections when viewing this guide on GitHub. A complete table of contents
-is available in the generated HTML and PDF versions.
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Core Concepts](#core-concepts)
-- [Working with Documents](#working-with-documents)
-- [Working with Packages](#working-with-packages)
-- [Working with Files](#working-with-files)
-- [Working with Relationships](#working-with-relationships)
-- [Advanced Usage](#advanced-usage)
-- [Best Practices](#best-practices)
-
-## Introduction
-
-### What is SpdxModel?
+## Purpose
 
 The SpdxModel library is a modern C# library designed for working with SPDX (Software Package Data Exchange) documents.
 SPDX is an open standard for communicating software bill of materials (SBOM) information, including components,
@@ -29,23 +9,7 @@ licenses, copyrights, and security references.
 This library provides a comprehensive in-memory model for reading, manipulating, and writing SPDX SBOM files in JSON
 format.
 
-### When to Use SpdxModel
-
-This library is ideal for:
-
-- **SBOM Generation**: Creating software bill of materials for your applications
-- **SBOM Analysis**: Parsing and analyzing existing SPDX documents
-- **License Compliance**: Tracking and managing software licenses
-- **Supply Chain Security**: Managing software component relationships and dependencies
-- **CI/CD Integration**: Automating SBOM creation and validation in build pipelines
-- **Tool Integration**: Building tools that work with SPDX documents
-
-### Supported SPDX Versions
-
-- **SPDX 2.2**: Full support for SPDX 2.2 specification
-- **SPDX 2.3**: Full support for SPDX 2.3 specification
-
-### Key Features
+The library offers the following key features:
 
 - 🚀 **Full SPDX Support**: Complete implementation of SPDX 2.2 and 2.3 specifications
 - 📦 **In-Memory Model**: Efficient object model for SPDX documents
@@ -56,14 +20,30 @@ This library is ideal for:
 - 🧪 **Well-Tested**: Comprehensive test suite with high code coverage
 - 📚 **Well-Documented**: XML documentation for all public APIs
 
-## Installation
+## Scope
 
-### Prerequisites
+This library is ideal for:
+
+- **SBOM Generation**: Creating software bill of materials for your applications
+- **SBOM Analysis**: Parsing and analyzing existing SPDX documents
+- **License Compliance**: Tracking and managing software licenses
+- **Supply Chain Security**: Managing software component relationships and dependencies
+- **CI/CD Integration**: Automating SBOM creation and validation in build pipelines
+- **Tool Integration**: Building tools that work with SPDX documents
+
+The library fully supports the following SPDX specifications:
+
+- **SPDX 2.2**: Full support for SPDX 2.2 specification
+- **SPDX 2.3**: Full support for SPDX 2.3 specification
+
+# Installation
+
+## Prerequisites
 
 - .NET 8.0, 9.0, or 10.0
 - C# 12 or later
 
-### Installing via NuGet
+## Installing via NuGet
 
 You can install the SpdxModel package via NuGet Package Manager:
 
@@ -77,7 +57,7 @@ Or via the Package Manager Console in Visual Studio:
 Install-Package DemaConsulting.SpdxModel
 ```
 
-### Verifying Installation
+## Verifying Installation
 
 After installation, verify that you can import the library:
 
@@ -86,9 +66,9 @@ using DemaConsulting.SpdxModel;
 using DemaConsulting.SpdxModel.IO;
 ```
 
-## Quick Start
+# Quick Start
 
-### Reading an SPDX Document
+## Reading an SPDX Document
 
 The simplest way to get started is to read an existing SPDX document:
 
@@ -108,7 +88,7 @@ Console.WriteLine($"Packages: {document.Packages.Length}");
 Console.WriteLine($"Files: {document.Files.Length}");
 ```
 
-### Creating a Simple SPDX Document
+## Creating a Simple SPDX Document
 
 Here's how to create a minimal SPDX document:
 
@@ -149,9 +129,9 @@ var json = Spdx2JsonSerializer.Serialize(document);
 File.WriteAllText("output.spdx.json", json);
 ```
 
-## Core Concepts
+# Core Concepts
 
-### SPDX Elements
+## SPDX Elements
 
 SPDX documents consist of several key element types:
 
@@ -161,7 +141,7 @@ SPDX documents consist of several key element types:
 - **Snippet**: Represents code snippets within files
 - **Relationship**: Describes relationships between elements
 
-### SPDX Identifiers
+## SPDX Identifiers
 
 Every SPDX element must have a unique identifier within the document. Identifiers follow the format `SPDXRef-{name}`:
 
@@ -173,7 +153,7 @@ var package = new SpdxPackage
 };
 ```
 
-### Document Namespace
+## Document Namespace
 
 Every SPDX document must have a unique namespace URI that identifies the document:
 
@@ -186,9 +166,9 @@ var document = new SpdxDocument
 
 The namespace should be unique for each version of your software.
 
-## Working with Documents
+# Working with Documents
 
-### Document Properties
+## Document Properties
 
 A complete SPDX document includes:
 
@@ -226,7 +206,7 @@ var document = new SpdxDocument
 };
 ```
 
-### Document Describes Relationship
+## Document Describes Relationship
 
 Every SPDX document should have at least one "DESCRIBES" relationship indicating what the document describes:
 
@@ -242,9 +222,9 @@ document.Relationships =
 ];
 ```
 
-## Working with Packages
+# Working with Packages
 
-### Creating Packages
+## Creating Packages
 
 A package represents a software component or library:
 
@@ -282,7 +262,7 @@ var package = new SpdxPackage
 };
 ```
 
-### Package with Files
+## Package with Files
 
 When a package includes file information:
 
@@ -322,7 +302,7 @@ document.Relationships =
 ];
 ```
 
-### External References
+## External References
 
 Packages can include external references for security and other metadata:
 
@@ -349,9 +329,9 @@ var package = new SpdxPackage
 };
 ```
 
-## Working with Files
+# Working with Files
 
-### Creating Files
+## Creating Files
 
 Files represent individual files within packages:
 
@@ -385,7 +365,7 @@ var file = new SpdxFile
 };
 ```
 
-### File Checksums
+## File Checksums
 
 Files should include checksums for integrity verification:
 
@@ -410,9 +390,9 @@ var file = new SpdxFile
 };
 ```
 
-## Working with Relationships
+# Working with Relationships
 
-### Relationship Types
+## Relationship Types
 
 SPDX defines many relationship types. Common ones include:
 
@@ -424,7 +404,7 @@ SPDX defines many relationship types. Common ones include:
 - **DEV_DEPENDENCY_OF**: Development dependency
 - **GENERATED_FROM**: File generated from another file
 
-### Adding Relationships
+## Adding Relationships
 
 ```csharp
 using DemaConsulting.SpdxModel.Transform;
@@ -440,16 +420,16 @@ var relationship = new SpdxRelationship
 SpdxRelationships.Add(document, relationship);
 ```
 
-### Finding Related Elements
+## Finding Related Elements
 
 ```csharp
 // Get packages described by the document
 var rootPackages = document.GetRootPackages();
 ```
 
-## Advanced Usage
+# Advanced Usage
 
-### Custom License References
+## Custom License References
 
 For licenses not in the SPDX license list:
 
@@ -479,7 +459,7 @@ var package = new SpdxPackage
 };
 ```
 
-### Document Annotations
+## Document Annotations
 
 Add annotations to provide additional information:
 
@@ -495,7 +475,7 @@ var annotation = new SpdxAnnotation
 document.Annotations = [annotation];
 ```
 
-### Working with Snippets
+## Working with Snippets
 
 Snippets represent portions of files:
 
@@ -513,9 +493,9 @@ var snippet = new SpdxSnippet
 document.Snippets = [snippet];
 ```
 
-## Best Practices
+# Best Practices
 
-### Use Meaningful Identifiers
+## Use Meaningful Identifiers
 
 Choose descriptive SPDX identifiers:
 
@@ -527,7 +507,7 @@ Id = "SPDXRef-Package-MyLibrary-1.0.0"
 Id = "SPDXRef-Package1"
 ```
 
-### Include Complete License Information
+## Include Complete License Information
 
 Always specify both concluded and declared licenses:
 
@@ -539,7 +519,7 @@ var package = new SpdxPackage
 };
 ```
 
-### Use Checksums for Files
+## Use Checksums for Files
 
 Always include checksums for files when possible:
 
@@ -558,7 +538,7 @@ var file = new SpdxFile
 };
 ```
 
-### Maintain Unique Document Namespaces
+## Maintain Unique Document Namespaces
 
 Each version of your software should have a unique namespace:
 
@@ -570,7 +550,7 @@ DocumentNamespace = "https://example.com/myapp/1.0.0"
 DocumentNamespace = "https://example.com/myapp"
 ```
 
-### Document Relationships
+## Document Relationships
 
 Explicitly document relationships between components:
 
@@ -587,7 +567,7 @@ document.Relationships =
 ];
 ```
 
-### Include Creator Information
+## Include Creator Information
 
 Provide complete creator information:
 
@@ -604,7 +584,7 @@ CreationInformation = new SpdxCreationInformation
 };
 ```
 
-### Error Handling
+## Error Handling
 
 Always handle potential errors when deserializing:
 
@@ -624,11 +604,11 @@ catch (IOException ex)
 }
 ```
 
-## Troubleshooting
+# Troubleshooting
 
-### Common Issues
+## Common Issues
 
-#### Invalid SPDX Identifier Format
+### Invalid SPDX Identifier Format
 
 SPDX identifiers must start with "SPDXRef-":
 
@@ -640,7 +620,7 @@ Id = "SPDXRef-MyPackage"
 Id = "MyPackage"
 ```
 
-#### Missing Required Fields
+### Missing Required Fields
 
 Ensure all required fields are populated:
 
@@ -656,7 +636,7 @@ var document = new SpdxDocument
 };
 ```
 
-## Additional Resources
+# Additional Resources
 
 - [SPDX Specification][spdx-spec] - Official SPDX specification
 - [API Documentation][api-docs] - Detailed API reference
@@ -664,7 +644,7 @@ var document = new SpdxDocument
 - [NuGet Package][nuget-package] - Package downloads
 - [spdx-tool][spdx-tool] - Command-line tool for SPDX documents
 
-## Support
+# Support
 
 For help and support:
 
@@ -672,7 +652,7 @@ For help and support:
 - 💬 **Discussions**: [GitHub Discussions][github-discussions]
 - 📧 **Email**: Contact DEMA Consulting for enterprise support
 
-## License
+# License
 
 This library is licensed under the MIT License. See the LICENSE file for details.
 
