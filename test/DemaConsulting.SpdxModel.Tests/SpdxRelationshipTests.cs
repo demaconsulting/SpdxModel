@@ -211,8 +211,7 @@ public class SpdxRelationshipTests
         relationship.Validate(issues, null);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Relationship Invalid SPDX Element ID Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Relationship Invalid SPDX Element ID Field - Empty"), issues);
     }
 
     /// <summary>
@@ -234,8 +233,7 @@ public class SpdxRelationshipTests
         relationship.Validate(issues, null);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Relationship Invalid Related SPDX Element Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Relationship Invalid Related SPDX Element Field - Empty"), issues);
     }
 
     /// <summary>
@@ -257,8 +255,7 @@ public class SpdxRelationshipTests
         relationship.Validate(issues, null);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Relationship Invalid Relationship Type Field - Missing")));
+        Assert.Contains(issue => issue.Contains("Relationship Invalid Relationship Type Field - Missing"), issues);
     }
 
     /// <summary>

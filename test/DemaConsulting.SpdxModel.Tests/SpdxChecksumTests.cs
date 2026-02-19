@@ -151,8 +151,7 @@ public class SpdxChecksumTests
         checksum.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Checksum Algorithm Field - Missing")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Checksum Algorithm Field - Missing"), issues);
     }
 
     /// <summary>
@@ -173,8 +172,7 @@ public class SpdxChecksumTests
         checksum.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Checksum Value Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Checksum Value Field - Empty"), issues);
     }
 
     /// <summary>

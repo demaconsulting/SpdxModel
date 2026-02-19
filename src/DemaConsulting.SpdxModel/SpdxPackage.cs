@@ -446,16 +446,10 @@ public sealed class SpdxPackage : SpdxLicenseElement
             issues.Add($"Package '{Name}' HasFiles references missing files");
         }
 
-        // SPDX NTIA Supplier Name Check
-        if (ntia && string.IsNullOrEmpty(Supplier))
+        // SPDX NTIA Supplier Name and Version checks
+        if (ntia)
         {
-            issues.Add($"NTIA: Package '{Name}' Missing Supplier");
-        }
-
-        // SPDX NTIA Version String Check
-        if (ntia && string.IsNullOrEmpty(Version))
-        {
-            issues.Add($"NTIA: Package '{Name}' Missing Version");
+            ValidateNtia(issues);
         }
 
         // Release Date field
@@ -474,6 +468,25 @@ public sealed class SpdxPackage : SpdxLicenseElement
         if (!SpdxHelpers.IsValidSpdxDateTime(ValidUntilDate))
         {
             issues.Add($"Package '{Name}' Invalid Valid Until Date Field '{ValidUntilDate}'");
+        }
+    }
+
+    /// <summary>
+    ///     Perform NTIA validation of information
+    /// </summary>
+    /// <param name="issues">List to populate with issues</param>
+    private void ValidateNtia(List<string> issues)
+    {
+        // SPDX NTIA Supplier Name Check
+        if (string.IsNullOrEmpty(Supplier))
+        {
+            issues.Add($"NTIA: Package '{Name}' Missing Supplier");
+        }
+
+        // SPDX NTIA Version String Check
+        if (string.IsNullOrEmpty(Version))
+        {
+            issues.Add($"NTIA: Package '{Name}' Missing Version");
         }
     }
 

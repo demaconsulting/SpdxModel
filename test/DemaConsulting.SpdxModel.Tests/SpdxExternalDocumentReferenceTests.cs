@@ -189,8 +189,7 @@ public class SpdxExternalDocumentReferenceTests
         reference.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty")));
+        Assert.Contains(issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty"), issues);
     }
 
     /// <summary>
@@ -211,7 +210,6 @@ public class SpdxExternalDocumentReferenceTests
         reference.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty")));
+        Assert.Contains(issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty"), issues);
     }
 }
