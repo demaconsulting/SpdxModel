@@ -51,7 +51,7 @@ var document = Spdx2JsonDeserializer.Deserialize(json);
 
 // Access document properties
 Console.WriteLine($"Document: {document.Name}");
-Console.WriteLine($"Version: {document.SpdxVersion}");
+Console.WriteLine($"Version: {document.Version}");
 Console.WriteLine($"Packages: {document.Packages.Length}");
 ```
 
@@ -66,7 +66,7 @@ var document = new SpdxDocument
 {
     Id = "SPDXRef-DOCUMENT",
     Name = "My Software",
-    SpdxVersion = "SPDX-2.3",
+    Version = "SPDX-2.3",
     DocumentNamespace = "https://example.com/my-software",
     CreationInformation = new SpdxCreationInformation
     {

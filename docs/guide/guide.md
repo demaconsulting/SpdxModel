@@ -102,7 +102,7 @@ var document = Spdx2JsonDeserializer.Deserialize(json);
 
 // Access document properties
 Console.WriteLine($"Document: {document.Name}");
-Console.WriteLine($"Version: {document.SpdxVersion}");
+Console.WriteLine($"Version: {document.Version}");
 Console.WriteLine($"Namespace: {document.DocumentNamespace}");
 Console.WriteLine($"Packages: {document.Packages.Length}");
 Console.WriteLine($"Files: {document.Files.Length}");
@@ -121,7 +121,7 @@ var document = new SpdxDocument
 {
     Id = "SPDXRef-DOCUMENT",
     Name = "My Software",
-    SpdxVersion = "SPDX-2.3",
+    Version = "SPDX-2.3",
     DocumentNamespace = "https://example.com/my-software/1.0.0",
     CreationInformation = new SpdxCreationInformation
     {
@@ -198,7 +198,7 @@ var document = new SpdxDocument
     // Required fields
     Id = "SPDXRef-DOCUMENT",
     Name = "My Software SBOM",
-    SpdxVersion = "SPDX-2.3",
+    Version = "SPDX-2.3",
     DataLicense = "CC0-1.0",
     DocumentNamespace = "https://example.com/my-software/1.0.0",
     
@@ -649,7 +649,7 @@ var document = new SpdxDocument
 {
     Id = "SPDXRef-DOCUMENT",        // Required
     Name = "MyDoc",                 // Required
-    SpdxVersion = "SPDX-2.3",       // Required
+    Version = "SPDX-2.3",           // Required
     DataLicense = "CC0-1.0",        // Required
     DocumentNamespace = "...",       // Required
     CreationInformation = new ...   // Required
