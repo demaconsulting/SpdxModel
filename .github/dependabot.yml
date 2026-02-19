@@ -1,35 +1,22 @@
 ---
 version: 2
 updates:
-  # Enable version updates for NuGet
+  # Maintain dependencies for NuGet
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "nuget"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
     groups:
-      dependencies:
-        applies-to: version-updates
+      nuget-dependencies:
         patterns:
           - "*"
 
-  # Enable version updates for GitHub Actions
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "github-actions"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
+    open-pull-requests-limit: 10
