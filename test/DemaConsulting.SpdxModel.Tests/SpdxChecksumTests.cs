@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -134,10 +134,10 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad algorithms
+    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad algorithms.
     /// </summary>
     [TestMethod]
-    public void SpdxChecksum_Validate_BadAlgorithm()
+    public void SpdxChecksum_Validate_InvalidAlgorithm()
     {
         // Arrange: Create a bad instance
         var checksum = new SpdxChecksum
@@ -156,10 +156,10 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad values
+    ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad values.
     /// </summary>
     [TestMethod]
-    public void SpdxChecksum_Validate_BadValue()
+    public void SpdxChecksum_Validate_InvalidValue()
     {
         // Arrange: Create a bad instance
         var checksum = new SpdxChecksum

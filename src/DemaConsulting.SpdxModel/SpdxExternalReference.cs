@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -95,7 +95,9 @@ public sealed class SpdxExternalReference
     {
         // Populate the category if missing
         if (Category == SpdxReferenceCategory.Missing)
+        {
             Category = other.Category;
+        }
 
         // Populate the type field if missing
         Type = SpdxHelpers.EnhanceString(Type, other.Type) ?? "";
@@ -124,15 +126,19 @@ public sealed class SpdxExternalReference
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -144,15 +150,21 @@ public sealed class SpdxExternalReference
     {
         // Validate External Reference Category Field
         if (Category == SpdxReferenceCategory.Missing)
+        {
             issues.Add($"Package '{package}' Invalid External Reference Category Field - Missing");
+        }
 
         // Validate External Reference Type Field
         if (Type.Length == 0)
+        {
             issues.Add($"Package '{package}' Invalid External Reference Type Field - Empty");
+        }
 
         // Validate External Reference Locator Field
         if (Locator.Length == 0)
+        {
             issues.Add($"Package '{package}' Invalid External Reference Locator Field - Empty");
+        }
     }
 
     /// <summary>
@@ -163,8 +175,15 @@ public sealed class SpdxExternalReference
         /// <inheritdoc />
         public bool Equals(SpdxExternalReference? r1, SpdxExternalReference? r2)
         {
-            if (ReferenceEquals(r1, r2)) return true;
-            if (r1 == null || r2 == null) return false;
+            if (ReferenceEquals(r1, r2))
+            {
+                return true;
+            }
+
+            if (r1 == null || r2 == null)
+            {
+                return false;
+            }
 
             return r1.Category == r2.Category &&
                    r1.Type == r2.Type &&

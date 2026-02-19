@@ -445,12 +445,6 @@ SpdxRelationships.Add(document, relationship);
 ```csharp
 // Get packages described by the document
 var rootPackages = document.GetRootPackages();
-
-// Get dependencies of a package
-var dependencies = document.GetPackageDependencies("SPDXRef-Package1");
-
-// Get all files in a package
-var files = document.GetPackageFiles("SPDXRef-Package1");
 ```
 
 ## Advanced Usage
@@ -511,14 +505,8 @@ var snippet = new SpdxSnippet
     Id = "SPDXRef-Snippet1",
     SnippetFromFile = "SPDXRef-File1",
     Name = "Authentication Function",
-    Ranges =
-    [
-        new SpdxRange
-        {
-            StartPointer = new SpdxPointer { LineNumber = 100 },
-            EndPointer = new SpdxPointer { LineNumber = 150 }
-        }
-    ],
+    SnippetLineStart = 100,
+    SnippetLineEnd = 150,
     LicenseConcluded = "MIT"
 };
 
@@ -670,18 +658,18 @@ var document = new SpdxDocument
 
 ## Additional Resources
 
-- [SPDX Specification](https://spdx.dev/) - Official SPDX specification
-- [API Documentation](https://github.com/demaconsulting/SpdxModel/wiki) - Detailed API reference
-- [GitHub Repository](https://github.com/demaconsulting/SpdxModel) - Source code and issues
-- [NuGet Package](https://www.nuget.org/packages/DemaConsulting.SpdxModel/) - Package downloads
-- [spdx-tool](https://github.com/demaconsulting/spdx-tool) - Command-line tool for SPDX documents
+- [SPDX Specification][spdx-spec] - Official SPDX specification
+- [API Documentation][api-docs] - Detailed API reference
+- [GitHub Repository][github-repo] - Source code and issues
+- [NuGet Package][nuget-package] - Package downloads
+- [spdx-tool][spdx-tool] - Command-line tool for SPDX documents
 
 ## Support
 
 For help and support:
 
-- 📫 **Issues**: [GitHub Issues](https://github.com/demaconsulting/SpdxModel/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/demaconsulting/SpdxModel/discussions)
+- 📫 **Issues**: [GitHub Issues][github-issues]
+- 💬 **Discussions**: [GitHub Discussions][github-discussions]
 - 📧 **Email**: Contact DEMA Consulting for enterprise support
 
 ## License
@@ -690,4 +678,13 @@ This library is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-Made with ❤️ by [DEMA Consulting](https://github.com/demaconsulting)
+Made with ❤️ by [DEMA Consulting][dema-consulting]
+
+[spdx-spec]: https://spdx.dev/
+[api-docs]: https://github.com/demaconsulting/SpdxModel/wiki
+[github-repo]: https://github.com/demaconsulting/SpdxModel
+[nuget-package]: https://www.nuget.org/packages/DemaConsulting.SpdxModel/
+[spdx-tool]: https://github.com/demaconsulting/spdx-tool
+[github-issues]: https://github.com/demaconsulting/SpdxModel/issues
+[github-discussions]: https://github.com/demaconsulting/SpdxModel/discussions
+[dema-consulting]: https://github.com/demaconsulting

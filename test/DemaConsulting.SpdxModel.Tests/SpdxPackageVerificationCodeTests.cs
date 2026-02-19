@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -121,7 +121,7 @@ public class SpdxPackageVerificationCodeTests
     ///     Tests the <see cref="SpdxPackageVerificationCode.Validate" /> method reports bad annotators
     /// </summary>
     [TestMethod]
-    public void SpdxPackageVerificationCode_Validate_BadAnnotator()
+    public void SpdxPackageVerificationCode_Validate_InvalidValue()
     {
         // Arrange: Create a bad package verification code
         var info = new SpdxPackageVerificationCode

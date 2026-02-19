@@ -6,6 +6,7 @@ extends: default
 
 ignore: |
   node_modules/
+  .git/
 
 rules:
   # Allow 'on:' in GitHub Actions workflows (not a boolean value)

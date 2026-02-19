@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -99,7 +99,9 @@ public sealed class SpdxAnnotation : SpdxElement
 
         // Populate the type if missing
         if (Type == SpdxAnnotationType.Missing)
+        {
             Type = other.Type;
+        }
 
         // Populate the comment if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment) ?? "";
@@ -122,11 +124,15 @@ public sealed class SpdxAnnotation : SpdxElement
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
@@ -142,19 +148,27 @@ public sealed class SpdxAnnotation : SpdxElement
     {
         // Validate Annotator Field
         if (Annotator.Length == 0)
+        {
             issues.Add($"{parent} Invalid Annotator Field - Empty");
+        }
 
         // Validate Annotation Date Field
         if (!SpdxHelpers.IsValidSpdxDateTime(Date))
+        {
             issues.Add($"{parent} Invalid Annotation Date Field '{Date}'");
+        }
 
         // Validate Annotation Type Field
         if (Type == SpdxAnnotationType.Missing)
+        {
             issues.Add($"{parent} Invalid Annotation Type Field - Missing");
+        }
 
         // Validate Annotation Comment Field
         if (Comment.Length == 0)
+        {
             issues.Add($"{parent} Invalid Annotation Comment - Empty");
+        }
     }
 
     /// <summary>
@@ -165,8 +179,15 @@ public sealed class SpdxAnnotation : SpdxElement
         /// <inheritdoc />
         public bool Equals(SpdxAnnotation? a1, SpdxAnnotation? a2)
         {
-            if (ReferenceEquals(a1, a2)) return true;
-            if (a1 == null || a2 == null) return false;
+            if (ReferenceEquals(a1, a2))
+            {
+                return true;
+            }
+
+            if (a1 == null || a2 == null)
+            {
+                return false;
+            }
 
             return a1.Annotator == a2.Annotator &&
                    a1.Date == a2.Date &&

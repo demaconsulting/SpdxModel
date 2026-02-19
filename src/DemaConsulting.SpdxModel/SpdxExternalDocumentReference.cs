@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -105,15 +105,19 @@ public sealed class SpdxExternalDocumentReference
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -124,14 +128,18 @@ public sealed class SpdxExternalDocumentReference
     {
         // Validate External Document ID Field
         if (ExternalDocumentId.Length == 0)
+        {
             issues.Add("External Document Reference Invalid External Document ID Field - Empty");
+        }
 
         // Validate External Document Checksum Field
         Checksum.Validate($"External Document Reference '{ExternalDocumentId}'", issues);
 
         // Validate SPDX Document URI Field
         if (Document.Length == 0)
+        {
             issues.Add($"External Document Reference '{ExternalDocumentId}' Invalid SPDX Document URI Field - Empty");
+        }
     }
 
     /// <summary>
@@ -142,8 +150,15 @@ public sealed class SpdxExternalDocumentReference
         /// <inheritdoc />
         public bool Equals(SpdxExternalDocumentReference? r1, SpdxExternalDocumentReference? r2)
         {
-            if (ReferenceEquals(r1, r2)) return true;
-            if (r1 == null || r2 == null) return false;
+            if (ReferenceEquals(r1, r2))
+            {
+                return true;
+            }
+
+            if (r1 == null || r2 == null)
+            {
+                return false;
+            }
 
             return r1.Document == r2.Document;
         }

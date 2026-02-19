@@ -81,7 +81,7 @@ doc.ExtractedLicensingInfo[0].ExtractedText);
 doc.ExtractedLicensingInfo[2].ExtractedText);
         Assert.AreEqual("LicenseRef-Beerware-4.2", doc.ExtractedLicensingInfo[3].LicenseId);
         Assert.StartsWith(
-"\"THE BEER-WARE LICENSE\" (Revision 42)",             doc.ExtractedLicensingInfo[3].ExtractedText);
+"\"THE BEER-WARE LICENSE\" (Revision 42)", doc.ExtractedLicensingInfo[3].ExtractedText);
         Assert.AreEqual("Beer-Ware License (Version 42)", doc.ExtractedLicensingInfo[3].Name);
         Assert.HasCount(1, doc.ExtractedLicensingInfo[3].CrossReferences);
         Assert.AreEqual("http://people.freebsd.org/~phk/", doc.ExtractedLicensingInfo[3].CrossReferences[0]);

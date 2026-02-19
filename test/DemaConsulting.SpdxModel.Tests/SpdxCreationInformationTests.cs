@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -88,12 +88,12 @@ public class SpdxCreationInformationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports missing creators
+    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports missing creators.
     /// </summary>
     [TestMethod]
     public void SpdxCreationInformation_Validate_MissingCreators()
     {
-        // Arrange: Create a bad creation information
+        // Arrange: Create creation information with empty creators array
         var info = new SpdxCreationInformation
         {
             Creators = [],
@@ -101,22 +101,22 @@ public class SpdxCreationInformationTests
             Comment = "This package has been shipped in source and binary form."
         };
 
-        // Act: Perform validation on the SpdxCreationInformation instance.
+        // Act: Perform validation on the SpdxCreationInformation instance
         var issues = new List<string>();
         info.Validate(issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the missing creators
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Document Invalid Creator Field - Empty")));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports bad creators
+    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports invalid creators.
     /// </summary>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_BadCreator()
+    public void SpdxCreationInformation_Validate_InvalidCreator()
     {
-        // Arrange: Create a bad creation information
+        // Arrange: Create creation information with invalid creator format
         var info = new SpdxCreationInformation
         {
             Creators = ["BadCreator"],
@@ -124,22 +124,22 @@ public class SpdxCreationInformationTests
             Comment = "This package has been shipped in source and binary form."
         };
 
-        // Act: Perform validation on the SpdxCreationInformation instance.
+        // Act: Perform validation on the SpdxCreationInformation instance
         var issues = new List<string>();
         info.Validate(issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid creator
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Document Invalid Creator Entry 'BadCreator'")));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports bad created dates
+    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports invalid created dates.
     /// </summary>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_BadCreated()
+    public void SpdxCreationInformation_Validate_InvalidCreatedDate()
     {
-        // Arrange: Create a bad creation information
+        // Arrange: Create creation information with invalid created date
         var info = new SpdxCreationInformation
         {
             Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
@@ -147,22 +147,22 @@ public class SpdxCreationInformationTests
             Comment = "This package has been shipped in source and binary form."
         };
 
-        // Act: Perform validation on the SpdxCreationInformation instance.
+        // Act: Perform validation on the SpdxCreationInformation instance
         var issues = new List<string>();
         info.Validate(issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid created date
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Document Invalid Created Field 'BadDate'")));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports bad versions
+    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports invalid versions.
     /// </summary>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_BadVersion()
+    public void SpdxCreationInformation_Validate_InvalidVersion()
     {
-        // Arrange: Create a bad creation information
+        // Arrange: Create creation information with invalid license list version
         var info = new SpdxCreationInformation
         {
             Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
@@ -171,11 +171,11 @@ public class SpdxCreationInformationTests
             LicenseListVersion = "BadVersion"
         };
 
-        // Act: Perform validation on the SpdxCreationInformation instance.
+        // Act: Perform validation on the SpdxCreationInformation instance
         var issues = new List<string>();
         info.Validate(issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid license list version
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Document Invalid License List Version Field 'BadVersion'")));
     }

@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -143,7 +143,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad license IDs
     /// </summary>
     [TestMethod]
-    public void SpdxExtractedLicensingInfo_Validate_BadLicenseId()
+    public void SpdxExtractedLicensingInfo_Validate_InvalidLicenseId()
     {
         // Arrange: Create a bad licensing info
         var info = new SpdxExtractedLicensingInfo
@@ -165,7 +165,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad extracted text
     /// </summary>
     [TestMethod]
-    public void SpdxExtractedLicensingInfo_Validate_BadExtractedText()
+    public void SpdxExtractedLicensingInfo_Validate_InvalidExtractedText()
     {
         // Arrange: Create a bad licensing info
         var info = new SpdxExtractedLicensingInfo

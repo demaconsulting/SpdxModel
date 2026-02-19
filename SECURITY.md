@@ -21,7 +21,7 @@ If you discover a security vulnerability, please follow these steps:
 
 1. **Do not** open a public GitHub issue
 2. Report the vulnerability using the
-   [Security tab](https://github.com/demaconsulting/SpdxModel/security/advisories/new) of this GitHub repository
+   [Security tab][security-tab] of this GitHub repository
 3. Include the following information in your report:
    - Description of the vulnerability
    - Steps to reproduce the issue
@@ -112,12 +112,17 @@ We would like to thank the following individuals for responsibly disclosing secu
 ## Contact
 
 For security-related inquiries, please use the project's GitHub issue tracker (for non-sensitive issues) or the
-[Security tab](https://github.com/demaconsulting/SpdxModel/security/advisories/new) (for sensitive security issues).
+[Security tab][security-tab] (for sensitive security issues).
 
 ## Additional Resources
 
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [.NET Security Guidelines](https://docs.microsoft.com/en-us/dotnet/standard/security/)
-- [GitHub Security Best Practices](https://docs.github.com/en/code-security)
+- [OWASP Top 10][owasp-top-10]
+- [.NET Security Guidelines][dotnet-security]
+- [GitHub Security Best Practices][github-security]
 
 Thank you for helping keep SpdxModel and its users safe!
+
+[security-tab]: https://github.com/demaconsulting/SpdxModel/security/advisories/new
+[owasp-top-10]: https://owasp.org/www-project-top-ten/
+[dotnet-security]: https://docs.microsoft.com/en-us/dotnet/standard/security/
+[github-security]: https://docs.github.com/en/code-security

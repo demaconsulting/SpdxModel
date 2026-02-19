@@ -205,8 +205,8 @@ sections:
               other tools in the SPDX ecosystem.
             tests:
               - SpdxDocument_Validate_NoIssues
-              - SpdxAnnotation_Validate_BadAnnotator
-              - SpdxChecksum_Validate_BadAlgorithm
+              - SpdxAnnotation_Validate_InvalidAnnotator
+              - SpdxChecksum_Validate_InvalidAlgorithm
               - SpdxCreationInformation_Validate_MissingCreators
 
       - title: Quality Requirements

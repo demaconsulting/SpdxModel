@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -104,7 +104,7 @@ public sealed class SpdxExtractedLicensingInfo
         Name = SpdxHelpers.EnhanceString(Name, other.Name);
 
         // Merge the cross-references
-        CrossReferences = [..CrossReferences.Concat(other.CrossReferences).Distinct()];
+        CrossReferences = [.. CrossReferences.Concat(other.CrossReferences).Distinct()];
 
         // Populate the comment field if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
@@ -128,15 +128,19 @@ public sealed class SpdxExtractedLicensingInfo
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -147,11 +151,15 @@ public sealed class SpdxExtractedLicensingInfo
     {
         // Validate Extracted License ID ID Field
         if (LicenseId.Length == 0)
+        {
             issues.Add("Extracted License Information Invalid License ID Field - Empty");
+        }
 
         // Validate Extracted Text Field
         if (ExtractedText.Length == 0)
+        {
             issues.Add($"Extracted License Information '{LicenseId}' Invalid Extracted Text Field - Empty");
+        }
     }
 
     /// <summary>
@@ -162,8 +170,15 @@ public sealed class SpdxExtractedLicensingInfo
         /// <inheritdoc />
         public bool Equals(SpdxExtractedLicensingInfo? l1, SpdxExtractedLicensingInfo? l2)
         {
-            if (ReferenceEquals(l1, l2)) return true;
-            if (l1 == null || l2 == null) return false;
+            if (ReferenceEquals(l1, l2))
+            {
+                return true;
+            }
+
+            if (l1 == null || l2 == null)
+            {
+                return false;
+            }
 
             return l1.ExtractedText == l2.ExtractedText;
         }

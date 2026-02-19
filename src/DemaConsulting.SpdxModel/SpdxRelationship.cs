@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -98,7 +98,9 @@ public sealed class SpdxRelationship : SpdxElement
 
         // Populate the relationship-type field if missing
         if (RelationshipType == SpdxRelationshipType.Missing)
+        {
             RelationshipType = other.RelationshipType;
+        }
 
         // Populate the comment if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment) ?? "";
@@ -121,15 +123,19 @@ public sealed class SpdxRelationship : SpdxElement
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -141,20 +147,30 @@ public sealed class SpdxRelationship : SpdxElement
     {
         // Validate SPDX Element ID Field - must refer to an element in this document
         if (Id.Length == 0)
+        {
             issues.Add("Relationship Invalid SPDX Element ID Field - Empty");
+        }
         else if (doc != null && doc.GetElement(Id) == null)
+        {
             issues.Add($"Relationship Invalid SPDX Element ID Field '{Id}'");
+        }
 
         // Validate Related SPDX Element Field - can be NOASSERTION or external reference
         if (RelatedSpdxElement.Length == 0)
+        {
             issues.Add("Relationship Invalid Related SPDX Element Field - Empty");
+        }
         else if (!RelatedSpdxElement.StartsWith("DocumentRef-") && RelatedSpdxElement != NoAssertion && doc != null &&
                  doc.GetElement(RelatedSpdxElement) == null)
+        {
             issues.Add($"Relationship Invalid Related SPDX Element Field '{RelatedSpdxElement}'");
+        }
 
         // Validate Relationship Type Field
         if (RelationshipType == SpdxRelationshipType.Missing)
+        {
             issues.Add("Relationship Invalid Relationship Type Field - Missing");
+        }
     }
 
     /// <summary>
@@ -165,8 +181,15 @@ public sealed class SpdxRelationship : SpdxElement
         /// <inheritdoc />
         public bool Equals(SpdxRelationship? r1, SpdxRelationship? r2)
         {
-            if (ReferenceEquals(r1, r2)) return true;
-            if (r1 == null || r2 == null) return false;
+            if (ReferenceEquals(r1, r2))
+            {
+                return true;
+            }
+
+            if (r1 == null || r2 == null)
+            {
+                return false;
+            }
 
             return r1.Id == r2.Id &&
                    r1.RelationshipType == r2.RelationshipType &&
@@ -191,8 +214,15 @@ public sealed class SpdxRelationship : SpdxElement
         /// <inheritdoc />
         public bool Equals(SpdxRelationship? r1, SpdxRelationship? r2)
         {
-            if (ReferenceEquals(r1, r2)) return true;
-            if (r1 == null || r2 == null) return false;
+            if (ReferenceEquals(r1, r2))
+            {
+                return true;
+            }
+
+            if (r1 == null || r2 == null)
+            {
+                return false;
+            }
 
             return r1.Id == r2.Id &&
                    r1.RelatedSpdxElement == r2.RelatedSpdxElement;

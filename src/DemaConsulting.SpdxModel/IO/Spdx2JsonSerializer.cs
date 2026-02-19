@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -64,13 +64,22 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, SpdxConstants.FieldComment, document.Comment);
         json[SpdxConstants.FieldCreationInfo] = SerializeCreationInformation(document.CreationInformation);
         if (document.ExternalDocumentReferences.Length > 0)
+        {
             json[SpdxConstants.FieldExternalDocumentRefs] =
                 SerializeExternalDocumentReferences(document.ExternalDocumentReferences);
+        }
+
         if (document.ExtractedLicensingInfo.Length > 0)
+        {
             json[SpdxConstants.FieldHasExtractedLicensingInfos] =
                 SerializeExtractedLicensingInfos(document.ExtractedLicensingInfo);
+        }
+
         if (document.Annotations.Length > 0)
+        {
             json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(document.Annotations);
+        }
+
         json[SpdxConstants.FieldFiles] = SerializeFiles(document.Files);
         json[SpdxConstants.FieldPackages] = SerializePackages(document.Packages);
         json[SpdxConstants.FieldSnippets] = SerializeSnippets(document.Snippets);
@@ -103,7 +112,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var reference in references)
+        {
             json.Add(SerializeExternalDocumentReference(reference));
+        }
+
         return json;
     }
 
@@ -130,7 +142,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var info in infos)
+        {
             json.Add(SerializeExtractedLicensingInfo(info));
+        }
+
         return json;
     }
 
@@ -159,7 +174,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var file in files)
+        {
             json.Add(SerializeFile(file));
+        }
+
         return json;
     }
 
@@ -174,7 +192,7 @@ public static class Spdx2JsonSerializer
         EmitString(json, SpdxConstants.FieldSpdxId, file.Id);
         EmitString(json, SpdxConstants.FieldFileName, file.FileName);
         EmitOptionalStrings(json, SpdxConstants.FieldFileTypes,
-            [..file.FileTypes.Select(SpdxFileTypeExtensions.ToText)]);
+            [.. file.FileTypes.Select(SpdxFileTypeExtensions.ToText)]);
         json[SpdxConstants.FieldChecksums] = SerializeChecksums(file.Checksums);
         EmitOptionalString(json, SpdxConstants.FieldLicenseConcluded, file.ConcludedLicense);
         EmitOptionalStrings(json, SpdxConstants.FieldLicenseInfoInFiles, file.LicenseInfoInFiles);
@@ -185,7 +203,10 @@ public static class Spdx2JsonSerializer
         EmitOptionalStrings(json, SpdxConstants.FieldFileContributors, file.Contributors);
         EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, file.AttributionText);
         if (file.Annotations.Length > 0)
+        {
             json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(file.Annotations);
+        }
+
         return json;
     }
 
@@ -198,7 +219,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var package in packages)
+        {
             json.Add(SerializePackage(package));
+        }
+
         return json;
     }
 
@@ -218,10 +242,16 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, SpdxConstants.FieldOriginator, package.Originator);
         EmitOptionalString(json, SpdxConstants.FieldDownloadLocation, package.DownloadLocation);
         if (package.FilesAnalyzed != null)
+        {
             json[SpdxConstants.FieldFilesAnalyzed] = package.FilesAnalyzed;
+        }
+
         EmitOptionalStrings(json, SpdxConstants.FieldHasFiles, package.HasFiles);
         if (package.VerificationCode != null)
+        {
             json[SpdxConstants.FieldPackageVerificationCode] = SerializeVerificationCode(package.VerificationCode);
+        }
+
         json[SpdxConstants.FieldChecksums] = SerializeChecksums(package.Checksums);
         EmitOptionalString(json, SpdxConstants.FieldHomePage, package.HomePage);
         EmitOptionalString(json, SpdxConstants.FieldSourceInfo, package.SourceInformation);
@@ -234,14 +264,19 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, SpdxConstants.FieldDescription, package.Description);
         EmitOptionalString(json, SpdxConstants.FieldComment, package.Comment);
         if (package.ExternalReferences.Length > 0)
+        {
             json[SpdxConstants.FieldExternalRefs] = SerializeExternalReferences(package.ExternalReferences);
+        }
+
         EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, package.AttributionText);
         EmitOptionalString(json, SpdxConstants.FieldPrimaryPackagePurpose, package.PrimaryPackagePurpose);
         EmitOptionalString(json, SpdxConstants.FieldReleaseDate, package.ReleaseDate);
         EmitOptionalString(json, SpdxConstants.FieldBuiltDate, package.BuiltDate);
         EmitOptionalString(json, SpdxConstants.FieldValidUntilDate, package.ValidUntilDate);
         if (package.Annotations.Length > 0)
+        {
             json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(package.Annotations);
+        }
 
         return json;
     }
@@ -255,7 +290,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var snippet in snippets)
+        {
             json.Add(SerializeSnippet(snippet));
+        }
+
         return json;
     }
 
@@ -277,7 +315,9 @@ public static class Spdx2JsonSerializer
         EmitOptionalString(json, SpdxConstants.FieldComment, snippet.Comment);
         EmitOptionalStrings(json, SpdxConstants.FieldAttributionTexts, snippet.AttributionText);
         if (snippet.Annotations.Length > 0)
+        {
             json[SpdxConstants.FieldAnnotations] = SerializeAnnotations(snippet.Annotations);
+        }
 
         // Add ranges
         var ranges = new JsonArray
@@ -297,6 +337,7 @@ public static class Spdx2JsonSerializer
             }
         };
         if (snippet.SnippetLineEnd > 0 || snippet.SnippetLineStart > 0)
+        {
             ranges.Add(new JsonObject
             {
                 [SpdxConstants.FieldEndPointer] = new JsonObject
@@ -310,6 +351,8 @@ public static class Spdx2JsonSerializer
                     [SpdxConstants.FieldLineNumber] = snippet.SnippetLineStart
                 }
             });
+        }
+
         json[SpdxConstants.FieldRanges] = ranges;
         return json;
     }
@@ -323,7 +366,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var relationship in relationships)
+        {
             json.Add(SerializeRelationship(relationship));
+        }
+
         return json;
     }
 
@@ -364,7 +410,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var checksum in references)
+        {
             json.Add(SerializeExternalReference(checksum));
+        }
+
         return json;
     }
 
@@ -392,7 +441,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var checksum in checksums)
+        {
             json.Add(SerializeChecksum(checksum));
+        }
+
         return json;
     }
 
@@ -418,7 +470,10 @@ public static class Spdx2JsonSerializer
     {
         var json = new JsonArray();
         foreach (var annotation in annotations)
+        {
             json.Add(SerializeAnnotation(annotation));
+        }
+
         return json;
     }
 
@@ -459,7 +514,9 @@ public static class Spdx2JsonSerializer
     {
         // Skip if empty
         if (string.IsNullOrEmpty(value))
+        {
             return;
+        }
 
         json[name] = value;
     }
@@ -468,11 +525,16 @@ public static class Spdx2JsonSerializer
     {
         // Skip if empty
         if (values.Length == 0)
+        {
             return;
+        }
 
         var array = new JsonArray();
         foreach (var value in values)
+        {
             array.Add(value);
+        }
+
         json[name] = array;
     }
 }

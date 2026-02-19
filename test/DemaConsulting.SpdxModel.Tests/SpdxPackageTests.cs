@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -278,12 +278,12 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad suppliers
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid suppliers.
     /// </summary>
     [TestMethod]
-    public void SpdxPackage_Validate_BadSupplier()
+    public void SpdxPackage_Validate_InvalidSupplier()
     {
-        // Arrange: Construct a bad SpdxPackage
+        // Arrange: Construct a package with invalid supplier format
         var package = new SpdxPackage
         {
             Id = "SPDXRef-Package-SpdxModel",
@@ -302,12 +302,12 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad originators
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid originators.
     /// </summary>
     [TestMethod]
-    public void SpdxPackage_Validate_BadOriginator()
+    public void SpdxPackage_Validate_InvalidOriginator()
     {
-        // Arrange: Construct a bad SpdxPackage
+        // Arrange: Construct a package with invalid originator format
         var package = new SpdxPackage
         {
             Id = "SPDXRef-Package-SpdxModel",
@@ -327,12 +327,12 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad release dates
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid release dates.
     /// </summary>
     [TestMethod]
-    public void SpdxPackage_Validate_BadReleaseDate()
+    public void SpdxPackage_Validate_InvalidReleaseDate()
     {
-        // Arrange: Construct a bad SpdxPackage
+        // Arrange: Construct a package with invalid release date format
         var package = new SpdxPackage
         {
             Id = "SPDXRef-Package-SpdxModel",
@@ -352,12 +352,12 @@ public class SpdxPackageTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad built dates
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid built dates.
     /// </summary>
     [TestMethod]
-    public void SpdxPackage_Validate_BadBuiltDate()
+    public void SpdxPackage_Validate_InvalidBuiltDate()
     {
-        // Arrange: Construct a bad SpdxPackage
+        // Arrange: Construct a package with invalid built date format
         var package = new SpdxPackage
         {
             Id = "SPDXRef-Package-SpdxModel",
@@ -380,7 +380,7 @@ public class SpdxPackageTests
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad valid until dates
     /// </summary>
     [TestMethod]
-    public void SpdxPackage_Validate_BadValidUntilDate()
+    public void SpdxPackage_Validate_InvalidValidUntilDate()
     {
         // Arrange: Construct a bad SpdxPackage
         var package = new SpdxPackage

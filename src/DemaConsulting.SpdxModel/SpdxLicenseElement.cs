@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -91,7 +91,7 @@ public abstract class SpdxLicenseElement : SpdxElement
         CopyrightText = SpdxHelpers.EnhanceString(CopyrightText, other.CopyrightText) ?? "";
 
         // Merge the attribution texts
-        AttributionText = [..AttributionText.Concat(other.AttributionText).Distinct()];
+        AttributionText = [.. AttributionText.Concat(other.AttributionText).Distinct()];
 
         // Enhance the annotations
         Annotations = SpdxAnnotation.Enhance(Annotations, other.Annotations);

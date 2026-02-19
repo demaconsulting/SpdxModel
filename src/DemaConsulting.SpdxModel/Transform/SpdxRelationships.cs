@@ -1,4 +1,4 @@
-﻿namespace DemaConsulting.SpdxModel.Transform;
+namespace DemaConsulting.SpdxModel.Transform;
 
 /// <summary>
 ///     Transformations for SPDX relationships.
@@ -41,12 +41,16 @@ public static class SpdxRelationships
     {
         // Ensure the relationship ID matches an element
         if (document.GetElement(relationship.Id) == null)
+        {
             throw new ArgumentException($"Element {relationship.Id} not found in SPDX document", nameof(relationship));
+        }
 
         // Ensure the relationship related-element ID matches an element
         if (document.GetElement(relationship.RelatedSpdxElement) == null)
+        {
             throw new ArgumentException($"Element {relationship.RelatedSpdxElement} not found in SPDX document",
                 nameof(relationship));
+        }
 
         // Look for an existing relationship
         var existing = Array.Find(document.Relationships, r => SpdxRelationship.Same.Equals(r, relationship));
@@ -59,7 +63,7 @@ public static class SpdxRelationships
         {
             // Copy the new relationship
             existing = relationship.DeepCopy();
-            document.Relationships = [..document.Relationships.Append(existing)];
+            document.Relationships = [.. document.Relationships.Append(existing)];
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@ public sealed class SpdxPackageVerificationCode
     public void Enhance(SpdxPackageVerificationCode other)
     {
         // Merge the excluded files
-        ExcludedFiles = [..ExcludedFiles.Concat(other.ExcludedFiles).Distinct()];
+        ExcludedFiles = [.. ExcludedFiles.Concat(other.ExcludedFiles).Distinct()];
 
         // Populate the value field if missing
         Value = SpdxHelpers.EnhanceString(Value, other.Value) ?? "";
@@ -97,7 +97,9 @@ public sealed class SpdxPackageVerificationCode
     {
         // Validate Package Verification Code Value Field
         if (Value.Length != 40)
+        {
             issues.Add($"Package '{package}' Invalid Package Verification Code Value '{Value}'");
+        }
     }
 
     /// <summary>
@@ -108,8 +110,15 @@ public sealed class SpdxPackageVerificationCode
         /// <inheritdoc />
         public bool Equals(SpdxPackageVerificationCode? v1, SpdxPackageVerificationCode? v2)
         {
-            if (ReferenceEquals(v1, v2)) return true;
-            if (v1 == null || v2 == null) return false;
+            if (ReferenceEquals(v1, v2))
+            {
+                return true;
+            }
+
+            if (v1 == null || v2 == null)
+            {
+                return false;
+            }
 
             return v1.Value == v2.Value;
         }
