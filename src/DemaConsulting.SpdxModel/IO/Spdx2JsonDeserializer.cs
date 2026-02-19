@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -164,7 +164,7 @@ public static class Spdx2JsonDeserializer
             Id = ParseString(json, SpdxConstants.FieldSpdxId),
             FileName = ParseString(json, SpdxConstants.FieldFileName),
             FileTypes =
-                [..ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText)],
+                [.. ParseStringArray(json, SpdxConstants.FieldFileTypes).Select(SpdxFileTypeExtensions.FromText)],
             Checksums = DeserializeChecksums(json?[SpdxConstants.FieldChecksums]?.AsArray()),
             ConcludedLicense = ParseString(json, SpdxConstants.FieldLicenseConcluded),
             LicenseInfoInFiles = ParseStringArray(json, SpdxConstants.FieldLicenseInfoInFiles),
@@ -455,11 +455,15 @@ public static class Spdx2JsonDeserializer
     {
         // Fail if at end
         if (node == null || idx >= names.Count)
+        {
             return node;
+        }
 
         // Iterate over arrays
         if (node is JsonArray array)
+        {
             return array.Select(n => Find(n, idx, names)).FirstOrDefault(n => n != null);
+        }
 
         // Descend into the node
         var sel = node[names[idx]];

@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,9 @@ internal static class SpdxTestHelpers
         // Open the resource
         using var stream = typeof(SpdxTestHelpers).Assembly.GetManifestResourceStream(resourceName);
         if (stream == null)
+        {
             return string.Empty;
+        }
 
         // Read the resource
         using var reader = new StreamReader(stream);

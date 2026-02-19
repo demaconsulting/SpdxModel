@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -251,7 +251,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
             FilesAnalyzed = FilesAnalyzed,
             HasFiles = (string[])HasFiles.Clone(),
             VerificationCode = VerificationCode?.DeepCopy(),
-            Checksums = [..Checksums.Select(c => c.DeepCopy())],
+            Checksums = [.. Checksums.Select(c => c.DeepCopy())],
             HomePage = HomePage,
             SourceInformation = SourceInformation,
             ConcludedLicense = ConcludedLicense,
@@ -262,13 +262,13 @@ public sealed class SpdxPackage : SpdxLicenseElement
             Summary = Summary,
             Description = Description,
             Comment = Comment,
-            ExternalReferences = [..ExternalReferences.Select(r => r.DeepCopy())],
+            ExternalReferences = [.. ExternalReferences.Select(r => r.DeepCopy())],
             AttributionText = (string[])AttributionText.Clone(),
             PrimaryPackagePurpose = PrimaryPackagePurpose,
             ReleaseDate = ReleaseDate,
             BuiltDate = BuiltDate,
             ValidUntilDate = ValidUntilDate,
-            Annotations = [..Annotations.Select(a => a.DeepCopy())]
+            Annotations = [.. Annotations.Select(a => a.DeepCopy())]
         };
     }
 
@@ -301,9 +301,13 @@ public sealed class SpdxPackage : SpdxLicenseElement
 
         // Enhance or populate the verification code
         if (VerificationCode != null && other.VerificationCode != null)
+        {
             VerificationCode.Enhance(other.VerificationCode);
+        }
         else
+        {
             VerificationCode = other.VerificationCode?.DeepCopy();
+        }
 
         // Enhance the checksums
         Checksums = SpdxChecksum.Enhance(Checksums, other.Checksums);
@@ -315,7 +319,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
         SourceInformation = SpdxHelpers.EnhanceString(SourceInformation, other.SourceInformation);
 
         // Merge the license-info-from-files entries
-        LicenseInfoFromFiles = [..LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct()];
+        LicenseInfoFromFiles = [.. LicenseInfoFromFiles.Concat(other.LicenseInfoFromFiles).Distinct()];
 
         // Populate the declared-license field if missing
         DeclaredLicense = SpdxHelpers.EnhanceString(DeclaredLicense, other.DeclaredLicense) ?? "";
@@ -362,15 +366,19 @@ public sealed class SpdxPackage : SpdxLicenseElement
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -383,64 +391,90 @@ public sealed class SpdxPackage : SpdxLicenseElement
     {
         // Validate Package Name Field
         if (Name.Length == 0)
+        {
             issues.Add("Package Invalid Package Name Field - Empty");
+        }
 
         // SPDX NTIA Unique Identifier Check
         if (!SpdxRefRegex.IsMatch(Id))
+        {
             issues.Add($"Package '{Name}' Invalid SPDX Identifier Field '{Id}'");
+        }
 
         // Validate Package Download Location Field
         if (DownloadLocation.Length == 0)
+        {
             issues.Add($"Package '{Name}' Invalid Package Download Location Field - Empty");
+        }
 
         // Validate Package Supplier Field
         if (Supplier != null &&
             Supplier != NoAssertion &&
             !Supplier.StartsWith("Person:") &&
             !Supplier.StartsWith("Organization:"))
+        {
             issues.Add($"Package '{Name}' Invalid Package Supplier Field '{Supplier}'");
+        }
 
         // Validate Package Originator Field
         if (Originator != null &&
             Originator != NoAssertion &&
             !Originator.StartsWith("Person:") &&
             !Originator.StartsWith("Organization:"))
+        {
             issues.Add($"Package '{Name}' Invalid Package Originator Field '{Originator}'");
+        }
 
         // Validate verification code
         VerificationCode?.Validate(Name, issues);
 
         // Validate checksums
         foreach (var checksum in Checksums)
+        {
             checksum.Validate($"Package '{Name}'", issues);
+        }
 
         // Validate external references
         foreach (var externalReference in ExternalReferences)
+        {
             externalReference.Validate(Name, issues);
+        }
 
         // If the document is provided then ensure all referenced files exist
         if (doc != null && Array.Exists(HasFiles, file => Array.TrueForAll(doc.Files, df => df.Id != file)))
+        {
             issues.Add($"Package '{Name}' HasFiles references missing files");
+        }
 
         // SPDX NTIA Supplier Name Check
         if (ntia && string.IsNullOrEmpty(Supplier))
+        {
             issues.Add($"NTIA: Package '{Name}' Missing Supplier");
+        }
 
         // SPDX NTIA Version String Check
         if (ntia && string.IsNullOrEmpty(Version))
+        {
             issues.Add($"NTIA: Package '{Name}' Missing Version");
+        }
 
         // Release Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(ReleaseDate))
+        {
             issues.Add($"Package '{Name}' Invalid Release Date Field '{ReleaseDate}'");
+        }
 
         // Built Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(BuiltDate))
+        {
             issues.Add($"Package '{Name}' Invalid Built Date Field '{BuiltDate}'");
+        }
 
         // Valid Until Date field
         if (!SpdxHelpers.IsValidSpdxDateTime(ValidUntilDate))
+        {
             issues.Add($"Package '{Name}' Invalid Valid Until Date Field '{ValidUntilDate}'");
+        }
     }
 
     /// <summary>
@@ -451,8 +485,15 @@ public sealed class SpdxPackage : SpdxLicenseElement
         /// <inheritdoc />
         public bool Equals(SpdxPackage? p1, SpdxPackage? p2)
         {
-            if (ReferenceEquals(p1, p2)) return true;
-            if (p1 == null || p2 == null) return false;
+            if (ReferenceEquals(p1, p2))
+            {
+                return true;
+            }
+
+            if (p1 == null || p2 == null)
+            {
+                return false;
+            }
 
             return p1.Name == p2.Name &&
                    p1.Version == p2.Version;

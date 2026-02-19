@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -106,8 +106,8 @@ public sealed class SpdxFile : SpdxLicenseElement
         {
             Id = Id,
             FileName = FileName,
-            FileTypes = [..FileTypes],
-            Checksums = [..Checksums.Select(c => c.DeepCopy())],
+            FileTypes = [.. FileTypes],
+            Checksums = [.. Checksums.Select(c => c.DeepCopy())],
             ConcludedLicense = ConcludedLicense,
             LicenseInfoInFiles = (string[])LicenseInfoInFiles.Clone(),
             LicenseComments = LicenseComments,
@@ -116,7 +116,7 @@ public sealed class SpdxFile : SpdxLicenseElement
             Notice = Notice,
             Contributors = (string[])Contributors.Clone(),
             AttributionText = (string[])AttributionText.Clone(),
-            Annotations = [..Annotations.Select(a => a.DeepCopy())]
+            Annotations = [.. Annotations.Select(a => a.DeepCopy())]
         };
     }
 
@@ -133,13 +133,13 @@ public sealed class SpdxFile : SpdxLicenseElement
         FileName = SpdxHelpers.EnhanceString(FileName, other.FileName) ?? "";
 
         // Merge the file types
-        FileTypes = [..FileTypes.Concat(other.FileTypes).Distinct()];
+        FileTypes = [.. FileTypes.Concat(other.FileTypes).Distinct()];
 
         // Enhance the checksums
         Checksums = SpdxChecksum.Enhance(Checksums, other.Checksums);
 
         // Merge the license info in files
-        LicenseInfoInFiles = [..LicenseInfoInFiles.Concat(other.LicenseInfoInFiles).Distinct()];
+        LicenseInfoInFiles = [.. LicenseInfoInFiles.Concat(other.LicenseInfoInFiles).Distinct()];
 
         // Populate the comment if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
@@ -148,7 +148,7 @@ public sealed class SpdxFile : SpdxLicenseElement
         Notice = SpdxHelpers.EnhanceString(Notice, other.Notice);
 
         // Merge the contributors
-        Contributors = [..Contributors.Concat(other.Contributors).Distinct()];
+        Contributors = [.. Contributors.Concat(other.Contributors).Distinct()];
     }
 
     /// <summary>
@@ -168,15 +168,19 @@ public sealed class SpdxFile : SpdxLicenseElement
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -187,21 +191,32 @@ public sealed class SpdxFile : SpdxLicenseElement
     {
         // Validate File Name Field
         if (!FileName.StartsWith("./"))
+        {
             issues.Add($"File '{FileName}' Invalid File Name Field");
+        }
 
         // Validate File SPDX Identifier Field
         if (!SpdxRefRegex.IsMatch(Id))
+        {
             issues.Add($"File '{FileName}' Invalid SPDX Identifier Field '{Id}'");
+        }
 
         // Validate Checksums
         if (!Array.Exists(Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1))
+        {
             issues.Add($"File '{FileName}' Invalid Checksum Field (missing SHA1)");
+        }
+
         foreach (var checksum in Checksums)
+        {
             checksum.Validate($"File '{FileName}'", issues);
+        }
 
         // Validate Annotations
         foreach (var annotation in Annotations)
+        {
             annotation.Validate($"File '{FileName}'", issues);
+        }
     }
 
     /// <summary>
@@ -212,14 +227,23 @@ public sealed class SpdxFile : SpdxLicenseElement
         /// <inheritdoc />
         public bool Equals(SpdxFile? f1, SpdxFile? f2)
         {
-            if (ReferenceEquals(f1, f2)) return true;
-            if (f1 == null || f2 == null) return false;
+            if (ReferenceEquals(f1, f2))
+            {
+                return true;
+            }
+
+            if (f1 == null || f2 == null)
+            {
+                return false;
+            }
 
             // Reject equality if they have differing sha1 checksums
             var c1 = Array.Find(f1.Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1);
             var c2 = Array.Find(f2.Checksums, c => c.Algorithm == SpdxChecksumAlgorithm.Sha1);
             if (c1 != null && c2 != null && c1.Value != c2.Value)
+            {
                 return false;
+            }
 
             return f1.FileName == f2.FileName;
         }

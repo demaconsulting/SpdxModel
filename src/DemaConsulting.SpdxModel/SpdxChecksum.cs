@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,9 @@ public sealed class SpdxChecksum
     {
         // Populate the algorithm if missing
         if (Algorithm == SpdxChecksumAlgorithm.Missing)
+        {
             Algorithm = other.Algorithm;
+        }
 
         // Populate the value if missing
         Value = SpdxHelpers.EnhanceString(Value, other.Value) ?? "";
@@ -101,15 +103,19 @@ public sealed class SpdxChecksum
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -121,11 +127,15 @@ public sealed class SpdxChecksum
     {
         // Validate Algorithm Field
         if (Algorithm == SpdxChecksumAlgorithm.Missing)
+        {
             issues.Add($"{parent} Invalid Checksum Algorithm Field - Missing");
+        }
 
         // Validate Checksum Value Field
         if (Value.Length == 0)
+        {
             issues.Add($"{parent} Invalid Checksum Value Field - Empty");
+        }
     }
 
     /// <summary>
@@ -136,8 +146,15 @@ public sealed class SpdxChecksum
         /// <inheritdoc />
         public bool Equals(SpdxChecksum? c1, SpdxChecksum? c2)
         {
-            if (ReferenceEquals(c1, c2)) return true;
-            if (c1 == null || c2 == null) return false;
+            if (ReferenceEquals(c1, c2))
+            {
+                return true;
+            }
+
+            if (c1 == null || c2 == null)
+            {
+                return false;
+            }
 
             return c1.Algorithm == c2.Algorithm &&
                    c1.Value == c2.Value;

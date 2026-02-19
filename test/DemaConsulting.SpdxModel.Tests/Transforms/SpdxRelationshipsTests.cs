@@ -1,4 +1,4 @@
-﻿using DemaConsulting.SpdxModel.IO;
+using DemaConsulting.SpdxModel.IO;
 using DemaConsulting.SpdxModel.Transform;
 
 namespace DemaConsulting.SpdxModel.Tests.Transforms;

@@ -1,4 +1,4 @@
-﻿namespace DemaConsulting.SpdxModel.IO;
+namespace DemaConsulting.SpdxModel.IO;
 
 /// <summary>
 ///     SPDX 2.2 constants.

@@ -1,4 +1,4 @@
-﻿// Copyright(c) 2024 DEMA Consulting
+// Copyright(c) 2024 DEMA Consulting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -105,13 +105,13 @@ public sealed class SpdxSnippet : SpdxLicenseElement
             SnippetLineStart = SnippetLineStart,
             SnippetLineEnd = SnippetLineEnd,
             ConcludedLicense = ConcludedLicense,
-            LicenseInfoInSnippet = [..LicenseInfoInSnippet],
+            LicenseInfoInSnippet = [.. LicenseInfoInSnippet],
             LicenseComments = LicenseComments,
             CopyrightText = CopyrightText,
             Comment = Comment,
             Name = Name,
             AttributionText = (string[])AttributionText.Clone(),
-            Annotations = [..Annotations.Select(a => a.DeepCopy())]
+            Annotations = [.. Annotations.Select(a => a.DeepCopy())]
         };
     }
 
@@ -129,22 +129,30 @@ public sealed class SpdxSnippet : SpdxLicenseElement
 
         // Populate the snippet-byte-start field if missing
         if (SnippetByteStart <= 0)
+        {
             SnippetByteStart = other.SnippetByteStart;
+        }
 
         // Populate the snippet-byte-end field if missing
         if (SnippetByteEnd <= 0)
+        {
             SnippetByteEnd = other.SnippetByteEnd;
+        }
 
         // Populate the snippet-line-start field if missing
         if (SnippetLineStart <= 0)
+        {
             SnippetLineStart = other.SnippetLineStart;
+        }
 
         // Populate the snippet-line-end field if missing
         if (SnippetLineEnd <= 0)
+        {
             SnippetLineEnd = other.SnippetLineEnd;
+        }
 
         // Merge the license-info-in-snippet entries
-        LicenseInfoInSnippet = [..LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct()];
+        LicenseInfoInSnippet = [.. LicenseInfoInSnippet.Concat(other.LicenseInfoInSnippet).Distinct()];
 
         // Populate the comment field if missing
         Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
@@ -170,15 +178,19 @@ public sealed class SpdxSnippet : SpdxLicenseElement
             // Check if other item is the same as one we have
             var existing = list.Find(a => Same.Equals(a, other));
             if (existing != null)
+            {
                 // Enhance our item with the other information
                 existing.Enhance(other);
+            }
             else
+            {
                 // Add the new item to our list
                 list.Add(other.DeepCopy());
+            }
         }
 
         // Return as array
-        return [..list];
+        return [.. list];
     }
 
     /// <summary>
@@ -189,27 +201,39 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     {
         // Validate Snippet SPDX Identifier Field
         if (!SpdxRefRegex.IsMatch(Id))
+        {
             issues.Add($"Snippet Invalid SPDX Identifier Field '{Id}'");
+        }
 
         // Validate Snippet From File Field
         if (SnippetFromFile.Length == 0)
+        {
             issues.Add($"Snippet '{Id}' Invalid Snippet From File Field - Empty");
+        }
 
         // Validate Snippet Byte Range Start Field
         if (SnippetByteStart < 1)
+        {
             issues.Add($"Snippet '{Id}' Invalid Snippet Byte Range Start Field '{SnippetByteStart}'");
+        }
 
         // Validate Snippet Byte Range End Field
         if (SnippetByteEnd < SnippetByteStart)
+        {
             issues.Add($"Snippet {Id} Invalid Snippet Byte Range End Field '{SnippetByteEnd}' < '{SnippetByteStart}'");
+        }
 
         // Validate Concluded License Field
         if (ConcludedLicense.Length == 0)
+        {
             issues.Add($"Snippet {Id} Invalid Concluded License Field - Empty");
+        }
 
         // Validate Copyright Text Field
         if (CopyrightText.Length == 0)
+        {
             issues.Add($"Snippet {Id} Invalid Copyright Text Field - Empty");
+        }
     }
 
     /// <summary>
@@ -220,8 +244,15 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         /// <inheritdoc />
         public bool Equals(SpdxSnippet? s1, SpdxSnippet? s2)
         {
-            if (ReferenceEquals(s1, s2)) return true;
-            if (s1 == null || s2 == null) return false;
+            if (ReferenceEquals(s1, s2))
+            {
+                return true;
+            }
+
+            if (s1 == null || s2 == null)
+            {
+                return false;
+            }
 
             return s1.SnippetFromFile == s2.SnippetFromFile &&
                    s1.SnippetByteStart == s2.SnippetByteStart &&
