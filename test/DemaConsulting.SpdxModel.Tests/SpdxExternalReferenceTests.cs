@@ -167,8 +167,7 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid category
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing")));
+        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing"), issues);
     }
 
     /// <summary>
@@ -191,8 +190,7 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid type
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty"), issues);
     }
 
     /// <summary>
@@ -215,8 +213,7 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid locator
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty"), issues);
     }
 
     /// <summary>

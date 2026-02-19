@@ -106,8 +106,7 @@ public class SpdxCreationInformationTests
         info.Validate(issues);
 
         // Assert: Verify that the validation reports the missing creators
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Document Invalid Creator Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Document Invalid Creator Field - Empty"), issues);
     }
 
     /// <summary>
@@ -129,8 +128,7 @@ public class SpdxCreationInformationTests
         info.Validate(issues);
 
         // Assert: Verify that the validation reports the invalid creator
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Document Invalid Creator Entry 'BadCreator'")));
+        Assert.Contains(issue => issue.Contains("Document Invalid Creator Entry 'BadCreator'"), issues);
     }
 
     /// <summary>
@@ -152,8 +150,7 @@ public class SpdxCreationInformationTests
         info.Validate(issues);
 
         // Assert: Verify that the validation reports the invalid created date
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Document Invalid Created Field 'BadDate'")));
+        Assert.Contains(issue => issue.Contains("Document Invalid Created Field 'BadDate'"), issues);
     }
 
     /// <summary>
@@ -176,7 +173,6 @@ public class SpdxCreationInformationTests
         info.Validate(issues);
 
         // Assert: Verify that the validation reports the invalid license list version
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Document Invalid License List Version Field 'BadVersion'")));
+        Assert.Contains(issue => issue.Contains("Document Invalid License List Version Field 'BadVersion'"), issues);
     }
 }

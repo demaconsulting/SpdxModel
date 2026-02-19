@@ -134,7 +134,6 @@ public class SpdxPackageVerificationCodeTests
         info.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Package 'Test' Invalid Package Verification Code Value 'BadValue'")));
+        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid Package Verification Code Value 'BadValue'"), issues);
     }
 }

@@ -157,8 +157,7 @@ public class SpdxExtractedLicensingInfoTests
         info.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Extracted License Information Invalid License ID Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Extracted License Information Invalid License ID Field - Empty"), issues);
     }
 
     /// <summary>
@@ -179,7 +178,6 @@ public class SpdxExtractedLicensingInfoTests
         info.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Extracted License Information 'LicenseRef-1' Invalid Extracted Text Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Extracted License Information 'LicenseRef-1' Invalid Extracted Text Field - Empty"), issues);
     }
 }

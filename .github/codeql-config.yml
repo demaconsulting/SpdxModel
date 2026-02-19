@@ -2,6 +2,7 @@
 # CodeQL configuration for SpdxModel
 # Excludes test code from path-combine security analysis
 # Excludes justified generic exception handlers
+# Excludes generated code warnings
 
 name: "SpdxModel CodeQL Config"
 
@@ -15,3 +16,7 @@ query-filters:
       id: cs/catch-of-all-exceptions
     paths:
       - src/DemaConsulting.SpdxModel/IO/Spdx2JsonDeserializer.cs
+  - exclude:
+      id: cs/nested-if-statements
+    paths:
+      - '**/obj/**/generated/**/*.cs'

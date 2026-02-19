@@ -173,8 +173,7 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Annotator Field - Empty")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Annotator Field - Empty"), issues);
     }
 
     /// <summary>
@@ -197,8 +196,7 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Annotation Date Field 'BadDate'")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Date Field 'BadDate'"), issues);
     }
 
     /// <summary>
@@ -221,8 +219,7 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Annotation Type Field - Missing")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Type Field - Missing"), issues);
     }
 
     /// <summary>
@@ -245,8 +242,7 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.IsTrue(
-            issues.Any(issue => issue.Contains("Test Invalid Annotation Comment - Empty")));
+        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Comment - Empty"), issues);
     }
 
     /// <summary>
