@@ -38,3 +38,6 @@ docs/justifications/justifications.md
 docs/buildnotes.md
 *.err
 package-lock.json
+
+# Agent report files
+AGENT_REPORT_*.md

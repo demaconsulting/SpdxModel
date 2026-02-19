@@ -50,7 +50,12 @@
     "DOAP",
     "Protecode",
     "acmecorp",
-    "acmenator"
+    "acmenator",
+    "buildnotes",
+    "nameof",
+    "reqstream",
+    "ReqStream",
+    "tracematrix"
   ],
   "ignorePaths": [
     "**/*.spdx.json",
@@ -60,6 +65,7 @@
     "**/.git/**",
     "**/node_modules/**",
     "**/*.nupkg",
-    "**/*.snupkg"
+    "**/*.snupkg",
+    "AGENT_REPORT_*.md"
   ]
 }
