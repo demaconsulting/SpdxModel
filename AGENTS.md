@@ -21,7 +21,7 @@ and deserializing SPDX SBOMs into an in-memory representation.
 
 - **`requirements.yaml`** - All requirements with test linkage (enforced via `dotnet reqstream --enforce`)
 - **`.editorconfig`** - Code style (file-scoped namespaces, 4-space indent, UTF-8+BOM, LF endings)
-- **`.cspell.json`, `.markdownlint.json`, `.yamllint.yaml`** - Linting configs
+- **`.cspell.json`, `.markdownlint-cli2.jsonc`, `.yamllint.yaml`** - Linting configs
 
 ## Requirements
 
@@ -30,6 +30,20 @@ and deserializing SPDX SBOMs into an in-memory representation.
   failure-testing, etc.)
 - Enforced in CI: `dotnet reqstream --requirements requirements.yaml --tests "test-results/**/*.trx" --enforce`
 - When adding features: add requirement + link to test
+
+## Test Source Filters
+
+Test links in `requirements.yaml` can include a source filter prefix to restrict which test results count as
+evidence. This is critical for platform and framework requirements - **do not remove these filters**.
+
+- `windows@TestName` - proves the test passed on a Windows platform
+- `ubuntu@TestName` - proves the test passed on a Linux (Ubuntu) platform
+- `net8.0@TestName` - proves the test passed under the .NET 8 runtime
+- `net9.0@TestName` - proves the test passed under the .NET 9 runtime
+- `net10.0@TestName` - proves the test passed under the .NET 10 runtime
+
+Without the source filter, a test result from any platform/framework satisfies the requirement. Adding the filter
+ensures the CI evidence comes specifically from the required environment.
 
 ## Testing
 

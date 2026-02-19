@@ -31,7 +31,7 @@ Ensure the project is:
 
 1. **Build**: Zero warnings (TreatWarningsAsErrors=true)
 2. **Linting**:
-   - markdownlint (`.markdownlint.json`)
+   - markdownlint (`.markdownlint-cli2.jsonc`)
    - cspell (`.cspell.json`)
    - yamllint (`.yamllint.yaml`)
    - dotnet format (`.editorconfig`)
@@ -65,9 +65,8 @@ dotnet reqstream --requirements requirements.yaml \
   --tests "test-results/**/*.trx" --enforce
 
 # Run all linters
-npx cspell lint "**/*.md"
-npx markdownlint-cli2 "**/*.md"
-yamllint .
+./lint.sh    # Linux/macOS
+lint.bat     # Windows
 ```
 
 ## Defer To
