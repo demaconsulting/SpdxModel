@@ -77,7 +77,7 @@ We welcome various types of contributions:
 
 ### Before You Start
 
-1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if your issue or feature
+1. Check the [issue tracker][issue-tracker] to see if your issue or feature
    has already been reported
 2. For major changes, please open an issue first to discuss what you would like to change
 3. Ensure your development environment is properly set up
@@ -209,7 +209,7 @@ public void MethodName_Scenario_ExpectedBehavior()
 
 ### Before Submitting a Bug Report
 
-- Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if the bug has already been reported
+- Check the [issue tracker][issue-tracker] to see if the bug has already been reported
 - Ensure you're using the latest version of the library
 - Verify that the issue is reproducible
 
@@ -227,7 +227,7 @@ public void MethodName_Scenario_ExpectedBehavior()
 
 We welcome feature suggestions! To suggest a new feature:
 
-1. Check the [issue tracker](https://github.com/demaconsulting/SpdxModel/issues) to see if the feature has already
+1. Check the [issue tracker][issue-tracker] to see if the feature has already
    been suggested
 2. Open a new issue with the "enhancement" label
 3. Provide a clear description of the feature
@@ -246,3 +246,5 @@ If you have questions about contributing, feel free to:
 - Contact the project maintainers
 
 Thank you for contributing to SpdxModel!
+
+[issue-tracker]: https://github.com/demaconsulting/SpdxModel/issues
