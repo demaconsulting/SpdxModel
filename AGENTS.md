@@ -1,144 +1,106 @@
-# AI Instructions for SpdxModel
+# Agent Quick Reference
 
-This file provides specific context and instructions for AI coding agents to
-interact effectively with this C# project.
+Project-specific guidance for agents working on SpdxModel - a C# library for serializing
+and deserializing SPDX SBOMs into an in-memory representation.
 
-## Project Overview
+## Available Specialized Agents
 
-SpdxModel is a C# library for serializing and deserializing SPDX SBOMs into an
-in-memory representation suitable for manipulation and analysis.
+- **Requirements Agent** - Develops requirements and ensures test coverage linkage
+- **Technical Writer** - Creates accurate documentation following regulatory best practices
+- **Software Developer** - Writes production code in literate style
+- **Test Developer** - Creates unit tests following AAA pattern
+- **Code Quality Agent** - Enforces linting, static analysis, and security standards
+- **Repo Consistency Agent** - Ensures SpdxModel remains consistent with the
+  [TemplateDotNetLibrary](https://github.com/demaconsulting/TemplateDotNetLibrary) template patterns
 
-## Technologies and Dependencies
+## Tech Stack
 
-* **Language**: C# 12
-* **.NET Frameworks**: .NET 8, 9, and 10
-* **Primary Dependencies**: [System.Text.Json]
+- C# 12, .NET 8.0/9.0/10.0, dotnet CLI, NuGet
+
+## Key Files
+
+- **`requirements.yaml`** - All requirements with test linkage (enforced via `dotnet reqstream --enforce`)
+- **`.editorconfig`** - Code style (file-scoped namespaces, 4-space indent, UTF-8+BOM, LF endings)
+- **`.cspell.json`, `.markdownlint.json`, `.yamllint.yaml`** - Linting configs
+
+## Requirements
+
+- All requirements MUST be linked to tests
+- Not all tests need to be linked to requirements (tests may exist for corner cases, design testing,
+  failure-testing, etc.)
+- Enforced in CI: `dotnet reqstream --requirements requirements.yaml --tests "test-results/**/*.trx" --enforce`
+- When adding features: add requirement + link to test
+
+## Testing
+
+- **Test Naming**: `ClassName_MethodUnderTest_Scenario_ExpectedBehavior` for unit tests
+- **Test Framework**: Uses MSTest for unit testing
+- **Code Coverage**: Maintain high code coverage for library APIs
+
+## Code Style
+
+- **XML Docs**: On ALL members (public/internal/private) with spaces after `///` in summaries
+- **Namespace**: File-scoped namespaces only
+- **Using Statements**: Top of file only (no nested using declarations except for IDisposable)
+- **String Formatting**: Use interpolated strings ($"") for clarity
 
 ## Project Structure
 
-The repository is organized as follows:
+- **`src/DemaConsulting.SpdxModel/`**: Library source code
+- **`test/DemaConsulting.SpdxModel.Tests/`**: Unit tests
+- **`DemaConsulting.SpdxModel.sln`**: Visual Studio solution file
 
-* `/.config/`: Contains the .NET Tool configuration.
-* `/.github/workflows/`: Contains the CI/CD pipeline configurations.
-* `/src/DemaConsulting.SpdxModel/`: Contains the library source code.
-* `/test/DemaConsulting.SpdxModel.Tests/`: Contains the library unit tests.
-* `/DemaConsulting.SpdxModel.sln`: The main Visual Studio solution file.
+## Build and Test
 
-## Development Commands
+```bash
+# Build the project
+dotnet build --configuration Release
 
-Use these commands to perform common development tasks:
+# Run unit tests
+dotnet test --configuration Release
+```
 
-* **Restore DotNet Tools**:
+## Documentation
 
-  ```bash
-  dotnet tool restore
-  ```
+- **User Guide**: `docs/guide/`
+- **Requirements**: `requirements.yaml` -> auto-generated docs
+- **Build Notes**: Auto-generated via BuildMark
+- **Trace Matrix**: Auto-generated via ReqStream
 
-* **Build the Project**:
+## Markdown Link Style
 
-  ```bash
-  dotnet build
-  ```
+- **AI agent markdown files** (`.github/agents/*.md`): Use inline links `[text](url)` so URLs are
+  visible in agent context
+- **README.md**: Use absolute URLs (shipped in NuGet package)
+- **All other markdown files**: Use reference-style links `[text][ref]` with `[ref]: url` at document end
 
-* **Run All Tests**:
+## CI/CD
 
-  ```bash
-  dotnet test
-  ```
+- **Quality Checks**: Markdown lint, spell check, YAML lint
+- **Build**: Multi-platform .NET 8/9/10
+- **CodeQL**: Security scanning
+- **SonarCloud**: Code quality analysis
 
-## Testing Guidelines
+## Common Tasks
 
-* Tests are located under the `/test/DemaConsulting.SpdxModel.Tests/` folder and use the MSTest framework.
-* Test files should end with `.cs` and adhere to the naming convention `[Component]Tests.cs`.
-* All new features should be tested with comprehensive unit tests.
-* The build must pass all tests and static analysis warnings before merging.
-* Tests should be written using the AAA (Arrange, Act, Assert) pattern.
+```bash
+# Format code
+dotnet format
 
-## Code Style and Conventions
+# Run all linters
+npx cspell lint "**/*.md"
+npx markdownlint-cli2 "**/*.md"
+yamllint .
+```
 
-* Follow standard C# naming conventions (PascalCase for classes/methods/properties, camelCase for
-  local variables).
-* Nullable reference types are enabled at the project level (`<Nullable>enable</Nullable>` in .csproj files).
-  Do not use file-level `#nullable enable` directives.
-* Warnings are treated as errors (`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`).
-* Avoid public fields; prefer properties.
+## Agent Report Files
 
-## Code Quality Tools
+When agents need to write report files to communicate with each other or the user, follow these guidelines:
 
-The project uses several code quality and analysis tools:
-
-* **Code Analyzers**:
-  * `Microsoft.CodeAnalysis.NetAnalyzers`: Provides .NET-specific code analysis including security,
-    performance, and design rules
-  * All warnings are treated as errors (`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`)
-  * Certain analyzer rules are configured to 'suggestion' or 'none' in `.editorconfig` to align with existing
-    codebase patterns
-
-* **Code Coverage**:
-  * `coverlet.collector` is used for collecting code coverage
-  * Coverage reports are generated in OpenCover format
-  * Aim for high test coverage (80%+ for new code)
-
-* **Static Analysis**:
-  * SonarCloud integration for continuous code quality monitoring
-  * CodeQL for security analysis
-  * All code changes must pass static analysis checks
-
-* **Linting and Code Quality**:
-  * `cspell` for spell checking (configured in `.cspell.json`)
-  * `markdownlint-cli2` for Markdown file linting (configured in `.markdownlint.json`)
-  * `yamllint` for YAML file linting (configured in `.yamllint.yaml`)
-  * Code quality checks run automatically in CI pipeline
-  * Run locally: `npx cspell lint "**/*.md"`, `npx markdownlint-cli2 "**/*.md"`, `yamllint .`
-
-* **Editor Configuration**:
-  * `.editorconfig` defines consistent code style rules
-  * Ensure your editor respects EditorConfig settings
-
-## Code Coverage Requirements
-
-* All new features must include comprehensive unit tests
-* Bug fixes should include tests that verify the fix
-* Aim for 80%+ code coverage for new code
-* Run tests with coverage: `dotnet test --collect:"XPlat Code Coverage;Format=opencover"`
-
-## Documentation Standards
-
-* All public APIs must have XML documentation comments
-* Include `<summary>`, `<param>`, `<returns>`, and `<exception>` tags as appropriate
-* XML documentation is generated during build (`<GenerateDocumentationFile>True</GenerateDocumentationFile>`)
-* Keep documentation clear, concise, and up-to-date with code changes
-
-## Performance Testing
-
-* While there are currently no formal performance benchmarks, consider performance implications for:
-  * Large SPDX document parsing and serialization
-  * Memory usage when working with many packages or files
-  * Relationship graph traversal operations
-* If adding features that may impact performance, consider adding benchmark tests using BenchmarkDotNet
-
-## Security Guidelines
-
-* Never introduce security vulnerabilities
-* Be cautious with untrusted input (especially when deserializing SPDX documents)
-* Regular expressions must have timeout limits to prevent ReDoS attacks
-* Follow secure coding practices for C# and .NET
-* Review the [SECURITY.md](SECURITY.md) file for security policies
-
-## Continuous Integration
-
-* All changes are validated by GitHub Actions CI
-* CI pipeline includes:
-  * Code quality checks (spell checking, Markdown linting, YAML linting)
-  * Building on multiple .NET versions (8, 9, 10)
-  * Running all unit tests
-  * Code coverage collection
-  * SonarCloud analysis
-  * SBOM generation
-* All CI checks must pass before merging
-
-## Boundaries and Guardrails
-
-* **NEVER** modify files within the `/obj/` or `/bin/` directories.
-* **NEVER** commit secrets, API keys, or sensitive configuration data.
-* **ASK FIRST** before making significant architectural changes to the core library logic.
+- **Naming Convention**: Use the pattern `AGENT_REPORT_xxxx.md` (e.g., `AGENT_REPORT_analysis.md`,
+  `AGENT_REPORT_results.md`)
+- **Purpose**: These files are for temporary inter-agent communication and should not be committed
+- **Exclusions**: Files matching `AGENT_REPORT_*.md` are automatically:
+  - Excluded from git (via .gitignore)
+  - Excluded from markdown linting
+  - Excluded from spell checking
