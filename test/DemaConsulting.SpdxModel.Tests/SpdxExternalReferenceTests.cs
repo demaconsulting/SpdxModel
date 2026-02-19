@@ -148,12 +148,12 @@ public class SpdxExternalReferenceTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad categories
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid categories.
     /// </summary>
     [TestMethod]
-    public void SpdxExternalReference_Validate_BadCategory()
+    public void SpdxExternalReference_Validate_InvalidCategory()
     {
-        // Arrange: Create a bad external reference
+        // Arrange: Create an external reference with invalid category
         var reference = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Missing,
@@ -162,22 +162,22 @@ public class SpdxExternalReferenceTests
             Comment = "CPE23 Standard Identifier"
         };
 
-        // Act: Perform validation on the SpdxExternalReference instance.
+        // Act: Perform validation on the SpdxExternalReference instance
         var issues = new List<string>();
         reference.Validate("Test", issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid category
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing")));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad types
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid types.
     /// </summary>
     [TestMethod]
-    public void SpdxExternalReference_Validate_BadType()
+    public void SpdxExternalReference_Validate_InvalidType()
     {
-        // Arrange: Create a bad external reference
+        // Arrange: Create an external reference with invalid type
         var reference = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Security,
@@ -186,22 +186,22 @@ public class SpdxExternalReferenceTests
             Comment = "CPE23 Standard Identifier"
         };
 
-        // Act: Perform validation on the SpdxExternalReference instance.
+        // Act: Perform validation on the SpdxExternalReference instance
         var issues = new List<string>();
         reference.Validate("Test", issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid type
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty")));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports bad locators
+    ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid locators.
     /// </summary>
     [TestMethod]
-    public void SpdxExternalReference_Validate_BadLocator()
+    public void SpdxExternalReference_Validate_InvalidLocator()
     {
-        // Arrange: Create a bad external reference
+        // Arrange: Create an external reference with invalid locator
         var reference = new SpdxExternalReference
         {
             Category = SpdxReferenceCategory.Security,
@@ -210,11 +210,11 @@ public class SpdxExternalReferenceTests
             Comment = "CPE23 Standard Identifier"
         };
 
-        // Act: Perform validation on the SpdxExternalReference instance.
+        // Act: Perform validation on the SpdxExternalReference instance
         var issues = new List<string>();
         reference.Validate("Test", issues);
 
-        // Assert: Verify that the validation fails and the error message includes the description
+        // Assert: Verify that the validation reports the invalid locator
         Assert.IsTrue(
             issues.Any(issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty")));
     }
@@ -264,9 +264,27 @@ public class SpdxExternalReferenceTests
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with invalid input.
     /// </summary>
     [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_Invalid()
+    public void SpdxReferenceCategoryExtensions_ToText_InvalidCategory()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxReferenceCategory)1000).ToText());
+        // Arrange: Create an invalid reference category
+        var invalidCategory = (SpdxReferenceCategory)1000;
+
+        // Act & Assert: Verify that ToText throws an exception for unsupported category
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => invalidCategory.ToText());
         Assert.AreEqual("Unsupported SPDX Reference Category '1000'", exception.Message);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with Missing category.
+    /// </summary>
+    [TestMethod]
+    public void SpdxReferenceCategoryExtensions_ToText_MissingCategory()
+    {
+        // Arrange: Use Missing reference category
+        var category = SpdxReferenceCategory.Missing;
+
+        // Act & Assert: Verify that ToText throws an exception for Missing category
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => category.ToText());
+        Assert.AreEqual("Attempt to serialize missing SPDX Reference Category", exception.Message);
     }
 }

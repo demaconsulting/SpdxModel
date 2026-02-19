@@ -47,15 +47,15 @@ public class SpdxRelationshipsTests
         """;
 
     /// <summary>
-    ///     Tests adding a relationship with a bad ID.
+    ///     Tests adding a relationship with a missing ID.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_BadId()
+    public void SpdxRelationships_AddSingle_MissingId()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
 
-        // Act: Attempt to add a relationship with a missing ID
+        // Act: Attempt to add a relationship with a non-existent ID
         var ex = Assert.ThrowsExactly<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
@@ -75,10 +75,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding a relationship with a bad related element.
+    ///     Tests adding a relationship with a missing related element.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_BadRelatedElement()
+    public void SpdxRelationships_AddSingle_MissingRelatedElement()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);

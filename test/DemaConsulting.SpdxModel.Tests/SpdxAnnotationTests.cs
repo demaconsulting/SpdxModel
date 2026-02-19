@@ -154,10 +154,10 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotators
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotators.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotation_Validate_BadAnnotator()
+    public void SpdxAnnotation_Validate_InvalidAnnotator()
     {
         // Arrange: Create a bad annotation
         var annotation = new SpdxAnnotation
@@ -178,10 +178,10 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad dates
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad dates.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotation_Validate_BadDate()
+    public void SpdxAnnotation_Validate_InvalidDate()
     {
         // Arrange: Create a bad annotation
         var annotation = new SpdxAnnotation
@@ -202,10 +202,10 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotation types
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotation types.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotation_Validate_BadType()
+    public void SpdxAnnotation_Validate_InvalidType()
     {
         // Arrange: Create a bad annotation
         var annotation = new SpdxAnnotation
@@ -226,10 +226,10 @@ public class SpdxAnnotationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad comments
+    ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad comments.
     /// </summary>
     [TestMethod]
-    public void SpdxAnnotation_Validate_BadComment()
+    public void SpdxAnnotation_Validate_InvalidComment()
     {
         // Arrange: Create a bad annotation
         var annotation = new SpdxAnnotation

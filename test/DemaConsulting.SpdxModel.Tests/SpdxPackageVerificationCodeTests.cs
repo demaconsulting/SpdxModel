@@ -121,7 +121,7 @@ public class SpdxPackageVerificationCodeTests
     ///     Tests the <see cref="SpdxPackageVerificationCode.Validate" /> method reports bad annotators
     /// </summary>
     [TestMethod]
-    public void SpdxPackageVerificationCode_Validate_BadAnnotator()
+    public void SpdxPackageVerificationCode_Validate_InvalidValue()
     {
         // Arrange: Create a bad package verification code
         var info = new SpdxPackageVerificationCode
