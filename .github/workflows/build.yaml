@@ -171,8 +171,8 @@ jobs:
         with:
           name: artifacts-${{ matrix.os }}
           path: |
-            **/*.nupkg
-            **/*.snupkg
+            src/DemaConsulting.SpdxModel/bin/Release/*.nupkg
+            src/DemaConsulting.SpdxModel/bin/Release/*.snupkg
 
   # Runs CodeQL security and quality analysis, gathering results to include
   # in the code quality report.
