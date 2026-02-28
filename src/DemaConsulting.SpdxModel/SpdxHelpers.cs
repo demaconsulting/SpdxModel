@@ -32,7 +32,7 @@ internal static partial class SpdxHelpers
     private static partial Regex DateTimeRegex();
 #else
     /// <summary>
-    ///     Cached regular expression instance for checking date/time formats (netstandard2.0 fallback)
+    ///     Cached regular expression instance for checking date/time formats (pre-.NET 7 fallback)
     /// </summary>
     private static readonly Regex DateTimeRegexInstance =
         new Regex(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", RegexOptions.None, TimeSpan.FromMilliseconds(100));

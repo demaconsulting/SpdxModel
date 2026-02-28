@@ -72,6 +72,7 @@
 
   <!-- Library Dependencies -->
   <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="6.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Text.Json" Version="10.0.3" />
   </ItemGroup>
 
