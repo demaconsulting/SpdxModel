@@ -314,3 +314,18 @@ sections:
             tests:
               - net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
               - net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+          - id: REQ-PLAT-004
+            title: The library shall support the .NET Standard 2.0 target framework.
+            tags:
+              - platform
+            justification: |
+              .NET Standard 2.0 is a widely-supported target framework that enables the library to
+              be used in MSBuild extensions and other tooling that requires .NET Standard compatibility.
+              Supporting this target framework ensures the library can be integrated into a broader
+              range of .NET projects, including those targeting .NET Framework and older .NET Core versions.
+              The net481 test target on Windows provides direct runtime evidence of .NET Standard 2.0
+              compatibility, as .NET Framework 4.8.1 fully implements the .NET Standard 2.0 API surface.
+            tests:
+              - "net481@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+              - "net481@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
