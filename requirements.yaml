@@ -320,16 +320,12 @@ sections:
             tags:
               - platform
             justification: |
-              .NET Standard 2.0 is a formal API surface specification that enables the library to be
-              consumed by a wide range of project types, including .NET Framework 4.6.1+ projects,
-              .NET Core 2.0+ projects, Xamarin, Unity, MSBuild extensions, and other tools that
-              require .NET Standard compatibility. Publishing a netstandard2.0 target maximizes
-              adoption across the .NET ecosystem without requiring consumers to upgrade to a modern
-              runtime. The build system validates successful compilation against the netstandard2.0
-              target for every change. The net8.0 test results below serve as provisional functional
-              evidence since .NET 8 fully implements the .NET Standard 2.0 API surface; dedicated
-              net481 test targets would provide direct runtime evidence and are tracked as a future
-              enhancement.
+              .NET Standard 2.0 is a widely-supported target framework that enables the library to
+              be used in MSBuild extensions and other tooling that requires .NET Standard compatibility.
+              Supporting this target framework ensures the library can be integrated into a broader
+              range of .NET projects, including those targeting .NET Framework and older .NET Core versions.
+              The net481 test target on Windows provides direct runtime evidence of .NET Standard 2.0
+              compatibility, as .NET Framework 4.8.1 fully implements the .NET Standard 2.0 API surface.
             tests:
-              - net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-              - net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+              - "net481@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+              - "net481@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
