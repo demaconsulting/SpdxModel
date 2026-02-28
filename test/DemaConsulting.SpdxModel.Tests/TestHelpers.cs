@@ -41,10 +41,6 @@ internal static class SpdxTestHelpers
 
         // Read the resource
         using var reader = new StreamReader(stream);
-#if NET6_0_OR_GREATER
         return reader.ReadToEnd().ReplaceLineEndings();
-#else
-        return reader.ReadToEnd().Replace("\r\n", "\n").Replace("\r", "\n");
-#endif
     }
 }
