@@ -69,7 +69,7 @@ public class SpdxRelationshipsTests
         });
 
         // Assert: Verify the exception message and that no relationships were added
-        Assert.IsTrue(ex.Message.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document"));
+        Assert.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document", ex.Message);
         Assert.AreEqual("relationship", ex.ParamName);
         Assert.IsEmpty(document.Relationships);
     }
@@ -97,7 +97,7 @@ public class SpdxRelationshipsTests
         });
 
         // Assert: Verify the exception message and that no relationships were added
-        Assert.IsTrue(ex.Message.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document"));
+        Assert.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document", ex.Message);
         Assert.AreEqual("relationship", ex.ParamName);
         Assert.IsEmpty(document.Relationships);
     }
