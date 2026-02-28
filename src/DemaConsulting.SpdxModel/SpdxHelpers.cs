@@ -24,11 +24,25 @@ namespace DemaConsulting.SpdxModel;
 
 internal static partial class SpdxHelpers
 {
+#if NET7_0_OR_GREATER
     /// <summary>
-    ///     Regular expression for checking date/time formats
+    ///     Regular expression for checking date/time formats (source-generated for .NET 7+)
     /// </summary>
     [GeneratedRegex(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", RegexOptions.None, 100)]
     private static partial Regex DateTimeRegex();
+#else
+    /// <summary>
+    ///     Cached regular expression instance for checking date/time formats (netstandard2.0 fallback)
+    /// </summary>
+    private static readonly Regex DateTimeRegexInstance =
+        new Regex(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", RegexOptions.None, TimeSpan.FromMilliseconds(100));
+
+    /// <summary>
+    ///     Regular expression for checking date/time formats
+    /// </summary>
+    /// <returns>Compiled <see cref="Regex"/> instance</returns>
+    private static Regex DateTimeRegex() => DateTimeRegexInstance;
+#endif
 
     /// <summary>
     ///     Test if a string is a valid SPDX date/time field (which include null/empty)
