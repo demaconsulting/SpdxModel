@@ -4,6 +4,7 @@ resource-path:
   - docs/template
 
 input-files:
+  - docs/requirements/title.txt
   - docs/requirements/introduction.md
   - docs/requirements/requirements.md
 

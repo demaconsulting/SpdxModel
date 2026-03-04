@@ -4,6 +4,7 @@ resource-path:
   - docs/template
 
 input-files:
+  - docs/quality/title.txt
   - docs/quality/introduction.md
   - docs/quality/codeql-quality.md
   - docs/quality/sonar-quality.md

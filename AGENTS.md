@@ -20,7 +20,7 @@ and deserializing SPDX SBOMs into an in-memory representation.
 ## Key Files
 
 - **`requirements.yaml`** - All requirements with test linkage (enforced via `dotnet reqstream --enforce`)
-- **`.editorconfig`** - Code style (file-scoped namespaces, 4-space indent, UTF-8+BOM, LF endings)
+- **`.editorconfig`** - Code style (file-scoped namespaces, 4-space indent, UTF-8, LF endings)
 - **`.cspell.json`, `.markdownlint-cli2.jsonc`, `.yamllint.yaml`** - Linting configs
 
 ## Requirements
@@ -28,7 +28,7 @@ and deserializing SPDX SBOMs into an in-memory representation.
 - All requirements MUST be linked to tests
 - Not all tests need to be linked to requirements (tests may exist for corner cases, design testing,
   failure-testing, etc.)
-- Enforced in CI: `dotnet reqstream --requirements requirements.yaml --tests "test-results/**/*.trx" --enforce`
+- Enforced in CI: `dotnet reqstream --requirements requirements.yaml --tests "artifacts/**/*.trx" --enforce`
 - When adding features: add requirement + link to test
 
 ## Test Source Filters

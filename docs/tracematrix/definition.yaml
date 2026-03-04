@@ -4,6 +4,7 @@ resource-path:
   - docs/template
 
 input-files:
+  - docs/tracematrix/title.txt
   - docs/tracematrix/introduction.md
   - docs/tracematrix/tracematrix.md
 
