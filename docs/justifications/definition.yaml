@@ -4,6 +4,7 @@ resource-path:
   - docs/template
 
 input-files:
+  - docs/justifications/title.txt
   - docs/justifications/introduction.md
   - docs/justifications/justifications.md
 

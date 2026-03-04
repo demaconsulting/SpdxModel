@@ -329,3 +329,85 @@ sections:
             tests:
               - "net481@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
               - "net481@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+
+      - title: OTS Software
+        requirements:
+          - id: REQ-OTS-001
+            title: MSTest shall execute unit tests and report results.
+            tags:
+              - ots
+            justification: |
+              MSTest (MSTest.TestFramework and MSTest.TestAdapter) is the unit-testing framework used
+              by the project. It discovers and runs all test methods and writes TRX result files that
+              feed into coverage reporting and requirements traceability. Passing tests confirm the
+              framework is functioning correctly.
+            tests:
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
+              - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+          - id: REQ-OTS-002
+            title: ReqStream shall enforce that every requirement is linked to passing test evidence.
+            tags:
+              - ots
+            justification: |
+              DemaConsulting.ReqStream processes requirements.yaml and the TRX test-result files to
+              produce a requirements report, justifications document, and traceability matrix. When
+              run with --enforce, it exits with a non-zero code if any requirement lacks test evidence,
+              making unproven requirements a build-breaking condition. A successful pipeline run with
+              --enforce proves all requirements are covered and that ReqStream is functioning.
+            tests:
+              - ReqStream_EnforcementMode
+
+          - id: REQ-OTS-003
+            title: BuildMark shall generate build-notes documentation from GitHub Actions metadata.
+            tags:
+              - ots
+            justification: |
+              DemaConsulting.BuildMark queries the GitHub API to capture workflow run details and
+              renders them as a markdown build-notes document included in the release artifacts.
+              It runs as part of the same CI pipeline that produces the TRX test results, so a
+              successful pipeline run is evidence that BuildMark executed without error.
+            tests:
+              - BuildMark_MarkdownReportGeneration
+
+          - id: REQ-OTS-004
+            title: VersionMark shall publish captured tool-version information.
+            tags:
+              - ots
+            justification: |
+              DemaConsulting.VersionMark reads version metadata for each dotnet tool used in the
+              pipeline and writes a versions markdown document included in the release artifacts.
+              It runs in the same CI pipeline that produces the TRX test results, so a successful
+              pipeline run is evidence that VersionMark executed without error.
+            tests:
+              - VersionMark_CapturesVersions
+              - VersionMark_GeneratesMarkdownReport
+
+          - id: REQ-OTS-005
+            title: SarifMark shall convert CodeQL SARIF results into a markdown report.
+            tags:
+              - ots
+            justification: |
+              DemaConsulting.SarifMark reads the SARIF output produced by CodeQL code scanning and
+              renders it as a human-readable markdown document included in the release artifacts.
+              It runs in the same CI pipeline that produces the TRX test results, so a successful
+              pipeline run is evidence that SarifMark executed without error.
+            tests:
+              - SarifMark_SarifReading
+              - SarifMark_MarkdownReportGeneration
+
+          - id: REQ-OTS-006
+            title: SonarMark shall generate a SonarCloud quality report.
+            tags:
+              - ots
+            justification: |
+              DemaConsulting.SonarMark retrieves quality-gate and metrics data from SonarCloud and
+              renders it as a markdown document included in the release artifacts. It runs in the
+              same CI pipeline that produces the TRX test results, so a successful pipeline run is
+              evidence that SonarMark executed without error.
+            tests:
+              - SonarMark_QualityGateRetrieval
+              - SonarMark_IssuesRetrieval
+              - SonarMark_HotSpotsRetrieval
+              - SonarMark_MarkdownReportGeneration
