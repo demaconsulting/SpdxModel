@@ -279,6 +279,16 @@ sections:
 
       - title: Platform Requirements
         requirements:
+          - id: SpdxModel-Plt-MacOS
+            title: The library shall build and run on macOS platforms.
+            tags:
+              - platform
+            justification: |
+              DEMA Consulting libraries must support macOS for developers using Apple platforms.
+            tests:
+              # Tests link to "macos" to ensure results come from macOS platform
+              - "macos@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+
           - id: SpdxModel-Plt-Net8
             title: The library shall support .NET 8 runtime.
             tags:

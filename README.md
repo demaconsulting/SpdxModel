@@ -20,8 +20,11 @@ comprehensive in-memory model for reading, manipulating, and writing SPDX Softwa
 - 🎯 **Type-Safe** - Strongly-typed C# API with nullable reference types
 - 🔍 **Transform Support** - Built-in utilities for manipulating SPDX relationships
 - ⚡ **Multi-Target** - Supports .NET 8, 9, and 10
+- 🖥️ **Multi-Platform** - Builds and runs on Windows, Linux, and macOS
 - 🧪 **Well-Tested** - Comprehensive test suite with high code coverage
 - 📚 **Well-Documented** - XML documentation for all public APIs
+- 🔒 **Continuous Compliance** - Compliance evidence generated automatically on every CI run, following
+  the [Continuous Compliance](https://github.com/demaconsulting/ContinuousCompliance) methodology
 
 ## Installation
 
