@@ -13,6 +13,18 @@ and deserializing SPDX SBOMs into an in-memory representation.
 - **Repo Consistency Agent** - Ensures SpdxModel remains consistent with the
   [TemplateDotNetLibrary](https://github.com/demaconsulting/TemplateDotNetLibrary) template patterns
 
+## Agent Selection Guide
+
+- Fix a bug → **Software Developer**
+- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
+- Write a test → **Test Developer**
+- Fix linting or static analysis issues → **Code Quality Agent**
+- Update documentation → **Technical Writer**
+- Add or update requirements → **Requirements Agent**
+- Ensure test coverage linkage in `requirements.yaml` → **Requirements Agent**
+- Run security scanning or address CodeQL alerts → **Code Quality Agent**
+- Propagate template changes → **Repo Consistency Agent**
+
 ## Tech Stack
 
 - C# 12, .NET 8.0/9.0/10.0, dotnet CLI, NuGet
@@ -38,6 +50,7 @@ evidence. This is critical for platform and framework requirements - **do not re
 
 - `windows@TestName` - proves the test passed on a Windows platform
 - `ubuntu@TestName` - proves the test passed on a Linux (Ubuntu) platform
+- `macos@TestName` - proves the test passed on a macOS platform
 - `net8.0@TestName` - proves the test passed under the .NET 8 runtime
 - `net9.0@TestName` - proves the test passed under the .NET 9 runtime
 - `net10.0@TestName` - proves the test passed under the .NET 10 runtime
@@ -91,7 +104,7 @@ dotnet test --configuration Release
 ## CI/CD
 
 - **Quality Checks**: Markdown lint, spell check, YAML lint
-- **Build**: Multi-platform .NET 8/9/10
+- **Build**: Multi-platform (Windows/Linux/macOS) .NET 8/9/10
 - **CodeQL**: Security scanning
 - **SonarCloud**: Code quality analysis
 
