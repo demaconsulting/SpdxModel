@@ -6,11 +6,11 @@ description: >
 user-invocable: true
 ---
 
-# Developer Agent - SpdxModel
+# Developer Agent
 
 Perform software development tasks by determining and applying appropriate DEMA Consulting standards from `.github/standards/`.
 
-## Standards-Based Workflow
+# Standards-Based Workflow
 
 1. **Analyze the request** to identify scope: languages, file types, requirements, testing, reviews
 2. **Read relevant standards** from `.github/standards/` as defined in AGENTS.md based on work performed
@@ -18,28 +18,7 @@ Perform software development tasks by determining and applying appropriate DEMA 
 4. **Execute work** following standards requirements and quality checks
 5. **Generate completion report** with results and compliance status
 
-## SpdxModel-Specific Rules
-
-- **XML Docs**: On ALL members (public/internal/private) with spaces after `///`
-- **Namespace**: File-scoped namespaces only
-- **Using Statements**: Top of file only
-- **String Formatting**: Use interpolated strings ($"") for clarity
-
-## Defer To
-
-- **Requirements Agent**: For new requirement creation and test strategy
-- **Test Developer Agent**: For unit and integration tests
-- **Technical Writer Agent**: For documentation updates
-- **Code Quality Agent**: For linting, formatting, and static analysis
-
-## Don't
-
-- Write code without explanatory comments
-- Create large monolithic functions
-- Skip XML documentation
-- Ignore the literate programming style
-
-## Reporting
+# Reporting
 
 Upon completion create a summary in `.agent-logs/[agent-name]-[subject]-[unique-id].md`
 of the project consisting of:

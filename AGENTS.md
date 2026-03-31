@@ -36,11 +36,11 @@ Delegate to specialized agents only for specific scenarios:
 - **developer** - General-purpose software development agent that applies
   appropriate standards based on the work being performed
 - **implementation** - Orchestrator agent that manages quality implementations
-  through a formal RESEARCH → DEVELOPMENT → QUALITY state machine workflow
+  through a formal state machine workflow
 - **quality** - Quality assurance agent that grades developer work against DEMA
   Consulting standards and Continuous Compliance practices
 - **repo-consistency** - Ensures SpdxModel remains consistent with the
-  TemplateDotNetLibrary template patterns and best practices
+  TemplateDotNetTool template patterns and best practices
 
 ## Quality Gate Enforcement (ALL Agents Must Verify)
 
@@ -54,6 +54,96 @@ modification policies in header comments.
 5. **Test Coverage**: All requirements linked to passing tests
 6. **Documentation Currency**: All docs current and generated
 7. **File Review Status**: All reviewable files have current reviews
+
+## Continuous Compliance Overview
+
+This repository follows the DEMA Consulting Continuous Compliance
+<https://github.com/demaconsulting/ContinuousCompliance> approach, which enforces quality and
+compliance gates on every CI/CD run instead of as a last-mile activity.
+
+### Core Principles
+
+- **Requirements Traceability**: Every requirement MUST link to passing tests
+- **Quality Gates**: All quality checks must pass before merge
+- **Documentation Currency**: All docs auto-generated and kept current
+- **Automated Evidence**: Full audit trail generated with every build
+
+## Required Compliance Tools
+
+### Linting Tools (ALL Must Pass)
+
+- **markdownlint-cli2**: Markdown style and formatting enforcement
+- **cspell**: Spell-checking across all text files (use `.cspell.json` for technical terms)
+- **yamllint**: YAML structure and formatting validation
+- **Language-specific linters**: Based on repository technology stack
+
+### Quality Analysis
+
+- **SonarCloud**: Code quality and security analysis
+- **CodeQL**: Security vulnerability scanning (produces SARIF output)
+- **Static analyzers**: Microsoft.CodeAnalysis.NetAnalyzers, SonarAnalyzer.CSharp, etc.
+
+### Requirements & Compliance
+
+- **ReqStream**: Requirements traceability enforcement (`dotnet reqstream --enforce`)
+- **ReviewMark**: File review status enforcement
+- **BuildMark**: Tool version documentation
+- **VersionMark**: Version tracking across CI/CD jobs
+
+## Key Configuration Files
+
+### Essential Files (Repository-Specific)
+
+- **`lint.sh` / `lint.bat`** - Cross-platform comprehensive linting scripts
+- **`.editorconfig`** - Code formatting rules
+- **`.cspell.json`** - Spell-check configuration and technical term dictionary
+- **`.markdownlint-cli2.jsonc`** - Markdown linting rules
+- **`.yamllint.yaml`** - YAML linting configuration
+- **`nuget.config`** - NuGet package sources
+- **`package.json`** - Node.js dependencies for linting tools
+
+### Compliance Files
+
+- **`requirements.yaml`** - Root requirements file with includes
+- **`.reviewmark.yaml`** - File review definitions and tracking
+- CI/CD pipeline files with quality gate enforcement
+
+## Continuous Compliance Workflow
+
+### CI/CD Pipeline Stages (Standard)
+
+1. **Lint**: `./lint.sh` or `lint.bat` - comprehensive linting suite
+2. **Build**: Compile with warnings as errors
+3. **Analyze**: SonarCloud, CodeQL security scanning
+4. **Test**: Execute all tests, generate coverage reports
+5. **Document**: Generate requirements reports, trace matrix, build notes
+6. **Enforce**: Requirements traceability, file review status
+7. **Publish**: Generate final documentation (Pandoc → PDF)
+
+### Quality Gate Enforcement
+
+All stages must pass before merge. Pipeline fails immediately on:
+
+- Any linting errors
+- Build warnings or errors
+- Security vulnerabilities (CodeQL)
+- Requirements without test coverage
+- Outdated file reviews
+- Missing documentation
+
+## Continuous Compliance Requirements
+
+This repository follows continuous compliance practices from DEMA Consulting
+Continuous Compliance <https://github.com/demaconsulting/ContinuousCompliance>.
+
+### Core Requirements Traceability Rules
+
+- **ALL requirements MUST be linked to tests** - Enforced in CI via `dotnet reqstream --enforce`
+- **NOT all tests need requirement links** - Tests may exist for corner cases, design validation, failure scenarios
+- **Source filters are critical** - Platform/framework requirements need specific test evidence
+
+For detailed requirements format, test linkage patterns, and ReqStream
+integration, call the @developer agent with requirements management context.
 
 ## Tech Stack
 

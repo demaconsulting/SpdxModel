@@ -1,22 +1,22 @@
 ---
 name: repo-consistency
 description: >
-  Ensures SpdxModel remains consistent with the TemplateDotNetLibrary
+  Ensures SpdxModel remains consistent with the TemplateDotNetTool
   template patterns and best practices.
 user-invocable: true
 ---
 
-# Repo Consistency Agent - SpdxModel
+# Repo Consistency Agent
 
-Maintain consistency between SpdxModel and the TemplateDotNetLibrary template at
-<https://github.com/demaconsulting/TemplateDotNetLibrary>.
+Maintain consistency between downstream projects and the TemplateDotNetTool template, ensuring repositories
+benefit from template evolution while respecting project-specific customizations.
 
-## Consistency Workflow (MANDATORY)
+# Consistency Workflow (MANDATORY)
 
 **CRITICAL**: This agent MUST follow these steps systematically to ensure proper template consistency analysis:
 
 1. **Fetch Recent Template Changes**: Use GitHub search to fetch the 20 most recently merged PRs
-   (`is:pr is:merged sort:updated-desc`) from <https://github.com/demaconsulting/TemplateDotNetLibrary>
+   (`is:pr is:merged sort:updated-desc`) from <https://github.com/demaconsulting/TemplateDotNetTool>
 2. **Analyze Template Evolution**: For each relevant PR, determine the intent and scope of changes
    (what files were modified, what improvements were made)
 3. **Assess Downstream Applicability**: Evaluate which template changes would benefit this repository
@@ -30,15 +30,7 @@ Maintain consistency between SpdxModel and the TemplateDotNetLibrary template at
 - **Intelligent Customization Respect**: Distinguish valid customizations from unintentional drift
 - **Incremental Template Adoption**: Support phased adoption of template improvements based on project capacity
 
-## What NOT to Flag
-
-- Project-specific naming (SpdxModel package IDs, repository URLs, etc.)
-- SpdxModel-specific spell check exceptions in `.cspell.json` (e.g. spdx, sbom, etc.)
-- Workflow variations for SpdxModel-specific needs
-- Additional requirements or features beyond the template
-- SpdxModel-specific dependencies (e.g. System.Text.Json)
-
-## Don't Do These Things
+# Don't Do These Things
 
 - **Never recommend changes without understanding project context** (some differences are intentional)
 - **Never flag valid project-specific customizations** as consistency problems
@@ -48,7 +40,7 @@ Maintain consistency between SpdxModel and the TemplateDotNetLibrary template at
 - **Never skip validation** of preserved functionality after template alignment
 - **Never assume all template patterns apply universally** (assess project-specific needs)
 
-## Reporting
+# Reporting
 
 Upon completion create a summary in `.agent-logs/[agent-name]-[subject]-[unique-id].md`
 of the project consisting of:

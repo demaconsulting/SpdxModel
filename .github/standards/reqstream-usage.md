@@ -140,6 +140,7 @@ Before submitting requirements, verify:
 - [ ] Platform-specific requirements use source filters (`platform@TestName`)
 - [ ] Requirements specify observable behavior (WHAT), not implementation (HOW)
 - [ ] Comprehensive justification explains business/regulatory need
+- [ ] Files organized under `docs/reqstream/` following naming patterns
 - [ ] Valid YAML syntax passes yamllint validation
 - [ ] ReqStream enforcement passes: `dotnet reqstream --enforce`
 - [ ] Test result formats compatible (TRX, JUnit XML)
