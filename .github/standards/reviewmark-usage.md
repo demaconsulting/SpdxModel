@@ -35,7 +35,15 @@ evidence-source:
 
 # Named review-sets grouping related files
 reviews:
-  - id: SpdxModel-AllRequirements
+  - id: MyProduct-PasswordValidator
+    title: Password Validator Unit Review
+    paths:
+      - "src/Auth/PasswordValidator.cs"
+      - "docs/reqstream/auth-passwordvalidator-class.yaml"
+      - "test/Auth/PasswordValidatorTests.cs"
+      - "docs/design/password-validation.md"
+
+  - id: MyProduct-AllRequirements
     title: All Requirements Review
     paths:
       - "requirements.yaml"
@@ -53,7 +61,7 @@ Reviews system integration and operational validation:
 
 - **Files**: System-level requirements, design introduction, system design documents, integration tests
 - **Purpose**: Validates system operates as designed and meets overall requirements
-- **Example**: `SpdxModel-System`
+- **Example**: `TemplateTool-System`
 
 ## [Product]-Design Review
 
@@ -61,7 +69,7 @@ Reviews architectural and design consistency:
 
 - **Files**: System-level requirements, platform requirements, all design documents
 - **Purpose**: Ensures design completeness and architectural coherence
-- **Example**: `SpdxModel-Design`
+- **Example**: `MyProduct-Design`
 
 ## [Product]-AllRequirements Review
 
@@ -69,7 +77,7 @@ Reviews requirements quality and traceability:
 
 - **Files**: All requirement files including root `requirements.yaml`
 - **Purpose**: Validates requirements structure, IDs, justifications, and test linkage
-- **Example**: `SpdxModel-AllRequirements`
+- **Example**: `MyProduct-AllRequirements`
 
 ## [Product]-[Unit] Review
 
@@ -77,7 +85,7 @@ Reviews individual software unit implementation:
 
 - **Files**: Unit requirements, design documents, source code, unit tests
 - **Purpose**: Validates unit meets requirements and is properly implemented
-- **Example**: `SpdxModel-SpdxDocument`, `SpdxModel-SpdxPackage`
+- **Example**: `MyProduct-PasswordValidator`, `MyProduct-ConfigParser`
 
 ## [Product]-[Subsystem] Review
 
@@ -85,7 +93,7 @@ Reviews subsystem architecture and interfaces:
 
 - **Files**: Subsystem requirements, design documents, integration tests (usually no source code)
 - **Purpose**: Validates subsystem behavior and interface compliance
-- **Example**: `SpdxModel-IO`, `SpdxModel-Validation`
+- **Example**: `MyProduct-Authentication`, `MyProduct-DataLayer`
 
 # ReviewMark Commands
 

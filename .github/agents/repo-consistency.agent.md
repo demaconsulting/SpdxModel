@@ -1,7 +1,7 @@
 ---
 name: repo-consistency
 description: >
-  Ensures SpdxModel remains consistent with the TemplateDotNetTool
+  Ensures downstream repositories remain consistent with the TemplateDotNetTool
   template patterns and best practices.
 user-invocable: true
 ---

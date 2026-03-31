@@ -66,7 +66,7 @@ sections:
 
 Use meaningful IDs following `Project-Section-ShortDesc` pattern:
 
-- **Good**: `SpdxModel-Core-DisplayHelp`
+- **Good**: `TemplateTool-Core-DisplayHelp`
 - **Bad**: `REQ-042` (requires lookup to understand)
 
 # Requirement Best Practices
@@ -117,18 +117,18 @@ dotnet reqstream \
 # Generate requirements report
 dotnet reqstream \
   --requirements requirements.yaml \
-  --report docs/requirements/requirements.md
+  --report docs/requirements_doc/requirements.md
 
 # Generate justifications report
 dotnet reqstream \
   --requirements requirements.yaml \
-  --justifications docs/justifications/justifications.md
+  --justifications docs/requirements_doc/justifications.md
 
 # Generate trace matrix
 dotnet reqstream \
   --requirements requirements.yaml \
   --tests "artifacts/**/*.trx" \
-  --matrix docs/tracematrix/tracematrix.md
+  --matrix docs/requirements_report/trace_matrix.md
 ```
 
 # Quality Checks
