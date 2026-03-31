@@ -17,35 +17,42 @@ Before performing any work, agents must read and apply the relevant standards fr
 Load only the standards relevant to your specific task scope and apply their
 quality checks and guidelines throughout your work.
 
+## Agent Delegation Guidelines
+
+The default agent should handle simple, straightforward tasks directly.
+Delegate to specialized agents only for specific scenarios:
+
+- **Light development work** (small fixes, simple features) → Call @developer agent
+- **Light quality checking** (linting, basic validation) → Call @quality agent
+- **Formal feature implementation** (complex, multi-step) → Call the `@implementation` agent
+- **Formal bug resolution** (complex debugging, systematic fixes) → Call the `@implementation` agent
+- **Formal reviews** (compliance verification, detailed analysis) → Call @code-review agent
+- **Template consistency** (downstream repository alignment) → Call @repo-consistency agent
+
 ## Available Specialized Agents
 
-- **implementation** - Orchestrator agent that manages quality implementations
-  through a formal RESEARCH → DEVELOPMENT → QUALITY state machine workflow
-- **developer** - General-purpose software development agent that applies
-  appropriate standards based on the work being performed
-- **quality** - Quality assurance agent that grades developer work against DEMA
-  Consulting standards and Continuous Compliance practices
 - **code-review** - Agent for performing formal reviews using standardized
   review processes
+- **developer** - General-purpose software development agent that applies
+  appropriate standards based on the work being performed
+- **implementation** - Orchestrator agent that manages quality implementations
+  through a formal RESEARCH → DEVELOPMENT → QUALITY state machine workflow
+- **quality** - Quality assurance agent that grades developer work against DEMA
+  Consulting standards and Continuous Compliance practices
 - **repo-consistency** - Ensures SpdxModel remains consistent with the
-  [TemplateDotNetLibrary](https://github.com/demaconsulting/TemplateDotNetLibrary) template patterns
-- **requirements** - Develops requirements and ensures test coverage linkage
-- **technical-writer** - Creates accurate documentation following regulatory best practices
-- **test-developer** - Creates unit tests following AAA pattern
+  [TemplateDotNetLibrary][template] template patterns and best practices
 
-## Agent Selection Guide
+## Quality Gate Enforcement (ALL Agents Must Verify)
 
-- Fix a bug → **developer**
-- Add a new feature (complex) → **implementation** (orchestrates research→development→quality)
-- Add a new feature (simple) → **developer** → **test-developer**
-- Write a test → **test-developer**
-- Fix linting or static analysis issues → **quality**
-- Update documentation → **technical-writer**
-- Add or update requirements → **requirements**
-- Ensure test coverage linkage in `requirements.yaml` → **requirements**
-- Run security scanning or address CodeQL alerts → **quality**
-- Propagate template changes → **repo-consistency**
-- Formal code review → **code-review**
+Configuration files and scripts are self-documenting with their design intent and
+modification policies in header comments.
+
+1. **Linting Standards**: `./lint.sh` (Unix) or `lint.bat` (Windows) - comprehensive linting suite
+2. **Build Quality**: Zero warnings (`TreatWarningsAsErrors=true`)
+3. **Static Analysis**: SonarCloud/CodeQL passing with no blockers
+4. **Requirements Traceability**: `dotnet reqstream --enforce` passing
+5. **Test Coverage**: All requirements linked to passing tests
+6. **Documentation Currency**: All docs current and generated
 
 ## Tech Stack
 
@@ -141,24 +148,14 @@ dotnet format
 lint.bat     # Windows
 ```
 
-## Agent Log Files
+## Agent Report Files
 
-Upon completion, agents should create a log file at `.agent-logs/[agent-name]-[subject]-[unique-id].md` that includes:
+Upon completion, create a report file at `.agent-logs/[agent-name]-[subject]-[unique-id].md` that includes:
 
 - A concise summary of the work performed
 - Any important decisions made and their rationale
 - Follow-up items, open questions, or TODOs
 
-Agent logs are stored in `.agent-logs/` which is excluded from git (via `.gitignore`) and excluded from linting.
+Store agent logs in the `.agent-logs/` folder so they are ignored via `.gitignore` and excluded from linting and commits.
 
-## Agent Report Files
-
-When agents need to write report files to communicate with each other or the user, follow these guidelines:
-
-- **Naming Convention**: Use the pattern `AGENT_REPORT_xxxx.md` (e.g., `AGENT_REPORT_analysis.md`,
-  `AGENT_REPORT_results.md`)
-- **Purpose**: These files are for temporary inter-agent communication and should not be committed
-- **Exclusions**: Files matching `AGENT_REPORT_*.md` are automatically:
-  - Excluded from git (via .gitignore)
-  - Excluded from markdown linting
-  - Excluded from spell checking
+[template]: https://github.com/demaconsulting/TemplateDotNetLibrary
