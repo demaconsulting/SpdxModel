@@ -40,7 +40,7 @@ Delegate to specialized agents only for specific scenarios:
 - **quality** - Quality assurance agent that grades developer work against DEMA
   Consulting standards and Continuous Compliance practices
 - **repo-consistency** - Ensures SpdxModel remains consistent with the
-  [TemplateDotNetLibrary][template] template patterns and best practices
+  TemplateDotNetLibrary template patterns and best practices
 
 ## Quality Gate Enforcement (ALL Agents Must Verify)
 
@@ -53,6 +53,7 @@ modification policies in header comments.
 4. **Requirements Traceability**: `dotnet reqstream --enforce` passing
 5. **Test Coverage**: All requirements linked to passing tests
 6. **Documentation Currency**: All docs current and generated
+7. **File Review Status**: All reviewable files have current reviews
 
 ## Tech Stack
 
@@ -87,25 +88,6 @@ evidence. This is critical for platform and framework requirements - **do not re
 Without the source filter, a test result from any platform/framework satisfies the requirement. Adding the filter
 ensures the CI evidence comes specifically from the required environment.
 
-## Testing
-
-- **Test Naming**: `ClassName_MethodUnderTest_Scenario_ExpectedBehavior` for unit tests
-- **Test Framework**: Uses MSTest for unit testing
-- **Code Coverage**: Maintain high code coverage for library APIs
-
-## Code Style
-
-- **XML Docs**: On ALL members (public/internal/private) with spaces after `///` in summaries
-- **Namespace**: File-scoped namespaces only
-- **Using Statements**: Top of file only (no nested using declarations except for IDisposable)
-- **String Formatting**: Use interpolated strings ($"") for clarity
-
-## Project Structure
-
-- **`src/DemaConsulting.SpdxModel/`**: Library source code
-- **`test/DemaConsulting.SpdxModel.Tests/`**: Unit tests
-- **`DemaConsulting.SpdxModel.sln`**: Visual Studio solution file
-
 ## Build and Test
 
 ```bash
@@ -115,13 +97,6 @@ dotnet build --configuration Release
 # Run unit tests
 dotnet test --configuration Release
 ```
-
-## Documentation
-
-- **User Guide**: `docs/guide/`
-- **Requirements**: `requirements.yaml` -> auto-generated docs
-- **Build Notes**: Auto-generated via BuildMark
-- **Trace Matrix**: Auto-generated via ReqStream
 
 ## Markdown Link Style
 
@@ -137,17 +112,6 @@ dotnet test --configuration Release
 - **CodeQL**: Security scanning
 - **SonarCloud**: Code quality analysis
 
-## Common Tasks
-
-```bash
-# Format code
-dotnet format
-
-# Run all linters
-./lint.sh    # Linux/macOS
-lint.bat     # Windows
-```
-
 ## Agent Report Files
 
 Upon completion, create a report file at `.agent-logs/[agent-name]-[subject]-[unique-id].md` that includes:
@@ -157,5 +121,3 @@ Upon completion, create a report file at `.agent-logs/[agent-name]-[subject]-[un
 - Follow-up items, open questions, or TODOs
 
 Store agent logs in the `.agent-logs/` folder so they are ignored via `.gitignore` and excluded from linting and commits.
-
-[template]: https://github.com/demaconsulting/TemplateDotNetLibrary
