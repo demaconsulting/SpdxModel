@@ -19,25 +19,33 @@ quality checks and guidelines throughout your work.
 
 ## Available Specialized Agents
 
-- **Requirements Agent** - Develops requirements and ensures test coverage linkage
-- **Technical Writer** - Creates accurate documentation following regulatory best practices
-- **Software Developer** - Writes production code in literate style
-- **Test Developer** - Creates unit tests following AAA pattern
-- **Code Quality Agent** - Enforces linting, static analysis, and security standards
-- **Repo Consistency Agent** - Ensures SpdxModel remains consistent with the
+- **implementation** - Orchestrator agent that manages quality implementations
+  through a formal RESEARCH → DEVELOPMENT → QUALITY state machine workflow
+- **developer** - General-purpose software development agent that applies
+  appropriate standards based on the work being performed
+- **quality** - Quality assurance agent that grades developer work against DEMA
+  Consulting standards and Continuous Compliance practices
+- **code-review** - Agent for performing formal reviews using standardized
+  review processes
+- **repo-consistency** - Ensures SpdxModel remains consistent with the
   [TemplateDotNetLibrary](https://github.com/demaconsulting/TemplateDotNetLibrary) template patterns
+- **requirements** - Develops requirements and ensures test coverage linkage
+- **technical-writer** - Creates accurate documentation following regulatory best practices
+- **test-developer** - Creates unit tests following AAA pattern
 
 ## Agent Selection Guide
 
-- Fix a bug → **Software Developer**
-- Add a new feature → **Requirements Agent** → **Software Developer** → **Test Developer**
-- Write a test → **Test Developer**
-- Fix linting or static analysis issues → **Code Quality Agent**
-- Update documentation → **Technical Writer**
-- Add or update requirements → **Requirements Agent**
-- Ensure test coverage linkage in `requirements.yaml` → **Requirements Agent**
-- Run security scanning or address CodeQL alerts → **Code Quality Agent**
-- Propagate template changes → **Repo Consistency Agent**
+- Fix a bug → **developer**
+- Add a new feature (complex) → **implementation** (orchestrates research→development→quality)
+- Add a new feature (simple) → **developer** → **test-developer**
+- Write a test → **test-developer**
+- Fix linting or static analysis issues → **quality**
+- Update documentation → **technical-writer**
+- Add or update requirements → **requirements**
+- Ensure test coverage linkage in `requirements.yaml` → **requirements**
+- Run security scanning or address CodeQL alerts → **quality**
+- Propagate template changes → **repo-consistency**
+- Formal code review → **code-review**
 
 ## Tech Stack
 
@@ -129,9 +137,8 @@ dotnet test --configuration Release
 dotnet format
 
 # Run all linters
-npx cspell lint "**/*.md"
-npx markdownlint-cli2 "**/*.md"
-yamllint .
+./lint.sh    # Linux/macOS
+lint.bat     # Windows
 ```
 
 ## Agent Log Files

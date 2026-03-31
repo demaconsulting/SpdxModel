@@ -1,6 +1,9 @@
 ---
-name: Requirements Agent
-description: Develops requirements and ensures appropriate test coverage - knows which requirements need unit/integration/self-validation tests
+name: requirements
+description: >
+  Develops requirements and ensures appropriate test coverage - knows which
+  requirements need unit/integration/self-validation tests.
+user-invocable: true
 ---
 
 # Requirements Agent - SpdxModel

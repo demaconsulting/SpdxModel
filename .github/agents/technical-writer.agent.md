@@ -1,6 +1,9 @@
 ---
-name: Technical Writer
-description: Ensures documentation is accurate and complete - knowledgeable about regulatory documentation and special document types
+name: technical-writer
+description: >
+  Ensures documentation is accurate and complete - knowledgeable about
+  regulatory documentation and special document types.
+user-invocable: true
 ---
 
 # Technical Writer - SpdxModel
