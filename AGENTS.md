@@ -3,6 +3,20 @@
 Project-specific guidance for agents working on SpdxModel - a C# library for serializing
 and deserializing SPDX SBOMs into an in-memory representation.
 
+## Standards Application (ALL Agents Must Follow)
+
+Before performing any work, agents must read and apply the relevant standards from `.github/standards/`:
+
+- **`csharp-language.md`** - For C# code development (literate programming, XML docs, dependency injection)
+- **`csharp-testing.md`** - For C# test development (AAA pattern, naming, MSTest anti-patterns)
+- **`reqstream-usage.md`** - For requirements management (traceability, semantic IDs, source filters)
+- **`reviewmark-usage.md`** - For file review management (review-sets, file patterns, enforcement)
+- **`software-items.md`** - For software categorization (system/subsystem/unit/OTS classification)
+- **`technical-documentation.md`** - For documentation creation and maintenance (structure, Pandoc, README best practices)
+
+Load only the standards relevant to your specific task scope and apply their
+quality checks and guidelines throughout your work.
+
 ## Available Specialized Agents
 
 - **Requirements Agent** - Develops requirements and ensures test coverage linkage
@@ -119,6 +133,16 @@ npx cspell lint "**/*.md"
 npx markdownlint-cli2 "**/*.md"
 yamllint .
 ```
+
+## Agent Log Files
+
+Upon completion, agents should create a log file at `.agent-logs/[agent-name]-[subject]-[unique-id].md` that includes:
+
+- A concise summary of the work performed
+- Any important decisions made and their rationale
+- Follow-up items, open questions, or TODOs
+
+Agent logs are stored in `.agent-logs/` which is excluded from git (via `.gitignore`) and excluded from linting.
 
 ## Agent Report Files
 
