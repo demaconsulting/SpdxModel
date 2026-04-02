@@ -53,8 +53,9 @@ Spdx2JsonDeserializer ──► SpdxDocument (in-memory model)
 - **Immutability by convention**: data model classes use public mutable properties to allow
   flexible construction while deep-copy methods provide safe cloning
 - **Nullable reference types enabled**: all public API members declare nullability explicitly
-- **No external runtime dependencies beyond BCL**: keeps the library lightweight and avoids
-  dependency conflicts for consumers
+- **Minimal runtime dependencies**: keeps the library lightweight and avoids dependency conflicts
+  for consumers by relying only on BCL/framework-provided APIs where available, with
+  compatibility NuGet packages used on older targets such as `netstandard2.0`
 - **Target multi-framework**: the library targets `netstandard2.0`, `net8.0`, `net9.0`,
   and `net10.0` simultaneously
 
