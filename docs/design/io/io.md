@@ -19,20 +19,22 @@ to the SPDX 2.2 and 2.3 specifications.
 ### Spdx2JsonDeserializer
 
 `Spdx2JsonDeserializer` reads a JSON stream or string and populates a `SpdxDocument`. It uses
-`System.Text.Json` `JsonDocument` for DOM-based parsing, navigating named properties to
-reconstruct each element. Both SPDX 2.2 and 2.3 JSON schemas are supported; version differences
-are handled transparently during parsing.
+`System.Text.Json.Nodes`, parsing input with `JsonNode.Parse` and traversing `JsonObject` and
+`JsonArray` nodes to reconstruct each element. Both SPDX 2.2 and 2.3 JSON schemas are
+supported; version differences are handled transparently during parsing.
 
 Key design decisions:
 
-- DOM-based parsing (rather than streaming) to allow forward references between document elements
+- DOM-based parsing via `JsonNode` (rather than streaming) to allow forward references between
+  document elements
 - Graceful handling of optional SPDX fields (missing fields result in default values)
 
 ### Spdx2JsonSerializer
 
-`Spdx2JsonSerializer` takes an `SpdxDocument` and writes it to a `Utf8JsonWriter`. It iterates
-over each element collection in document order, writing the appropriate JSON structure for each
-SPDX element type.
+`Spdx2JsonSerializer` takes an `SpdxDocument`, builds a JSON DOM using `JsonObject` and
+`JsonArray`, and emits the final JSON with `ToJsonString(...)`. It iterates over each element
+collection in document order, creating the appropriate JSON structure for each SPDX element
+type.
 
 Key design decisions:
 
