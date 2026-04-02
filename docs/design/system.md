@@ -19,8 +19,8 @@ representing all SPDX document elements, plus serialization and transformation c
 
 ### External Dependencies
 
-- **System.Text.Json** — used by the IO subsystem for JSON reading and writing; available as part of
-  the .NET BCL from .NET 6 onwards and via NuGet for .NET Standard 2.0
+- **System.Text.Json** — used by the IO subsystem for JSON reading and writing; available in-box on
+  modern .NET targets and via NuGet for .NET Standard 2.0
 - **.NET Standard 2.0 / .NET 8 / .NET 9 / .NET 10** — target frameworks
 
 ### Public API Surface
