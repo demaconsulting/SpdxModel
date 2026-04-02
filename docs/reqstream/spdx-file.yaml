@@ -1,0 +1,21 @@
+---
+# SpdxFile Unit Requirements
+#
+# This file defines requirements for the SpdxFile unit.
+
+sections:
+  - title: SpdxFile Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Files
+        title: The library shall support SPDX files.
+        tags:
+          - data-model
+        justification: |
+          Files are essential components in SPDX documents for detailed SBOM creation. Supporting
+          file elements enables fine-grained tracking of individual source files, binaries, and
+          their associated licensing and copyright information.
+        tests:
+          - SpdxFile_SameComparer_ComparesCorrectly
+          - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeFile_CorrectResults
+          - Spdx2JsonSerializer_SerializeFile_CorrectResults

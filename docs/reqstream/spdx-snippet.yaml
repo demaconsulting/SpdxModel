@@ -1,0 +1,21 @@
+---
+# SpdxSnippet Unit Requirements
+#
+# This file defines requirements for the SpdxSnippet unit.
+
+sections:
+  - title: SpdxSnippet Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Snippets
+        title: The library shall support SPDX snippets.
+        tags:
+          - data-model
+        justification: |
+          Snippets represent portions of files and are important for documenting code reuse at a
+          granular level. This supports compliance scenarios where specific code segments have
+          different licensing or provenance than their containing files.
+        tests:
+          - SpdxSnippet_SameComparer_ComparesCorrectly
+          - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults
+          - Spdx2JsonSerializer_SerializeSnippet_CorrectResults

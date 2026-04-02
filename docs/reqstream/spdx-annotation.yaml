@@ -1,0 +1,21 @@
+---
+# SpdxAnnotation Unit Requirements
+#
+# This file defines requirements for the SpdxAnnotation unit.
+
+sections:
+  - title: SpdxAnnotation Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Annotations
+        title: The library shall support SPDX annotations.
+        tags:
+          - data-model
+        justification: |
+          Annotations allow adding review and assessment information to SPDX elements. This supports
+          compliance workflows where reviewers need to document their findings and decisions about
+          software components.
+        tests:
+          - SpdxAnnotation_SameComparer_ComparesCorrectly
+          - SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults
+          - Spdx2JsonSerializer_SerializeAnnotation_CorrectResults

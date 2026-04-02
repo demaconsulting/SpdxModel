@@ -1,0 +1,21 @@
+---
+# SpdxChecksum Unit Requirements
+#
+# This file defines requirements for the SpdxChecksum unit.
+
+sections:
+  - title: SpdxChecksum Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Checksums
+        title: The library shall support SPDX checksums with multiple algorithms.
+        tags:
+          - data-model
+        justification: |
+          Checksums with multiple algorithms provide integrity verification for files and packages.
+          Supporting multiple algorithms ensures flexibility and compatibility with different security
+          requirements and organizational policies.
+        tests:
+          - SpdxChecksum_SameComparer_ComparesCorrectly
+          - SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults
+          - Spdx2JsonSerializer_SerializeChecksum_CorrectResults

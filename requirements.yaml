@@ -10,3 +10,14 @@ includes:
   - docs/reqstream/platform-requirements.yaml
   - docs/reqstream/transform/transform.yaml
   - docs/reqstream/ots/ots.yaml
+  - docs/reqstream/spdx-annotation.yaml
+  - docs/reqstream/spdx-checksum.yaml
+  - docs/reqstream/spdx-creation-information.yaml
+  - docs/reqstream/spdx-external-document-reference.yaml
+  - docs/reqstream/spdx-external-reference.yaml
+  - docs/reqstream/spdx-extracted-licensing-info.yaml
+  - docs/reqstream/spdx-file.yaml
+  - docs/reqstream/spdx-package.yaml
+  - docs/reqstream/spdx-package-verification-code.yaml
+  - docs/reqstream/spdx-relationship.yaml
+  - docs/reqstream/spdx-snippet.yaml

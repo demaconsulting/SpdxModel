@@ -1,0 +1,21 @@
+---
+# SpdxExternalDocumentReference Unit Requirements
+#
+# This file defines requirements for the SpdxExternalDocumentReference unit.
+
+sections:
+  - title: SpdxExternalDocumentReference Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-ExternalDocumentReferences
+        title: The library shall support SPDX external document references.
+        tags:
+          - data-model
+        justification: |
+          External document references allow SPDX documents to reference other SPDX documents,
+          enabling modular SBOM construction and linking between related software inventories. This
+          is essential for managing complex multi-component software systems.
+        tests:
+          - SpdxExternalDocumentReference_SameComparer_ComparesCorrectly
+          - SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults

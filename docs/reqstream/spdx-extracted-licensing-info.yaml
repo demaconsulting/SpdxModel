@@ -1,0 +1,21 @@
+---
+# SpdxExtractedLicensingInfo Unit Requirements
+#
+# This file defines requirements for the SpdxExtractedLicensingInfo unit.
+
+sections:
+  - title: SpdxExtractedLicensingInfo Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-ExtractedLicensingInfo
+        title: The library shall support SPDX extracted licensing information.
+        tags:
+          - data-model
+        justification: |
+          Extracted licensing information supports documenting non-standard licenses found in
+          software packages. This is critical for compliance when software contains licenses not
+          in the SPDX license list.
+        tests:
+          - SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly
+          - SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults
+          - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults
