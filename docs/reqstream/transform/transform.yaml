@@ -1,20 +1,9 @@
 ---
 # SpdxModel Transform Subsystem Requirements
 #
-# This file defines the requirements for the Transform subsystem
-# of the SpdxModel library.
+# This is the subsystem-level requirements file for the Transform subsystem.
+# Unit requirements are in the sibling unit file:
+#   spdx-relationships.yaml
 
 sections:
   - title: Transform Subsystem Requirements
-    requirements:
-      - id: SpdxModel-Data-RelationshipUtilities
-        title: The library shall provide utilities for manipulating SPDX relationships.
-        tags:
-          - data-model
-        justification: |
-          Relationship manipulation utilities simplify common operations on SPDX documents such as
-          adding and managing relationships between elements. This improves developer productivity
-          and reduces errors when constructing complex SBOMs.
-        tests:
-          - SpdxRelationships_AddSingle_Success
-          - SpdxRelationships_AddMultiple_Success

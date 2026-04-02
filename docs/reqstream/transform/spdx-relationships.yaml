@@ -1,0 +1,20 @@
+---
+# SpdxModel SpdxRelationships Unit Requirements
+#
+# This file defines the requirements for the SpdxRelationships unit
+# in the Transform subsystem of the SpdxModel library.
+
+sections:
+  - title: SpdxRelationships Requirements
+    requirements:
+      - id: SpdxModel-Data-RelationshipUtilities
+        title: The library shall provide utilities for manipulating SPDX relationships.
+        tags:
+          - data-model
+        justification: |
+          Relationship manipulation utilities simplify common operations on SPDX documents such as
+          adding and managing relationships between elements. This improves developer productivity
+          and reduces errors when constructing complex SBOMs.
+        tests:
+          - SpdxRelationships_AddSingle_Success
+          - SpdxRelationships_AddMultiple_Success

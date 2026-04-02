@@ -1,43 +1,10 @@
 ---
 # SpdxModel IO Subsystem Requirements
 #
-# This file defines the serialization requirements for the IO subsystem
-# of the SpdxModel library.
+# This is the subsystem-level requirements file for the IO subsystem.
+# Unit requirements are in the sibling unit files:
+#   spdx-2-json-deserializer.yaml
+#   spdx-2-json-serializer.yaml
 
 sections:
   - title: IO Subsystem Requirements
-    sections:
-      - title: Serialization
-        requirements:
-          - id: SpdxModel-Ser-Deserialize22Json
-            title: The library shall support deserializing SPDX 2.2 JSON documents.
-            tags:
-              - serialization
-            justification: |
-              Deserializing SPDX 2.2 JSON documents is essential for backward compatibility and
-              interoperability with systems using the SPDX 2.2 specification. This ensures that the
-              library can read and process existing SPDX 2.2 documents from various sources.
-            tests:
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-
-          - id: SpdxModel-Ser-Deserialize23Json
-            title: The library shall support deserializing SPDX 2.3 JSON documents.
-            tags:
-              - serialization
-            justification: |
-              Support for SPDX 2.3 JSON documents ensures the library remains current with the latest
-              SPDX specification. This allows users to leverage new features and improvements introduced
-              in SPDX 2.3 while maintaining compatibility with modern SBOM tools.
-            tests:
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
-
-          - id: SpdxModel-Ser-SerializeJson
-            title: The library shall support serializing SPDX documents to JSON format.
-            tags:
-              - serialization
-            justification: |
-              Serialization capability is fundamental for creating and exporting SPDX documents in JSON
-              format. This enables users to generate SBOMs programmatically and share them with other
-              systems and tools in the SPDX ecosystem.
-            tests:
-              - Spdx2JsonSerializer_SerializeDocument_CorrectResults

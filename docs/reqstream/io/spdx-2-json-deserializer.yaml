@@ -1,0 +1,30 @@
+---
+# SpdxModel Spdx2JsonDeserializer Unit Requirements
+#
+# This file defines the requirements for the Spdx2JsonDeserializer unit
+# in the IO subsystem of the SpdxModel library.
+
+sections:
+  - title: Spdx2JsonDeserializer Requirements
+    requirements:
+      - id: SpdxModel-Ser-Deserialize22Json
+        title: The library shall support deserializing SPDX 2.2 JSON documents.
+        tags:
+          - serialization
+        justification: |
+          Deserializing SPDX 2.2 JSON documents is essential for backward compatibility and
+          interoperability with systems using the SPDX 2.2 specification. This ensures that the
+          library can read and process existing SPDX 2.2 documents from various sources.
+        tests:
+          - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+
+      - id: SpdxModel-Ser-Deserialize23Json
+        title: The library shall support deserializing SPDX 2.3 JSON documents.
+        tags:
+          - serialization
+        justification: |
+          Support for SPDX 2.3 JSON documents ensures the library remains current with the latest
+          SPDX specification. This allows users to leverage new features and improvements introduced
+          in SPDX 2.3 while maintaining compatibility with modern SBOM tools.
+        tests:
+          - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument

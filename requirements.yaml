@@ -6,9 +6,12 @@
 
 includes:
   - docs/reqstream/io/io.yaml
+  - docs/reqstream/io/spdx-2-json-deserializer.yaml
+  - docs/reqstream/io/spdx-2-json-serializer.yaml
   - docs/reqstream/system.yaml
   - docs/reqstream/platform-requirements.yaml
   - docs/reqstream/transform/transform.yaml
+  - docs/reqstream/transform/spdx-relationships.yaml
   - docs/reqstream/ots/ots.yaml
   - docs/reqstream/spdx-annotation.yaml
   - docs/reqstream/spdx-checksum.yaml
