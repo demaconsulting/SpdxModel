@@ -21,8 +21,8 @@ manner, reducing boilerplate for consumers constructing SPDX documents programma
 
 Key methods:
 
-- `AddRelationship` — adds a single relationship to the document if it does not already exist
-- `AddRelationships` — adds multiple relationships, deduplicating against existing entries
+- `Add(...)` — adds a single relationship to the document if it does not already exist
+- `Add(...)` — adds multiple relationships, deduplicating against existing entries, with an optional `replace` parameter
 
 Key design decisions:
 
