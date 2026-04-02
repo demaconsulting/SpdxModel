@@ -31,32 +31,6 @@ reviews:
       - "docs/reqstream/system.yaml"
       - "docs/design/introduction.md"
       - "docs/design/system.md"
-      - "docs/reqstream/spdx-annotation.yaml"
-      - "docs/reqstream/spdx-checksum.yaml"
-      - "docs/reqstream/spdx-creation-information.yaml"
-      - "docs/reqstream/spdx-external-document-reference.yaml"
-      - "docs/reqstream/spdx-external-reference.yaml"
-      - "docs/reqstream/spdx-extracted-licensing-info.yaml"
-      - "docs/reqstream/spdx-file.yaml"
-      - "docs/reqstream/spdx-package.yaml"
-      - "docs/reqstream/spdx-package-verification-code.yaml"
-      - "docs/reqstream/spdx-relationship.yaml"
-      - "docs/reqstream/spdx-snippet.yaml"
-      - "docs/design/spdx-annotation.md"
-      - "docs/design/spdx-checksum.md"
-      - "docs/design/spdx-creation-information.md"
-      - "docs/design/spdx-document.md"
-      - "docs/design/spdx-element.md"
-      - "docs/design/spdx-external-document-reference.md"
-      - "docs/design/spdx-external-reference.md"
-      - "docs/design/spdx-extracted-licensing-info.md"
-      - "docs/design/spdx-file.md"
-      - "docs/design/spdx-helpers.md"
-      - "docs/design/spdx-license-element.md"
-      - "docs/design/spdx-package.md"
-      - "docs/design/spdx-package-verification-code.md"
-      - "docs/design/spdx-relationship.md"
-      - "docs/design/spdx-snippet.md"
 
   - id: SpdxModel-Design
     title: SpdxModel Design Review
@@ -95,3 +69,121 @@ reviews:
       - "docs/design/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
       - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
+
+  - id: SpdxModel-SpdxAnnotation
+    title: SpdxModel SpdxAnnotation Unit Review
+    paths:
+      - "docs/reqstream/spdx-annotation.yaml"
+      - "docs/design/spdx-annotation.md"
+      - "src/DemaConsulting.SpdxModel/SpdxAnnotation.cs"
+      - "src/DemaConsulting.SpdxModel/SpdxAnnotationType.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxAnnotationTests.cs"
+
+  - id: SpdxModel-SpdxChecksum
+    title: SpdxModel SpdxChecksum Unit Review
+    paths:
+      - "docs/reqstream/spdx-checksum.yaml"
+      - "docs/design/spdx-checksum.md"
+      - "src/DemaConsulting.SpdxModel/SpdxChecksum.cs"
+      - "src/DemaConsulting.SpdxModel/SpdxChecksumAlgorithm.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxChecksumTests.cs"
+
+  - id: SpdxModel-SpdxCreationInformation
+    title: SpdxModel SpdxCreationInformation Unit Review
+    paths:
+      - "docs/reqstream/spdx-creation-information.yaml"
+      - "docs/design/spdx-creation-information.md"
+      - "src/DemaConsulting.SpdxModel/SpdxCreationInformation.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxCreationInformationTests.cs"
+
+  - id: SpdxModel-SpdxDocument
+    title: SpdxModel SpdxDocument Unit Review
+    paths:
+      - "docs/design/spdx-document.md"
+      - "src/DemaConsulting.SpdxModel/SpdxDocument.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
+
+  - id: SpdxModel-SpdxElement
+    title: SpdxModel SpdxElement Unit Review
+    paths:
+      - "docs/design/spdx-element.md"
+      - "src/DemaConsulting.SpdxModel/SpdxElement.cs"
+
+  - id: SpdxModel-SpdxExternalDocumentReference
+    title: SpdxModel SpdxExternalDocumentReference Unit Review
+    paths:
+      - "docs/reqstream/spdx-external-document-reference.yaml"
+      - "docs/design/spdx-external-document-reference.md"
+      - "src/DemaConsulting.SpdxModel/SpdxExternalDocumentReference.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalDocumentReferenceTests.cs"
+
+  - id: SpdxModel-SpdxExternalReference
+    title: SpdxModel SpdxExternalReference Unit Review
+    paths:
+      - "docs/reqstream/spdx-external-reference.yaml"
+      - "docs/design/spdx-external-reference.md"
+      - "src/DemaConsulting.SpdxModel/SpdxExternalReference.cs"
+      - "src/DemaConsulting.SpdxModel/SpdxReferenceCategory.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalReferenceTests.cs"
+
+  - id: SpdxModel-SpdxExtractedLicensingInfo
+    title: SpdxModel SpdxExtractedLicensingInfo Unit Review
+    paths:
+      - "docs/reqstream/spdx-extracted-licensing-info.yaml"
+      - "docs/design/spdx-extracted-licensing-info.md"
+      - "src/DemaConsulting.SpdxModel/SpdxExtractedLicensingInfo.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxExtractedLicensingInfoTests.cs"
+
+  - id: SpdxModel-SpdxFile
+    title: SpdxModel SpdxFile Unit Review
+    paths:
+      - "docs/reqstream/spdx-file.yaml"
+      - "docs/design/spdx-file.md"
+      - "src/DemaConsulting.SpdxModel/SpdxFile.cs"
+      - "src/DemaConsulting.SpdxModel/SpdxFileType.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxFileTests.cs"
+
+  - id: SpdxModel-SpdxHelpers
+    title: SpdxModel SpdxHelpers Unit Review
+    paths:
+      - "docs/design/spdx-helpers.md"
+      - "src/DemaConsulting.SpdxModel/SpdxHelpers.cs"
+
+  - id: SpdxModel-SpdxLicenseElement
+    title: SpdxModel SpdxLicenseElement Unit Review
+    paths:
+      - "docs/design/spdx-license-element.md"
+      - "src/DemaConsulting.SpdxModel/SpdxLicenseElement.cs"
+
+  - id: SpdxModel-SpdxPackage
+    title: SpdxModel SpdxPackage Unit Review
+    paths:
+      - "docs/reqstream/spdx-package.yaml"
+      - "docs/design/spdx-package.md"
+      - "src/DemaConsulting.SpdxModel/SpdxPackage.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageTests.cs"
+
+  - id: SpdxModel-SpdxPackageVerificationCode
+    title: SpdxModel SpdxPackageVerificationCode Unit Review
+    paths:
+      - "docs/reqstream/spdx-package-verification-code.yaml"
+      - "docs/design/spdx-package-verification-code.md"
+      - "src/DemaConsulting.SpdxModel/SpdxPackageVerificationCode.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageVerificationCodeTests.cs"
+
+  - id: SpdxModel-SpdxRelationship
+    title: SpdxModel SpdxRelationship Unit Review
+    paths:
+      - "docs/reqstream/spdx-relationship.yaml"
+      - "docs/design/spdx-relationship.md"
+      - "src/DemaConsulting.SpdxModel/SpdxRelationship.cs"
+      - "src/DemaConsulting.SpdxModel/SpdxRelationshipType.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxRelationshipTests.cs"
+
+  - id: SpdxModel-SpdxSnippet
+    title: SpdxModel SpdxSnippet Unit Review
+    paths:
+      - "docs/reqstream/spdx-snippet.yaml"
+      - "docs/design/spdx-snippet.md"
+      - "src/DemaConsulting.SpdxModel/SpdxSnippet.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs"
