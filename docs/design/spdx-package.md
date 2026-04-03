@@ -33,7 +33,8 @@ Key methods:
 - `DeepCopy()` — returns a fully deep-copied instance
 - `Enhance(SpdxPackage)` — fills in missing fields from another instance
 - `Enhance(array, array)` — static merging of two package arrays, matching on `Name` + `Version`
-- `Validate(List<string>, SpdxDocument?, bool ntia)` — full validation including NTIA minimum elements; empty `DeclaredLicense` is permitted and does not produce a validation issue
+- `Validate(List<string>, SpdxDocument?, bool ntia)` — full validation including NTIA minimum elements;
+  empty `DeclaredLicense` is permitted and does not produce a validation issue
 - `Same` — static `IEqualityComparer` comparing by `Name` and `Version`
 
 ## Dependencies

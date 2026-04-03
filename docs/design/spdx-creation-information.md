@@ -23,7 +23,8 @@ Key methods:
 
 - `DeepCopy()` — returns a new `SpdxCreationInformation` with all fields copied
 - `Enhance(SpdxCreationInformation)` — fills in missing fields from another instance
-- `Validate(List<string>)` — appends validation issues; validates `Created` format via regex when non-empty (empty `Created` is permitted and skips format validation)
+- `Validate(List<string>)` — appends validation issues; validates `Created` format via regex when non-empty
+  (empty `Created` is permitted and skips format validation)
 
 ## Dependencies
 
