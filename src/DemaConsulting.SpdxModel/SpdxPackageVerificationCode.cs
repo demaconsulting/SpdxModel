@@ -36,7 +36,7 @@ public sealed class SpdxPackageVerificationCode
     ///     Equality comparer for the same package verification code
     /// </summary>
     /// <remarks>
-    ///     This considers annotations as being the same if they have the same
+    ///     This considers package verification codes as being the same if they have the same
     ///     value.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxPackageVerificationCode> Same = new SpdxPackageVerificationCodeSame();

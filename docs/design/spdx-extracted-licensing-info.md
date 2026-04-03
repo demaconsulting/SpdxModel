@@ -26,7 +26,7 @@ Key methods:
 - `Enhance(SpdxExtractedLicensingInfo)` — fills in missing fields from another instance
 - `Enhance(array, array)` — static method merging two arrays by matching on `LicenseId`
 - `Validate(List<string>)` — appends validation issues to the supplied list
-- `Same` — static `IEqualityComparer` comparing by `LicenseId`
+- `Same` — static `IEqualityComparer` comparing by `ExtractedText`
 
 ## Dependencies
 

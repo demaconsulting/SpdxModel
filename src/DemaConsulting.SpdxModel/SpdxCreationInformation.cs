@@ -135,7 +135,11 @@ public sealed class SpdxCreationInformation
         }
 
         // Validate Created Field
-        if (!SpdxHelpers.IsValidSpdxDateTime(Created))
+        if (Created.Length == 0)
+        {
+            issues.Add("Document Invalid Created Field - Empty");
+        }
+        else if (!SpdxHelpers.IsValidSpdxDateTime(Created))
         {
             issues.Add($"Document Invalid Created Field '{Created}'");
         }

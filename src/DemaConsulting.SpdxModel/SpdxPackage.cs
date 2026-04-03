@@ -407,6 +407,12 @@ public sealed class SpdxPackage : SpdxLicenseElement
             issues.Add($"Package '{Name}' Invalid Package Download Location Field - Empty");
         }
 
+        // Validate Package Declared License Field
+        if (DeclaredLicense.Length == 0)
+        {
+            issues.Add($"Package '{Name}' Invalid Package Declared License Field - Empty");
+        }
+
         // Validate Package Supplier Field
         if (Supplier != null &&
             Supplier != NoAssertion &&
@@ -468,6 +474,12 @@ public sealed class SpdxPackage : SpdxLicenseElement
         if (!SpdxHelpers.IsValidSpdxDateTime(ValidUntilDate))
         {
             issues.Add($"Package '{Name}' Invalid Valid Until Date Field '{ValidUntilDate}'");
+        }
+
+        // Validate Annotations
+        foreach (var annotation in Annotations)
+        {
+            annotation.Validate($"Package '{Name}'", issues);
         }
     }
 

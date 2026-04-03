@@ -23,7 +23,7 @@ Key methods:
 
 - `DeepCopy()` — returns a new `SpdxAnnotation` with all fields copied
 - `Enhance(SpdxAnnotation)` — fills in missing fields from another instance
-- `Validate(List<string>)` — appends validation issues to the supplied list
+- `Validate(string, List<string>)` — appends validation issues to the supplied list
 - `Same` — static `IEqualityComparer<SpdxAnnotation>` comparing annotator, date, type, and comment
 
 ## Dependencies
