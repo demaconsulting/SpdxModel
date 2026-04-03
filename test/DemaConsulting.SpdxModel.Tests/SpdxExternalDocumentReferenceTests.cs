@@ -172,7 +172,7 @@ public class SpdxExternalDocumentReferenceTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing external document ID
     /// </summary>
     [TestMethod]
     public void SpdxExternalDocumentReference_Validate_MissingId()
@@ -193,7 +193,7 @@ public class SpdxExternalDocumentReferenceTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing document URI
     /// </summary>
     [TestMethod]
     public void SpdxExternalDocumentReference_Validate_MissingDocument()

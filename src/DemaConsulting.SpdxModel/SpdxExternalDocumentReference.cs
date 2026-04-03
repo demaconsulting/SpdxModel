@@ -33,7 +33,7 @@ public sealed class SpdxExternalDocumentReference
     ///     Equality comparer for the same external document reference
     /// </summary>
     /// <remarks>
-    ///     This considers packages as being the same if they have the same document.
+    ///     This considers external document references as being the same if they have the same document.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxExternalDocumentReference> Same =
         new SpdxExternalDocumentReferenceSame();

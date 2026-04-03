@@ -106,6 +106,50 @@ public class Spdx2JsonDeserializeSnippet
     }
 
     /// <summary>
+    ///     Tests deserializing a snippet that has only byte ranges and no optional line-number ranges.
+    ///     This is a regression test for a <see cref="FormatException" /> thrown when line-number
+    ///     range fields were absent and the old code used <c>Convert.ToInt32("")</c>.
+    /// </summary>
+    [TestMethod]
+    public void Spdx2JsonDeserializer_DeserializeSnippet_WithoutLineRanges_DefaultsToZero()
+    {
+        // Arrange: Create a JSON snippet with only byte ranges (no lineNumber entries)
+        var json = new JsonObject
+        {
+            ["SPDXID"] = "SPDXRef-Snippet",
+            ["copyrightText"] = "Copyright 2008-2010 John Smith",
+            ["licenseConcluded"] = "GPL-2.0-only",
+            ["licenseInfoInSnippets"] = new JsonArray { "GPL-2.0-only" },
+            ["ranges"] = new JsonArray
+            {
+                new JsonObject
+                {
+                    ["endPointer"] = new JsonObject
+                    {
+                        ["offset"] = 420,
+                        ["reference"] = "SPDXRef-DoapSource"
+                    },
+                    ["startPointer"] = new JsonObject
+                    {
+                        ["offset"] = 310,
+                        ["reference"] = "SPDXRef-DoapSource"
+                    }
+                }
+            },
+            ["snippetFromFile"] = "SPDXRef-DoapSource"
+        };
+
+        // Act: Deserialize the JSON object to an SpdxSnippet object (must not throw)
+        var snippet = Spdx2JsonDeserializer.DeserializeSnippet(json);
+
+        // Assert: Byte ranges are correct and absent line ranges default to 0
+        Assert.AreEqual(310, snippet.SnippetByteStart);
+        Assert.AreEqual(420, snippet.SnippetByteEnd);
+        Assert.AreEqual(0, snippet.SnippetLineStart);
+        Assert.AreEqual(0, snippet.SnippetLineEnd);
+    }
+
+    /// <summary>
     ///     Tests deserializing multiple snippets.
     /// </summary>
     [TestMethod]

@@ -304,7 +304,7 @@ public sealed class SpdxPackage : SpdxLicenseElement
         {
             VerificationCode.Enhance(other.VerificationCode);
         }
-        else
+        else if (VerificationCode == null)
         {
             VerificationCode = other.VerificationCode?.DeepCopy();
         }
