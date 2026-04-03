@@ -244,6 +244,12 @@ public sealed class SpdxDocument : SpdxElement
             relationship.Validate(issues, this);
         }
 
+        // Validate Annotations
+        foreach (var annotation in Annotations)
+        {
+            annotation.Validate("Document", issues);
+        }
+
         // Check for duplicate elements
         var elements = GetAllElements().GroupBy(e => e.Id).Where(g => g.Count() > 1);
         foreach (var element in elements.Where(e => !string.IsNullOrWhiteSpace(e.Key)))

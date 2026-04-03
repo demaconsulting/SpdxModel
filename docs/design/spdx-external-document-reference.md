@@ -24,7 +24,7 @@ Key methods:
 - `Enhance(SpdxExternalDocumentReference)` — fills in missing fields from another instance
 - `Enhance(array, array)` — static method merging two arrays by matching on `ExternalDocumentId`
 - `Validate(List<string>)` — appends validation issues to the supplied list
-- `Same` — static `IEqualityComparer` comparing by `ExternalDocumentId`
+- `Same` — static `IEqualityComparer` comparing by `Document`
 
 ## Dependencies
 

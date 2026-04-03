@@ -24,7 +24,7 @@ Data members (key fields beyond inherited):
 | `VerificationCode` | `SpdxPackageVerificationCode?` | Cryptographic verification code |
 | `Checksums` | `SpdxChecksum[]` | Package-level checksums |
 | `LicenseInfoFromFiles` | `string[]` | Licenses found in files of the package |
-| `DeclaredLicense` | `string` | License declared by the package authors |
+| `DeclaredLicense` | `string` | License declared by the package authors; may be empty when not specified |
 | `ExternalReferences` | `SpdxExternalReference[]` | Links to external resources |
 | `PrimaryPackagePurpose` | `string?` | Primary purpose classification |
 
@@ -33,7 +33,8 @@ Key methods:
 - `DeepCopy()` — returns a fully deep-copied instance
 - `Enhance(SpdxPackage)` — fills in missing fields from another instance
 - `Enhance(array, array)` — static merging of two package arrays, matching on `Name` + `Version`
-- `Validate(List<string>, SpdxDocument?, bool ntia)` — full validation including NTIA minimum elements
+- `Validate(List<string>, SpdxDocument?, bool ntia)` — full validation including NTIA minimum elements;
+  empty `DeclaredLicense` is permitted and does not produce a validation issue
 - `Same` — static `IEqualityComparer` comparing by `Name` and `Version`
 
 ## Dependencies

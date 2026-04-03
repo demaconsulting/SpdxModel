@@ -231,8 +231,7 @@ public sealed class SpdxRelationship : SpdxElement
         /// <inheritdoc />
         public int GetHashCode(SpdxRelationship obj)
         {
-            return obj.Id.GetHashCode() ^
-                   obj.RelatedSpdxElement.GetHashCode();
+            return HashCode.Combine(obj.Id, obj.RelatedSpdxElement);
         }
     }
 }

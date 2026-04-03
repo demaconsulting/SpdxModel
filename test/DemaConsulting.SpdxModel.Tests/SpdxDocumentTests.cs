@@ -590,4 +590,43 @@ public class SpdxDocumentTests
         Assert.IsNotNull(foundSnippet);
         Assert.AreEqual("SPDXRef-DoapSource", foundSnippet.SnippetFromFile);
     }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.Validate" /> method validates document-level annotations.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_Validate_InvalidAnnotation()
+    {
+        // Arrange: Create a document with an invalid annotation
+        var doc = new SpdxDocument
+        {
+            Id = "SPDXRef-DOCUMENT",
+            Name = "Test Document",
+            Version = "SPDX-2.3",
+            DataLicense = "CC0-1.0",
+            DocumentNamespace = "http://example.com/SpdxDocument",
+            CreationInformation = new SpdxCreationInformation
+            {
+                Creators = ["Tool: test"],
+                Created = "2024-01-01T00:00:00Z"
+            },
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Looks good"
+                }
+            ]
+        };
+
+        // Act: Perform validation
+        var issues = new List<string>();
+        doc.Validate(issues);
+
+        // Assert: Verify the annotation issue is reported with the "Document" prefix
+        Assert.Contains("Document Invalid Annotator Field - Empty", issues);
+    }
 }

@@ -220,19 +220,25 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         // Validate Snippet Byte Range End Field
         if (SnippetByteEnd < SnippetByteStart)
         {
-            issues.Add($"Snippet {Id} Invalid Snippet Byte Range End Field '{SnippetByteEnd}' < '{SnippetByteStart}'");
+            issues.Add($"Snippet '{Id}' Invalid Snippet Byte Range End Field '{SnippetByteEnd}' < '{SnippetByteStart}'");
         }
 
         // Validate Concluded License Field
         if (ConcludedLicense.Length == 0)
         {
-            issues.Add($"Snippet {Id} Invalid Concluded License Field - Empty");
+            issues.Add($"Snippet '{Id}' Invalid Concluded License Field - Empty");
         }
 
         // Validate Copyright Text Field
         if (CopyrightText.Length == 0)
         {
-            issues.Add($"Snippet {Id} Invalid Copyright Text Field - Empty");
+            issues.Add($"Snippet '{Id}' Invalid Copyright Text Field - Empty");
+        }
+
+        // Validate Annotations
+        foreach (var annotation in Annotations)
+        {
+            annotation.Validate($"Snippet '{Id}'", issues);
         }
     }
 

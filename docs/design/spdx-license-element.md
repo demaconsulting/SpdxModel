@@ -18,6 +18,7 @@ Data members (beyond `SpdxElement.Id`):
 | `LicenseComments` | `string?` | Explanation of the concluded license choice |
 | `CopyrightText` | `string` | Copyright declarations text |
 | `AttributionText` | `string[]` | Attribution notices required for use |
+| `Annotations` | `SpdxAnnotation[]` | Additional information about this element |
 
 Key design decisions:
 

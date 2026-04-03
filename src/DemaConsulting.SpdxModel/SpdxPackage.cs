@@ -469,6 +469,12 @@ public sealed class SpdxPackage : SpdxLicenseElement
         {
             issues.Add($"Package '{Name}' Invalid Valid Until Date Field '{ValidUntilDate}'");
         }
+
+        // Validate Annotations
+        foreach (var annotation in Annotations)
+        {
+            annotation.Validate($"Package '{Name}'", issues);
+        }
     }
 
     /// <summary>
