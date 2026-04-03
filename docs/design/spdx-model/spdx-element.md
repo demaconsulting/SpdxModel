@@ -8,8 +8,9 @@ identity handling across all element types.
 
 ## Design
 
-`SpdxElement` is a public abstract class. Concrete element types (`SpdxDocument`, `SpdxPackage`,
-`SpdxFile`, `SpdxSnippet`, `SpdxRelationship`, `SpdxAnnotation`) inherit from it.
+`SpdxElement` is a public abstract class. It is directly inherited by `SpdxDocument`, `SpdxRelationship`,
+and `SpdxAnnotation`. `SpdxLicenseElement` is an abstract class that also inherits from `SpdxElement`, and
+is in turn inherited by `SpdxPackage`, `SpdxFile`, and `SpdxSnippet`.
 
 Data members:
 

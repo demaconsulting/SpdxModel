@@ -172,10 +172,8 @@ public class SpdxExternalDocumentReferenceTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing external document ID
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalDocumentReference_Validate_MissingId()
     {
         // Arrange: Create a bad reference
         var reference = new SpdxExternalDocumentReference
@@ -193,7 +191,8 @@ public class SpdxExternalDocumentReferenceTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports bad annotators
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing document URI
     /// </summary>
     [TestMethod]
     public void SpdxExternalDocumentReference_Validate_MissingDocument()
