@@ -1,0 +1,67 @@
+---
+# SpdxDocument Unit Requirements
+#
+# This file defines requirements for the SpdxDocument unit.
+
+sections:
+  - title: SpdxDocument Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Document
+        title: The library shall support SPDX documents as the root container of the SPDX object model.
+        tags:
+          - data-model
+        justification: |
+          The SPDX document is the top-level artifact in an SPDX SBOM. It aggregates all
+          packages, files, snippets, relationships, and annotations, and is required for
+          expressing any SPDX-compliant bill of materials.
+        tests:
+          - SpdxDocument_SameComparer_ComparesCorrectly
+          - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeDocument_CorrectResults
+          - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+      - id: SpdxModel-Data-Document-Validate
+        title: The library shall validate SPDX document fields and report all violations.
+        tags:
+          - data-model
+          - validation
+        justification: |
+          Validation ensures that SPDX documents conform to the specification before they are
+          consumed or distributed. Reporting all violations rather than failing on the first
+          allows tooling to produce complete diagnostic output in a single pass.
+        tests:
+          - SpdxDocument_Validate_NoIssues
+          - SpdxDocument_Validate_InvalidId
+          - SpdxDocument_Validate_InvalidName
+          - SpdxDocument_Validate_InvalidVersion
+          - SpdxDocument_Validate_InvalidDataLicense
+          - SpdxDocument_Validate_InvalidNameSpace
+          - SpdxDocument_Validate_DuplicatePackageIds
+          - SpdxDocument_Validate_InvalidRelationship
+          - SpdxDocument_Validate_InvalidAnnotation
+
+      - id: SpdxModel-Data-Document-Ntia
+        title: The library shall validate SPDX documents for NTIA minimum SBOM element compliance.
+        tags:
+          - data-model
+          - validation
+          - ntia
+        justification: |
+          The NTIA Minimum Elements for a Software Bill of Materials defines a baseline set of
+          data fields that must be present in a conforming SBOM. Supporting this check allows
+          downstream tooling to assess NTIA compliance without reimplementing the rules.
+        tests:
+          - SpdxDocument_Validate_NtiaIssues
+
+      - id: SpdxModel-Data-Document-Query
+        title: The library shall support querying SPDX document elements by ID and by root-package relationship.
+        tags:
+          - data-model
+        justification: |
+          Consumers of SPDX documents frequently need to locate specific elements or determine
+          which packages are directly described by the document. Providing these query helpers
+          reduces boilerplate in downstream tools and ensures consistent traversal semantics.
+        tests:
+          - SpdxDocument_GetRootPackages_CorrectPackages
+          - SpdxDocument_GetAllElements_Correct
+          - SpdxDocument_GetElement_Correct

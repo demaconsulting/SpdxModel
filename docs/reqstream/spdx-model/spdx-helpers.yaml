@@ -1,0 +1,35 @@
+---
+# SpdxHelpers Unit Requirements
+#
+# This file defines requirements for the SpdxHelpers unit.
+
+sections:
+  - title: SpdxHelpers Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Helpers-DateTime
+        title: The library shall validate SPDX date-time strings against the ISO 8601 UTC format.
+        tags:
+          - data-model
+          - validation
+        justification: |
+          SPDX requires all date-time fields to conform to ISO 8601 UTC format
+          (YYYY-MM-DDThh:mm:ssZ). Centralising this validation in a shared utility avoids
+          duplication and ensures consistent format checking across all units that carry
+          date-time fields (e.g., SpdxCreationInformation).
+        tests:
+          - SpdxCreationInformation_Validate_InvalidCreatedDate
+
+      - id: SpdxModel-Data-Helpers-EnhanceString
+        title: The library shall select the highest-fitness string value when merging optional SPDX fields.
+        tags:
+          - data-model
+        justification: |
+          When combining partial SPDX data from multiple sources, individual fields may be
+          null, empty, NOASSERTION, or a concrete value. A fitness-ranked selection ensures
+          that a meaningful concrete value is always preferred over NOASSERTION or absent
+          values, regardless of the order in which sources are merged.
+        tests:
+          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
