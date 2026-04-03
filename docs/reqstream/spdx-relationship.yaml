@@ -1,0 +1,21 @@
+---
+# SpdxRelationship Unit Requirements
+#
+# This file defines requirements for the SpdxRelationship unit.
+
+sections:
+  - title: SpdxRelationship Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Relationships
+        title: The library shall support SPDX relationships.
+        tags:
+          - data-model
+        justification: |
+          Relationships define connections between SPDX elements and are critical for expressing
+          dependency graphs, containment hierarchies, and other associations in SBOMs. This is
+          fundamental to representing complex software structures.
+        tests:
+          - SpdxRelationship_SameComparer_ComparesCorrectly
+          - SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults
+          - Spdx2JsonSerializer_SerializeRelationship_CorrectResults

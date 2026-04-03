@@ -1,0 +1,10 @@
+---
+# SpdxModel IO Subsystem Requirements
+#
+# This is the subsystem-level requirements file for the IO subsystem.
+# Unit requirements are in the sibling unit files:
+#   spdx-2-json-deserializer.yaml
+#   spdx-2-json-serializer.yaml
+
+sections:
+  - title: IO Subsystem Requirements

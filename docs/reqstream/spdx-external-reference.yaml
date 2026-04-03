@@ -1,0 +1,21 @@
+---
+# SpdxExternalReference Unit Requirements
+#
+# This file defines requirements for the SpdxExternalReference unit.
+
+sections:
+  - title: SpdxExternalReference Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-ExternalReferences
+        title: The library shall support SPDX external references.
+        tags:
+          - data-model
+        justification: |
+          External references enable linking SPDX elements to external resources like package
+          registries, vulnerability databases, and documentation. This enriches SBOMs with contextual
+          information from authoritative sources.
+        tests:
+          - SpdxExternalReference_SameComparer_ComparesCorrectly
+          - SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalReference_CorrectResults

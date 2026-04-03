@@ -1,0 +1,9 @@
+---
+# SpdxModel Transform Subsystem Requirements
+#
+# This is the subsystem-level requirements file for the Transform subsystem.
+# Unit requirements are in the sibling unit file:
+#   spdx-relationships.yaml
+
+sections:
+  - title: Transform Subsystem Requirements

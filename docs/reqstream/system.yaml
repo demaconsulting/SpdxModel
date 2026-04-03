@@ -1,0 +1,76 @@
+---
+# SpdxModel System Requirements
+#
+# This file defines the system-level and cross-cutting requirements
+# for the SpdxModel library.
+
+sections:
+  - title: SpdxModel Library Requirements
+    sections:
+      - title: Data Model
+        requirements:
+          - id: SpdxModel-Data-RootPackages
+            title: The library shall support retrieving root packages from an SPDX document.
+            tags:
+              - data-model
+            justification: |
+              Retrieving root packages helps identify top-level components in an SBOM. This is essential
+              for understanding the primary software packages in a document and navigating the dependency
+              graph from its entry points.
+            tests:
+              - SpdxDocument_GetRootPackages_CorrectPackages
+
+          - id: SpdxModel-Data-DeepCopy
+            title: The library shall support deep copying of SPDX elements.
+            tags:
+              - data-model
+            justification: |
+              Deep copying enables creating independent copies of SPDX elements for modification without
+              affecting the original. This is crucial for SBOM manipulation scenarios like merging,
+              filtering, or transforming documents.
+            tests:
+              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+
+          - id: SpdxModel-Data-NullableReferenceTypes
+            title: The library shall provide type-safe APIs with nullable reference types.
+            tags:
+              - data-model
+            justification: |
+              Nullable reference types enhance type safety by making nullability explicit in the type
+              system. This improves code quality, reduces null reference exceptions, and makes the API
+              more intuitive for consumers.
+            tests:
+              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+
+          - id: SpdxModel-Data-ComparisonUtilities
+            title: The library shall provide comparison utilities for SPDX elements.
+            tags:
+              - data-model
+            justification: |
+              Comparison utilities enable applications to determine equality and equivalence between
+              SPDX elements. This is essential for testing, change detection, and implementing operations
+              like document merging or deduplication.
+            tests:
+              - SpdxDocument_SameComparer_ComparesCorrectly
+              - SpdxPackage_SameComparer_ComparesCorrectly
+              - SpdxFile_SameComparer_ComparesCorrectly
+              - SpdxRelationship_SameComparer_ComparesCorrectly
+
+      - title: Validation
+        requirements:
+          - id: SpdxModel-Val-ElementValidation
+            title: The library shall support validation of SPDX elements.
+            tags:
+              - validation
+            justification: |
+              Validation ensures SPDX documents and elements conform to the specification requirements.
+              This helps users catch errors early and produce compliant SBOMs that will be accepted by
+              other tools in the SPDX ecosystem.
+            tests:
+              - SpdxDocument_Validate_NoIssues
+              - SpdxAnnotation_Validate_InvalidAnnotator
+              - SpdxChecksum_Validate_InvalidAlgorithm
+              - SpdxCreationInformation_Validate_MissingCreators

@@ -1,0 +1,68 @@
+---
+# SpdxModel Platform Requirements
+#
+# This file defines the platform support requirements for the SpdxModel library.
+
+sections:
+  - title: Platform Requirements
+    requirements:
+      - id: SpdxModel-Plt-MacOS
+        title: The library shall build and run on macOS platforms.
+        tags:
+          - platform
+        justification: |
+          DEMA Consulting libraries must support macOS for developers using Apple platforms.
+        tests:
+          # Tests link to "macos" to ensure results come from macOS platform
+          - "macos@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+
+      - id: SpdxModel-Plt-Net8
+        title: The library shall support .NET 8 runtime.
+        tags:
+          - platform
+        justification: |
+          .NET 8 is a long-term support (LTS) release and provides a stable foundation for
+          enterprise applications. Supporting .NET 8 ensures the library can be used in production
+          environments requiring long-term stability and support.
+        tests:
+          - net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+          - net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+      - id: SpdxModel-Plt-Net9
+        title: The library shall support .NET 9 runtime.
+        tags:
+          - platform
+        justification: |
+          .NET 9 is a standard-term support (STS) release providing newer features and performance
+          improvements. Supporting .NET 9 allows users to leverage the latest .NET capabilities while
+          the framework is current.
+        tests:
+          - net9.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+          - net9.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+      - id: SpdxModel-Plt-Net10
+        title: The library shall support .NET 10 runtime.
+        tags:
+          - platform
+        justification: |
+          .NET 10 represents the latest .NET platform release. Supporting .NET 10 ensures users
+          can adopt the most recent framework version and benefit from the latest performance,
+          security, and feature improvements.
+        tests:
+          - net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+          - net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+
+      - id: SpdxModel-Plt-NetStd20
+        title: The library shall support the .NET Standard 2.0 target framework.
+        tags:
+          - platform
+        justification: |
+          .NET Standard 2.0 is a widely-supported target framework that enables the library to
+          be used in MSBuild extensions and other tooling that requires .NET Standard compatibility.
+          Supporting this target framework ensures the library can be integrated into a broader
+          range of .NET projects, including those targeting .NET Framework and older .NET Core versions.
+          The net481 test target on Windows provides direct runtime evidence of .NET Standard 2.0
+          compatibility, as .NET Framework 4.8.1 fully implements the .NET Standard 2.0 API surface.
+        tests:
+          - "net481@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+          - "net481@Spdx2JsonSerializer_SerializeDocument_CorrectResults"

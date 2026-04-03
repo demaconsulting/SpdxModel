@@ -59,6 +59,7 @@ words:
   - mstest
   - myterm
   - nameof
+  - netstandard
   - ncipollo
   - Neko
   - NOASSERTION

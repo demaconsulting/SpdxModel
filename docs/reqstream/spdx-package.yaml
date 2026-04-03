@@ -1,0 +1,21 @@
+---
+# SpdxPackage Unit Requirements
+#
+# This file defines requirements for the SpdxPackage unit.
+
+sections:
+  - title: SpdxPackage Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Packages
+        title: The library shall support SPDX packages.
+        tags:
+          - data-model
+        justification: |
+          Packages are core elements in SPDX documents representing software packages in an SBOM.
+          Supporting package elements is fundamental to the library's purpose of managing software
+          bill of materials and dependency information.
+        tests:
+          - SpdxPackage_SameComparer_ComparesCorrectly
+          - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializePackage_CorrectResults
+          - Spdx2JsonSerializer_SerializePackage_CorrectResults

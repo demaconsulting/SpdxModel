@@ -1,0 +1,20 @@
+---
+# SpdxCreationInformation Unit Requirements
+#
+# This file defines requirements for the SpdxCreationInformation unit.
+
+sections:
+  - title: SpdxCreationInformation Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-CreationInformation
+        title: The library shall support SPDX document creation information.
+        tags:
+          - data-model
+        justification: |
+          Creation information is a required element of SPDX documents that provides metadata about
+          who created the document and when. Supporting this element is essential for SPDX compliance
+          and traceability of document provenance.
+        tests:
+          - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults
+          - Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults

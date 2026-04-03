@@ -1,0 +1,21 @@
+---
+# SpdxPackageVerificationCode Unit Requirements
+#
+# This file defines requirements for the SpdxPackageVerificationCode unit.
+
+sections:
+  - title: SpdxPackageVerificationCode Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-PackageVerificationCodes
+        title: The library shall support SPDX package verification codes.
+        tags:
+          - data-model
+        justification: |
+          Package verification codes provide a way to verify package contents integrity. This
+          cryptographic verification mechanism is important for ensuring that package contents
+          have not been tampered with or corrupted.
+        tests:
+          - SpdxPackageVerificationCode_SameComparer_ComparesCorrectly
+          - SpdxPackageVerificationCode_DeepCopy_CreatesEqualButDistinctInstance
+          - Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults
+          - Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults
