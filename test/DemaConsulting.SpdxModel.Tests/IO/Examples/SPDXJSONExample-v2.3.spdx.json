@@ -134,6 +134,7 @@
     } ],
     "filesAnalyzed" : false,
     "homepage" : "http://www.openjena.org/",
+    "licenseDeclared" : "NOASSERTION",
     "name" : "Jena",
     "versionInfo" : "3.12.0"
   }, {

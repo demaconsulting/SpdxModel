@@ -226,13 +226,13 @@ public sealed class SpdxSnippet : SpdxLicenseElement
         // Validate Concluded License Field
         if (ConcludedLicense.Length == 0)
         {
-            issues.Add($"Snippet {Id} Invalid Concluded License Field - Empty");
+            issues.Add($"Snippet '{Id}' Invalid Concluded License Field - Empty");
         }
 
         // Validate Copyright Text Field
         if (CopyrightText.Length == 0)
         {
-            issues.Add($"Snippet {Id} Invalid Copyright Text Field - Empty");
+            issues.Add($"Snippet '{Id}' Invalid Copyright Text Field - Empty");
         }
 
         // Validate Annotations

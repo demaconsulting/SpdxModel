@@ -200,4 +200,39 @@ public class SpdxSnippetTests
         // Assert: Verify that the validation reports no issues.
         Assert.IsEmpty(issues);
     }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method validates annotations.
+    /// </summary>
+    [TestMethod]
+    public void SpdxSnippet_Validate_InvalidAnnotation()
+    {
+        // Arrange: Create a valid snippet with an invalid annotation
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting",
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Looks good"
+                }
+            ]
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the annotation issue is reported with the correct prefix
+        Assert.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty", issues);
+    }
 }

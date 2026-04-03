@@ -194,7 +194,8 @@ public class SpdxPackageTests
             Name = "DemaConsulting.SpdxModel",
             Version = "0.0.0",
             DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
-            Supplier = "Organization: DemaConsulting"
+            Supplier = "Organization: DemaConsulting",
+            DeclaredLicense = "MIT"
         };
 
         // Act: Validate the package
@@ -399,5 +400,65 @@ public class SpdxPackageTests
 
         // Assert: Verify the issue is reported
         Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Valid Until Date Field 'BadDate'", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing declared licenses.
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_MissingDeclaredLicense()
+    {
+        // Arrange: Construct a package with empty declared license
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            DeclaredLicense = ""
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null, true);
+
+        // Assert: Verify the issue is reported
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Package Declared License Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method validates annotations.
+    /// </summary>
+    [TestMethod]
+    public void SpdxPackage_Validate_InvalidAnnotation()
+    {
+        // Arrange: Construct a package with an invalid annotation
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            DeclaredLicense = "MIT",
+            Supplier = "Organization: DemaConsulting",
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Looks good"
+                }
+            ]
+        };
+
+        // Act: Validate the package
+        var issues = new List<string>();
+        package.Validate(issues, null);
+
+        // Assert: Verify the annotation issue is reported with the correct prefix
+        Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Annotator Field - Empty", issues);
     }
 }
