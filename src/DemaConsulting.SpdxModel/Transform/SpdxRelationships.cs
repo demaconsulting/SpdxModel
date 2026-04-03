@@ -45,7 +45,7 @@ public static class SpdxRelationships
             throw new ArgumentException($"Element {relationship.Id} not found in SPDX document", nameof(relationship));
         }
 
-        // Ensure the relationship related-element ID matches an element, or is valid external/NOASSERTION
+        // Ensure the relationship related-element ID matches an element, is NOASSERTION, or uses the DocumentRef- external-reference prefix
         if (!relationship.RelatedSpdxElement.StartsWith("DocumentRef-") &&
             relationship.RelatedSpdxElement != SpdxElement.NoAssertion &&
             document.GetElement(relationship.RelatedSpdxElement) == null)
