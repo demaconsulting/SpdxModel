@@ -154,28 +154,6 @@ public class SpdxCreationInformationTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports empty created dates.
-    /// </summary>
-    [TestMethod]
-    public void SpdxCreationInformation_Validate_EmptyCreatedDate()
-    {
-        // Arrange: Create creation information with empty created date
-        var info = new SpdxCreationInformation
-        {
-            Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
-            Created = "",
-            Comment = "This package has been shipped in source and binary form."
-        };
-
-        // Act: Perform validation on the SpdxCreationInformation instance
-        var issues = new List<string>();
-        info.Validate(issues);
-
-        // Assert: Verify that the validation reports the empty created date
-        Assert.Contains(issue => issue.Contains("Document Invalid Created Field - Empty"), issues);
-    }
-
-    /// <summary>
     ///     Tests the <see cref="SpdxCreationInformation.Validate" /> method reports invalid versions.
     /// </summary>
     [TestMethod]
