@@ -1,0 +1,21 @@
+---
+# SpdxElement Unit Requirements
+#
+# This file defines requirements for the SpdxElement unit.
+
+sections:
+  - title: SpdxElement Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-Element
+        title: The library shall provide a common base type for all identifiable SPDX elements.
+        tags:
+          - data-model
+        justification: |
+          Every SPDX element (document, package, file, snippet) must carry a unique SPDX
+          identifier in the form SPDXRef-<name>. Centralizing this in an abstract base class
+          guarantees consistent identity handling across the entire object model and enables
+          generic element lookup and traversal.
+        tests:
+          - SpdxDocument_Validate_InvalidId
+          - SpdxDocument_GetAllElements_Correct
+          - SpdxDocument_GetElement_Correct

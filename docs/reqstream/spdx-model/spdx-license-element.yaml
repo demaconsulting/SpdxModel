@@ -1,0 +1,40 @@
+---
+# SpdxLicenseElement Unit Requirements
+#
+# This file defines requirements for the SpdxLicenseElement unit.
+
+sections:
+  - title: SpdxLicenseElement Unit Requirements
+    requirements:
+      - id: SpdxModel-Data-LicenseElement
+        title: >-
+          The library shall provide a common base type for SPDX elements that
+          carry license and copyright information.
+        tags:
+          - data-model
+        justification: |
+          Packages, files, and snippets all carry a concluded license, copyright text, license
+          comments, attribution notices, and annotations. Centralizing these fields in an
+          abstract intermediate base class eliminates duplication and ensures that the same
+          semantics are applied consistently across all three element types.
+        tests:
+          - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+          - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+          - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
+
+      - id: SpdxModel-Data-LicenseElement-Enhance
+        title: >-
+          The library shall merge license and copyright fields from a secondary
+          source when the primary fields are absent.
+        tags:
+          - data-model
+        justification: |
+          When enriching an incomplete SPDX element with data from a supplementary source,
+          concluded license, copyright text, attribution texts, and annotations may be absent
+          from the primary record. The EnhanceLicenseElement helper ensures these fields are
+          populated from the secondary source only when the primary record lacks a concrete
+          value.
+        tests:
+          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly

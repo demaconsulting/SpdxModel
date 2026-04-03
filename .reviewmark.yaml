@@ -9,6 +9,8 @@ needs-review:
   - "requirements.yaml"          # Root requirements file
   - "docs/reqstream/**/*.yaml"   # Requirements files
   - "docs/design/**/*.md"        # Design documentation
+  - "README.md"                  # Root level README
+  - "docs/user_guide/**/*.md"    # User guide
   - "**/*.cs"                    # All C# source and test files
   - "!**/obj/**"                 # Exclude build output
   - "!**/bin/**"                 # Exclude build output
@@ -25,18 +27,18 @@ evidence-source:
 # Each review-set groups requirements, source, and tests for a coherent software unit
 # so that an AI-assisted review can verify consistency across the full evidence chain.
 reviews:
-  - id: SpdxModel-System
-    title: SpdxModel System Review
+  - id: SpdxModel-Architecture
+    title: SpdxModel Architecture Review
     paths:
-      - "docs/reqstream/system.yaml"
+      - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
-      - "docs/design/system.md"
+      - "docs/design/spdx-model/spdx-model.md"
 
   - id: SpdxModel-Design
     title: SpdxModel Design Review
     paths:
-      - "docs/reqstream/system.yaml"
-      - "docs/reqstream/platform-requirements.yaml"
+      - "docs/reqstream/spdx-model/spdx-model.yaml"
+      - "docs/reqstream/spdx-model/platform-requirements.yaml"
       - "docs/design/**/*.md"
 
   - id: SpdxModel-AllRequirements
@@ -48,13 +50,14 @@ reviews:
   - id: SpdxModel-IO
     title: SpdxModel IO Subsystem Review
     paths:
-      - "docs/reqstream/io/io.yaml"
-      - "docs/reqstream/io/spdx-2-json-deserializer.yaml"
-      - "docs/reqstream/io/spdx-2-json-serializer.yaml"
-      - "docs/design/io/io.md"
-      - "docs/design/io/spdx-2-json-deserializer.md"
-      - "docs/design/io/spdx-2-json-serializer.md"
-      - "docs/design/io/spdx-constants.md"
+      - "docs/reqstream/spdx-model/io/io.yaml"
+      - "docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml"
+      - "docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml"
+      - "docs/reqstream/spdx-model/io/spdx-constants.yaml"
+      - "docs/design/spdx-model/io/io.md"
+      - "docs/design/spdx-model/io/spdx-2-json-deserializer.md"
+      - "docs/design/spdx-model/io/spdx-2-json-serializer.md"
+      - "docs/design/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonDeserializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
@@ -63,18 +66,18 @@ reviews:
   - id: SpdxModel-Transform
     title: SpdxModel Transform Subsystem Review
     paths:
-      - "docs/reqstream/transform/transform.yaml"
-      - "docs/reqstream/transform/spdx-relationships.yaml"
-      - "docs/design/transform/transform.md"
-      - "docs/design/transform/spdx-relationships.md"
+      - "docs/reqstream/spdx-model/transform/transform.yaml"
+      - "docs/reqstream/spdx-model/transform/spdx-relationships.yaml"
+      - "docs/design/spdx-model/transform/transform.md"
+      - "docs/design/spdx-model/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
       - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
 
   - id: SpdxModel-SpdxAnnotation
     title: SpdxModel SpdxAnnotation Unit Review
     paths:
-      - "docs/reqstream/spdx-annotation.yaml"
-      - "docs/design/spdx-annotation.md"
+      - "docs/reqstream/spdx-model/spdx-annotation.yaml"
+      - "docs/design/spdx-model/spdx-annotation.md"
       - "src/DemaConsulting.SpdxModel/SpdxAnnotation.cs"
       - "src/DemaConsulting.SpdxModel/SpdxAnnotationType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxAnnotationTests.cs"
@@ -82,8 +85,8 @@ reviews:
   - id: SpdxModel-SpdxChecksum
     title: SpdxModel SpdxChecksum Unit Review
     paths:
-      - "docs/reqstream/spdx-checksum.yaml"
-      - "docs/design/spdx-checksum.md"
+      - "docs/reqstream/spdx-model/spdx-checksum.yaml"
+      - "docs/design/spdx-model/spdx-checksum.md"
       - "src/DemaConsulting.SpdxModel/SpdxChecksum.cs"
       - "src/DemaConsulting.SpdxModel/SpdxChecksumAlgorithm.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxChecksumTests.cs"
@@ -91,37 +94,39 @@ reviews:
   - id: SpdxModel-SpdxCreationInformation
     title: SpdxModel SpdxCreationInformation Unit Review
     paths:
-      - "docs/reqstream/spdx-creation-information.yaml"
-      - "docs/design/spdx-creation-information.md"
+      - "docs/reqstream/spdx-model/spdx-creation-information.yaml"
+      - "docs/design/spdx-model/spdx-creation-information.md"
       - "src/DemaConsulting.SpdxModel/SpdxCreationInformation.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxCreationInformationTests.cs"
 
   - id: SpdxModel-SpdxDocument
     title: SpdxModel SpdxDocument Unit Review
     paths:
-      - "docs/design/spdx-document.md"
+      - "docs/reqstream/spdx-model/spdx-document.yaml"
+      - "docs/design/spdx-model/spdx-document.md"
       - "src/DemaConsulting.SpdxModel/SpdxDocument.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
 
   - id: SpdxModel-SpdxElement
     title: SpdxModel SpdxElement Unit Review
     paths:
-      - "docs/design/spdx-element.md"
+      - "docs/reqstream/spdx-model/spdx-element.yaml"
+      - "docs/design/spdx-model/spdx-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxElement.cs"
 
   - id: SpdxModel-SpdxExternalDocumentReference
     title: SpdxModel SpdxExternalDocumentReference Unit Review
     paths:
-      - "docs/reqstream/spdx-external-document-reference.yaml"
-      - "docs/design/spdx-external-document-reference.md"
+      - "docs/reqstream/spdx-model/spdx-external-document-reference.yaml"
+      - "docs/design/spdx-model/spdx-external-document-reference.md"
       - "src/DemaConsulting.SpdxModel/SpdxExternalDocumentReference.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalDocumentReferenceTests.cs"
 
   - id: SpdxModel-SpdxExternalReference
     title: SpdxModel SpdxExternalReference Unit Review
     paths:
-      - "docs/reqstream/spdx-external-reference.yaml"
-      - "docs/design/spdx-external-reference.md"
+      - "docs/reqstream/spdx-model/spdx-external-reference.yaml"
+      - "docs/design/spdx-model/spdx-external-reference.md"
       - "src/DemaConsulting.SpdxModel/SpdxExternalReference.cs"
       - "src/DemaConsulting.SpdxModel/SpdxReferenceCategory.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalReferenceTests.cs"
@@ -129,16 +134,16 @@ reviews:
   - id: SpdxModel-SpdxExtractedLicensingInfo
     title: SpdxModel SpdxExtractedLicensingInfo Unit Review
     paths:
-      - "docs/reqstream/spdx-extracted-licensing-info.yaml"
-      - "docs/design/spdx-extracted-licensing-info.md"
+      - "docs/reqstream/spdx-model/spdx-extracted-licensing-info.yaml"
+      - "docs/design/spdx-model/spdx-extracted-licensing-info.md"
       - "src/DemaConsulting.SpdxModel/SpdxExtractedLicensingInfo.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExtractedLicensingInfoTests.cs"
 
   - id: SpdxModel-SpdxFile
     title: SpdxModel SpdxFile Unit Review
     paths:
-      - "docs/reqstream/spdx-file.yaml"
-      - "docs/design/spdx-file.md"
+      - "docs/reqstream/spdx-model/spdx-file.yaml"
+      - "docs/design/spdx-model/spdx-file.md"
       - "src/DemaConsulting.SpdxModel/SpdxFile.cs"
       - "src/DemaConsulting.SpdxModel/SpdxFileType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxFileTests.cs"
@@ -146,36 +151,38 @@ reviews:
   - id: SpdxModel-SpdxHelpers
     title: SpdxModel SpdxHelpers Unit Review
     paths:
-      - "docs/design/spdx-helpers.md"
+      - "docs/reqstream/spdx-model/spdx-helpers.yaml"
+      - "docs/design/spdx-model/spdx-helpers.md"
       - "src/DemaConsulting.SpdxModel/SpdxHelpers.cs"
 
   - id: SpdxModel-SpdxLicenseElement
     title: SpdxModel SpdxLicenseElement Unit Review
     paths:
-      - "docs/design/spdx-license-element.md"
+      - "docs/reqstream/spdx-model/spdx-license-element.yaml"
+      - "docs/design/spdx-model/spdx-license-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxLicenseElement.cs"
 
   - id: SpdxModel-SpdxPackage
     title: SpdxModel SpdxPackage Unit Review
     paths:
-      - "docs/reqstream/spdx-package.yaml"
-      - "docs/design/spdx-package.md"
+      - "docs/reqstream/spdx-model/spdx-package.yaml"
+      - "docs/design/spdx-model/spdx-package.md"
       - "src/DemaConsulting.SpdxModel/SpdxPackage.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageTests.cs"
 
   - id: SpdxModel-SpdxPackageVerificationCode
     title: SpdxModel SpdxPackageVerificationCode Unit Review
     paths:
-      - "docs/reqstream/spdx-package-verification-code.yaml"
-      - "docs/design/spdx-package-verification-code.md"
+      - "docs/reqstream/spdx-model/spdx-package-verification-code.yaml"
+      - "docs/design/spdx-model/spdx-package-verification-code.md"
       - "src/DemaConsulting.SpdxModel/SpdxPackageVerificationCode.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageVerificationCodeTests.cs"
 
   - id: SpdxModel-SpdxRelationship
     title: SpdxModel SpdxRelationship Unit Review
     paths:
-      - "docs/reqstream/spdx-relationship.yaml"
-      - "docs/design/spdx-relationship.md"
+      - "docs/reqstream/spdx-model/spdx-relationship.yaml"
+      - "docs/design/spdx-model/spdx-relationship.md"
       - "src/DemaConsulting.SpdxModel/SpdxRelationship.cs"
       - "src/DemaConsulting.SpdxModel/SpdxRelationshipType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxRelationshipTests.cs"
@@ -183,7 +190,7 @@ reviews:
   - id: SpdxModel-SpdxSnippet
     title: SpdxModel SpdxSnippet Unit Review
     paths:
-      - "docs/reqstream/spdx-snippet.yaml"
-      - "docs/design/spdx-snippet.md"
+      - "docs/reqstream/spdx-model/spdx-snippet.yaml"
+      - "docs/design/spdx-model/spdx-snippet.md"
       - "src/DemaConsulting.SpdxModel/SpdxSnippet.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs"

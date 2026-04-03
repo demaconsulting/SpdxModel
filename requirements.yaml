@@ -5,22 +5,27 @@
 # Requirements are split into separate files under docs/reqstream/ mirroring the source structure.
 
 includes:
-  - docs/reqstream/io/io.yaml
-  - docs/reqstream/io/spdx-2-json-deserializer.yaml
-  - docs/reqstream/io/spdx-2-json-serializer.yaml
-  - docs/reqstream/system.yaml
-  - docs/reqstream/platform-requirements.yaml
-  - docs/reqstream/transform/transform.yaml
-  - docs/reqstream/transform/spdx-relationships.yaml
+  - docs/reqstream/spdx-model/spdx-model.yaml
+  - docs/reqstream/spdx-model/platform-requirements.yaml
+  - docs/reqstream/spdx-model/io/io.yaml
+  - docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml
+  - docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml
+  - docs/reqstream/spdx-model/io/spdx-constants.yaml
+  - docs/reqstream/spdx-model/transform/transform.yaml
+  - docs/reqstream/spdx-model/transform/spdx-relationships.yaml
+  - docs/reqstream/spdx-model/spdx-annotation.yaml
+  - docs/reqstream/spdx-model/spdx-checksum.yaml
+  - docs/reqstream/spdx-model/spdx-creation-information.yaml
+  - docs/reqstream/spdx-model/spdx-document.yaml
+  - docs/reqstream/spdx-model/spdx-element.yaml
+  - docs/reqstream/spdx-model/spdx-external-document-reference.yaml
+  - docs/reqstream/spdx-model/spdx-external-reference.yaml
+  - docs/reqstream/spdx-model/spdx-extracted-licensing-info.yaml
+  - docs/reqstream/spdx-model/spdx-file.yaml
+  - docs/reqstream/spdx-model/spdx-helpers.yaml
+  - docs/reqstream/spdx-model/spdx-license-element.yaml
+  - docs/reqstream/spdx-model/spdx-package.yaml
+  - docs/reqstream/spdx-model/spdx-package-verification-code.yaml
+  - docs/reqstream/spdx-model/spdx-relationship.yaml
+  - docs/reqstream/spdx-model/spdx-snippet.yaml
   - docs/reqstream/ots/ots.yaml
-  - docs/reqstream/spdx-annotation.yaml
-  - docs/reqstream/spdx-checksum.yaml
-  - docs/reqstream/spdx-creation-information.yaml
-  - docs/reqstream/spdx-external-document-reference.yaml
-  - docs/reqstream/spdx-external-reference.yaml
-  - docs/reqstream/spdx-extracted-licensing-info.yaml
-  - docs/reqstream/spdx-file.yaml
-  - docs/reqstream/spdx-package.yaml
-  - docs/reqstream/spdx-package-verification-code.yaml
-  - docs/reqstream/spdx-relationship.yaml
-  - docs/reqstream/spdx-snippet.yaml

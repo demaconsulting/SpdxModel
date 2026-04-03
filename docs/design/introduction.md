@@ -60,6 +60,36 @@ OTS Software Items:
 ## Folder Layout
 
 ```text
+docs/design/
+├── introduction.md
+└── spdx-model/
+    ├── spdx-model.md
+    ├── io/
+    │   ├── io.md
+    │   ├── spdx-2-json-deserializer.md
+    │   ├── spdx-2-json-serializer.md
+    │   └── spdx-constants.md
+    ├── transform/
+    │   ├── transform.md
+    │   └── spdx-relationships.md
+    ├── spdx-annotation.md
+    ├── spdx-checksum.md
+    ├── spdx-creation-information.md
+    ├── spdx-document.md
+    ├── spdx-element.md
+    ├── spdx-external-document-reference.md
+    ├── spdx-external-reference.md
+    ├── spdx-extracted-licensing-info.md
+    ├── spdx-file.md
+    ├── spdx-helpers.md
+    ├── spdx-license-element.md
+    ├── spdx-package-verification-code.md
+    ├── spdx-package.md
+    ├── spdx-relationship.md
+    └── spdx-snippet.md
+```
+
+```text
 src/DemaConsulting.SpdxModel/
 ├── IO/
 │   ├── Spdx2JsonDeserializer.cs    — SPDX 2.x JSON deserialization
