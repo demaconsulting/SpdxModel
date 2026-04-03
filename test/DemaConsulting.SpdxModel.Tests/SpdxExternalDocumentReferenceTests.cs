@@ -174,6 +174,8 @@ public class SpdxExternalDocumentReferenceTests
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing external document ID
     /// </summary>
+    [TestMethod]
+    public void SpdxExternalDocumentReference_Validate_MissingId()
     {
         // Arrange: Create a bad reference
         var reference = new SpdxExternalDocumentReference
@@ -190,7 +192,6 @@ public class SpdxExternalDocumentReferenceTests
         Assert.Contains(issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty"), issues);
     }
 
-    /// <summary>
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing document URI
     /// </summary>
