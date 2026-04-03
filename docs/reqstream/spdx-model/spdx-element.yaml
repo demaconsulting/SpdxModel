@@ -12,7 +12,7 @@ sections:
           - data-model
         justification: |
           Every SPDX element (document, package, file, snippet) must carry a unique SPDX
-          identifier in the form SPDXRef-<name>. Centralising this in an abstract base class
+          identifier in the form SPDXRef-<name>. Centralizing this in an abstract base class
           guarantees consistent identity handling across the entire object model and enables
           generic element lookup and traversal.
         tests:

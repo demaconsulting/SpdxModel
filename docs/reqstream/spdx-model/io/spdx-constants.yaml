@@ -7,13 +7,15 @@ sections:
   - title: SpdxConstants Unit Requirements
     requirements:
       - id: SpdxModel-IO-Constants
-        title: The library shall centralise all SPDX 2.x JSON field name constants used during serialization and deserialization.
+        title: >-
+          The library shall centralize all SPDX 2.x JSON field name constants
+          used during serialization and deserialization.
         tags:
           - io
         justification: |
           Hardcoding JSON property name strings throughout serialization and deserialization
           code introduces maintenance risk and makes it difficult to audit field name usage.
-          Centralising all constants in a single class ensures that any change to a field
+          Centralizing all constants in a single class ensures that any change to a field
           name is made in one place and propagates consistently to both the reader and writer.
         tests:
           - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
