@@ -17,5 +17,14 @@ sections:
         tests:
           - SpdxPackage_SameComparer_ComparesCorrectly
           - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializePackage_CorrectResults
-          - Spdx2JsonSerializer_SerializePackage_CorrectResults
+          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+          - SpdxPackage_Validate_Success
+          - SpdxPackage_Validate_MissingPackageName
+          - SpdxPackage_Validate_InvalidPackageId
+          - SpdxPackage_Validate_MissingDownload
+          - SpdxPackage_Validate_InvalidSupplier
+          - SpdxPackage_Validate_InvalidOriginator
+          - SpdxPackage_Validate_InvalidReleaseDate
+          - SpdxPackage_Validate_InvalidBuiltDate
+          - SpdxPackage_Validate_InvalidValidUntilDate
+          - SpdxPackage_Validate_InvalidAnnotation

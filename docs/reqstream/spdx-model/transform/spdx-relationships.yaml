@@ -17,4 +17,9 @@ sections:
           and reduces errors when constructing complex SBOMs.
         tests:
           - SpdxRelationships_AddSingle_Success
+          - SpdxRelationships_AddSingle_MissingId
+          - SpdxRelationships_AddSingle_MissingRelatedElement
+          - SpdxRelationships_AddSingle_Duplicate
           - SpdxRelationships_AddMultiple_Success
+          - SpdxRelationships_AddMultiple_Duplicate
+          - SpdxRelationships_AddMultiple_Replace

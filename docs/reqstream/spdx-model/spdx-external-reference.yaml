@@ -17,5 +17,12 @@ sections:
         tests:
           - SpdxExternalReference_SameComparer_ComparesCorrectly
           - SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults
-          - Spdx2JsonSerializer_SerializeExternalReference_CorrectResults
+          - SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxExternalReference_Validate_InvalidCategory
+          - SpdxExternalReference_Validate_InvalidType
+          - SpdxExternalReference_Validate_InvalidLocator
+          - SpdxReferenceCategoryExtensions_FromText_Valid
+          - SpdxReferenceCategoryExtensions_FromText_Invalid
+          - SpdxReferenceCategoryExtensions_ToText_Valid
+          - SpdxReferenceCategoryExtensions_ToText_InvalidCategory
+          - SpdxReferenceCategoryExtensions_ToText_MissingCategory

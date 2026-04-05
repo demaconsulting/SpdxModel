@@ -17,5 +17,6 @@ sections:
         tests:
           - SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly
           - SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults
-          - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults
+          - SpdxExtractedLicensingInfo_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxExtractedLicensingInfo_Validate_InvalidLicenseId
+          - SpdxExtractedLicensingInfo_Validate_InvalidExtractedText

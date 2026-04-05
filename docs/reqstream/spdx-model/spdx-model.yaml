@@ -36,8 +36,6 @@ sections:
               - SpdxModel-Data-Files
             tests:
               - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
 
           - id: SpdxModel-Data-NullableReferenceTypes
             title: The library shall provide type-safe APIs with nullable reference types.
@@ -53,7 +51,6 @@ sections:
               - SpdxModel-Data-Packages
             tests:
               - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
 
           - id: SpdxModel-Data-ComparisonUtilities
             title: The library shall provide comparison utilities for SPDX elements.
@@ -70,9 +67,6 @@ sections:
               - SpdxModel-Data-Relationships
             tests:
               - SpdxDocument_SameComparer_ComparesCorrectly
-              - SpdxPackage_SameComparer_ComparesCorrectly
-              - SpdxFile_SameComparer_ComparesCorrectly
-              - SpdxRelationship_SameComparer_ComparesCorrectly
 
       - title: Validation
         requirements:
@@ -91,6 +85,35 @@ sections:
               - SpdxModel-Data-CreationInformation
             tests:
               - SpdxDocument_Validate_NoIssues
-              - SpdxAnnotation_Validate_InvalidAnnotator
-              - SpdxChecksum_Validate_InvalidAlgorithm
-              - SpdxCreationInformation_Validate_MissingCreators
+
+      - title: JSON Serialization
+        requirements:
+          - id: SpdxModel-IO-ReadSpdxJson
+            title: The library shall support reading SPDX 2.x documents from JSON format.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON deserialization is the primary mechanism for reading SPDX documents produced by
+              other tools. Supporting both SPDX 2.2 and 2.3 formats ensures compatibility with the
+              broad ecosystem of SPDX tooling and enables consumers to work with existing SBOMs.
+            children:
+              - SpdxModel-IO-Serialization
+            tests:
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
+
+          - id: SpdxModel-IO-WriteSpdxJson
+            title: The library shall support writing SPDX 2.x documents to JSON format.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON serialization enables applications to produce SPDX documents for distribution,
+              toolchain integration, and compliance reporting. Producing well-formed SPDX JSON ensures
+              interoperability with other tools in the SPDX ecosystem.
+            children:
+              - SpdxModel-IO-Serialization
+            tests:
+              - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+              - Spdx2JsonSerializer_Serialize_CorrectResults

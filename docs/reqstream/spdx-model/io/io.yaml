@@ -21,7 +21,9 @@ sections:
         children:
           - SpdxModel-Serialization-Deserialize22Json
           - SpdxModel-Serialization-Deserialize23Json
+          - SpdxModel-Serialization-DeserializeElements
           - SpdxModel-Serialization-SerializeJson
+          - SpdxModel-Serialization-SerializeElements
           - SpdxModel-IO-Constants
         tests:
           - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument

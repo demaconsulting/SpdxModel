@@ -17,5 +17,12 @@ sections:
         tests:
           - SpdxAnnotation_SameComparer_ComparesCorrectly
           - SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults
-          - Spdx2JsonSerializer_SerializeAnnotation_CorrectResults
+          - SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxAnnotation_Validate_InvalidAnnotator
+          - SpdxAnnotation_Validate_InvalidDate
+          - SpdxAnnotation_Validate_InvalidType
+          - SpdxAnnotation_Validate_InvalidComment
+          - SpdxAnnotationTypeExtensions_FromText_Valid
+          - SpdxAnnotationTypeExtensions_FromText_Invalid
+          - SpdxAnnotationTypeExtensions_ToText_Valid
+          - SpdxAnnotationTypeExtensions_ToText_Invalid

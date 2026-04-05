@@ -28,3 +28,36 @@ sections:
           in SPDX 2.3 while maintaining compatibility with modern SBOM tools.
         tests:
           - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
+
+      - id: SpdxModel-Serialization-DeserializeElements
+        title: The library shall correctly deserialize all SPDX 2.x element types from JSON.
+        tags:
+          - serialization
+        justification: |
+          Each SPDX element type (annotation, checksum, package, file, snippet, relationship, etc.)
+          has distinct JSON representation and field mappings. Verifying each element type is
+          deserialized correctly ensures the library faithfully reconstructs every artifact present
+          in a source SPDX JSON document.
+        tests:
+          - Spdx2JsonDeserializer_DeserializeDocument_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeAnnotations_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeChecksums_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExternalReferences_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeFile_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeFiles_CorrectResults
+          - Spdx2JsonDeserializer_DeserializePackage_CorrectResults
+          - Spdx2JsonDeserializer_DeserializePackages_CorrectResults
+          - Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeRelationships_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults
+          - Spdx2JsonDeserializer_DeserializeSnippet_WithoutLineRanges_DefaultsToZero
+          - Spdx2JsonDeserializer_DeserializeSnippets_CorrectResults

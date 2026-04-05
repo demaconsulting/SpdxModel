@@ -17,5 +17,10 @@ sections:
         tests:
           - SpdxChecksum_SameComparer_ComparesCorrectly
           - SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults
-          - Spdx2JsonSerializer_SerializeChecksum_CorrectResults
+          - SpdxChecksum_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxChecksum_Validate_InvalidAlgorithm
+          - SpdxChecksum_Validate_InvalidValue
+          - SpdxChecksumAlgorithmExtensions_FromText_Valid
+          - SpdxChecksumAlgorithmExtensions_FromText_InvalidAlgorithm
+          - SpdxChecksumAlgorithmExtensions_ToText_Valid
+          - SpdxChecksumAlgorithmExtensions_ToText_InvalidAlgorithm
