@@ -1,7 +1,7 @@
 namespace DemaConsulting.SpdxModel.IO;
 
 /// <summary>
-///     SPDX 2.2 constants.
+///     SPDX 2.x constants.
 /// </summary>
 internal static class SpdxConstants
 {

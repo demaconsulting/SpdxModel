@@ -103,7 +103,7 @@ public sealed class SpdxRelationship : SpdxElement
         }
 
         // Populate the comment if missing
-        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment) ?? "";
+        Comment = SpdxHelpers.EnhanceString(Comment, other.Comment);
     }
 
     /// <summary>

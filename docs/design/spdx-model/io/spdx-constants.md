@@ -9,7 +9,7 @@ specification changes.
 
 ## Design
 
-`SpdxConstants` is a non-instantiable static class containing only `public const string` fields.
+`SpdxConstants` is a non-instantiable `internal` static class containing only `internal const string` fields.
 Each constant corresponds to one JSON property name in the SPDX 2.x JSON schema (e.g.,
 `FieldSpdxId`, `FieldName`, `FieldVersionInfo`).
 

@@ -16,7 +16,7 @@ The library offers the following key features:
 - 🔄 **JSON Serialization**: Read and write SPDX documents in JSON format
 - 🎯 **Type-Safe**: Strongly-typed C# API with nullable reference types
 - 🔍 **Transform Support**: Built-in utilities for manipulating SPDX relationships
-- ⚡ **Multi-Target**: Supports .NET 8, 9, and 10
+- ⚡ **Multi-Target**: Supports .NET Standard 2.0, .NET 8, 9, and 10
 - 🧪 **Well-Tested**: Comprehensive test suite with high code coverage
 - 📚 **Well-Documented**: XML documentation for all public APIs
 
@@ -54,7 +54,7 @@ compliance evidence is generated automatically on every CI run.
 
 ## Prerequisites
 
-- .NET 8.0, 9.0, or 10.0
+- .NET Standard 2.0, .NET 8.0, 9.0, or 10.0
 - C# 12 or later
 
 ## Installing via NuGet
