@@ -29,8 +29,8 @@ representing all SPDX document elements, plus serialization and transformation c
 | `SpdxCreationInformation` | `SpdxCreationInformation.cs` | Metadata about document authorship and creation time |
 | `SpdxExternalDocumentReference` | `SpdxExternalDocumentReference.cs` | Reference to an external SPDX document |
 | `SpdxExternalReference` | `SpdxExternalReference.cs` | Reference to an external resource (registry, VDB, etc.) |
-| `SpdxExtractedLicensingInfo` | `SpdxExtractedLicensingInfo.cs` | Non-standard license text extracted from the software |
-| `SpdxPackageVerificationCode` | `SpdxPackageVerificationCode.cs` | Cryptographic integrity code for a package's contents |
+| `SpdxExtractedLicensingInfo` | `SpdxExtractedLicensingInfo.cs` | Non-standard license text extracted from software |
+| `SpdxPackageVerificationCode` | `SpdxPackageVerificationCode.cs` | Cryptographic integrity code for a package |
 | `SpdxHelpers` | `SpdxHelpers.cs` | Shared utility functions (date-time validation, string fitness) |
 
 ## External Interfaces and Dependencies
