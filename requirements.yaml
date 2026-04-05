@@ -10,7 +10,6 @@ includes:
   - docs/reqstream/spdx-model/io/io.yaml
   - docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml
   - docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml
-  - docs/reqstream/spdx-model/io/spdx-constants.yaml
   - docs/reqstream/spdx-model/transform/transform.yaml
   - docs/reqstream/spdx-model/transform/spdx-relationships.yaml
   - docs/reqstream/spdx-model/spdx-annotation.yaml

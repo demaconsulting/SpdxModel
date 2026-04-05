@@ -69,7 +69,9 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml"
       - "docs/design/spdx-model/io/spdx-2-json-deserializer.md"
+      - "docs/design/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonDeserializer.cs"
+      - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
       - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonDeserialize*.cs"
 
   - id: SpdxModel-IO-Spdx2JsonSerializer
@@ -77,16 +79,9 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml"
       - "docs/design/spdx-model/io/spdx-2-json-serializer.md"
-      - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
-      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
-
-  - id: SpdxModel-IO-SpdxConstants
-    title: Review that SpdxModel IO SpdxConstants Implementation is Correct
-    paths:
-      - "docs/reqstream/spdx-model/io/spdx-constants.yaml"
       - "docs/design/spdx-model/io/spdx-constants.md"
+      - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
-      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonDeserialize*.cs"
       - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
 
   - id: SpdxModel-Transform
