@@ -19,5 +19,4 @@ sections:
         children:
           - SpdxModel-Data-RelationshipUtilities
         tests:
-          - SpdxRelationships_AddSingle_Success
-          - SpdxRelationships_AddMultiple_Success
+          - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists

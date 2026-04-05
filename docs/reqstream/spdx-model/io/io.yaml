@@ -26,6 +26,5 @@ sections:
           - SpdxModel-Serialization-SerializeElements
           - SpdxModel-IO-Constants
         tests:
-          - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-          - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
-          - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+          - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
+          - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

@@ -6,14 +6,32 @@ DemaConsulting.SpdxModel is a .NET library providing a complete implementation o
 (Software Package Data Exchange) data model. The library exposes an in-memory object model
 representing all SPDX document elements, plus serialization and transformation capabilities.
 
-### Major Components
+### Subsystems
 
-- **Data Model** — C# classes representing every SPDX 2.x element (documents, packages, files,
-  snippets, relationships, annotations, checksums, external references, etc.)
-- **IO Subsystem** — JSON serialization and deserialization for SPDX 2.2 and 2.3 formats using
-  `System.Text.Json`
-- **Transform Subsystem** — Utilities for manipulating SPDX documents, starting with relationship
-  management
+| Subsystem | Folder | Responsibility |
+| --------- | ------ | -------------- |
+| IO | `IO/` | JSON serialization and deserialization for SPDX 2.2 and 2.3 formats |
+| Transform | `Transform/` | Utilities for manipulating SPDX documents in memory |
+
+### Data Model Units
+
+| Unit | File | Responsibility |
+| ---- | ---- | -------------- |
+| `SpdxElement` | `SpdxElement.cs` | Abstract base for all identifiable SPDX elements |
+| `SpdxLicenseElement` | `SpdxLicenseElement.cs` | Abstract base for elements carrying license and copyright fields |
+| `SpdxDocument` | `SpdxDocument.cs` | Root container of a complete SPDX document |
+| `SpdxPackage` | `SpdxPackage.cs` | Represents a software package in the SBOM |
+| `SpdxFile` | `SpdxFile.cs` | Represents an individual file in the SBOM |
+| `SpdxSnippet` | `SpdxSnippet.cs` | Represents a code snippet within a file |
+| `SpdxRelationship` | `SpdxRelationship.cs` | Represents a directional relationship between elements |
+| `SpdxAnnotation` | `SpdxAnnotation.cs` | Represents a review or assessment annotation |
+| `SpdxChecksum` | `SpdxChecksum.cs` | Represents a cryptographic checksum |
+| `SpdxCreationInformation` | `SpdxCreationInformation.cs` | Metadata about document authorship and creation time |
+| `SpdxExternalDocumentReference` | `SpdxExternalDocumentReference.cs` | Reference to an external SPDX document |
+| `SpdxExternalReference` | `SpdxExternalReference.cs` | Reference to an external resource (registry, VDB, etc.) |
+| `SpdxExtractedLicensingInfo` | `SpdxExtractedLicensingInfo.cs` | Non-standard license text extracted from the software |
+| `SpdxPackageVerificationCode` | `SpdxPackageVerificationCode.cs` | Cryptographic integrity code for a package's contents |
+| `SpdxHelpers` | `SpdxHelpers.cs` | Shared utility functions (date-time validation, string fitness) |
 
 ## External Interfaces and Dependencies
 

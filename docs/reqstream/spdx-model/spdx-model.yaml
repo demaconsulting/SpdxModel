@@ -20,7 +20,7 @@ sections:
             children:
               - SpdxModel-Data-Document-Query
             tests:
-              - SpdxDocument_GetRootPackages_CorrectPackages
+              - SpdxModel_ReadSpdxJson_Spdx23Example_RootPackagesIdentified
 
           - id: SpdxModel-Data-DeepCopy
             title: The library shall support deep copying of SPDX elements.
@@ -35,7 +35,7 @@ sections:
               - SpdxModel-Data-Packages
               - SpdxModel-Data-Files
             tests:
-              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
           - id: SpdxModel-Data-NullableReferenceTypes
             title: The library shall provide type-safe APIs with nullable reference types.
@@ -50,7 +50,7 @@ sections:
               - SpdxModel-Data-Document
               - SpdxModel-Data-Packages
             tests:
-              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
           - id: SpdxModel-Data-ComparisonUtilities
             title: The library shall provide comparison utilities for SPDX elements.
@@ -66,7 +66,7 @@ sections:
               - SpdxModel-Data-Files
               - SpdxModel-Data-Relationships
             tests:
-              - SpdxDocument_SameComparer_ComparesCorrectly
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
       - title: Validation
         requirements:
@@ -84,7 +84,8 @@ sections:
               - SpdxModel-Data-Checksums
               - SpdxModel-Data-CreationInformation
             tests:
-              - SpdxDocument_Validate_NoIssues
+              - SpdxModel_ReadSpdxJson_Spdx22Example_PassesValidation
+              - SpdxModel_ReadSpdxJson_Spdx23Example_PassesValidation
 
       - title: JSON Serialization
         requirements:
@@ -100,8 +101,8 @@ sections:
             children:
               - SpdxModel-IO-Serialization
             tests:
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
+              - SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+              - SpdxModel_ReadSpdxJson_Spdx23Example_ParsesSuccessfully
 
           - id: SpdxModel-IO-WriteSpdxJson
             title: The library shall support writing SPDX 2.x documents to JSON format.
@@ -115,5 +116,4 @@ sections:
             children:
               - SpdxModel-IO-Serialization
             tests:
-              - Spdx2JsonSerializer_SerializeDocument_CorrectResults
-              - Spdx2JsonSerializer_Serialize_CorrectResults
+              - SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds

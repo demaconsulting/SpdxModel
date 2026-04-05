@@ -42,7 +42,7 @@ reviews:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
       - "docs/design/spdx-model/spdx-model.md"
-      - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxModelTests.cs"
 
   - id: SpdxModel-Design
     title: Review that SpdxModel Design is Consistent and Complete
@@ -62,6 +62,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/io/io.yaml"
       - "docs/design/spdx-model/io/io.md"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/SpdxModelIOTests.cs"
 
   - id: SpdxModel-IO-Spdx2JsonDeserializer
     title: Review that SpdxModel IO Spdx2JsonDeserializer Implementation is Correct
@@ -93,6 +94,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/transform/transform.yaml"
       - "docs/design/spdx-model/transform/transform.md"
+      - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxModelTransformTests.cs"
 
   - id: SpdxModel-Transform-SpdxRelationships
     title: Review that SpdxModel Transform SpdxRelationships Implementation is Correct
