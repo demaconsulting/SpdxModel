@@ -40,7 +40,7 @@ public sealed class SpdxExtractedLicensingInfo
     public static readonly IEqualityComparer<SpdxExtractedLicensingInfo> Same = new SpdxExtractedLicensingInfoSame();
 
     /// <summary>
-    ///     License Identifier Field (optional)
+    ///     License Identifier Field
     /// </summary>
     /// <remarks>
     ///     A human-readable short form license identifier for a license.
@@ -163,7 +163,7 @@ public sealed class SpdxExtractedLicensingInfo
     }
 
     /// <summary>
-    ///     Equality Comparer to test for the same external document reference
+    ///     Equality Comparer to test for the same extracted licensing info
     /// </summary>
     private sealed class SpdxExtractedLicensingInfoSame : IEqualityComparer<SpdxExtractedLicensingInfo>
     {
