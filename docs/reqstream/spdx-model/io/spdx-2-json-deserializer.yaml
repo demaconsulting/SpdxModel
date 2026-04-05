@@ -7,7 +7,7 @@
 sections:
   - title: Spdx2JsonDeserializer Requirements
     requirements:
-      - id: SpdxModel-Ser-Deserialize22Json
+      - id: SpdxModel-Serialization-Deserialize22Json
         title: The library shall support deserializing SPDX 2.2 JSON documents.
         tags:
           - serialization
@@ -18,7 +18,7 @@ sections:
         tests:
           - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
 
-      - id: SpdxModel-Ser-Deserialize23Json
+      - id: SpdxModel-Serialization-Deserialize23Json
         title: The library shall support deserializing SPDX 2.3 JSON documents.
         tags:
           - serialization

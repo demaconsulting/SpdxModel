@@ -17,6 +17,8 @@ sections:
               Retrieving root packages helps identify top-level components in an SBOM. This is essential
               for understanding the primary software packages in a document and navigating the dependency
               graph from its entry points.
+            children:
+              - SpdxModel-Data-Document-Query
             tests:
               - SpdxDocument_GetRootPackages_CorrectPackages
 
@@ -28,6 +30,10 @@ sections:
               Deep copying enables creating independent copies of SPDX elements for modification without
               affecting the original. This is crucial for SBOM manipulation scenarios like merging,
               filtering, or transforming documents.
+            children:
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Files
             tests:
               - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
               - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
@@ -41,6 +47,10 @@ sections:
               Nullable reference types enhance type safety by making nullability explicit in the type
               system. This improves code quality, reduces null reference exceptions, and makes the API
               more intuitive for consumers.
+            children:
+              - SpdxModel-Data-Element
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
             tests:
               - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
               - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
@@ -53,6 +63,11 @@ sections:
               Comparison utilities enable applications to determine equality and equivalence between
               SPDX elements. This is essential for testing, change detection, and implementing operations
               like document merging or deduplication.
+            children:
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Files
+              - SpdxModel-Data-Relationships
             tests:
               - SpdxDocument_SameComparer_ComparesCorrectly
               - SpdxPackage_SameComparer_ComparesCorrectly
@@ -61,7 +76,7 @@ sections:
 
       - title: Validation
         requirements:
-          - id: SpdxModel-Val-ElementValidation
+          - id: SpdxModel-Validation-ElementValidation
             title: The library shall support validation of SPDX elements.
             tags:
               - validation
@@ -69,6 +84,11 @@ sections:
               Validation ensures SPDX documents and elements conform to the specification requirements.
               This helps users catch errors early and produce compliant SBOMs that will be accepted by
               other tools in the SPDX ecosystem.
+            children:
+              - SpdxModel-Data-Document-Validate
+              - SpdxModel-Data-Annotations
+              - SpdxModel-Data-Checksums
+              - SpdxModel-Data-CreationInformation
             tests:
               - SpdxDocument_Validate_NoIssues
               - SpdxAnnotation_Validate_InvalidAnnotator

@@ -7,7 +7,7 @@
 sections:
   - title: Spdx2JsonSerializer Requirements
     requirements:
-      - id: SpdxModel-Ser-SerializeJson
+      - id: SpdxModel-Serialization-SerializeJson
         title: The library shall support serializing SPDX documents to JSON format.
         tags:
           - serialization

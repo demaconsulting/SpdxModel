@@ -27,54 +27,83 @@ evidence-source:
 # Each review-set groups requirements, source, and tests for a coherent software unit
 # so that an AI-assisted review can verify consistency across the full evidence chain.
 reviews:
-  - id: SpdxModel-Architecture
-    title: SpdxModel Architecture Review
+  - id: Purpose
+    title: Review that Advertised Features Match System Design
     paths:
+      - "README.md"
+      - "docs/user_guide/**/*.md"
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
       - "docs/design/spdx-model/spdx-model.md"
 
+  - id: SpdxModel-Architecture
+    title: Review that SpdxModel Architecture Satisfies Requirements
+    paths:
+      - "docs/reqstream/spdx-model/spdx-model.yaml"
+      - "docs/design/introduction.md"
+      - "docs/design/spdx-model/spdx-model.md"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
+
   - id: SpdxModel-Design
-    title: SpdxModel Design Review
+    title: Review that SpdxModel Design is Consistent and Complete
     paths:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/reqstream/spdx-model/platform-requirements.yaml"
       - "docs/design/**/*.md"
 
   - id: SpdxModel-AllRequirements
-    title: SpdxModel All Requirements Review
+    title: Review that All SpdxModel Requirements are Complete
     paths:
       - "requirements.yaml"
       - "docs/reqstream/**/*.yaml"
 
   - id: SpdxModel-IO
-    title: SpdxModel IO Subsystem Review
+    title: Review that SpdxModel IO Satisfies Subsystem Requirements
     paths:
       - "docs/reqstream/spdx-model/io/io.yaml"
-      - "docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml"
-      - "docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml"
-      - "docs/reqstream/spdx-model/io/spdx-constants.yaml"
       - "docs/design/spdx-model/io/io.md"
+
+  - id: SpdxModel-IO-Spdx2JsonDeserializer
+    title: Review that SpdxModel IO Spdx2JsonDeserializer Implementation is Correct
+    paths:
+      - "docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml"
       - "docs/design/spdx-model/io/spdx-2-json-deserializer.md"
-      - "docs/design/spdx-model/io/spdx-2-json-serializer.md"
-      - "docs/design/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonDeserializer.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonDeserialize*.cs"
+
+  - id: SpdxModel-IO-Spdx2JsonSerializer
+    title: Review that SpdxModel IO Spdx2JsonSerializer Implementation is Correct
+    paths:
+      - "docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml"
+      - "docs/design/spdx-model/io/spdx-2-json-serializer.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
+
+  - id: SpdxModel-IO-SpdxConstants
+    title: Review that SpdxModel IO SpdxConstants Implementation is Correct
+    paths:
+      - "docs/reqstream/spdx-model/io/spdx-constants.yaml"
+      - "docs/design/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
-      - "test/DemaConsulting.SpdxModel.Tests/IO/**/*.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonDeserialize*.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
 
   - id: SpdxModel-Transform
-    title: SpdxModel Transform Subsystem Review
+    title: Review that SpdxModel Transform Satisfies Subsystem Requirements
     paths:
       - "docs/reqstream/spdx-model/transform/transform.yaml"
-      - "docs/reqstream/spdx-model/transform/spdx-relationships.yaml"
       - "docs/design/spdx-model/transform/transform.md"
+
+  - id: SpdxModel-Transform-SpdxRelationships
+    title: Review that SpdxModel Transform SpdxRelationships Implementation is Correct
+    paths:
+      - "docs/reqstream/spdx-model/transform/spdx-relationships.yaml"
       - "docs/design/spdx-model/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
       - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
 
   - id: SpdxModel-SpdxAnnotation
-    title: SpdxModel SpdxAnnotation Unit Review
+    title: Review that SpdxModel SpdxAnnotation Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-annotation.yaml"
       - "docs/design/spdx-model/spdx-annotation.md"
@@ -83,7 +112,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxAnnotationTests.cs"
 
   - id: SpdxModel-SpdxChecksum
-    title: SpdxModel SpdxChecksum Unit Review
+    title: Review that SpdxModel SpdxChecksum Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-checksum.yaml"
       - "docs/design/spdx-model/spdx-checksum.md"
@@ -92,7 +121,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxChecksumTests.cs"
 
   - id: SpdxModel-SpdxCreationInformation
-    title: SpdxModel SpdxCreationInformation Unit Review
+    title: Review that SpdxModel SpdxCreationInformation Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-creation-information.yaml"
       - "docs/design/spdx-model/spdx-creation-information.md"
@@ -100,7 +129,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxCreationInformationTests.cs"
 
   - id: SpdxModel-SpdxDocument
-    title: SpdxModel SpdxDocument Unit Review
+    title: Review that SpdxModel SpdxDocument Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-document.yaml"
       - "docs/design/spdx-model/spdx-document.md"
@@ -108,14 +137,14 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
 
   - id: SpdxModel-SpdxElement
-    title: SpdxModel SpdxElement Unit Review
+    title: Review that SpdxModel SpdxElement Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-element.yaml"
       - "docs/design/spdx-model/spdx-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxElement.cs"
 
   - id: SpdxModel-SpdxExternalDocumentReference
-    title: SpdxModel SpdxExternalDocumentReference Unit Review
+    title: Review that SpdxModel SpdxExternalDocumentReference Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-external-document-reference.yaml"
       - "docs/design/spdx-model/spdx-external-document-reference.md"
@@ -123,7 +152,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalDocumentReferenceTests.cs"
 
   - id: SpdxModel-SpdxExternalReference
-    title: SpdxModel SpdxExternalReference Unit Review
+    title: Review that SpdxModel SpdxExternalReference Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-external-reference.yaml"
       - "docs/design/spdx-model/spdx-external-reference.md"
@@ -132,7 +161,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalReferenceTests.cs"
 
   - id: SpdxModel-SpdxExtractedLicensingInfo
-    title: SpdxModel SpdxExtractedLicensingInfo Unit Review
+    title: Review that SpdxModel SpdxExtractedLicensingInfo Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-extracted-licensing-info.yaml"
       - "docs/design/spdx-model/spdx-extracted-licensing-info.md"
@@ -140,7 +169,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExtractedLicensingInfoTests.cs"
 
   - id: SpdxModel-SpdxFile
-    title: SpdxModel SpdxFile Unit Review
+    title: Review that SpdxModel SpdxFile Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-file.yaml"
       - "docs/design/spdx-model/spdx-file.md"
@@ -149,21 +178,21 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxFileTests.cs"
 
   - id: SpdxModel-SpdxHelpers
-    title: SpdxModel SpdxHelpers Unit Review
+    title: Review that SpdxModel SpdxHelpers Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-helpers.yaml"
       - "docs/design/spdx-model/spdx-helpers.md"
       - "src/DemaConsulting.SpdxModel/SpdxHelpers.cs"
 
   - id: SpdxModel-SpdxLicenseElement
-    title: SpdxModel SpdxLicenseElement Unit Review
+    title: Review that SpdxModel SpdxLicenseElement Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-license-element.yaml"
       - "docs/design/spdx-model/spdx-license-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxLicenseElement.cs"
 
   - id: SpdxModel-SpdxPackage
-    title: SpdxModel SpdxPackage Unit Review
+    title: Review that SpdxModel SpdxPackage Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-package.yaml"
       - "docs/design/spdx-model/spdx-package.md"
@@ -171,7 +200,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageTests.cs"
 
   - id: SpdxModel-SpdxPackageVerificationCode
-    title: SpdxModel SpdxPackageVerificationCode Unit Review
+    title: Review that SpdxModel SpdxPackageVerificationCode Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-package-verification-code.yaml"
       - "docs/design/spdx-model/spdx-package-verification-code.md"
@@ -179,7 +208,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageVerificationCodeTests.cs"
 
   - id: SpdxModel-SpdxRelationship
-    title: SpdxModel SpdxRelationship Unit Review
+    title: Review that SpdxModel SpdxRelationship Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-relationship.yaml"
       - "docs/design/spdx-model/spdx-relationship.md"
@@ -188,7 +217,7 @@ reviews:
       - "test/DemaConsulting.SpdxModel.Tests/SpdxRelationshipTests.cs"
 
   - id: SpdxModel-SpdxSnippet
-    title: SpdxModel SpdxSnippet Unit Review
+    title: Review that SpdxModel SpdxSnippet Implementation is Correct
     paths:
       - "docs/reqstream/spdx-model/spdx-snippet.yaml"
       - "docs/design/spdx-model/spdx-snippet.md"

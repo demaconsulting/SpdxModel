@@ -6,7 +6,7 @@
 sections:
   - title: Platform Requirements
     requirements:
-      - id: SpdxModel-Plt-MacOS
+      - id: SpdxModel-Platform-MacOS
         title: The library shall build and run on macOS platforms.
         tags:
           - platform
@@ -16,7 +16,7 @@ sections:
           # Tests link to "macos" to ensure results come from macOS platform
           - "macos@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
 
-      - id: SpdxModel-Plt-Net8
+      - id: SpdxModel-Platform-Net8
         title: The library shall support .NET 8 runtime.
         tags:
           - platform
@@ -28,7 +28,7 @@ sections:
           - net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
           - net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-      - id: SpdxModel-Plt-Net9
+      - id: SpdxModel-Platform-Net9
         title: The library shall support .NET 9 runtime.
         tags:
           - platform
@@ -40,7 +40,7 @@ sections:
           - net9.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
           - net9.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-      - id: SpdxModel-Plt-Net10
+      - id: SpdxModel-Platform-Net10
         title: The library shall support .NET 10 runtime.
         tags:
           - platform
@@ -52,7 +52,7 @@ sections:
           - net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
           - net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
 
-      - id: SpdxModel-Plt-NetStd20
+      - id: SpdxModel-Platform-NetStd20
         title: The library shall support the .NET Standard 2.0 target framework.
         tags:
           - platform
