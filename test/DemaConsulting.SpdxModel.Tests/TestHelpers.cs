@@ -36,7 +36,7 @@ internal static class SpdxTestHelpers
         using var stream = typeof(SpdxTestHelpers).Assembly.GetManifestResourceStream(resourceName);
         if (stream == null)
         {
-            return string.Empty;
+            throw new InvalidOperationException($"Embedded resource '{resourceName}' not found.");
         }
 
         // Read the resource
