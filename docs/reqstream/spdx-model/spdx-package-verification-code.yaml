@@ -17,5 +17,5 @@ sections:
         tests:
           - SpdxPackageVerificationCode_SameComparer_ComparesCorrectly
           - SpdxPackageVerificationCode_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults
-          - Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults
+          - SpdxPackageVerificationCode_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxPackageVerificationCode_Validate_InvalidValue

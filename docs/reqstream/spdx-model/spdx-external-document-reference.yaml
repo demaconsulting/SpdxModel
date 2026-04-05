@@ -17,5 +17,6 @@ sections:
         tests:
           - SpdxExternalDocumentReference_SameComparer_ComparesCorrectly
           - SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults
-          - Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults
+          - SpdxExternalDocumentReference_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxExternalDocumentReference_Validate_MissingId
+          - SpdxExternalDocumentReference_Validate_MissingDocument

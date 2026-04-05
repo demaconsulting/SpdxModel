@@ -17,5 +17,10 @@ sections:
         tests:
           - SpdxFile_SameComparer_ComparesCorrectly
           - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeFile_CorrectResults
-          - Spdx2JsonSerializer_SerializeFile_CorrectResults
+          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxFile_Validate_ReportsInvalidFileId
+          - SpdxFile_Validate_Success
+          - SpdxFileTypeExtensions_FromText_Valid
+          - SpdxFileTypeExtensions_FromText_Invalid
+          - SpdxFileTypeExtensions_ToText_Valid
+          - SpdxFileTypeExtensions_ToText_Invalid

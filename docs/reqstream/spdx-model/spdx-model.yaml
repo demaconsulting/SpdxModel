@@ -17,8 +17,10 @@ sections:
               Retrieving root packages helps identify top-level components in an SBOM. This is essential
               for understanding the primary software packages in a document and navigating the dependency
               graph from its entry points.
+            children:
+              - SpdxModel-Data-Document-Query
             tests:
-              - SpdxDocument_GetRootPackages_CorrectPackages
+              - SpdxModel_ReadSpdxJson_Spdx23Example_RootPackagesIdentified
 
           - id: SpdxModel-Data-DeepCopy
             title: The library shall support deep copying of SPDX elements.
@@ -28,10 +30,12 @@ sections:
               Deep copying enables creating independent copies of SPDX elements for modification without
               affecting the original. This is crucial for SBOM manipulation scenarios like merging,
               filtering, or transforming documents.
+            children:
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Files
             tests:
-              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
           - id: SpdxModel-Data-NullableReferenceTypes
             title: The library shall provide type-safe APIs with nullable reference types.
@@ -41,9 +45,12 @@ sections:
               Nullable reference types enhance type safety by making nullability explicit in the type
               system. This improves code quality, reduces null reference exceptions, and makes the API
               more intuitive for consumers.
+            children:
+              - SpdxModel-Data-Element
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
             tests:
-              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
           - id: SpdxModel-Data-ComparisonUtilities
             title: The library shall provide comparison utilities for SPDX elements.
@@ -53,15 +60,17 @@ sections:
               Comparison utilities enable applications to determine equality and equivalence between
               SPDX elements. This is essential for testing, change detection, and implementing operations
               like document merging or deduplication.
+            children:
+              - SpdxModel-Data-Document
+              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Files
+              - SpdxModel-Data-Relationships
             tests:
-              - SpdxDocument_SameComparer_ComparesCorrectly
-              - SpdxPackage_SameComparer_ComparesCorrectly
-              - SpdxFile_SameComparer_ComparesCorrectly
-              - SpdxRelationship_SameComparer_ComparesCorrectly
+              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
       - title: Validation
         requirements:
-          - id: SpdxModel-Val-ElementValidation
+          - id: SpdxModel-Validation-ElementValidation
             title: The library shall support validation of SPDX elements.
             tags:
               - validation
@@ -69,8 +78,42 @@ sections:
               Validation ensures SPDX documents and elements conform to the specification requirements.
               This helps users catch errors early and produce compliant SBOMs that will be accepted by
               other tools in the SPDX ecosystem.
+            children:
+              - SpdxModel-Data-Document-Validate
+              - SpdxModel-Data-Annotations
+              - SpdxModel-Data-Checksums
+              - SpdxModel-Data-CreationInformation
             tests:
-              - SpdxDocument_Validate_NoIssues
-              - SpdxAnnotation_Validate_InvalidAnnotator
-              - SpdxChecksum_Validate_InvalidAlgorithm
-              - SpdxCreationInformation_Validate_MissingCreators
+              - SpdxModel_ReadSpdxJson_Spdx22Example_PassesValidation
+              - SpdxModel_ReadSpdxJson_Spdx23Example_PassesValidation
+
+      - title: JSON Serialization
+        requirements:
+          - id: SpdxModel-IO-ReadSpdxJson
+            title: The library shall support reading SPDX 2.x documents from JSON format.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON deserialization is the primary mechanism for reading SPDX documents produced by
+              other tools. Supporting both SPDX 2.2 and 2.3 formats ensures compatibility with the
+              broad ecosystem of SPDX tooling and enables consumers to work with existing SBOMs.
+            children:
+              - SpdxModel-IO-Serialization
+            tests:
+              - SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+              - SpdxModel_ReadSpdxJson_Spdx23Example_ParsesSuccessfully
+
+          - id: SpdxModel-IO-WriteSpdxJson
+            title: The library shall support writing SPDX 2.x documents to JSON format.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON serialization enables applications to produce SPDX documents for distribution,
+              toolchain integration, and compliance reporting. Producing well-formed SPDX JSON ensures
+              interoperability with other tools in the SPDX ecosystem.
+            children:
+              - SpdxModel-IO-Serialization
+            tests:
+              - SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds

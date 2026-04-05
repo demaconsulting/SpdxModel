@@ -6,7 +6,7 @@
 sections:
   - title: Platform Requirements
     requirements:
-      - id: SpdxModel-Plt-MacOS
+      - id: SpdxModel-Platform-MacOS
         title: The library shall build and run on macOS platforms.
         tags:
           - platform
@@ -14,9 +14,10 @@ sections:
           DEMA Consulting libraries must support macOS for developers using Apple platforms.
         tests:
           # Tests link to "macos" to ensure results come from macOS platform
-          - "macos@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
+          - "macos@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully"
+          - "macos@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds"
 
-      - id: SpdxModel-Plt-Net8
+      - id: SpdxModel-Platform-Net8
         title: The library shall support .NET 8 runtime.
         tags:
           - platform
@@ -25,10 +26,10 @@ sections:
           enterprise applications. Supporting .NET 8 ensures the library can be used in production
           environments requiring long-term stability and support.
         tests:
-          - net8.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-          - net8.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+          - net8.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+          - net8.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
 
-      - id: SpdxModel-Plt-Net9
+      - id: SpdxModel-Platform-Net9
         title: The library shall support .NET 9 runtime.
         tags:
           - platform
@@ -37,10 +38,10 @@ sections:
           improvements. Supporting .NET 9 allows users to leverage the latest .NET capabilities while
           the framework is current.
         tests:
-          - net9.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-          - net9.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+          - net9.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+          - net9.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
 
-      - id: SpdxModel-Plt-Net10
+      - id: SpdxModel-Platform-Net10
         title: The library shall support .NET 10 runtime.
         tags:
           - platform
@@ -49,10 +50,10 @@ sections:
           can adopt the most recent framework version and benefit from the latest performance,
           security, and feature improvements.
         tests:
-          - net10.0@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-          - net10.0@Spdx2JsonSerializer_SerializeDocument_CorrectResults
+          - net10.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+          - net10.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
 
-      - id: SpdxModel-Plt-NetStd20
+      - id: SpdxModel-Platform-NetStd20
         title: The library shall support the .NET Standard 2.0 target framework.
         tags:
           - platform
@@ -64,5 +65,5 @@ sections:
           The net481 test target on Windows provides direct runtime evidence of .NET Standard 2.0
           compatibility, as .NET Framework 4.8.1 fully implements the .NET Standard 2.0 API surface.
         tests:
-          - "net481@Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument"
-          - "net481@Spdx2JsonSerializer_SerializeDocument_CorrectResults"
+          - "net481@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully"
+          - "net481@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds"

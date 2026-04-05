@@ -16,5 +16,8 @@ sections:
           and traceability of document provenance.
         tests:
           - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults
-          - Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults
+          - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxCreationInformation_Validate_MissingCreators
+          - SpdxCreationInformation_Validate_InvalidCreator
+          - SpdxCreationInformation_Validate_InvalidCreatedDate
+          - SpdxCreationInformation_Validate_InvalidVersion

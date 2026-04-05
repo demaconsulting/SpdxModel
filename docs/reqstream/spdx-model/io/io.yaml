@@ -8,3 +8,22 @@
 
 sections:
   - title: IO Subsystem Requirements
+    requirements:
+      - id: SpdxModel-IO-Serialization
+        title: The library shall support JSON serialization and deserialization of SPDX 2.x documents.
+        tags:
+          - io
+          - serialization
+        justification: |
+          JSON is the primary interchange format for SPDX documents. Supporting serialization and
+          deserialization in JSON ensures interoperability with other SPDX tools and systems that
+          produce and consume SPDX SBOMs.
+        children:
+          - SpdxModel-Serialization-Deserialize22Json
+          - SpdxModel-Serialization-Deserialize23Json
+          - SpdxModel-Serialization-DeserializeElements
+          - SpdxModel-Serialization-SerializeJson
+          - SpdxModel-Serialization-SerializeElements
+        tests:
+          - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
+          - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

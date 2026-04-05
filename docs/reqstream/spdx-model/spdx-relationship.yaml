@@ -16,6 +16,13 @@ sections:
           fundamental to representing complex software structures.
         tests:
           - SpdxRelationship_SameComparer_ComparesCorrectly
+          - SpdxRelationship_SameElementsComparer_ComparesCorrectly
           - SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults
-          - Spdx2JsonSerializer_SerializeRelationship_CorrectResults
+          - SpdxRelationship_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxRelationship_Validate_MissingId
+          - SpdxRelationship_Validate_MissingRelatedId
+          - SpdxRelationship_Validate_MissingRelationship
+          - SpdxRelationshipTypeExtensions_FromText_Valid
+          - SpdxRelationshipTypeExtensions_FromText_Invalid
+          - SpdxRelationshipTypeExtensions_ToText_Valid
+          - SpdxRelationshipTypeExtensions_ToText_Invalid

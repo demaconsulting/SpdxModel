@@ -17,5 +17,7 @@ sections:
         tests:
           - SpdxSnippet_SameComparer_ComparesCorrectly
           - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
-          - Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults
-          - Spdx2JsonSerializer_SerializeSnippet_CorrectResults
+          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
+          - SpdxSnippet_Validate_ReportsInvalidSnippetId
+          - SpdxSnippet_Validate_Success
+          - SpdxSnippet_Validate_InvalidAnnotation

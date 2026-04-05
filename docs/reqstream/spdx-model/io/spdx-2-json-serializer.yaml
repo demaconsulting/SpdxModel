@@ -7,7 +7,7 @@
 sections:
   - title: Spdx2JsonSerializer Requirements
     requirements:
-      - id: SpdxModel-Ser-SerializeJson
+      - id: SpdxModel-Serialization-SerializeJson
         title: The library shall support serializing SPDX documents to JSON format.
         tags:
           - serialization
@@ -17,3 +17,35 @@ sections:
           systems and tools in the SPDX ecosystem.
         tests:
           - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+          - Spdx2JsonSerializer_Serialize_CorrectResults
+
+      - id: SpdxModel-Serialization-SerializeElements
+        title: The library shall correctly serialize all SPDX 2.x element types to JSON.
+        tags:
+          - serialization
+        justification: |
+          Each SPDX element type (annotation, checksum, package, file, snippet, relationship, etc.)
+          has distinct JSON representation and field mappings. Verifying each element type is
+          serialized correctly ensures the library faithfully produces all artifacts when writing
+          an SPDX JSON document.
+        tests:
+          - Spdx2JsonSerializer_SerializeAnnotation_CorrectResults
+          - Spdx2JsonSerializer_SerializeAnnotations_CorrectResults
+          - Spdx2JsonSerializer_SerializeChecksum_CorrectResults
+          - Spdx2JsonSerializer_SerializeChecksums_CorrectResults
+          - Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalDocumentReferences_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalReference_CorrectResults
+          - Spdx2JsonSerializer_SerializeExternalReferences_CorrectResults
+          - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults
+          - Spdx2JsonSerializer_SerializeExtractedLicensingInfos_CorrectResults
+          - Spdx2JsonSerializer_SerializeFile_CorrectResults
+          - Spdx2JsonSerializer_SerializeFiles_CorrectResults
+          - Spdx2JsonSerializer_SerializePackage_CorrectResults
+          - Spdx2JsonSerializer_SerializePackages_CorrectResults
+          - Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults
+          - Spdx2JsonSerializer_SerializeRelationship_CorrectResults
+          - Spdx2JsonSerializer_SerializeRelationships_CorrectResults
+          - Spdx2JsonSerializer_SerializeSnippet_CorrectResults
+          - Spdx2JsonSerializer_SerializeSnippets_CorrectResults

@@ -7,3 +7,16 @@
 
 sections:
   - title: Transform Subsystem Requirements
+    requirements:
+      - id: SpdxModel-Transform-Utilities
+        title: The library shall provide utilities for transforming SPDX document relationships.
+        tags:
+          - transform
+        justification: |
+          Transform utilities enable programmatic modification of SPDX documents, starting with
+          relationship management. This supports use cases where documents need to be modified or
+          enriched after initial creation.
+        children:
+          - SpdxModel-Data-RelationshipUtilities
+        tests:
+          - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists
