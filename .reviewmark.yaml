@@ -29,7 +29,7 @@ evidence-source:
 # Each review-set focuses on a single compliance question with manageable file counts.
 reviews:
   - id: Purpose
-    title: Review of user-facing capabilities and system promises
+    title: Review that Advertised Features Match System Design
     paths:
       - "README.md"
       - "docs/user_guide/**/*.md"
@@ -50,13 +50,15 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/reqstream/spdx-model/platform-requirements.yaml"
-      - "docs/design/**/*.md"
+      - "docs/design/introduction.md"
+      - "docs/design/spdx-model/**/*.md"
 
   - id: SpdxModel-AllRequirements
     title: Review that All SpdxModel Requirements are Complete
     paths:
       - "requirements.yaml"
-      - "docs/reqstream/**/*.yaml"
+      - "docs/reqstream/spdx-model/**/*.yaml"
+      - "docs/reqstream/ots/**/*.yaml"
 
   - id: SpdxModel-IO
     title: Review that SpdxModel IO Satisfies Subsystem Requirements

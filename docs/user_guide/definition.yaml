@@ -6,7 +6,6 @@ resource-path:
 input-files:
   - docs/user_guide/title.txt
   - docs/user_guide/introduction.md
-
 template: template.html
 
 table-of-contents: true

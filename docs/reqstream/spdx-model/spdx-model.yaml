@@ -38,13 +38,12 @@ sections:
               - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
           - id: SpdxModel-Data-NullableReferenceTypes
-            title: The library shall provide type-safe APIs with nullable reference types.
+            title: The library API shall explicitly express whether each field is required or optional.
             tags:
               - data-model
             justification: |
-              Nullable reference types enhance type safety by making nullability explicit in the type
-              system. This improves code quality, reduces null reference exceptions, and makes the API
-              more intuitive for consumers.
+              Explicitly expressing field optionality in the API improves type safety, reduces
+              null reference errors at the call site, and makes the API more intuitive for consumers.
             children:
               - SpdxModel-Data-Element
               - SpdxModel-Data-Document

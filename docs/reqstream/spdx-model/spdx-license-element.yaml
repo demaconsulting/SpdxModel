@@ -8,15 +8,14 @@ sections:
     requirements:
       - id: SpdxModel-Data-LicenseElement
         title: >-
-          The library shall provide a common base type for SPDX elements that
-          carry license and copyright information.
+          Packages, files, and snippets shall each carry concluded license,
+          copyright text, license comments, attribution notices, and annotations.
         tags:
           - data-model
         justification: |
-          Packages, files, and snippets all carry a concluded license, copyright text, license
-          comments, attribution notices, and annotations. Centralizing these fields in an
-          abstract intermediate base class eliminates duplication and ensures that the same
-          semantics are applied consistently across all three element types.
+          Packages, files, and snippets all carry the same set of license and copyright fields
+          as required by the SPDX specification. Consistent semantics across all three element
+          types enables uniform processing of license and copyright information.
         tests:
           - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
           - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
@@ -31,9 +30,8 @@ sections:
         justification: |
           When enriching an incomplete SPDX element with data from a supplementary source,
           concluded license, copyright text, attribution texts, and annotations may be absent
-          from the primary record. The EnhanceLicenseElement helper ensures these fields are
-          populated from the secondary source only when the primary record lacks a concrete
-          value.
+          from the primary record. These fields shall be populated from the secondary source
+          only when the primary record lacks a concrete value.
         tests:
           - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
           - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
