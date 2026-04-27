@@ -37,7 +37,7 @@ sections:
             tests:
               - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
-          - id: SpdxModel-Data-NullableReferenceTypes
+          - id: SpdxModel-Data-FieldOptionality
             title: The library API shall explicitly express whether each field is required or optional.
             tags:
               - data-model
