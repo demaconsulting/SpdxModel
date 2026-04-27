@@ -13,21 +13,21 @@ sections:
           - validation
         justification: |
           SPDX requires all date-time fields to conform to ISO 8601 UTC format
-          (YYYY-MM-DDThh:mm:ssZ). Centralizing this validation in a shared utility avoids
-          duplication and ensures consistent format checking across all units that carry
-          date-time fields (e.g., SpdxCreationInformation).
+          (YYYY-MM-DDThh:mm:ssZ). Consistent validation of this format across all
+          date-time fields ensures compliant SPDX documents are produced.
         tests:
           - SpdxCreationInformation_Validate_InvalidCreatedDate
 
       - id: SpdxModel-Data-Helpers-EnhanceString
-        title: The library shall select the highest-fitness string value when merging optional SPDX fields.
+        title: >-
+          When merging optional SPDX fields, the library shall prefer a concrete
+          value over NOASSERTION or absent values.
         tags:
           - data-model
         justification: |
           When combining partial SPDX data from multiple sources, individual fields may be
-          null, empty, NOASSERTION, or a concrete value. A fitness-ranked selection ensures
-          that a meaningful concrete value is always preferred over NOASSERTION or absent
-          values, regardless of the order in which sources are merged.
+          null, empty, NOASSERTION, or a concrete value. Preferring a concrete value ensures
+          meaningful data is preserved regardless of the order in which sources are merged.
         tests:
           - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
           - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly

@@ -1,0 +1,32 @@
+---
+resource-path:
+  - docs/design
+  - docs/template
+input-files:
+  - docs/design/title.txt
+  - docs/design/introduction.md
+  - docs/design/spdx-model/spdx-model.md
+  - docs/design/spdx-model/spdx-document.md
+  - docs/design/spdx-model/spdx-element.md
+  - docs/design/spdx-model/spdx-package.md
+  - docs/design/spdx-model/spdx-file.md
+  - docs/design/spdx-model/spdx-snippet.md
+  - docs/design/spdx-model/spdx-relationship.md
+  - docs/design/spdx-model/spdx-annotation.md
+  - docs/design/spdx-model/spdx-checksum.md
+  - docs/design/spdx-model/spdx-creation-information.md
+  - docs/design/spdx-model/spdx-external-document-reference.md
+  - docs/design/spdx-model/spdx-external-reference.md
+  - docs/design/spdx-model/spdx-extracted-licensing-info.md
+  - docs/design/spdx-model/spdx-helpers.md
+  - docs/design/spdx-model/spdx-license-element.md
+  - docs/design/spdx-model/spdx-package-verification-code.md
+  - docs/design/spdx-model/io/io.md
+  - docs/design/spdx-model/io/spdx-constants.md
+  - docs/design/spdx-model/io/spdx-2-json-serializer.md
+  - docs/design/spdx-model/io/spdx-2-json-deserializer.md
+  - docs/design/spdx-model/transform/transform.md
+  - docs/design/spdx-model/transform/spdx-relationships.md
+template: template.html
+table-of-contents: true
+number-sections: true

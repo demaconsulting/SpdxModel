@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Library
+title: SpdxModel User Guide
 subtitle: User Guide
 author: DEMA Consulting
 description: A C# library for serializing and deserializing SPDX SBOMs

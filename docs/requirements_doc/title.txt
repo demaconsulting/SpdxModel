@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Library
+title: SpdxModel Requirements
 subtitle: Requirements Specification
 author: DEMA Consulting
 description: Requirements specification for the SpdxModel C# library for working with SPDX (Software Package Data Exchange) documents

@@ -1,0 +1,15 @@
+---
+title: SpdxModel Software Design
+subtitle: Software Design Document for the SpdxModel Library
+author: DEMA Consulting
+description: Software design document for the SpdxModel C# library for reading, writing, and manipulating SPDX SBOM documents
+lang: en-US
+keywords:
+  - SpdxModel
+  - Design
+  - Software Design Document
+  - C#
+  - .NET
+  - SPDX
+  - SBOM
+---

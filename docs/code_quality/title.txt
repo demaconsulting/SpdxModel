@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Library
+title: SpdxModel Code Quality
 subtitle: Code Quality Report
 author: DEMA Consulting
 description: Code Quality Report for the SpdxModel C# library for serializing and deserializing SPDX SBOMs

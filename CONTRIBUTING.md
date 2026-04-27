@@ -1,250 +1,298 @@
 # Contributing to SpdxModel
 
-Thank you for your interest in contributing to SpdxModel! This document provides guidelines and instructions for
-contributing to this project.
-
-## Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Coding Guidelines](#coding-guidelines)
-- [Testing Requirements](#testing-requirements)
-- [Pull Request Process](#pull-request-process)
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Features](#suggesting-features)
+Thank you for your interest in contributing to SpdxModel! We welcome contributions from the community and
+appreciate your help in making this project better.
 
 ## Code of Conduct
 
-This project adheres to a Code of Conduct (see CODE_OF_CONDUCT.md). By participating, you are expected to uphold
-this code. Please report unacceptable behavior to the project maintainers.
+This project adheres to a [Code of Conduct][code-of-conduct]. By participating, you are expected to uphold this code.
+Please report unacceptable behavior through GitHub.
 
-## Getting Started
+## How to Contribute
 
-1. Fork the repository on GitHub
-2. Clone your fork locally
-3. Create a branch for your changes
-4. Make your changes
-5. Push your changes to your fork
-6. Submit a pull request
+### Reporting Bugs
+
+If you find a bug, please create an issue on GitHub with the following information:
+
+- **Description**: Clear description of the bug
+- **Steps to Reproduce**: Detailed steps to reproduce the issue
+- **Expected Behavior**: What you expected to happen
+- **Actual Behavior**: What actually happened
+- **Environment**: Operating system, .NET version, SpdxModel version
+- **Logs**: Any relevant error messages or logs
+
+### Suggesting Features
+
+We welcome feature suggestions! Please create an issue on GitHub with:
+
+- **Feature Description**: Clear description of the proposed feature
+- **Use Case**: Why this feature would be useful
+- **Proposed Solution**: Your ideas on how to implement it (optional)
+- **Alternatives**: Any alternative solutions you've considered (optional)
+
+### Submitting Pull Requests
+
+We follow a standard GitHub workflow for contributions:
+
+1. **Fork** the repository
+2. **Clone** your fork locally
+3. **Create a branch** for your changes (`git checkout -b feature/my-feature`)
+4. **Make your changes** following our coding standards
+5. **Test your changes** thoroughly
+6. **Commit your changes** with clear commit messages
+7. **Push** to your fork
+8. **Create a Pull Request** to the main repository
 
 ## Development Setup
 
 ### Prerequisites
 
-- .NET 8, 9, or 10 SDK
-- A code editor (Visual Studio, Visual Studio Code, or JetBrains Rider recommended)
+- [.NET SDK][dotnet-download] 8.0, 9.0, or 10.0
 - Git
+- A code editor (Visual Studio, VS Code, or Rider recommended)
 
-### Building the Project
+### Getting Started
 
-```bash
-# Restore .NET tools
-dotnet tool restore
+1. Clone the repository:
 
-# Restore dependencies
-dotnet restore
+   ```bash
+   git clone https://github.com/demaconsulting/SpdxModel.git
+   cd SpdxModel
+   ```
 
-# Build the solution
-dotnet build
+2. Restore dependencies:
 
-# Run tests
-dotnet test
-```
+   ```bash
+   dotnet tool restore
+   dotnet restore
+   ```
 
-### Running Tests
+3. Build the project:
 
-```bash
-# Run all tests
-dotnet test
+   ```bash
+   dotnet build --configuration Release
+   ```
 
-# Run tests with code coverage
-dotnet test --collect:"XPlat Code Coverage;Format=opencover"
-```
+4. Run unit tests:
 
-## How to Contribute
+   ```bash
+   dotnet test --configuration Release
+   ```
 
-### Types of Contributions
+## Coding Standards
 
-We welcome various types of contributions:
+### General Guidelines
 
-- **Bug fixes**: Help us fix issues in the codebase
-- **New features**: Add new functionality to the library
-- **Documentation**: Improve or add documentation
-- **Tests**: Add or improve test coverage
-- **Code quality**: Refactor code, improve performance, or enhance maintainability
-
-### Before You Start
-
-1. Check the [issue tracker][issue-tracker] to see if your issue or feature
-   has already been reported
-2. For major changes, please open an issue first to discuss what you would like to change
-3. Ensure your development environment is properly set up
-
-## Coding Guidelines
+- Follow the [C# Coding Conventions][csharp-conventions]
+- Use clear, descriptive names for variables, methods, and classes
+- Write XML documentation comments for all public, internal, and private members
+- Keep methods focused and single-purpose
+- Write tests for new functionality
 
 ### Code Style
 
-- Follow standard C# naming conventions (PascalCase for classes/methods/properties, camelCase for local variables)
-- Use meaningful variable and method names
-- Keep methods focused and concise
-- Add XML documentation comments for public APIs
-- The project uses `.editorconfig` for consistent code style - ensure your editor respects these settings
+This project enforces code style through `.editorconfig`. Key requirements:
 
-### C# Conventions
+- **Indentation**: 4 spaces for C#, 2 spaces for YAML/JSON/XML
+- **Line Endings**: LF (Unix-style)
+- **Encoding**: UTF-8
+- **Namespaces**: Use file-scoped namespace declarations
+- **Braces**: Required for all control statements
+- **Naming Conventions**:
+  - Interfaces: `IInterfaceName`
+  - Classes/Structs/Enums: `PascalCase`
+  - Methods/Properties: `PascalCase`
+  - Parameters/Local Variables: `camelCase`
 
-- Use nullable reference types appropriately
-- Prefer `var` when the type is obvious from the right-hand side
-- Use `file-scoped` namespaces
-- Avoid public fields; use properties instead
-- Follow the existing code style in the project
+### XML Documentation
 
-### Documentation
-
-- All public APIs must have XML documentation comments
-- Include `<summary>`, `<param>`, `<returns>`, and `<exception>` tags as appropriate
-- Provide clear and concise descriptions
-- Include code examples for complex APIs when helpful
-
-### Analyzers and Code Quality
-
-The project uses several code analyzers:
-
-- **Microsoft.CodeAnalysis.NetAnalyzers**: For .NET-specific code analysis
-- **StyleCop.Analyzers**: For consistent code style enforcement
-- **Nullable Reference Types**: Enabled project-wide
-
-Ensure your code passes all analyzer checks before submitting a pull request.
-
-## Testing Requirements
-
-### Test Coverage
-
-- All new features must include comprehensive unit tests
-- Bug fixes should include tests that verify the fix
-- Aim for high test coverage (80%+ for new code)
-- Use the AAA (Arrange, Act, Assert) pattern for tests
-
-### Test Structure
+All members require XML documentation with proper indentation:
 
 ```csharp
-[TestMethod]
-public void MethodName_Scenario_ExpectedBehavior()
+/// <summary>
+///     Brief description of what this does.
+/// </summary>
+/// <param name="parameter">Description of the parameter.</param>
+/// <returns>Description of the return value.</returns>
+public int ExampleMethod(string parameter)
 {
-    // Arrange: Set up test data and dependencies
-    var sut = new SystemUnderTest();
-    
-    // Act: Execute the method being tested
-    var result = sut.MethodName();
-    
-    // Assert: Verify the expected behavior
-    Assert.AreEqual(expected, result);
+    // Implementation
 }
 ```
 
-### Test Naming
+Note the spaces after `///` for proper indentation in summary blocks.
 
-- Test files should be named `[Component]Tests.cs`
-- Test methods should follow the pattern: `MethodName_Scenario_ExpectedBehavior`
-- Use descriptive test names that clearly indicate what is being tested
+## Testing Guidelines
+
+### Test Framework
+
+We use MSTest v4 for unit and integration tests.
+
+### Test Naming Convention
+
+Use the pattern: `ClassName_MethodUnderTest_Scenario_ExpectedBehavior`
+
+Examples:
+
+- `Program_Main_NoArguments_ReturnsSuccess`
+- `Context_Create_WithInvalidFlag_ThrowsArgumentException`
+- `Validation_Run_AllTests_ReturnsSuccess`
+
+### Writing Tests
+
+- Write tests that are clear and focused
+- Use modern MSTest v4 assertions:
+  - `Assert.HasCount(expectedCount, collection)`
+  - `Assert.IsEmpty(collection)`
+  - `Assert.DoesNotContain(item, collection)`
+- Always clean up resources (use `try/finally` for console redirection)
+- Link tests to requirements in `requirements.yaml` when applicable
+
+### Running Tests
+
+#### Unit Tests
+
+```bash
+# Run all unit tests
+dotnet test --configuration Release
+
+# Run specific unit test
+dotnet test --filter "FullyQualifiedName~YourTestName"
+
+# Run with coverage
+dotnet test --collect "XPlat Code Coverage"
+```
+
+## Documentation
+
+### Markdown Guidelines
+
+All markdown files must follow these rules (enforced by markdownlint):
+
+- Maximum line length: 120 characters
+- Use ATX-style headers (`# Header`)
+- Lists must be surrounded by blank lines
+- Use reference-style links: `[text][ref]` with `[ref]: url` at document end
+- **Exceptions**:
+  - `README.md` uses absolute URLs (it's included in the NuGet package)
+  - AI agent markdown files (`.github/agents/*.agent.md`) use inline links
+    `[text](url)` so URLs are visible in agent context
+
+### Spell Checking
+
+All files are spell-checked using cspell. **Never** add a word to the `.cspell.yaml` word list in order to silence a
+spell-checking failure. Doing so defeats the purpose of spell-checking and reduces the quality of the repository.
+
+- If cspell flags a word that is **misspelled**, fix the spelling in the source file.
+- If cspell flags a word that is a **genuine technical term** (tool name, project identifier, etc.) and is spelled
+  correctly, raise a **proposal** (e.g. comment in a pull request) explaining why the word should be added. The
+  proposal must be reviewed and approved before the word is added to the list.
+
+## Quality Checks
+
+Before submitting a pull request, ensure all quality checks pass:
+
+### 1. Build and Test
+
+```bash
+# Build the project
+dotnet build --configuration Release
+
+# Run unit tests
+dotnet test --configuration Release
+```
+
+All tests must pass with zero warnings.
+
+### 2. Linting
+
+```pwsh
+# After making changes: applies dotnet format, markdown, and YAML fixes silently
+pwsh ./fix.ps1
+
+# Before submitting a pull request: all linters must pass
+pwsh ./lint.ps1
+```
+
+### 3. Code Coverage
+
+Maintain or improve code coverage. Use the `--collect "XPlat Code Coverage"` option when running tests.
+
+## Commit Messages
+
+Write clear, concise commit messages:
+
+- Use present tense ("Add feature" not "Added feature")
+- Use imperative mood ("Move cursor to..." not "Moves cursor to...")
+- Limit first line to 72 characters
+- Reference issues and pull requests when applicable
+
+Examples:
+
+- `Add support for custom report headers`
+- `Fix crash when results file path is invalid`
+- `Update documentation for --report-depth option`
+- `Refactor argument parsing for better testability`
 
 ## Pull Request Process
 
-1. **Create a Branch**: Create a feature branch from `main`
+1. **Update Documentation**: Update relevant documentation for your changes
+2. **Add Tests**: Include tests that cover your changes
+3. **Run Quality Checks**: Ensure all linters, tests, and builds pass
+4. **Submit PR**: Create a pull request with a clear description
+5. **Code Review**: Address feedback from maintainers
+6. **Merge**: Once approved, a maintainer will merge your PR
 
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+### Pull Request Template
 
-2. **Make Changes**: Implement your changes following the coding guidelines
+When creating a pull request, include:
 
-3. **Write Tests**: Add or update tests to cover your changes
+- **Description**: What changes does this PR introduce?
+- **Motivation**: Why are these changes needed?
+- **Related Issues**: Link to any related issues
+- **Testing**: How have you tested these changes?
+- **Checklist**:
+  - [ ] Tests added/updated
+  - [ ] Documentation updated
+  - [ ] All tests pass
+  - [ ] Code follows style guidelines
+  - [ ] No new warnings introduced
 
-4. **Run Tests**: Ensure all tests pass
+## Requirements Management
 
-   ```bash
-   dotnet test
-   ```
+SpdxModel uses [DemaConsulting.ReqStream][reqstream] for requirements traceability:
 
-5. **Build Verification**: Ensure the project builds without errors or warnings
+- All requirements are defined in `requirements.yaml`
+- Each requirement should be linked to test cases
+- Run `dotnet reqstream` to generate requirements documentation
+- Use the `--enforce` flag to ensure all requirements have test coverage
 
-   ```bash
-   dotnet build
-   ```
+## Release Process
 
-6. **Commit Changes**: Use clear and descriptive commit messages
+Releases are managed by project maintainers. The process includes:
 
-   ```bash
-   git commit -m "Add feature: brief description"
-   ```
+1. Version bump in project files
+2. Tag the release in Git
+3. Build and test across all supported platforms
+4. Publish NuGet package
+5. Create GitHub release with artifacts and release notes
 
-7. **Push Changes**: Push your branch to your fork
+## Getting Help
 
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-8. **Open Pull Request**: Submit a pull request to the main repository
-   - Provide a clear description of the changes
-   - Reference any related issues
-   - Ensure all CI checks pass
-
-### Pull Request Requirements
-
-- All tests must pass
-- Code coverage should not decrease
-- No build warnings or errors
-- Code must pass all analyzer checks
-- Documentation must be updated if APIs change
-- Commit messages should be clear and descriptive
-
-### Code Review Process
-
-- Maintainers will review your pull request
-- Address any feedback or requested changes
-- Once approved, a maintainer will merge your pull request
-
-## Reporting Bugs
-
-### Before Submitting a Bug Report
-
-- Check the [issue tracker][issue-tracker] to see if the bug has already been reported
-- Ensure you're using the latest version of the library
-- Verify that the issue is reproducible
-
-### How to Submit a Bug Report
-
-1. Use the GitHub issue tracker
-2. Provide a clear and descriptive title
-3. Describe the expected behavior
-4. Describe the actual behavior
-5. Provide steps to reproduce the issue
-6. Include relevant code samples or test cases
-7. Specify your environment (OS, .NET version, library version)
-
-## Suggesting Features
-
-We welcome feature suggestions! To suggest a new feature:
-
-1. Check the [issue tracker][issue-tracker] to see if the feature has already
-   been suggested
-2. Open a new issue with the "enhancement" label
-3. Provide a clear description of the feature
-4. Explain the use case and benefits
-5. Consider providing a proposed implementation approach
+- **Questions**: Use [GitHub Discussions][discussions]
+- **Bugs**: Report via [GitHub Issues][issues]
+- **Security**: See [SECURITY.md][security] for vulnerability reporting
 
 ## License
 
 By contributing to SpdxModel, you agree that your contributions will be licensed under the MIT License.
 
-## Questions?
-
-If you have questions about contributing, feel free to:
-
-- Open an issue with your question
-- Contact the project maintainers
-
 Thank you for contributing to SpdxModel!
 
-[issue-tracker]: https://github.com/demaconsulting/SpdxModel/issues
+[code-of-conduct]: https://github.com/demaconsulting/SpdxModel/blob/main/CODE_OF_CONDUCT.md
+[dotnet-download]: https://dotnet.microsoft.com/download
+[csharp-conventions]: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
+[reqstream]: https://github.com/demaconsulting/ReqStream
+[discussions]: https://github.com/demaconsulting/SpdxModel/discussions
+[issues]: https://github.com/demaconsulting/SpdxModel/issues
+[security]: https://github.com/demaconsulting/SpdxModel/blob/main/SECURITY.md

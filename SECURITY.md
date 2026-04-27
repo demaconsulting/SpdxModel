@@ -4,125 +4,137 @@
 
 We release patches for security vulnerabilities in the following versions:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| Latest  | :white_check_mark: |
-| < Latest| :x:                |
-
-We recommend always using the latest version of SpdxModel to ensure you have the most recent security updates.
+| Version   | Supported          |
+| --------- | ------------------ |
+| Latest    | :white_check_mark: |
+| < Latest  | :x:                |
 
 ## Reporting a Vulnerability
 
-The SpdxModel team takes security bugs seriously. We appreciate your efforts to responsibly disclose your findings.
+We take the security of SpdxModel seriously. If you believe you have found a
+security vulnerability, please report it to us as described below.
 
-### How to Report a Security Vulnerability
+### How to Report
 
-If you discover a security vulnerability, please follow these steps:
+**Please do not report security vulnerabilities through public GitHub issues.**
 
-1. **Do not** open a public GitHub issue
-2. Report the vulnerability using the
-   [Security tab][security-tab] of this GitHub repository
-3. Include the following information in your report:
-   - Description of the vulnerability
-   - Steps to reproduce the issue
-   - Potential impact of the vulnerability
-   - Any suggested fixes (if available)
-   - Your contact information for follow-up
+Instead, please report them using one of the following methods:
+
+- **Preferred**: [GitHub Security Advisories][security-advisories] - Use the private vulnerability reporting feature
+- **Alternative**: Contact the project maintainers directly through GitHub
+
+Please include the following information in your report:
+
+- **Type of vulnerability** (e.g., SQL injection, cross-site scripting, etc.)
+- **Full path** of source file(s) related to the vulnerability
+- **Location** of the affected source code (tag/branch/commit or direct URL)
+- **Step-by-step instructions** to reproduce the issue
+- **Proof-of-concept or exploit code** (if possible)
+- **Impact** of the issue, including how an attacker might exploit it
 
 ### What to Expect
 
-When you report a security vulnerability, you can expect:
+After submitting a vulnerability report, you can expect:
 
-- **Acknowledgment**: We will acknowledge receipt of your report within 48 hours
-- **Updates**: We will keep you informed of our progress in addressing the vulnerability
-- **Fix Timeline**: We aim to address critical security issues within 7 days
-- **Credit**: If you wish, we will credit you in the security advisory
+1. **Acknowledgment**: We will acknowledge receipt of your vulnerability report promptly
+2. **Investigation**: We will investigate the issue and determine its impact and severity
+3. **Updates**: We will keep you informed of our progress as we work on a fix
+4. **Resolution**: Once the vulnerability is fixed, we will:
+   - Release a security patch
+   - Publicly disclose the vulnerability (with credit to you, if desired)
+   - Update this security policy as needed
 
-### Security Update Process
+### Response Timeline
 
-1. **Assessment**: We will investigate and assess the severity of the reported vulnerability
-2. **Fix Development**: We will develop and test a fix
-3. **Release**: We will release a new version with the security fix
-4. **Disclosure**: We will publish a security advisory detailing the vulnerability and the fix
-5. **Notification**: We will notify users of the security update through our release notes
+- **Initial Response**: Promptly
+- **Status Update**: Regular updates as investigation progresses
+- **Fix Timeline**: Varies based on severity and complexity
+
+### Security Update Policy
+
+Security updates will be released as:
+
+- **Critical vulnerabilities**: Patch release as soon as possible
+- **High severity**: Patch release within 30 days
+- **Medium/Low severity**: Included in the next regular release
 
 ## Security Best Practices
 
-When using SpdxModel, we recommend the following security best practices:
+When using SpdxModel, we recommend following these security best practices:
 
 ### Input Validation
 
-- Always validate SPDX documents before processing
-- Be cautious when processing SPDX documents from untrusted sources
-- Implement appropriate error handling for malformed documents
+- Validate input parameters and data before processing
+- Be cautious when processing data from untrusted sources
+- Use the latest version of SpdxModel to benefit from security updates
 
-### Dependency Management
+### Dependencies
 
 - Keep SpdxModel and its dependencies up to date
-- Regularly check for security updates
-- Use tools like `dotnet list package --vulnerable` to check for vulnerable dependencies
+- Review the release notes for security-related updates
+- Use `dotnet list package --vulnerable` to check for vulnerable dependencies
 
-### Code Scanning
+### Usage Environment
 
-- Use static analysis tools to detect potential security issues
-- Enable all compiler warnings and treat them as errors
-- Consider using tools like SonarCloud for continuous security monitoring
+- Use SpdxModel with the minimum required permissions
+- Validate API tokens and credentials are stored securely
+- Follow secure coding practices when integrating the library
 
 ## Known Security Considerations
 
-### JSON Deserialization
+### Data Handling
 
-SpdxModel uses `System.Text.Json` for deserializing SPDX documents. While `System.Text.Json` is generally secure,
-be aware of:
+SpdxModel processes data according to its API. Users should:
 
-- **Large Documents**: Extremely large SPDX documents may cause memory issues
-- **Deeply Nested Structures**: Deeply nested JSON structures may cause stack overflow
-- **Malformed Input**: Always validate input before processing
+- Validate input data before passing to library functions
+- Handle sensitive data according to security requirements
+- Be cautious when processing data from untrusted sources
 
-### Regular Expressions
+## Security Disclosure Policy
 
-The library uses regular expressions for validation. To prevent ReDoS (Regular Expression Denial of Service) attacks:
+When we receive a security bug report, we will:
 
-- Regex patterns have timeout limits configured
-- Avoid processing untrusted input without validation
+1. Confirm the problem and determine affected versions
+2. Audit code to find similar problems
+3. Prepare fixes for all supported versions
+4. Release patches as soon as possible
 
-## Security Tools Used
+We will credit security researchers who report vulnerabilities responsibly. If you would like to be credited:
 
-This project uses the following security tools:
+- Provide your name or pseudonym
+- Optionally provide a link to your website or GitHub profile
+- Let us know if you prefer to remain anonymous
 
-- **SonarCloud**: For continuous code quality and security analysis
-- **Dependabot**: For automated dependency updates
-- **CodeQL**: For semantic code analysis
-- **Microsoft.CodeAnalysis.NetAnalyzers**: For .NET-specific security analysis
+## Third-Party Dependencies
 
-## Responsible Disclosure
+SpdxModel relies on third-party packages. We:
 
-We believe in responsible disclosure of security vulnerabilities. We ask that you:
+- Regularly update dependencies to address known vulnerabilities
+- Use Dependabot to monitor for security updates
+- Review security advisories for all dependencies
 
-- Give us a reasonable amount of time to fix the issue before making it public
-- Do not exploit the vulnerability beyond what is necessary to demonstrate it
-- Do not access, modify, or delete data that is not yours
+To check for vulnerable dependencies yourself:
 
-## Security Hall of Fame
-
-We would like to thank the following individuals for responsibly disclosing security vulnerabilities:
-
-*No vulnerabilities have been reported yet.*
+```bash
+dotnet list package --vulnerable
+```
 
 ## Contact
 
-For security-related inquiries, please use the project's GitHub issue tracker (for non-sensitive issues) or the
-[Security tab][security-tab] (for sensitive security issues).
+For security concerns, please use [GitHub Security Advisories][security-advisories] or contact the project
+maintainers directly through GitHub.
+
+For general bugs and feature requests, please use [GitHub Issues][issues].
 
 ## Additional Resources
 
-- [OWASP Top 10][owasp-top-10]
-- [.NET Security Guidelines][dotnet-security]
-- [GitHub Security Best Practices][github-security]
+- [OWASP Secure Coding Practices][owasp-practices]
+- [.NET Security Best Practices][dotnet-security]
+- [GitHub Security Advisories][security-advisories]
 
 Thank you for helping keep SpdxModel and its users safe!
 
-[security-tab]: https://github.com/demaconsulting/SpdxModel/security/advisories/new
-[owasp-top-10]: https://owasp.org/www-project-top-ten/
-[dotnet-security]: https://docs.microsoft.com/en-us/dotnet/standard/security/
-[github-security]: https://docs.github.com/en/code-security
+[security-advisories]: https://github.com/demaconsulting/SpdxModel/security/advisories
+[issues]: https://github.com/demaconsulting/SpdxModel/issues
+[owasp-practices]: https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/
+[dotnet-security]: https://learn.microsoft.com/en-us/dotnet/standard/security/
