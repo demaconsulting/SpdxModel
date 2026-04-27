@@ -2,7 +2,7 @@
 title: SpdxModel Trace Matrix
 subtitle: Requirements Trace Matrix
 author: DEMA Consulting
-description: Requirements traceability matrix for the SpdxModel C# library showing the relationship between requirements and test cases
+description: Requirements Traceability Matrix for the SpdxModel C# library showing the relationship between requirements and test cases
 lang: en-US
 keywords:
   - SpdxModel
