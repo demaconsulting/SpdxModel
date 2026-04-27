@@ -19,7 +19,9 @@ sections:
           - SpdxCreationInformation_Validate_InvalidCreatedDate
 
       - id: SpdxModel-Data-Helpers-EnhanceString
-        title: When merging optional SPDX fields, the library shall prefer a concrete value over NOASSERTION or absent values.
+        title: >-
+          When merging optional SPDX fields, the library shall prefer a concrete
+          value over NOASSERTION or absent values.
         tags:
           - data-model
         justification: |
