@@ -1,25 +1,56 @@
 ---
-# SpdxModel SpdxRelationships Unit Requirements
-#
-# This file defines the requirements for the SpdxRelationships unit
-# in the Transform subsystem of the SpdxModel library.
+# SpdxRelationships unit requirements
 
 sections:
-  - title: SpdxRelationships Requirements
-    requirements:
-      - id: SpdxModel-Data-RelationshipUtilities
-        title: The library shall provide utilities for manipulating SPDX relationships.
-        tags:
-          - data-model
-        justification: |
-          Relationship manipulation utilities simplify common operations on SPDX documents such as
-          adding and managing relationships between elements. This improves developer productivity
-          and reduces errors when constructing complex SBOMs.
-        tests:
-          - SpdxRelationships_AddSingle_Success
-          - SpdxRelationships_AddSingle_MissingId
-          - SpdxRelationships_AddSingle_MissingRelatedElement
-          - SpdxRelationships_AddSingle_Duplicate
-          - SpdxRelationships_AddMultiple_Success
-          - SpdxRelationships_AddMultiple_Duplicate
-          - SpdxRelationships_AddMultiple_Replace
+  - title: SpdxModel Requirements
+    sections:
+      - title: Transform Requirements
+        sections:
+          - title: SpdxRelationships Requirements
+            requirements:
+              - id: SpdxModel-Transform-RelationshipUtilities-AddSingle
+                title: The library shall provide a utility to add a single relationship to an SPDX document.
+                tags:
+                  - data-model
+                justification: |
+                  Adding a single relationship is the fundamental mutation operation. Atomic requirements
+                  allow each behaviour to be verified and traced independently.
+                tests:
+                  - SpdxRelationships_AddSingle_ValidRelationship_AddsRelationship
+                  - SpdxRelationships_AddSingle_DuplicateRelationship_EnhancesExistingRelationship
+                  - SpdxRelationships_AddSingle_NoAssertionTarget_AddsRelationship
+                  - SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship
+
+              - id: SpdxModel-Transform-RelationshipUtilities-AddMultiple
+                title: The library shall provide a utility to batch-add relationships to an SPDX document with optional replacement.
+                tags:
+                  - data-model
+                justification: |
+                  Batch operations improve developer productivity when constructing or updating relationship
+                  graphs. The replace flag enables idempotent updates to existing relationships.
+                tests:
+                  - SpdxRelationships_AddMultiple_SingleRelationship_AddsRelationship
+                  - SpdxRelationships_AddMultiple_DuplicateRelationships_DeduplicatesRelationships
+                  - SpdxRelationships_AddMultiple_Replace_RemovesAndReplacesExistingRelationships
+
+              - id: SpdxModel-Transform-RelationshipUtilities-Validate
+                title: The library shall validate relationship element IDs before adding them to an SPDX document.
+                tags:
+                  - data-model
+                justification: |
+                  Validation prevents corrupt or incomplete relationships from being written into the document
+                  and gives callers actionable error messages when IDs cannot be resolved.
+                tests:
+                  - SpdxRelationships_AddSingle_MissingId_ThrowsArgumentException
+                  - SpdxRelationships_AddSingle_MissingRelatedElement_ThrowsArgumentException
+                  - SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified
+
+              - id: SpdxModel-Transform-RelationshipUtilities-Atomicity
+                title: The library shall guarantee that a failed batch-add leaves the document in its original state.
+                tags:
+                  - data-model
+                justification: |
+                  Atomicity prevents partial writes when one of several incoming relationships is invalid,
+                  ensuring the document is never left in a half-updated state.
+                tests:
+                  - SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified

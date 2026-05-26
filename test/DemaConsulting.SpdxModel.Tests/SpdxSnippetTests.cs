@@ -23,15 +23,27 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxSnippet" /> class.
 /// </summary>
+/// <remarks>
+///     Covers equality comparison via the <see cref="SpdxSnippet.Same" /> comparer, deep-copy independence,
+///     field merging via <see cref="SpdxSnippet.Enhance(SpdxSnippet[],SpdxSnippet[])" />, and full
+///     validation of required fields and byte range constraints. Each test exercises a single scenario or
+///     boundary condition in isolation with no shared state between tests.
+/// </remarks>
 [TestClass]
 public class SpdxSnippetTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxSnippet.Same" /> comparer compares snippets correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that two snippets with the same <c>SnippetFromFile</c>, <c>SnippetByteStart</c>, and
+    ///     <c>SnippetByteEnd</c> are considered equal even when other fields differ, and that snippets
+    ///     with different file or byte range are distinct.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_SameComparer_ComparesCorrectly()
+    public void SpdxSnippet_SameComparer_SameFileAndByteRange_ReturnsEqual()
     {
+        // Arrange: Create three snippet instances with different properties
         var s1 = new SpdxSnippet
         {
             SnippetFromFile = "SPDXRef-File1",
@@ -55,7 +67,7 @@ public class SpdxSnippetTests
             SnippetByteEnd = 40
         };
 
-        // Assert snippets compare to themselves
+        // Act / Assert: Verify snippets compare to themselves
         Assert.IsTrue(SpdxSnippet.Same.Equals(s1, s1));
         Assert.IsTrue(SpdxSnippet.Same.Equals(s2, s2));
         Assert.IsTrue(SpdxSnippet.Same.Equals(s3, s3));
@@ -75,8 +87,12 @@ public class SpdxSnippetTests
     /// <summary>
     ///     Tests the <see cref="SpdxSnippet.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the returned instance has equal field values for all scalar properties and
+    ///     is a distinct object reference from the original.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxSnippet_DeepCopy_FullyPopulatedSnippet_CreatesEqualButDistinctCopy()
     {
         // Arrange: Create a SpdxSnippet instance with various properties
         var s1 = new SpdxSnippet
@@ -107,8 +123,12 @@ public class SpdxSnippetTests
     ///     Tests the <see cref="SpdxSnippet.Enhance(SpdxSnippet[], SpdxSnippet[])" /> method adds or updates information
     ///     correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a matching snippet (same file and byte range) is enhanced in place and that a non-matching
+    ///     snippet from the source array is deep-copied and appended, resulting in an array of length two.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly()
     {
         // Arrange: Create an array of SpdxSnippet objects
         var snippets = new[]
@@ -156,8 +176,12 @@ public class SpdxSnippetTests
     /// <summary>
     ///     Tests that an invalid snippet ID fails validation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an <c>Id</c> not matching the <c>SPDXRef-</c> prefix format causes the
+    ///     "Snippet Invalid SPDX Identifier Field" issue to be reported.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_Validate_ReportsInvalidSnippetId()
+    public void SpdxSnippet_Validate_InvalidSnippetId_ReportsIssue()
     {
         // Arrange: Create a SpdxSnippet with an invalid ID
         var snippet = new SpdxSnippet
@@ -179,8 +203,13 @@ public class SpdxSnippetTests
     /// <summary>
     ///     Tests that a valid snippet passes validation.
     /// </summary>
+    /// <remarks>
+    ///     Exercises the happy-path: a snippet with all required fields populated (valid SPDX ID,
+    ///     non-empty <c>SnippetFromFile</c>, byte range ≥ 1, non-empty license, and copyright)
+    ///     passes all validation checks without reporting any issues.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_Validate_Success()
+    public void SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues()
     {
         // Arrange: Create a valid SpdxSnippet
         var snippet = new SpdxSnippet
@@ -204,8 +233,12 @@ public class SpdxSnippetTests
     /// <summary>
     ///     Tests the <see cref="SpdxSnippet.Validate" /> method validates annotations.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an annotation with an empty <c>Annotator</c> field causes the
+    ///     "Invalid Annotator Field - Empty" issue to be reported with the correct snippet prefix.
+    /// </remarks>
     [TestMethod]
-    public void SpdxSnippet_Validate_InvalidAnnotation()
+    public void SpdxSnippet_Validate_InvalidAnnotation_ReportsIssue()
     {
         // Arrange: Create a valid snippet with an invalid annotation
         var snippet = new SpdxSnippet
@@ -234,5 +267,150 @@ public class SpdxSnippetTests
 
         // Assert: Verify the annotation issue is reported with the correct prefix
         Assert.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method reports an empty snippet-from-file field.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies the boundary condition where <c>SnippetFromFile</c> is empty: validation must report
+    ///     the "Invalid Snippet From File Field - Empty" issue.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxSnippet_Validate_EmptySnippetFromFile_ReportsIssue()
+    {
+        // Arrange: Create a snippet with an empty SnippetFromFile
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the empty SnippetFromFile issue is reported
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet From File Field - Empty"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method reports an invalid byte start value.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies the lower boundary condition: a <c>SnippetByteStart</c> value of 0 (less than the
+    ///     required minimum of 1) causes the "Invalid Snippet Byte Range Start Field" issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxSnippet_Validate_InvalidByteStart_ReportsIssue()
+    {
+        // Arrange: Create a snippet with SnippetByteStart < 1
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 0,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the invalid byte start issue is reported
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range Start Field '0'"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method reports an invalid byte end value.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies the range boundary condition: a <c>SnippetByteEnd</c> less than <c>SnippetByteStart</c>
+    ///     causes the "Invalid Snippet Byte Range End Field" issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxSnippet_Validate_InvalidByteEnd_ReportsIssue()
+    {
+        // Arrange: Create a snippet where SnippetByteEnd is less than SnippetByteStart
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 50,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the invalid byte end issue is reported
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range End Field '50' < '100'"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method reports an empty concluded license field.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that an empty <c>ConcludedLicense</c> causes the "Invalid Concluded License Field - Empty"
+    ///     issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxSnippet_Validate_EmptyConcludedLicense_ReportsIssue()
+    {
+        // Arrange: Create a snippet with an empty ConcludedLicense
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the empty ConcludedLicense issue is reported
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Concluded License Field - Empty"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxSnippet.Validate" /> method reports an empty copyright text field.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that an empty <c>CopyrightText</c> causes the "Invalid Copyright Text Field - Empty"
+    ///     issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxSnippet_Validate_EmptyCopyrightText_ReportsIssue()
+    {
+        // Arrange: Create a snippet with an empty CopyrightText
+        var snippet = new SpdxSnippet
+        {
+            Id = "SPDXRef-Snippet",
+            SnippetFromFile = "SPDXRef-File1",
+            SnippetByteStart = 100,
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = ""
+        };
+
+        // Act: Validate the snippet
+        var issues = new List<string>();
+        snippet.Validate(issues);
+
+        // Assert: Verify the empty CopyrightText issue is reported
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Copyright Text Field - Empty"), issues);
     }
 }

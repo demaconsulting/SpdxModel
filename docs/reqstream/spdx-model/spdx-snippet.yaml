@@ -1,23 +1,52 @@
 ---
-# SpdxSnippet Unit Requirements
-#
-# This file defines requirements for the SpdxSnippet unit.
+# SpdxSnippet unit requirements
 
 sections:
-  - title: SpdxSnippet Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Snippets
-        title: The library shall support SPDX snippets.
-        tags:
-          - data-model
-        justification: |
-          Snippets represent portions of files and are important for documenting code reuse at a
-          granular level. This supports compliance scenarios where specific code segments have
-          different licensing or provenance than their containing files.
-        tests:
-          - SpdxSnippet_SameComparer_ComparesCorrectly
-          - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxSnippet_Validate_ReportsInvalidSnippetId
-          - SpdxSnippet_Validate_Success
-          - SpdxSnippet_Validate_InvalidAnnotation
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxSnippet Requirements
+        requirements:
+          - id: SpdxModel-Data-Snippet-DataModel
+            title: The library shall represent SPDX snippet data including byte ranges and licensing information.
+            tags:
+              - data-model
+            justification: |
+              Snippets represent portions of files and are important for documenting code reuse at a
+              granular level, supporting compliance scenarios where specific code segments have
+              different licensing or provenance than their containing files.
+            tests:
+              - SpdxSnippet_SameComparer_SameFileAndByteRange_ReturnsEqual
+          - id: SpdxModel-Data-Snippet-DeepCopy
+            title: The library shall support creating independent deep copies of SPDX snippets.
+            tags:
+              - data-model
+            justification: |
+              Deep copies are required so that merging operations do not mutate the original
+              snippet instances.
+            tests:
+              - SpdxSnippet_DeepCopy_FullyPopulatedSnippet_CreatesEqualButDistinctCopy
+          - id: SpdxModel-Data-Snippet-Enhance
+            title: The library shall support merging missing fields into an SPDX snippet from another instance.
+            tags:
+              - data-model
+            justification: |
+              Enhance enables combining partial snippet information from multiple SPDX documents
+              into a single complete record.
+            tests:
+              - SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly
+          - id: SpdxModel-Data-Snippet-Validate
+            title: The library shall validate SPDX snippet fields and report all issues found.
+            tags:
+              - data-model
+            justification: |
+              Validation ensures that snippet data conforms to the SPDX specification including
+              valid byte ranges, required fields, and correct ID format.
+            tests:
+              - SpdxSnippet_Validate_InvalidSnippetId_ReportsIssue
+              - SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues
+              - SpdxSnippet_Validate_InvalidAnnotation_ReportsIssue
+              - SpdxSnippet_Validate_EmptySnippetFromFile_ReportsIssue
+              - SpdxSnippet_Validate_InvalidByteStart_ReportsIssue
+              - SpdxSnippet_Validate_InvalidByteEnd_ReportsIssue
+              - SpdxSnippet_Validate_EmptyConcludedLicense_ReportsIssue
+              - SpdxSnippet_Validate_EmptyCopyrightText_ReportsIssue

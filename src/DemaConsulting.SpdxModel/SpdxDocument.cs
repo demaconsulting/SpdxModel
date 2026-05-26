@@ -30,6 +30,11 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Regular expression for checking SPDX version fields
     /// </summary>
+    /// <remarks>
+    ///     The pattern <c>^SPDX-\d+\.\d+$</c> matches valid SPDX version strings such as
+    ///     <c>SPDX-2.3</c>. The 100 ms timeout passed to the <see cref="Regex"/> constructor
+    ///     guards against ReDoS on untrusted or malformed input.
+    /// </remarks>
     private static readonly Regex VersionRegex = new(
         @"^SPDX-\d+\.\d+$",
         RegexOptions.None,
@@ -48,6 +53,10 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Document Name Field
     /// </summary>
+    /// <remarks>
+    ///     Human-readable name for this SPDX document as defined in SPDX 2.x §2.4.
+    ///     Must be non-empty for a valid document.
+    /// </remarks>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
@@ -78,16 +87,30 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     SPDX Document Namespace Field
     /// </summary>
+    /// <remarks>
+    ///     A unique URI that globally identifies this SPDX document as defined in SPDX 2.x §2.5.
+    ///     Used to qualify element IDs when cross-referencing elements across documents.
+    ///     Must be non-empty for a valid document.
+    /// </remarks>
     public string DocumentNamespace { get; set; } = string.Empty;
 
     /// <summary>
     ///     Document Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     An optional free-text comment about this document. When <see langword="null"/>,
+    ///     the field is absent from serialized output. The value is preserved during
+    ///     deep-copy and propagated by enhance if absent from this instance.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
     ///     Creation Information
     /// </summary>
+    /// <remarks>
+    ///     Mandatory metadata describing who created this document and when as defined in SPDX 2.x §2.7–2.9.
+    ///     One instance is required per document.
+    /// </remarks>
     public SpdxCreationInformation CreationInformation { get; set; } = new();
 
     /// <summary>
@@ -103,17 +126,28 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Extracted Licensing Information
     /// </summary>
+    /// <remarks>
+    ///     Non-standard license texts extracted from software described by this document, as defined in
+    ///     SPDX 2.x §10. Each entry provides a locally unique license identifier and the full text.
+    /// </remarks>
     public SpdxExtractedLicensingInfo[] ExtractedLicensingInfo { get; set; } =
         [];
 
     /// <summary>
     ///     Annotations
     /// </summary>
+    /// <remarks>
+    ///     Document-level reviewer or review annotations as defined in SPDX 2.x §12.
+    ///     These annotations apply to the document itself rather than to individual elements.
+    /// </remarks>
     public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
     ///     Files
     /// </summary>
+    /// <remarks>
+    ///     All file elements described in this SPDX document as defined in SPDX 2.x §4.
+    /// </remarks>
     public SpdxFile[] Files { get; set; } = [];
 
     /// <summary>
@@ -127,11 +161,19 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Snippets
     /// </summary>
+    /// <remarks>
+    ///     All snippet elements described in this SPDX document as defined in SPDX 2.x §5.
+    /// </remarks>
     public SpdxSnippet[] Snippets { get; set; } = [];
 
     /// <summary>
     ///     Relationships
     /// </summary>
+    /// <remarks>
+    ///     Relationship elements are intentionally excluded from <see cref="GetAllElements"/>
+    ///     to avoid them appearing as duplicate elements alongside the source/target elements
+    ///     they connect. They are validated separately via the <see cref="Validate"/> method.
+    /// </remarks>
     public SpdxRelationship[] Relationships { get; set; } = [];
 
     /// <summary>
@@ -145,6 +187,11 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Produces a fully independent object graph — every nested array and object is
+    ///     recursively deep-copied so that mutations to the returned instance have no effect
+    ///     on this instance, and vice versa. This method is stateless and does not throw.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxDocument DeepCopy()
     {
@@ -171,6 +218,12 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Issues are appended to <paramref name="issues"/> rather than thrown as exceptions,
+    ///     enabling a complete diagnostic pass in a single call. The method is not thread-safe
+    ///     if the document is mutated concurrently. When <paramref name="ntia"/> is
+    ///     <see langword="true"/>, additional NTIA minimum-element checks are performed.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="ntia">Perform NTIA validation</param>
     public void Validate(List<string> issues, bool ntia = false)
@@ -267,6 +320,13 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Get the root packages this document claims to describe
     /// </summary>
+    /// <remarks>
+    ///     A package qualifies as a root package if its ID appears in the
+    ///     <see cref="Describes"/> array, is the target of a <c>DESCRIBES</c> relationship
+    ///     from the document element, or is the source of a <c>DESCRIBED_BY</c> relationship
+    ///     pointing at the document element. All three mechanisms are checked and the results
+    ///     are unioned.
+    /// </remarks>
     /// <returns>Array of packages described by this document</returns>
     public SpdxPackage[] GetRootPackages()
     {
@@ -291,6 +351,13 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Get all SPDX elements in the document
     /// </summary>
+    /// <remarks>
+    ///     <see cref="SpdxRelationship"/> elements are deliberately excluded from the
+    ///     returned sequence. Relationships are not SPDX elements in the same sense as
+    ///     packages, files, and snippets, and including them would cause them to appear
+    ///     alongside the elements they connect during ID-uniqueness checks and other
+    ///     traversals.
+    /// </remarks>
     /// <returns>Enumerable of all elements</returns>
     public IEnumerable<SpdxElement> GetAllElements()
     {
@@ -309,6 +376,12 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Get an SPDX element by ID
     /// </summary>
+    /// <remarks>
+    ///     Returns the first element whose <see cref="SpdxElement.Id"/> matches
+    ///     <paramref name="id"/>, or <see langword="null"/> if no matching element exists.
+    ///     The search includes the document itself, all files, packages, snippets, and their
+    ///     annotations. Relationships are not searched.
+    /// </remarks>
     /// <param name="id">Element ID</param>
     /// <returns>SPDX element or null</returns>
     public SpdxElement? GetElement(string id)
@@ -319,6 +392,12 @@ public sealed class SpdxDocument : SpdxElement
     /// <summary>
     ///     Get an SPDX element of a specific type
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="GetElement(string)"/> and casts the result to
+    ///     <typeparamref name="T"/>. Returns <see langword="null"/> if no element with
+    ///     <paramref name="id"/> exists, or if the element exists but is not of type
+    ///     <typeparamref name="T"/>.
+    /// </remarks>
     /// <typeparam name="T">SPDX element type</typeparam>
     /// <param name="id">Element ID</param>
     /// <returns>SPDX element or null</returns>
@@ -328,8 +407,14 @@ public sealed class SpdxDocument : SpdxElement
     }
 
     /// <summary>
-    ///     Equality Comparer to test for the same relationship
+    ///     Equality Comparer to test for the same document
     /// </summary>
+    /// <remarks>
+    ///     Two documents are considered the same when their <see cref="SpdxDocument.Name"/>
+    ///     fields are equal and their root-package collections (as returned by
+    ///     <see cref="SpdxDocument.GetRootPackages"/>) contain the same packages in any order,
+    ///     compared using <see cref="SpdxPackage.Same"/>.
+    /// </remarks>
     private sealed class SpdxDocumentSame : IEqualityComparer<SpdxDocument>
     {
         /// <inheritdoc />

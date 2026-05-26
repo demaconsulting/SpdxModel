@@ -1,0 +1,24 @@
+---
+# SpdxConstants unit requirements
+
+sections:
+  - title: SpdxModel Requirements
+    sections:
+      - title: IO Requirements
+        sections:
+          - title: SpdxConstants Requirements
+            requirements:
+              - id: SpdxModel-IO-Constants
+                title: >-
+                  The library shall produce and consume JSON output using the correct SPDX field
+                  names as defined by the SPDX 2.x specification.
+                tags:
+                  - io
+                justification: |
+                  Centralizing SPDX JSON field name strings in constants avoids hard-coded literals
+                  in the serializer and deserializer, reducing the risk of typos and making future
+                  specification updates easier to manage. This requirement is verified indirectly
+                  through the IO serialization and deserialization tests.
+                tests:
+                  - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
+                  - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

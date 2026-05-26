@@ -75,4 +75,27 @@ public class SpdxModelIOTests
         roundTripped.Validate(issues);
         Assert.IsEmpty(issues);
     }
+
+    /// <summary>
+    ///     Tests that malformed JSON throws a JsonException during deserialization.
+    /// </summary>
+    [TestMethod]
+    public void SpdxModelIO_ReadSpdxJson_InvalidJson_ThrowsJsonException()
+    {
+        // Arrange: Prepare malformed JSON text
+        const string malformedJson = "{ not valid json at all }";
+
+        // Act / Assert: Deserialize should throw a JsonException or derived type
+        var threw = false;
+        try
+        {
+            Spdx2JsonDeserializer.Deserialize(malformedJson);
+        }
+        catch (System.Text.Json.JsonException)
+        {
+            threw = true;
+        }
+
+        Assert.IsTrue(threw, "Expected JsonException was not thrown.");
+    }
 }

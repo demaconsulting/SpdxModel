@@ -1,29 +1,40 @@
 ---
-# SpdxModel IO Subsystem Requirements
-#
-# This is the subsystem-level requirements file for the IO subsystem.
-# Unit requirements are in the sibling unit files:
-#   spdx-2-json-deserializer.yaml
-#   spdx-2-json-serializer.yaml
+# IO subsystem requirements
 
 sections:
-  - title: IO Subsystem Requirements
-    requirements:
-      - id: SpdxModel-IO-Serialization
-        title: The library shall support JSON serialization and deserialization of SPDX 2.x documents.
-        tags:
-          - io
-          - serialization
-        justification: |
-          JSON is the primary interchange format for SPDX documents. Supporting serialization and
-          deserialization in JSON ensures interoperability with other SPDX tools and systems that
-          produce and consume SPDX SBOMs.
-        children:
-          - SpdxModel-Serialization-Deserialize22Json
-          - SpdxModel-Serialization-Deserialize23Json
-          - SpdxModel-Serialization-DeserializeElements
-          - SpdxModel-Serialization-SerializeJson
-          - SpdxModel-Serialization-SerializeElements
-        tests:
-          - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
-          - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument
+  - title: SpdxModel Requirements
+    sections:
+      - title: IO Requirements
+        requirements:
+          - id: SpdxModel-IO-Deserialization
+            title: The library shall support JSON deserialization of SPDX 2.x documents.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON deserialization is the primary mechanism for reading SPDX documents produced by
+              other tools. Supporting both SPDX 2.2 and 2.3 formats ensures compatibility with the
+              broad ecosystem of SPDX tooling.
+            children:
+              - SpdxModel-IO-Spdx2JsonDeserializer-Deserialize22Json
+              - SpdxModel-IO-Spdx2JsonDeserializer-Deserialize23Json
+              - SpdxModel-IO-Spdx2JsonDeserializer-DeserializeElements
+            tests:
+              - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
+              - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument
+
+          - id: SpdxModel-IO-Serialization
+            title: The library shall support JSON serialization of SPDX 2.x documents.
+            tags:
+              - io
+              - serialization
+            justification: |
+              JSON serialization enables applications to produce SPDX documents for distribution,
+              toolchain integration, and compliance reporting. Producing well-formed SPDX JSON ensures
+              interoperability with other tools in the SPDX ecosystem.
+            children:
+              - SpdxModel-Serialization-SerializeJson
+              - SpdxModel-Serialization-SerializeElements
+            tests:
+              - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
+              - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

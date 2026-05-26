@@ -25,13 +25,24 @@ using System.Text.Json.Serialization.Metadata;
 namespace DemaConsulting.SpdxModel.IO;
 
 /// <summary>
-///     JSON Serializer class
+///     Serializes an in-memory <see cref="SpdxDocument"/> to SPDX 2.x JSON text or a
+///     <see cref="System.Text.Json.Nodes.JsonObject"/> DOM.
 /// </summary>
+/// <remarks>
+///     This class is the counterpart to <see cref="Spdx2JsonDeserializer"/> and completes
+///     the round-trip serialization support for the IO subsystem. All methods are static
+///     and the class carries no instance state, making it safe for concurrent calls on
+///     different documents without external synchronization.
+/// </remarks>
 public static class Spdx2JsonSerializer
 {
     /// <summary>
     ///     Serialize SPDX Document
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeDocument"/> then converts the resulting
+    ///     <see cref="System.Text.Json.Nodes.JsonObject"/> to an indented JSON string.
+    /// </remarks>
     /// <param name="document">SPDX Document</param>
     /// <returns>Json string</returns>
     public static string Serialize(SpdxDocument document)
@@ -51,6 +62,12 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Document
     /// </summary>
+    /// <remarks>
+    ///     Top-level arrays (<c>files</c>, <c>packages</c>, <c>snippets</c>, <c>relationships</c>)
+    ///     are always emitted even when empty, as required by the SPDX 2.x schema.
+    ///     Optional arrays (e.g., <c>externalDocumentRefs</c>, <c>annotations</c>) are omitted
+    ///     when empty.
+    /// </remarks>
     /// <param name="document">SPDX Document</param>
     /// <returns>Json object</returns>
     public static JsonObject SerializeDocument(SpdxDocument document)
@@ -91,6 +108,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Creation information to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes the creation information object including optional creators array,
+    ///     creation date, and optional comment and license list version fields.
+    /// </remarks>
     /// <param name="info">SPDX Creation Information</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeCreationInformation(SpdxCreationInformation info)
@@ -106,6 +127,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX External Document References to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeExternalDocumentReference"/> for each element.
+    ///     Returns a <see cref="System.Text.Json.Nodes.JsonArray"/> of external document reference objects.
+    /// </remarks>
     /// <param name="references">SPDX External Document References</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeExternalDocumentReferences(SpdxExternalDocumentReference[] references)
@@ -122,6 +147,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX External Document Reference to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single external document reference including its nested checksum object.
+    /// </remarks>
     /// <param name="reference">SPDX External Document Reference</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeExternalDocumentReference(SpdxExternalDocumentReference reference)
@@ -136,6 +164,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Extracted Licensing Infos to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeExtractedLicensingInfo"/> for each element.
+    /// </remarks>
     /// <param name="infos">SPDX Extracted Licensing Infos</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeExtractedLicensingInfos(SpdxExtractedLicensingInfo[] infos)
@@ -152,6 +183,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Extracted Licensing Info to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single extracted licensing info entry; optional fields are omitted when null or empty.
+    /// </remarks>
     /// <param name="info">SPDX Extracted Licensing Info</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeExtractedLicensingInfo(SpdxExtractedLicensingInfo info)
@@ -168,6 +202,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Files to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeFile"/> for each element. Always emits at the
+    ///     document level even when the array is empty.
+    /// </remarks>
     /// <param name="files">SPDX Files</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeFiles(SpdxFile[] files)
@@ -184,6 +222,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX File to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single SPDX file entry including file types, checksums, and optional
+    ///     annotations. The annotations sub-array is omitted when empty.
+    /// </remarks>
     /// <param name="file">SPDX File</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeFile(SpdxFile file)
@@ -213,6 +255,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Packages to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializePackage"/> for each element. Always emits at the
+    ///     document level even when the array is empty.
+    /// </remarks>
     /// <param name="packages">SPDX Packages</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializePackages(SpdxPackage[] packages)
@@ -229,6 +275,11 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Package to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single SPDX package entry. The <c>filesAnalyzed</c> field is omitted
+    ///     when null; the verification code, external references, and annotations sub-objects
+    ///     are omitted when absent or empty.
+    /// </remarks>
     /// <param name="package">SPDX Package</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializePackage(SpdxPackage package)
@@ -284,6 +335,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Snippets to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeSnippet"/> for each element. Always emits at the
+    ///     document level even when the array is empty.
+    /// </remarks>
     /// <param name="snippets">SPDX Snippets</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeSnippets(SpdxSnippet[] snippets)
@@ -300,6 +355,12 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Snippet to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Always emits a byte-range entry in the <c>ranges</c> array. A line-range entry is
+    ///     only added when BOTH <see cref="SpdxSnippet.SnippetLineStart"/> and
+    ///     <see cref="SpdxSnippet.SnippetLineEnd"/> are non-zero; if either is zero the
+    ///     line-range entry is omitted entirely.
+    /// </remarks>
     /// <param name="snippet">SPDX Snippet</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeSnippet(SpdxSnippet snippet)
@@ -336,7 +397,7 @@ public static class Spdx2JsonSerializer
                 }
             }
         };
-        if (snippet.SnippetLineEnd > 0 || snippet.SnippetLineStart > 0)
+        if (snippet.SnippetLineEnd > 0 && snippet.SnippetLineStart > 0)
         {
             ranges.Add(new JsonObject
             {
@@ -360,6 +421,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Relationships to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeRelationship"/> for each element. Always emits at the
+    ///     document level even when the array is empty.
+    /// </remarks>
     /// <param name="relationships">SPDX Relationships</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeRelationships(SpdxRelationship[] relationships)
@@ -376,6 +441,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Relationship to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single SPDX relationship. The optional comment field is omitted when null
+    ///     or empty.
+    /// </remarks>
     /// <param name="relationship">SPDX Relationship</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeRelationship(SpdxRelationship relationship)
@@ -391,6 +460,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Package Verification Code to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes the package verification code object including the hash value and optional
+    ///     excluded files array.
+    /// </remarks>
     /// <param name="code">SPDX Package Verification Code</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeVerificationCode(SpdxPackageVerificationCode code)
@@ -404,14 +477,17 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX External References to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeExternalReference"/> for each element.
+    /// </remarks>
     /// <param name="references">SPDX External References</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeExternalReferences(SpdxExternalReference[] references)
     {
         var json = new JsonArray();
-        foreach (var checksum in references)
+        foreach (var reference in references)
         {
-            json.Add(SerializeExternalReference(checksum));
+            json.Add(SerializeExternalReference(reference));
         }
 
         return json;
@@ -420,6 +496,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX External Reference to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single external reference entry including category, type, locator, and
+    ///     optional comment.
+    /// </remarks>
     /// <param name="reference">SPDX External Reference</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeExternalReference(SpdxExternalReference reference)
@@ -435,6 +515,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Checksums to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeChecksum"/> for each element.
+    /// </remarks>
     /// <param name="checksums">SPDX Checksums</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeChecksums(SpdxChecksum[] checksums)
@@ -451,6 +534,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Checksum to JSON object
     /// </summary>
+    /// <remarks>
+    ///     Serializes a single checksum entry with its algorithm and value fields.
+    /// </remarks>
     /// <param name="checksum">SPDX Checksum</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeChecksum(SpdxChecksum checksum)
@@ -464,6 +550,9 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize array of SPDX Annotations to JSON array
     /// </summary>
+    /// <remarks>
+    ///     Delegates to <see cref="SerializeAnnotation"/> for each element.
+    /// </remarks>
     /// <param name="annotations">SPDX Annotations</param>
     /// <returns>JSON array</returns>
     public static JsonArray SerializeAnnotations(SpdxAnnotation[] annotations)
@@ -480,6 +569,11 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Serialize SPDX Annotation to JSON object
     /// </summary>
+    /// <remarks>
+    ///     The <c>SPDXID</c> field is conditionally omitted when <see cref="SpdxElement.Id"/>
+    ///     is null or empty, because annotations on sub-elements often do not carry their own
+    ///     SPDX ID.
+    /// </remarks>
     /// <param name="annotation">SPDX Annotation to serialize</param>
     /// <returns>JSON object</returns>
     public static JsonObject SerializeAnnotation(SpdxAnnotation annotation)
@@ -496,6 +590,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Emit a string property into a JSON object
     /// </summary>
+    /// <remarks>
+    ///     Always writes the property, even for empty strings. Use
+    ///     <see cref="EmitOptionalString"/> for fields that should be omitted when empty.
+    /// </remarks>
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>
     /// <param name="value">Property value</param>
@@ -507,6 +605,10 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Emit an optional string property into a JSON object
     /// </summary>
+    /// <remarks>
+    ///     Omits the property entirely when <paramref name="value"/> is null or empty, consistent
+    ///     with the serializer convention of not writing null or empty optional fields.
+    /// </remarks>
     /// <param name="json">JSON object</param>
     /// <param name="name">Property name</param>
     /// <param name="value">Optional property value</param>
@@ -521,6 +623,16 @@ public static class Spdx2JsonSerializer
         json[name] = value;
     }
 
+    /// <summary>
+    ///     Emit an optional string array property into a JSON object.
+    /// </summary>
+    /// <param name="json">JSON object to write into</param>
+    /// <param name="name">Property name</param>
+    /// <param name="values">Array of values; omitted when empty</param>
+    /// <remarks>
+    ///     Omits the property entirely when <paramref name="values"/> is empty, consistent
+    ///     with the serializer convention of not writing null or empty optional fields.
+    /// </remarks>
     private static void EmitOptionalStrings(JsonNode json, string name, string[] values)
     {
         // Skip if empty

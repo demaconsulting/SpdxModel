@@ -55,12 +55,12 @@ public class SpdxAnnotationTests
             Type = SpdxAnnotationType.Other
         };
 
-        // Assert: Verify annotations compare to themselves
+        // Act / Assert: Verify annotations compare to themselves
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a1));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a2));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a3, a3));
 
-        // Assert: Verify annotations compare correctly
+        // Act / Assert: Verify annotations compare correctly
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a2));
         Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a1));
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a1, a3));
@@ -68,7 +68,7 @@ public class SpdxAnnotationTests
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a2, a3));
         Assert.IsFalse(SpdxAnnotation.Same.Equals(a3, a2));
 
-        // Assert: Verify same annotations have identical hashes
+        // Act / Assert: Verify same annotations have identical hashes
         Assert.AreEqual(SpdxAnnotation.Same.GetHashCode(a1), SpdxAnnotation.Same.GetHashCode(a2));
     }
 
@@ -251,6 +251,9 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Valid()
     {
+        // Arrange: no setup needed - testing pure string-to-enum conversion
+
+        // Act / Assert: each recognized text converts to the correct enum value
         Assert.AreEqual(SpdxAnnotationType.Missing, SpdxAnnotationTypeExtensions.FromText(""));
         Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
         Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
@@ -266,6 +269,9 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
+        // Arrange: no setup needed — testing pure string-to-enum conversion error path
+
+        // Act / Assert:
         var exception =
             Assert.ThrowsExactly<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Annotation Type 'invalid'", exception.Message);
@@ -277,6 +283,9 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Valid()
     {
+        // Arrange: no setup needed - testing pure enum-to-string conversion
+
+        // Act / Assert: each recognized enum value converts to the expected text
         Assert.AreEqual("REVIEW", SpdxAnnotationType.Review.ToText());
         Assert.AreEqual("OTHER", SpdxAnnotationType.Other.ToText());
     }
@@ -288,7 +297,25 @@ public class SpdxAnnotationTests
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()
     {
+        // Arrange: no setup needed - testing pure enum-to-string conversion error path
+
+        // Act / Assert: an unknown numeric enum value throws
         var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
         Assert.AreEqual("Unsupported SPDX Annotation Type '1000'", exception.Message);
+    }
+
+    /// <summary>
+    ///     Tests that <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> throws for the
+    ///     <see cref="SpdxAnnotationType.Missing" /> sentinel value.
+    /// </summary>
+    [TestMethod]
+    public void SpdxAnnotationTypeExtensions_ToText_Missing()
+    {
+        // Arrange: no setup needed - testing the Missing sentinel value error path
+
+        // Act / Assert: Missing throws with the expected message
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(
+            () => SpdxAnnotationType.Missing.ToText());
+        Assert.AreEqual("Attempt to serialize missing SPDX Annotation Type", exception.Message);
     }
 }

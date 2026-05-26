@@ -1,31 +1,67 @@
-# SpdxLicenseElement Unit Design
+## SpdxLicenseElement
 
-## Purpose
+### Purpose
 
 `SpdxLicenseElement` is an abstract intermediate base class that adds license-related fields to
 `SpdxElement`. It is the common ancestor of `SpdxPackage`, `SpdxFile`, and `SpdxSnippet`,
-avoiding duplication of the concluded-license, copyright, and attribution fields.
+centralizing the concluded-license, copyright, and attribution fields to avoid duplication across
+all three element types.
 
-## Design
+### Data Model
 
-`SpdxLicenseElement` is a public abstract class that extends `SpdxElement`.
+**ConcludedLicense**: `string` — License expression concluded by the SPDX document preparer
+for this element.
 
-Data members (beyond `SpdxElement.Id`):
+**LicenseComments**: `string?` — Optional explanation of the concluded license choice.
 
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| `ConcludedLicense` | `string` | License expression concluded by the SPDX document preparer |
-| `LicenseComments` | `string?` | Explanation of the concluded license choice |
-| `CopyrightText` | `string` | Copyright declarations text |
-| `AttributionText` | `string[]` | Attribution notices required for use |
-| `Annotations` | `SpdxAnnotation[]` | Additional information about this element |
+**CopyrightText**: `string` — Copyright declarations text for this element.
 
-Key design decisions:
+**AttributionText**: `string[]` — Attribution notices required when redistributing or using
+this element.
 
-- Abstract (non-instantiable) — no direct consumers; always subclassed.
-- Provides `EnhanceLicenseElement(SpdxLicenseElement)` protected helper analogous to
-  `SpdxElement.EnhanceElement` for consistent field merging.
+**Annotations**: `SpdxAnnotation[]` — Element-level annotations (comments, reviews, or other
+notes attached to this element).
 
-## Dependencies
+*Inherited from `SpdxElement`*: `Id`.
 
-- `SpdxElement` (base class)
+### Key Methods
+
+**EnhanceLicenseElement**: Protected helper that populates license-related fields from another
+instance when the existing value has lower fitness than the source value.
+
+- *Parameters*: `SpdxLicenseElement other` — source element.
+- *Returns*: `void`
+- *Preconditions*: none.
+- *Postconditions*:
+  a) **String fields** (`ConcludedLicense`, `LicenseComments`, `CopyrightText`): fitness-based
+     selection — concrete value > NOASSERTION > empty string > null.
+  b) **AttributionText**: merged by concatenation and deduplication (union of both arrays).
+  c) **Annotations**: merged by identity-match (enhance existing entries by comparer) and
+     append (add new entries not already present).
+  d) **Base-class delegation**: also calls `EnhanceElement(other)`, which populates the
+     inherited `Id` field if absent.
+
+#### Algorithm
+
+The fitness ranking used for string fields is: null=0, empty string=1, NOASSERTION=2, concrete
+value=3. The field with the higher fitness rank is retained. When both fields have equal fitness,
+the current value is kept.
+
+For `AttributionText` and `Annotations`, both arrays are merged: existing entries are enhanced
+in-place where a match is found (by annotation identity comparer), and unmatched entries from
+`other` are appended as deep copies.
+
+### Error Handling
+
+N/A - `SpdxLicenseElement` is abstract. Subclasses implement their own `Validate` methods.
+
+### Dependencies
+
+- **SpdxElement** — abstract base class providing the `Id` property.
+- **SpdxAnnotation** — element-level annotations.
+
+### Callers
+
+- **SpdxPackage** — extends `SpdxLicenseElement`.
+- **SpdxFile** — extends `SpdxLicenseElement`.
+- **SpdxSnippet** — extends `SpdxLicenseElement`.

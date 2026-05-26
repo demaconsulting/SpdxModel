@@ -1,23 +1,26 @@
 ---
-# SpdxCreationInformation Unit Requirements
-#
-# This file defines requirements for the SpdxCreationInformation unit.
+# SpdxCreationInformation unit requirements
 
 sections:
-  - title: SpdxCreationInformation Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-CreationInformation
-        title: The library shall support SPDX document creation information.
-        tags:
-          - data-model
-        justification: |
-          Creation information is a required element of SPDX documents that provides metadata about
-          who created the document and when. Supporting this element is essential for SPDX compliance
-          and traceability of document provenance.
-        tests:
-          - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxCreationInformation_Validate_MissingCreators
-          - SpdxCreationInformation_Validate_InvalidCreator
-          - SpdxCreationInformation_Validate_InvalidCreatedDate
-          - SpdxCreationInformation_Validate_InvalidVersion
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxCreationInformation Requirements
+        requirements:
+          - id: SpdxModel-Data-CreationInformation
+            title: The library shall support SPDX document creation information.
+            tags:
+              - data-model
+            justification: |
+              Creation information is a required element of SPDX documents that provides metadata about
+              who created the document and when. Supporting this element is essential for SPDX compliance
+              and traceability of document provenance.
+            tests:
+              - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxCreationInformation_Enhance_DuplicateCreators_DeduplicatesCreators
+              - SpdxCreationInformation_Validate_ValidInformation_NoIssues
+              - SpdxCreationInformation_Validate_MissingCreators
+              - SpdxCreationInformation_Validate_InvalidCreator
+              - SpdxCreationInformation_Validate_InvalidCreatedDate
+              - SpdxCreationInformation_Validate_InvalidVersion
+              - SpdxCreationInformation_Validate_EmptyCreatedField_NoDateIssue

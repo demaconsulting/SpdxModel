@@ -1,28 +1,59 @@
 ---
-# SpdxRelationship Unit Requirements
-#
-# This file defines requirements for the SpdxRelationship unit.
+# SpdxRelationship unit requirements
 
 sections:
-  - title: SpdxRelationship Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Relationships
-        title: The library shall support SPDX relationships.
-        tags:
-          - data-model
-        justification: |
-          Relationships define connections between SPDX elements and are critical for expressing
-          dependency graphs, containment hierarchies, and other associations in SBOMs. This is
-          fundamental to representing complex software structures.
-        tests:
-          - SpdxRelationship_SameComparer_ComparesCorrectly
-          - SpdxRelationship_SameElementsComparer_ComparesCorrectly
-          - SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxRelationship_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxRelationship_Validate_MissingId
-          - SpdxRelationship_Validate_MissingRelatedId
-          - SpdxRelationship_Validate_MissingRelationship
-          - SpdxRelationshipTypeExtensions_FromText_Valid
-          - SpdxRelationshipTypeExtensions_FromText_Invalid
-          - SpdxRelationshipTypeExtensions_ToText_Valid
-          - SpdxRelationshipTypeExtensions_ToText_Invalid
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxRelationship Requirements
+        requirements:
+          - id: SpdxModel-Data-Relationship-Compare
+            title: The library shall support equality comparison of SPDX relationships.
+            tags:
+              - data-model
+            justification: |
+              Relationships must be compared to support array merging and deduplication across
+              SPDX documents.
+            tests:
+              - SpdxRelationship_SameComparer_SameFieldsDifferentComment_ReturnsEqual
+              - SpdxRelationship_SameElementsComparer_SameElementsDifferentType_ReturnsEqual
+          - id: SpdxModel-Data-Relationship-DeepCopy
+            title: The library shall support creating independent deep copies of SPDX relationships.
+            tags:
+              - data-model
+            justification: |
+              Deep copies are required so that merging operations do not mutate the original
+              relationship instances.
+            tests:
+              - SpdxRelationship_DeepCopy_FullyPopulatedRelationship_CreatesEqualButDistinctCopy
+          - id: SpdxModel-Data-Relationship-Enhance
+            title: The library shall support merging missing fields into an SPDX relationship from another instance.
+            tags:
+              - data-model
+            justification: |
+              Enhance enables combining partial relationship information from multiple SPDX
+              documents into a single complete record.
+            tests:
+              - SpdxRelationship_Enhance_MatchingAndNewRelationships_MergesCorrectly
+          - id: SpdxModel-Data-Relationship-Validate
+            title: The library shall validate SPDX relationship fields and report all issues found.
+            tags:
+              - data-model
+            justification: |
+              Relationships define connections between SPDX elements and are critical for expressing
+              dependency graphs, containment hierarchies, and other associations in SBOMs.
+            tests:
+              - SpdxRelationship_Validate_MissingRelationshipId_ReportsIssue
+              - SpdxRelationship_Validate_MissingRelatedElementId_ReportsIssue
+              - SpdxRelationship_Validate_MissingRelationshipType_ReportsIssue
+          - id: SpdxModel-Data-RelationshipType-Conversion
+            title: The library shall support round-trip text conversion for all 44 SPDX relationship type tokens.
+            tags:
+              - data-model
+            justification: |
+              Relationship types must be serialized to and deserialized from their SPDX string
+              representations to support reading and writing SPDX JSON documents.
+            tests:
+              - SpdxRelationshipTypeExtensions_FromText_KnownText_ReturnsMappedEnum
+              - SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException
+              - SpdxRelationshipTypeExtensions_ToText_KnownEnum_ReturnsMappedText
+              - SpdxRelationshipTypeExtensions_ToText_UnknownEnum_ThrowsInvalidOperationException

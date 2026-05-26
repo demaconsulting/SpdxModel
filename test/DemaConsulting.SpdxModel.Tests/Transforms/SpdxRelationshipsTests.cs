@@ -47,10 +47,10 @@ public class SpdxRelationshipsTests
         """;
 
     /// <summary>
-    ///     Tests adding a relationship with a missing ID.
+    ///     Tests that adding a relationship with a missing source ID throws <see cref="ArgumentException" />.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_MissingId()
+    public void SpdxRelationships_AddSingle_MissingId_ThrowsArgumentException()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -75,10 +75,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding a relationship with a missing related element.
+    ///     Tests that adding a relationship with a missing related element throws <see cref="ArgumentException" />.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_MissingRelatedElement()
+    public void SpdxRelationships_AddSingle_MissingRelatedElement_ThrowsArgumentException()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -103,10 +103,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding a relationship.
+    ///     Tests that adding a valid relationship appends it to the document.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_Success()
+    public void SpdxRelationships_AddSingle_ValidRelationship_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -129,10 +129,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding a duplicate relationship.
+    ///     Tests that adding a duplicate relationship enhances the existing entry rather than duplicating it.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddSingle_Duplicate()
+    public void SpdxRelationships_AddSingle_DuplicateRelationship_EnhancesExistingRelationship()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -163,10 +163,62 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding multiple relationships.
+    ///     Tests that a relationship with a NOASSERTION target is accepted as valid.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddMultiple_Success()
+    public void SpdxRelationships_AddSingle_NoAssertionTarget_AddsRelationship()
+    {
+        // Arrange: Deserialize the test document contents
+        var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
+
+        // Act: Add a relationship where the target is NOASSERTION
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package-1",
+                RelatedSpdxElement = SpdxElement.NoAssertion,
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Assert: Verify the relationship was added correctly
+        Assert.HasCount(1, document.Relationships);
+        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.AreEqual(SpdxElement.NoAssertion, document.Relationships[0].RelatedSpdxElement);
+        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+    }
+
+    /// <summary>
+    ///     Tests that a relationship with a DocumentRef- prefixed target is accepted as valid.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship()
+    {
+        // Arrange: Deserialize the test document contents
+        var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
+
+        // Act: Add a relationship where the target uses the DocumentRef- external-reference prefix
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package-1",
+                RelatedSpdxElement = "DocumentRef-external:SPDXRef-Package-3",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Assert: Verify the relationship was added correctly without requiring the element in the document
+        Assert.HasCount(1, document.Relationships);
+        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.AreEqual("DocumentRef-external:SPDXRef-Package-3", document.Relationships[0].RelatedSpdxElement);
+        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+    }
+
+    /// <summary>
+    ///     Tests that the batch Add with a single relationship appends it to the document.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationships_AddMultiple_SingleRelationship_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -191,10 +243,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding multiple relationships with a duplicate.
+    ///     Tests that adding multiple duplicate relationships deduplicates them.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddMultiple_Duplicate()
+    public void SpdxRelationships_AddMultiple_DuplicateRelationships_DeduplicatesRelationships()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -225,10 +277,10 @@ public class SpdxRelationshipsTests
     }
 
     /// <summary>
-    ///     Tests adding multiple relationships with a duplicate and replace.
+    ///     Tests that the batch Add with replace=true removes pre-existing matching relationships.
     /// </summary>
     [TestMethod]
-    public void SpdxRelationships_AddMultiple_Replace()
+    public void SpdxRelationships_AddMultiple_Replace_RemovesAndReplacesExistingRelationships()
     {
         // Arrange: Deserialize the test document contents and add an initial relationship
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
@@ -257,5 +309,52 @@ public class SpdxRelationshipsTests
         Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
         Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
         Assert.AreEqual(SpdxRelationshipType.BuildToolOf, document.Relationships[0].RelationshipType);
+    }
+
+    /// <summary>
+    ///     Tests that a batch Add with replace=true and an invalid relationship leaves the document unmodified.
+    /// </summary>
+    [TestMethod]
+    public void SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified()
+    {
+        // Arrange: Deserialize the test document and add an initial relationship
+        var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package-1",
+                RelatedSpdxElement = "SPDXRef-Package-2",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+        var initialRelationships = document.Relationships.ToArray();
+
+        // Act: Attempt a batch-add with replace=true where the second relationship has an invalid source ID
+        Assert.ThrowsExactly<ArgumentException>(() =>
+        {
+            SpdxRelationships.Add(
+                document,
+                [
+                    new SpdxRelationship
+                    {
+                        Id = "SPDXRef-Package-1",
+                        RelatedSpdxElement = "SPDXRef-Package-2",
+                        RelationshipType = SpdxRelationshipType.BuildToolOf
+                    },
+                    new SpdxRelationship
+                    {
+                        Id = "SPDXRef-Package-Missing",
+                        RelatedSpdxElement = "SPDXRef-Package-2",
+                        RelationshipType = SpdxRelationshipType.DependsOn
+                    }
+                ],
+                replace: true);
+        });
+
+        // Assert: Document relationships are unchanged after the failed batch-add
+        Assert.HasCount(initialRelationships.Length, document.Relationships);
+        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 }

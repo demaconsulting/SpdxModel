@@ -1,28 +1,28 @@
 ---
-# SpdxAnnotation Unit Requirements
-#
-# This file defines requirements for the SpdxAnnotation unit.
+# SpdxAnnotation unit requirements
 
 sections:
-  - title: SpdxAnnotation Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Annotations
-        title: The library shall support SPDX annotations.
-        tags:
-          - data-model
-        justification: |
-          Annotations allow adding review and assessment information to SPDX elements. This supports
-          compliance workflows where reviewers need to document their findings and decisions about
-          software components.
-        tests:
-          - SpdxAnnotation_SameComparer_ComparesCorrectly
-          - SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxAnnotation_Validate_InvalidAnnotator
-          - SpdxAnnotation_Validate_InvalidDate
-          - SpdxAnnotation_Validate_InvalidType
-          - SpdxAnnotation_Validate_InvalidComment
-          - SpdxAnnotationTypeExtensions_FromText_Valid
-          - SpdxAnnotationTypeExtensions_FromText_Invalid
-          - SpdxAnnotationTypeExtensions_ToText_Valid
-          - SpdxAnnotationTypeExtensions_ToText_Invalid
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxAnnotation Requirements
+        requirements:
+          - id: SpdxModel-Data-Annotations
+            title: The library shall support SPDX annotations.
+            tags:
+              - data-model
+            justification: |
+              Annotations allow adding review and assessment information to SPDX elements. This supports
+              compliance workflows where reviewers need to document their findings and decisions about
+              software components.
+            tests:
+              - SpdxAnnotation_SameComparer_ComparesCorrectly
+              - SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxAnnotation_Validate_InvalidAnnotator
+              - SpdxAnnotation_Validate_InvalidDate
+              - SpdxAnnotation_Validate_InvalidType
+              - SpdxAnnotation_Validate_InvalidComment
+              - SpdxAnnotationTypeExtensions_FromText_Valid
+              - SpdxAnnotationTypeExtensions_FromText_Invalid
+              - SpdxAnnotationTypeExtensions_ToText_Valid
+              - SpdxAnnotationTypeExtensions_ToText_Invalid

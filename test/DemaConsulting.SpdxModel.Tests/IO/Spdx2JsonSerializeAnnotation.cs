@@ -99,4 +99,31 @@ public class Spdx2JsonSerializeAnnotation
         SpdxJsonHelpers.AssertEqual("OTHER", json[1]?["annotationType"]);
         SpdxJsonHelpers.AssertEqual("This is another comment", json[1]?["comment"]);
     }
+
+    /// <summary>
+    ///     Tests that an annotation with no ID omits the SPDXID field from the serialized JSON.
+    /// </summary>
+    [TestMethod]
+    public void Spdx2JsonSerializer_SerializeAnnotation_NoId_OmitsSpdxId()
+    {
+        // Arrange: Create an annotation with no ID (empty string)
+        var annotation = new SpdxAnnotation
+        {
+            Id = string.Empty,
+            Annotator = "John Doe",
+            Date = "2021-09-01T12:00:00Z",
+            Type = SpdxAnnotationType.Review,
+            Comment = "This is a comment"
+        };
+
+        // Act: Serialize the annotation to JSON
+        var json = Spdx2JsonSerializer.SerializeAnnotation(annotation);
+
+        // Assert: SPDXID is absent and other fields are present
+        Assert.IsNull(json["SPDXID"]);
+        SpdxJsonHelpers.AssertEqual("John Doe", json["annotator"]);
+        SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json["annotationDate"]);
+        SpdxJsonHelpers.AssertEqual("REVIEW", json["annotationType"]);
+        SpdxJsonHelpers.AssertEqual("This is a comment", json["comment"]);
+    }
 }

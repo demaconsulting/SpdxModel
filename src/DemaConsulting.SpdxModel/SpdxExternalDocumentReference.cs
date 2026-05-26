@@ -50,16 +50,31 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     ///     External Document Checksum Field
     /// </summary>
+    /// <remarks>
+    ///     A cryptographic checksum of the referenced SPDX document used for integrity verification.
+    ///     This allows consumers to confirm that the referenced document has not been modified since
+    ///     the reference was created.
+    /// </remarks>
     public SpdxChecksum Checksum { get; set; } = new();
 
     /// <summary>
     ///     SPDX Document URI Field
     /// </summary>
+    /// <remarks>
+    ///     The URI of the referenced external SPDX document. Must be a valid absolute URI that
+    ///     uniquely identifies the external document's namespace. Used together with
+    ///     <see cref="ExternalDocumentId"/> to qualify cross-document element references.
+    /// </remarks>
     public string Document { get; set; } = "";
 
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Produces an independent copy with no shared mutable references. The nested
+    ///     <see cref="Checksum"/> is deep-copied so that mutations to the returned instance
+    ///     do not affect this instance, and vice versa.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxExternalDocumentReference DeepCopy()
     {
@@ -72,9 +87,14 @@ public sealed class SpdxExternalDocumentReference
     }
 
     /// <summary>
-    ///     Enhance missing fields in the checksum
+    ///     Enhance missing fields in the external document reference
     /// </summary>
-    /// <param name="other">Other checksum to enhance with</param>
+    /// <remarks>
+    ///     Applies a fill-if-absent strategy: each field is updated only when its current
+    ///     value is empty or default. The nested <see cref="Checksum"/> is enhanced in place
+    ///     using the same additive semantics.
+    /// </remarks>
+    /// <param name="other">Other external document reference to enhance with</param>
     public void Enhance(SpdxExternalDocumentReference other)
     {
         // Populate the external document ID if missing
@@ -90,6 +110,13 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     ///     Enhance missing external document references in array
     /// </summary>
+    /// <remarks>
+    ///     Matching uses the <see cref="Same"/> comparer (Document URI equality). Entries in
+    ///     <paramref name="others"/> that match an existing entry are merged in place via the
+    ///     instance <see cref="Enhance(SpdxExternalDocumentReference)"/> method. Entries with
+    ///     no match are deep-copied before being appended to preserve independence from the
+    ///     source array.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -123,6 +150,11 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Issues are appended to <paramref name="issues"/> rather than thrown as exceptions,
+    ///     enabling a complete diagnostic pass across all references in a single call. The
+    ///     nested <see cref="Checksum"/> is validated via <see cref="SpdxChecksum.Validate"/>.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
     {
@@ -145,6 +177,13 @@ public sealed class SpdxExternalDocumentReference
     /// <summary>
     ///     Equality Comparer to test for the same external document reference
     /// </summary>
+    /// <remarks>
+    ///     Two external document references are considered the same when their
+    ///     <see cref="SpdxExternalDocumentReference.Document"/> URI fields are equal.
+    ///     The <see cref="SpdxExternalDocumentReference.ExternalDocumentId"/> field is
+    ///     intentionally excluded from the comparison because the same external document
+    ///     may be referenced under different local aliases in different documents.
+    /// </remarks>
     private sealed class SpdxExternalDocumentReferenceSame : IEqualityComparer<SpdxExternalDocumentReference>
     {
         /// <inheritdoc />

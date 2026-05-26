@@ -1,13 +1,13 @@
 ---
-title: SpdxModel Review Plan
-subtitle: File Review Plan for the SpdxModel Library
-author: DEMA Consulting
-description: File Review Plan for the SpdxModel Library
+title: "SpdxModel Code Review Plan"
+subtitle: "SPDX document model for .NET"
+author: "DEMA Consulting"
+description: "Code Review Plan for SpdxModel"
 lang: en-US
 keywords:
+  - Code Review
   - SpdxModel
-  - Review Plan
-  - File Reviews
+  - C#
   - .NET
-  - Library
+  - SPDX
 ---

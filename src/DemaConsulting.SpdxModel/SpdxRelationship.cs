@@ -67,11 +67,18 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Relationship Comment Field
     /// </summary>
+    /// <remarks>
+    ///     Optional free-text comment providing human-readable context for the relationship.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     All scalar fields are copied by value. The returned instance is fully independent
+    ///     of the original and may be mutated without side effects.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxRelationship DeepCopy()
     {
@@ -87,6 +94,10 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Enhance missing fields in the relationship
     /// </summary>
+    /// <remarks>
+    ///     Each field in this instance is replaced only if its current value is null, empty, or the
+    ///     <see cref="SpdxRelationshipType.Missing" /> sentinel. Existing non-empty values are never overwritten.
+    /// </remarks>
     /// <param name="other">Other relationship to enhance with</param>
     public void Enhance(SpdxRelationship other)
     {
@@ -109,6 +120,11 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Enhance missing relationships in array
     /// </summary>
+    /// <remarks>
+    ///     Relationships are matched using the <see cref="Same" /> comparer (by <see cref="SpdxElement.Id" />,
+    ///     <see cref="RelationshipType" />, and <see cref="RelatedSpdxElement" />). Matching relationships are enhanced
+    ///     in place; non-matching relationships from <paramref name="others" /> are deep-copied and appended.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -141,6 +157,12 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Validates the SPDX element ID, the related element ID, and the relationship type. When
+    ///     <paramref name="doc" /> is provided, element IDs are also checked for existence within that document.
+    ///     External references (prefixed with <c>DocumentRef-</c>) and <c>NOASSERTION</c> are accepted without
+    ///     document lookup.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="doc">Optional document for checking references</param>
     public void Validate(List<string> issues, SpdxDocument? doc)
@@ -176,6 +198,12 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Equality Comparer to test for the same relationship
     /// </summary>
+    /// <remarks>
+    ///     Two relationships are considered the same when they share the same <see cref="SpdxElement.Id" />,
+    ///     <see cref="SpdxRelationship.RelationshipType" />, and <see cref="SpdxRelationship.RelatedSpdxElement" />.
+    ///     A dedicated nested class is used rather than an ad-hoc lambda so the comparer instance can be stored in the
+    ///     <see cref="SpdxRelationship.Same" /> field and passed to LINQ operations without boxing or allocation.
+    /// </remarks>
     private sealed class SpdxRelationshipSame : IEqualityComparer<SpdxRelationship>
     {
         /// <inheritdoc />
@@ -209,6 +237,12 @@ public sealed class SpdxRelationship : SpdxElement
     /// <summary>
     ///     Equality Comparer to test for the same elements
     /// </summary>
+    /// <remarks>
+    ///     Two relationships are considered to share the same elements when they have the same
+    ///     <see cref="SpdxElement.Id" /> and <see cref="SpdxRelationship.RelatedSpdxElement" />,
+    ///     regardless of <see cref="SpdxRelationship.RelationshipType" />. Used when deduplicating by
+    ///     element endpoints regardless of relationship kind. Backed by the <see cref="SpdxRelationship.SameElements" /> field.
+    /// </remarks>
     private sealed class SpdxRelationshipSameElements : IEqualityComparer<SpdxRelationship>
     {
         /// <inheritdoc />

@@ -1,26 +1,72 @@
 ---
-# SpdxChecksum Unit Requirements
-#
-# This file defines requirements for the SpdxChecksum unit.
+# SpdxChecksum unit requirements
 
 sections:
-  - title: SpdxChecksum Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Checksums
-        title: The library shall support SPDX checksums with multiple algorithms.
-        tags:
-          - data-model
-        justification: |
-          Checksums with multiple algorithms provide integrity verification for files and packages.
-          Supporting multiple algorithms ensures flexibility and compatibility with different security
-          requirements and organizational policies.
-        tests:
-          - SpdxChecksum_SameComparer_ComparesCorrectly
-          - SpdxChecksum_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxChecksum_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxChecksum_Validate_InvalidAlgorithm
-          - SpdxChecksum_Validate_InvalidValue
-          - SpdxChecksumAlgorithmExtensions_FromText_Valid
-          - SpdxChecksumAlgorithmExtensions_FromText_InvalidAlgorithm
-          - SpdxChecksumAlgorithmExtensions_ToText_Valid
-          - SpdxChecksumAlgorithmExtensions_ToText_InvalidAlgorithm
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxChecksum Requirements
+        requirements:
+          - id: SpdxModel-Data-Checksum-Compare
+            title: The library shall support equality comparison of SPDX checksums by algorithm and value.
+            tags:
+              - data-model
+            justification: |
+              Checksums must be compared by algorithm and value to support array merging and
+              deduplication across SPDX documents.
+            tests:
+              - SpdxChecksum_SameComparer_SameOrDifferentValues_ReturnsCorrectEquality
+              - SpdxChecksum_SameComparer_NullFirstArgument_ReturnsFalse
+              - SpdxChecksum_SameComparer_NullSecondArgument_ReturnsFalse
+              - SpdxChecksum_SameComparer_BothArgumentsNull_ReturnsTrue
+          - id: SpdxModel-Data-Checksum-DeepCopy
+            title: The library shall support creating independent deep copies of SPDX checksums.
+            tags:
+              - data-model
+            justification: |
+              Deep copies are required so that merging operations do not mutate the original
+              checksum instances.
+            tests:
+              - SpdxChecksum_DeepCopy_PopulatedChecksum_CreatesEqualButDistinctInstance
+          - id: SpdxModel-Data-Checksum-Enhance
+            title: The library shall support merging SPDX checksum arrays by algorithm and value identity.
+            tags:
+              - data-model
+            justification: |
+              Enhance enables combining checksum information from multiple SPDX documents into
+              a single deduplicated record.
+            tests:
+              - SpdxChecksum_Enhance_ExistingAndNewAlgorithms_AddsOrUpdatesInformation
+          - id: SpdxModel-Data-Checksum-Validate
+            title: The library shall validate SPDX checksum fields and report all issues found.
+            tags:
+              - data-model
+              - validation
+            justification: |
+              Validation ensures that checksum data is complete and consistent before
+              serialization or use by downstream consumers.
+            tests:
+              - SpdxChecksum_Validate_MissingAlgorithm_ReportsAlgorithmIssue
+              - SpdxChecksum_Validate_UnknownNumericAlgorithm_ReportsAlgorithmIssue
+              - SpdxChecksum_Validate_EmptyValue_ReportsValueIssue
+          - id: SpdxModel-Data-Checksum-FromText
+            title: The library shall convert SPDX algorithm text strings to the SpdxChecksumAlgorithm enumeration.
+            tags:
+              - data-model
+            justification: |
+              Deserialization from SPDX JSON and tag-value formats requires mapping algorithm
+              name strings to typed enum values.
+            tests:
+              - SpdxChecksumAlgorithmExtensions_FromText_KnownAlgorithmStrings_ReturnsCorrectEnumValues
+              - SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException
+              - SpdxChecksumAlgorithmExtensions_FromText_EmptyString_ReturnsMissing
+          - id: SpdxModel-Data-Checksum-ToText
+            title: The library shall convert SpdxChecksumAlgorithm enumeration values to SPDX algorithm text strings.
+            tags:
+              - data-model
+            justification: |
+              Serialization to SPDX JSON and tag-value formats requires mapping typed enum
+              values back to their canonical algorithm name strings.
+            tests:
+              - SpdxChecksumAlgorithmExtensions_ToText_KnownAlgorithmEnums_ReturnsCorrectStrings
+              - SpdxChecksumAlgorithmExtensions_ToText_OutOfRangeEnum_ThrowsInvalidOperationException
+              - SpdxChecksumAlgorithmExtensions_ToText_MissingAlgorithm_ThrowsInvalidOperationException

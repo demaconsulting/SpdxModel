@@ -53,7 +53,7 @@ public class SpdxExternalReferenceTests
             Locator = "pkg:nuget/SomePackage@0.0.0"
         };
 
-        // Assert: Verify external-references compare to themselves
+        // Act / Assert: Verify external-references compare to themselves
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r1, r1));
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r2, r2));
         Assert.IsTrue(SpdxExternalReference.Same.Equals(r3, r3));
@@ -222,6 +222,9 @@ public class SpdxExternalReferenceTests
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_FromText_Valid()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all recognized category strings map to expected enum values
         Assert.AreEqual(SpdxReferenceCategory.Missing, SpdxReferenceCategoryExtensions.FromText(""));
         Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("SECURITY"));
         Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("security"));
@@ -240,6 +243,9 @@ public class SpdxExternalReferenceTests
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_FromText_Invalid()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify that FromText throws for an unrecognized category string
         var exception =
             Assert.ThrowsExactly<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Reference Category 'invalid'", exception.Message);
@@ -251,6 +257,9 @@ public class SpdxExternalReferenceTests
     [TestMethod]
     public void SpdxReferenceCategoryExtensions_ToText_Valid()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all known enum values map to expected text representations
         Assert.AreEqual("SECURITY", SpdxReferenceCategory.Security.ToText());
         Assert.AreEqual("PACKAGE-MANAGER", SpdxReferenceCategory.PackageManager.ToText());
         Assert.AreEqual("PERSISTENT-ID", SpdxReferenceCategory.PersistentId.ToText());

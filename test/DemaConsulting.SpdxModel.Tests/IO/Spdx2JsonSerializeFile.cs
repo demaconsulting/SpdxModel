@@ -114,7 +114,7 @@ public class Spdx2JsonSerializeFile
     [TestMethod]
     public void Spdx2JsonSerializer_SerializeFiles_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample array containing a single SpdxFile with all fields populated
         var file = new[]
         {
             new SpdxFile
@@ -161,10 +161,10 @@ public class Spdx2JsonSerializeFile
             }
         };
 
-        // Act
+        // Act: Serialize the array of files to JSON
         var json = Spdx2JsonSerializer.SerializeFiles(file);
 
-        // Assert
+        // Assert: Verify the JSON output has the expected structure and values
         Assert.IsNotNull(json);
         Assert.AreEqual(1, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DoapSource", json[0]?["SPDXID"]);

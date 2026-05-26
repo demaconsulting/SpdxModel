@@ -23,12 +23,23 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxPackage" /> class.
 /// </summary>
+/// <remarks>
+///     Covers equality comparison via the <see cref="SpdxPackage.Same" /> comparer, deep-copy independence,
+///     field merging via <see cref="SpdxPackage.Enhance(SpdxPackage[],SpdxPackage[])" />, and full
+///     validation including NTIA minimum-elements checks. Each test exercises a single scenario or
+///     boundary condition in isolation with no shared state between tests.
+/// </remarks>
 [TestClass]
 public class SpdxPackageTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Same" /> comparer compares packages correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that two packages with the same <c>Name</c> and <c>Version</c> are considered equal
+    ///     regardless of differing <c>Id</c> values, that packages with different names or versions are
+    ///     distinct, and that null arguments are handled correctly.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_SameComparer_ComparesCorrectly()
     {
@@ -52,7 +63,7 @@ public class SpdxPackageTests
             Version = "1.2.3"
         };
 
-        // Assert: Verify packages compare to themselves
+        // Act / Assert: Verify packages compare to themselves
         Assert.IsTrue(SpdxPackage.Same.Equals(p1, p1));
         Assert.IsTrue(SpdxPackage.Same.Equals(p2, p2));
         Assert.IsTrue(SpdxPackage.Same.Equals(p3, p3));
@@ -67,11 +78,20 @@ public class SpdxPackageTests
 
         // Assert: Verify same packages have identical hashes
         Assert.AreEqual(SpdxPackage.Same.GetHashCode(p1), SpdxPackage.Same.GetHashCode(p2));
+
+        // Assert: Verify null handling
+        Assert.IsFalse(SpdxPackage.Same.Equals(null!, p1));
+        Assert.IsFalse(SpdxPackage.Same.Equals(p1, null!));
+        Assert.IsTrue(SpdxPackage.Same.Equals(null!, null!));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the returned instance has equal field values, that all array and nested object
+    ///     fields are new independent instances, and that mutating the copy does not affect the original.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance()
     {
@@ -81,6 +101,10 @@ public class SpdxPackageTests
             Id = "SPDXRef-Package1",
             Name = "DemaConsulting.SpdxModel",
             Version = "0.0.0",
+            VerificationCode = new SpdxPackageVerificationCode
+            {
+                Value = "d6a770ba38583ed4bb4525bd96e50461655d2759"
+            },
             Checksums =
             [
                 new SpdxChecksum
@@ -124,6 +148,8 @@ public class SpdxPackageTests
         CollectionAssert.AreEquivalent(p1.ExternalReferences, p2.ExternalReferences, SpdxExternalReference.Same);
         CollectionAssert.AreEquivalent(p1.AttributionText, p2.AttributionText);
         CollectionAssert.AreEquivalent(p1.Annotations, p2.Annotations, SpdxAnnotation.Same);
+        Assert.IsNotNull(p2.VerificationCode);
+        Assert.AreEqual(p1.VerificationCode!.Value, p2.VerificationCode.Value);
 
         // Assert: Verify deep-copy has distinct instances
         Assert.IsFalse(ReferenceEquals(p1, p2));
@@ -133,12 +159,17 @@ public class SpdxPackageTests
         Assert.IsFalse(ReferenceEquals(p1.ExternalReferences, p2.ExternalReferences));
         Assert.IsFalse(ReferenceEquals(p1.AttributionText, p2.AttributionText));
         Assert.IsFalse(ReferenceEquals(p1.Annotations, p2.Annotations));
+        Assert.IsFalse(ReferenceEquals(p1.VerificationCode, p2.VerificationCode));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Enhance(SpdxPackage[], SpdxPackage[])" /> method correctly adds or updates
     ///     packages.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a matching package (same name and version) is enhanced in place and that a non-matching
+    ///     package from the source array is deep-copied and appended, resulting in an array of length two.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly()
     {
@@ -184,6 +215,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests that a valid package passes validation.
     /// </summary>
+    /// <remarks>
+    ///     Exercises the happy-path: a fully populated package with a valid SPDX ID, non-empty name, download
+    ///     location, and a conforming supplier string passes all validation checks including NTIA minimum elements.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_Success()
     {
@@ -208,6 +243,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing package names
     /// </summary>
+    /// <remarks>
+    ///     Verifies the boundary condition where <c>Name</c> is empty: validation must report the
+    ///     "Invalid Package Name Field - Empty" issue.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_MissingPackageName()
     {
@@ -232,6 +271,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid package IDs
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an <c>Id</c> not starting with <c>SPDXRef-</c> is flagged as an invalid SPDX
+    ///     identifier field.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidPackageId()
     {
@@ -256,6 +299,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing download locations
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an empty <c>DownloadLocation</c> causes the "Invalid Package Download Location Field - Empty"
+    ///     issue to be reported.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_MissingDownload()
     {
@@ -280,6 +327,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid suppliers.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a supplier value that does not start with <c>Person:</c>, <c>Organization:</c>, or equal
+    ///     <c>NOASSERTION</c> is flagged as an invalid supplier field.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidSupplier()
     {
@@ -304,6 +355,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid originators.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an originator value that does not start with <c>Person:</c>, <c>Organization:</c>, or equal
+    ///     <c>NOASSERTION</c> is flagged as an invalid originator field.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidOriginator()
     {
@@ -329,6 +384,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid release dates.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a <c>ReleaseDate</c> that does not conform to the SPDX date-time format causes the
+    ///     "Invalid Release Date Field" issue to be reported.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidReleaseDate()
     {
@@ -354,6 +413,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports invalid built dates.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a <c>BuiltDate</c> that does not conform to the SPDX date-time format causes the
+    ///     "Invalid Built Date Field" issue to be reported.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidBuiltDate()
     {
@@ -379,6 +442,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method reports bad valid until dates
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a <c>ValidUntilDate</c> that does not conform to the SPDX date-time format causes the
+    ///     "Invalid Valid Until Date Field" issue to be reported.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidValidUntilDate()
     {
@@ -404,6 +471,10 @@ public class SpdxPackageTests
     /// <summary>
     ///     Tests the <see cref="SpdxPackage.Validate" /> method validates annotations.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an annotation with an empty <c>Annotator</c> field causes the
+    ///     "Invalid Annotator Field - Empty" issue to be reported with the correct package prefix.
+    /// </remarks>
     [TestMethod]
     public void SpdxPackage_Validate_InvalidAnnotation()
     {
@@ -433,5 +504,92 @@ public class SpdxPackageTests
 
         // Assert: Verify the annotation issue is reported with the correct prefix
         Assert.Contains("Package 'DemaConsulting.SpdxModel' Invalid Annotator Field - Empty", issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports HasFiles references to missing files.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that when a document is provided and <c>HasFiles</c> references a file ID that does not
+    ///     exist in <c>doc.Files</c>, the "HasFiles references missing files" issue is reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxPackage_Validate_HasFilesReferencesMissingFile_ReportsIssue()
+    {
+        // Arrange: Create a package that references a file that does not exist in the document
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting",
+            HasFiles = ["SPDXRef-Missing-File"]
+        };
+        var doc = new SpdxDocument
+        {
+            Files = []
+        };
+
+        // Act: Validate the package with the document
+        var issues = new List<string>();
+        package.Validate(issues, doc);
+
+        // Assert: Verify the HasFiles reference issue is reported
+        Assert.Contains(issue => issue.Contains("Package 'DemaConsulting.SpdxModel' HasFiles references missing files"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing NTIA supplier.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that when NTIA validation is enabled, a package without a supplier causes the
+    ///     "NTIA: Package Missing Supplier" issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxPackage_ValidateNtia_MissingSupplier_ReportsIssue()
+    {
+        // Arrange: Create a package with no supplier
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            Version = "0.0.0",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel"
+        };
+
+        // Act: Validate the package with NTIA checks enabled
+        var issues = new List<string>();
+        package.Validate(issues, null, ntia: true);
+
+        // Assert: Verify the missing supplier issue is reported
+        Assert.Contains(issue => issue.Contains("NTIA: Package 'DemaConsulting.SpdxModel' Missing Supplier"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxPackage.Validate" /> method reports missing NTIA version.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that when NTIA validation is enabled, a package without a version string causes the
+    ///     "NTIA: Package Missing Version" issue to be reported.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxPackage_ValidateNtia_MissingVersion_ReportsIssue()
+    {
+        // Arrange: Create a package with no version
+        var package = new SpdxPackage
+        {
+            Id = "SPDXRef-Package-SpdxModel",
+            Name = "DemaConsulting.SpdxModel",
+            DownloadLocation = "https://www.nuget.org/packages/DemaConsulting.SpdxModel",
+            Supplier = "Organization: DemaConsulting"
+        };
+
+        // Act: Validate the package with NTIA checks enabled
+        var issues = new List<string>();
+        package.Validate(issues, null, ntia: true);
+
+        // Assert: Verify the missing version issue is reported
+        Assert.Contains(issue => issue.Contains("NTIA: Package 'DemaConsulting.SpdxModel' Missing Version"), issues);
     }
 }

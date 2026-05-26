@@ -1,38 +1,58 @@
 ---
-# SpdxLicenseElement Unit Requirements
-#
-# This file defines requirements for the SpdxLicenseElement unit.
+# SpdxLicenseElement unit requirements
 
 sections:
-  - title: SpdxLicenseElement Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-LicenseElement
-        title: >-
-          Packages, files, and snippets shall each carry concluded license,
-          copyright text, license comments, attribution notices, and annotations.
-        tags:
-          - data-model
-        justification: |
-          Packages, files, and snippets all carry the same set of license and copyright fields
-          as required by the SPDX specification. Consistent semantics across all three element
-          types enables uniform processing of license and copyright information.
-        tests:
-          - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
-
-      - id: SpdxModel-Data-LicenseElement-Enhance
-        title: >-
-          The library shall merge license and copyright fields from a secondary
-          source when the primary fields are absent.
-        tags:
-          - data-model
-        justification: |
-          When enriching an incomplete SPDX element with data from a supplementary source,
-          concluded license, copyright text, attribution texts, and annotations may be absent
-          from the primary record. These fields shall be populated from the secondary source
-          only when the primary record lacks a concrete value.
-        tests:
-          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
-          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxLicenseElement Requirements
+        requirements:
+          - id: SpdxModel-Data-LicenseElement
+            title: >-
+              Packages, files, and snippets shall each carry concluded license,
+              copyright text, license comments, attribution notices, and annotations.
+            tags:
+              - data-model
+            justification: |
+              Packages, files, and snippets all carry the same set of license and copyright fields
+              as required by the SPDX specification. Consistent semantics across all three element
+              types enables uniform processing of license and copyright information.
+              This is a parent summary requirement; its behavioral responsibilities are decomposed
+              into the child requirements SpdxModel-Data-LicenseElement-Data and
+              SpdxModel-Data-LicenseElement-Enhance below.
+            tests:
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
+            children:
+              - SpdxModel-Data-LicenseElement-Data
+              - SpdxModel-Data-LicenseElement-Enhance
+          - id: SpdxModel-Data-LicenseElement-Data
+            title: >-
+              The library shall store concluded license, copyright text, license comments,
+              attribution notices, and annotations on each element type.
+            tags:
+              - data-model
+            justification: |
+              Each SPDX element type (package, file, snippet) must independently carry the full
+              set of license and copyright fields so that per-element license information can be
+              reported and validated without reference to other elements.
+            tests:
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxSnippet_DeepCopy_CreatesEqualButDistinctInstance
+          - id: SpdxModel-Data-LicenseElement-Enhance
+            title: >-
+              The library shall merge concluded license, copyright text, license comments,
+              attribution texts, and annotations from a secondary source when the primary
+              fields are null, empty, or set to NOASSERTION.
+            tags:
+              - data-model
+            justification: |
+              When enriching an incomplete SPDX element with data from a supplementary source,
+              concluded license, copyright text, license comments, attribution texts, and
+              annotations may be absent from the primary record. These fields shall be populated
+              from the secondary source only when the primary record lacks a concrete value.
+            tests:
+              - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+              - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly

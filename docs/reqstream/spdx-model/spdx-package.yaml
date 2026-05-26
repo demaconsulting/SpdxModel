@@ -1,30 +1,64 @@
 ---
-# SpdxPackage Unit Requirements
-#
-# This file defines requirements for the SpdxPackage unit.
+# SpdxPackage unit requirements
 
 sections:
-  - title: SpdxPackage Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Packages
-        title: The library shall support SPDX packages.
-        tags:
-          - data-model
-        justification: |
-          Packages are core elements in SPDX documents representing software packages in an SBOM.
-          Supporting package elements is fundamental to the library's purpose of managing software
-          bill of materials and dependency information.
-        tests:
-          - SpdxPackage_SameComparer_ComparesCorrectly
-          - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
-          - SpdxPackage_Validate_Success
-          - SpdxPackage_Validate_MissingPackageName
-          - SpdxPackage_Validate_InvalidPackageId
-          - SpdxPackage_Validate_MissingDownload
-          - SpdxPackage_Validate_InvalidSupplier
-          - SpdxPackage_Validate_InvalidOriginator
-          - SpdxPackage_Validate_InvalidReleaseDate
-          - SpdxPackage_Validate_InvalidBuiltDate
-          - SpdxPackage_Validate_InvalidValidUntilDate
-          - SpdxPackage_Validate_InvalidAnnotation
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxPackage Requirements
+        requirements:
+          - id: SpdxModel-Data-Package-Compare
+            title: The library shall support equality comparison of SPDX packages by name and version.
+            tags:
+              - data-model
+            justification: |
+              Packages must be compared by name and version to support array merging and
+              deduplication across SPDX documents.
+            tests:
+              - SpdxPackage_SameComparer_ComparesCorrectly
+          - id: SpdxModel-Data-Package-DeepCopy
+            title: The library shall support creating independent deep copies of SPDX packages.
+            tags:
+              - data-model
+            justification: |
+              Deep copies are required so that merging operations do not mutate the original
+              package instances.
+            tests:
+              - SpdxPackage_DeepCopy_CreatesEqualButDistinctInstance
+          - id: SpdxModel-Data-Package-Enhance
+            title: The library shall support merging missing fields into an SPDX package from another instance.
+            tags:
+              - data-model
+            justification: |
+              Enhance enables combining partial package information from multiple SPDX documents
+              into a single complete record.
+            tests:
+              - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+          - id: SpdxModel-Data-Package-Validate
+            title: The library shall validate SPDX package fields and report all issues found.
+            tags:
+              - data-model
+            justification: |
+              Validation ensures that package data conforms to the SPDX specification before
+              serialization or use by downstream consumers.
+            tests:
+              - SpdxPackage_Validate_Success
+              - SpdxPackage_Validate_MissingPackageName
+              - SpdxPackage_Validate_InvalidPackageId
+              - SpdxPackage_Validate_MissingDownload
+              - SpdxPackage_Validate_InvalidSupplier
+              - SpdxPackage_Validate_InvalidOriginator
+              - SpdxPackage_Validate_InvalidReleaseDate
+              - SpdxPackage_Validate_InvalidBuiltDate
+              - SpdxPackage_Validate_InvalidValidUntilDate
+              - SpdxPackage_Validate_InvalidAnnotation
+              - SpdxPackage_Validate_HasFilesReferencesMissingFile_ReportsIssue
+          - id: SpdxModel-Data-Package-ValidateNtia
+            title: The library shall validate NTIA minimum element requirements for SPDX packages when requested.
+            tags:
+              - data-model
+            justification: |
+              NTIA minimum elements (supplier and version) are an opt-in compliance check
+              that consumers may request independently of general validation.
+            tests:
+              - SpdxPackage_ValidateNtia_MissingSupplier_ReportsIssue
+              - SpdxPackage_ValidateNtia_MissingVersion_ReportsIssue

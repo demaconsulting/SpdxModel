@@ -70,12 +70,19 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     External Reference Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Null when no comment is present. An empty string is not used.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
     /// <returns>Deep copy of this object</returns>
+    /// <remarks>
+    ///     Used by the static Enhance merge to add new entries without aliasing the source array; also used by callers
+    ///     that need an independent snapshot.
+    /// </remarks>
     public SpdxExternalReference DeepCopy()
     {
         return new SpdxExternalReference
@@ -90,6 +97,12 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     Enhance missing fields in the external reference
     /// </summary>
+    /// <remarks>
+    ///     Mutates this instance in place. <see cref="Category"/> is only overwritten when it
+    ///     equals <see cref="SpdxReferenceCategory.Missing"/>; all other fields use fitness-based
+    ///     selection (see <see cref="SpdxHelpers.EnhanceString"/>). Not thread-safe for concurrent
+    ///     mutation of the same instance.
+    /// </remarks>
     /// <param name="other">Other external reference to enhance with</param>
     public void Enhance(SpdxExternalReference other)
     {
@@ -112,6 +125,12 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     Enhance missing external references in array
     /// </summary>
+    /// <remarks>
+    ///     Neither input array is modified; a new array is always returned. Matching uses the
+    ///     <see cref="Same"/> comparer (category + type + locator). Entries in <paramref name="others"/>
+    ///     that have no match in <paramref name="array"/> are appended as independent deep copies so
+    ///     that mutations to the returned array do not affect the source.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -144,6 +163,12 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Issues are collected non-throwingly into the caller-supplied <paramref name="issues"/> list.
+    ///     The following fields are validated: <see cref="Category"/> (must not be
+    ///     <see cref="SpdxReferenceCategory.Missing"/>), <see cref="Type"/> (must be non-empty), and
+    ///     <see cref="Locator"/> (must be non-empty).
+    /// </remarks>
     /// <param name="package">Package name</param>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(string package, List<string> issues)
@@ -170,6 +195,13 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     Equality Comparer to test for the same external reference
     /// </summary>
+    /// <remarks>
+    ///     Equality is based on <see cref="SpdxExternalReference.Category"/>,
+    ///     <see cref="SpdxExternalReference.Type"/>, and <see cref="SpdxExternalReference.Locator"/>
+    ///     only. <see cref="SpdxExternalReference.Comment"/> is intentionally excluded so that two
+    ///     references pointing to the same resource but carrying different annotations are still
+    ///     recognized as the same entry during merge operations.
+    /// </remarks>
     private sealed class SpdxExternalReferenceSame : IEqualityComparer<SpdxExternalReference>
     {
         /// <inheritdoc />

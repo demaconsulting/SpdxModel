@@ -143,12 +143,12 @@ public class SpdxDocumentTests
             ]
         };
 
-        // Assert: Verify documents compare to themselves
+        // Act / Assert: Verify documents compare to themselves
         Assert.IsTrue(SpdxDocument.Same.Equals(d1, d1));
         Assert.IsTrue(SpdxDocument.Same.Equals(d2, d2));
         Assert.IsTrue(SpdxDocument.Same.Equals(d3, d3));
 
-        // Assert: Verify documents compare correctly
+        // Act / Assert: Verify documents compare correctly
         Assert.IsTrue(SpdxDocument.Same.Equals(d1, d2));
         Assert.IsTrue(SpdxDocument.Same.Equals(d2, d1));
         Assert.IsFalse(SpdxDocument.Same.Equals(d1, d3));
@@ -288,18 +288,17 @@ public class SpdxDocumentTests
     [TestMethod]
     public void SpdxDocument_Validate_NoIssues()
     {
+        // Arrange: Load a valid SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
-
-        // Deserialize the document
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
         Assert.IsNotNull(doc);
 
-        // Perform validation
+        // Act: Perform validation on the document
         var issues = new List<string>();
         doc.Validate(issues);
 
-        // Ensure no validation issues
+        // Assert: Verify no validation issues are reported
         Assert.IsEmpty(issues);
     }
 
@@ -559,10 +558,10 @@ public class SpdxDocumentTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxDocument.GetElement" /> method returns the correct element by ID.
+    ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the document element.
     /// </summary>
     [TestMethod]
-    public void SpdxDocument_GetElement_Correct()
+    public void SpdxDocument_GetElement_Document_ReturnsDocumentElement()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -570,23 +569,70 @@ public class SpdxDocumentTests
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
         Assert.IsNotNull(doc);
 
-        // Assert: Verify finding the document returns the correct element
+        // Act: Find the document element by ID
         var foundDoc = doc.GetElement<SpdxDocument>("SPDXRef-DOCUMENT");
+
+        // Assert: Verify the document element is correct
         Assert.IsNotNull(foundDoc);
         Assert.AreEqual("SPDX-Tools-v2.0", foundDoc.Name);
+    }
 
-        // Assert: Verify finding a file returns the correct element
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct file element.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_GetElement_File_ReturnsFileElement()
+    {
+        // Arrange: Load a sample SPDX JSON document
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Act: Find a file element by ID
         var foundFile = doc.GetElement<SpdxFile>("SPDXRef-JenaLib");
+
+        // Assert: Verify the file element is correct
         Assert.IsNotNull(foundFile);
         Assert.AreEqual("./lib-source/jena-2.6.3-sources.jar", foundFile.FileName);
+    }
 
-        // Assert: Verify finding a package returns the correct element
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct package element.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_GetElement_Package_ReturnsPackageElement()
+    {
+        // Arrange: Load a sample SPDX JSON document
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Act: Find a package element by ID
         var foundPackage = doc.GetElement<SpdxPackage>("SPDXRef-Saxon");
+
+        // Assert: Verify the package element is correct
         Assert.IsNotNull(foundPackage);
         Assert.AreEqual("saxonB-8.8.zip", foundPackage.FileName);
+    }
 
-        // Assert: Verify finding a snippet returns the correct element
+    /// <summary>
+    ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct snippet element.
+    /// </summary>
+    [TestMethod]
+    public void SpdxDocument_GetElement_Snippet_ReturnsSnippetElement()
+    {
+        // Arrange: Load a sample SPDX JSON document
+        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        Assert.IsNotNull(doc);
+
+        // Act: Find a snippet element by ID
         var foundSnippet = doc.GetElement<SpdxSnippet>("SPDXRef-Snippet");
+
+        // Assert: Verify the snippet element is correct
         Assert.IsNotNull(foundSnippet);
         Assert.AreEqual("SPDXRef-DoapSource", foundSnippet.SnippetFromFile);
     }

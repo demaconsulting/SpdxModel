@@ -60,6 +60,11 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Deep copy is required to prevent aliasing when checksums are shared between
+    ///     documents during merge operations. Mutating a checksum on one document must not
+    ///     affect the corresponding checksum on another.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxChecksum DeepCopy()
     {
@@ -73,6 +78,11 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Enhance missing fields in the checksum
     /// </summary>
+    /// <remarks>
+    ///     This method is called during document merge operations to fill in any
+    ///     fields that are absent in this instance. Fields that are already populated
+    ///     are preserved; only missing (default/empty) values are replaced.
+    /// </remarks>
     /// <param name="other">Other checksum to enhance with</param>
     public void Enhance(SpdxChecksum other)
     {
@@ -89,6 +99,12 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Enhance missing checksums in array
     /// </summary>
+    /// <remarks>
+    ///     Matching uses the <see cref="Same"/> comparer (algorithm + value equality). Entries
+    ///     in <paramref name="others"/> that match an existing entry are merged in place via the
+    ///     instance <see cref="Enhance(SpdxChecksum)"/> method. Entries with no match are
+    ///     deep-copied before being appended to preserve independence from the source array.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -121,6 +137,11 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Called by containing element validators (e.g., SpdxPackage, SpdxFile, SpdxExternalDocumentReference)
+    ///     to verify algorithm and value fields are populated and consistent. The <paramref name="parent"/>
+    ///     string is prepended to each issue message to provide context in diagnostic output.
+    /// </remarks>
     /// <param name="parent">Associated parent node</param>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(string parent, List<string> issues)
@@ -129,6 +150,10 @@ public sealed class SpdxChecksum
         if (Algorithm == SpdxChecksumAlgorithm.Missing)
         {
             issues.Add($"{parent} Invalid Checksum Algorithm Field - Missing");
+        }
+        else if (!Enum.IsDefined(typeof(SpdxChecksumAlgorithm), Algorithm))
+        {
+            issues.Add($"{parent} Invalid Checksum Algorithm Field - Unknown");
         }
 
         // Validate Checksum Value Field
@@ -141,6 +166,11 @@ public sealed class SpdxChecksum
     /// <summary>
     ///     Equality Comparer to test for the same relationship
     /// </summary>
+    /// <remarks>
+    ///     Two checksums are considered the same when both their <see cref="SpdxChecksum.Algorithm"/>
+    ///     and <see cref="SpdxChecksum.Value"/> fields are equal. This semantics is used to
+    ///     deduplicate and merge checksum arrays during document merge operations.
+    /// </remarks>
     private sealed class SpdxChecksumSame : IEqualityComparer<SpdxChecksum>
     {
         /// <inheritdoc />

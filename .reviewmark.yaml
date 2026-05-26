@@ -11,6 +11,7 @@ needs-review:
   - "**/*.cs"                     # All C# source and test files
   - "docs/reqstream/**/*.yaml"    # Requirements files
   - "docs/design/**/*.md"         # Design documentation files
+  - "docs/verification/**/*.md"   # Verification documentation files
   - "docs/user_guide/**/*.md"     # User guide documentation
   - "!**/obj/**"                  # Exclude build output
   - "!**/bin/**"                  # Exclude build output
@@ -43,6 +44,8 @@ reviews:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
       - "docs/design/spdx-model/spdx-model.md"
+      - "docs/verification/introduction.md"
+      - "docs/verification/spdx-model/spdx-model.md"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxModelTests.cs"
 
   - id: SpdxModel-Design
@@ -52,6 +55,8 @@ reviews:
       - "docs/reqstream/spdx-model/platform-requirements.yaml"
       - "docs/design/introduction.md"
       - "docs/design/spdx-model/**/*.md"
+      - "docs/verification/introduction.md"
+      - "docs/verification/spdx-model/**/*.md"
 
   - id: SpdxModel-AllRequirements
     title: Review that All SpdxModel Requirements are Complete
@@ -65,6 +70,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/io/io.yaml"
       - "docs/design/spdx-model/io/io.md"
+      - "docs/verification/spdx-model/io/io.md"
       - "test/DemaConsulting.SpdxModel.Tests/IO/SpdxModelIOTests.cs"
 
   - id: SpdxModel-IO-Spdx2JsonDeserializer
@@ -73,6 +79,8 @@ reviews:
       - "docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml"
       - "docs/design/spdx-model/io/spdx-2-json-deserializer.md"
       - "docs/design/spdx-model/io/spdx-constants.md"
+      - "docs/verification/spdx-model/io/spdx-2-json-deserializer.md"
+      - "docs/verification/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonDeserializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
       - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonDeserialize*.cs"
@@ -83,6 +91,8 @@ reviews:
       - "docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml"
       - "docs/design/spdx-model/io/spdx-2-json-serializer.md"
       - "docs/design/spdx-model/io/spdx-constants.md"
+      - "docs/verification/spdx-model/io/spdx-2-json-serializer.md"
+      - "docs/verification/spdx-model/io/spdx-constants.md"
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
       - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
@@ -92,6 +102,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/transform/transform.yaml"
       - "docs/design/spdx-model/transform/transform.md"
+      - "docs/verification/spdx-model/transform/transform.md"
       - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxModelTransformTests.cs"
 
   - id: SpdxModel-Transform-SpdxRelationships
@@ -99,6 +110,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/transform/spdx-relationships.yaml"
       - "docs/design/spdx-model/transform/spdx-relationships.md"
+      - "docs/verification/spdx-model/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
       - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
 
@@ -107,6 +119,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-annotation.yaml"
       - "docs/design/spdx-model/spdx-annotation.md"
+      - "docs/verification/spdx-model/spdx-annotation.md"
       - "src/DemaConsulting.SpdxModel/SpdxAnnotation.cs"
       - "src/DemaConsulting.SpdxModel/SpdxAnnotationType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxAnnotationTests.cs"
@@ -116,6 +129,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-checksum.yaml"
       - "docs/design/spdx-model/spdx-checksum.md"
+      - "docs/verification/spdx-model/spdx-checksum.md"
       - "src/DemaConsulting.SpdxModel/SpdxChecksum.cs"
       - "src/DemaConsulting.SpdxModel/SpdxChecksumAlgorithm.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxChecksumTests.cs"
@@ -125,6 +139,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-creation-information.yaml"
       - "docs/design/spdx-model/spdx-creation-information.md"
+      - "docs/verification/spdx-model/spdx-creation-information.md"
       - "src/DemaConsulting.SpdxModel/SpdxCreationInformation.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxCreationInformationTests.cs"
 
@@ -133,6 +148,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-document.yaml"
       - "docs/design/spdx-model/spdx-document.md"
+      - "docs/verification/spdx-model/spdx-document.md"
       - "src/DemaConsulting.SpdxModel/SpdxDocument.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs"
 
@@ -141,6 +157,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-element.yaml"
       - "docs/design/spdx-model/spdx-element.md"
+      - "docs/verification/spdx-model/spdx-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxElement.cs"
 
   - id: SpdxModel-SpdxExternalDocumentReference
@@ -148,6 +165,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-external-document-reference.yaml"
       - "docs/design/spdx-model/spdx-external-document-reference.md"
+      - "docs/verification/spdx-model/spdx-external-document-reference.md"
       - "src/DemaConsulting.SpdxModel/SpdxExternalDocumentReference.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalDocumentReferenceTests.cs"
 
@@ -156,6 +174,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-external-reference.yaml"
       - "docs/design/spdx-model/spdx-external-reference.md"
+      - "docs/verification/spdx-model/spdx-external-reference.md"
       - "src/DemaConsulting.SpdxModel/SpdxExternalReference.cs"
       - "src/DemaConsulting.SpdxModel/SpdxReferenceCategory.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExternalReferenceTests.cs"
@@ -165,6 +184,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-extracted-licensing-info.yaml"
       - "docs/design/spdx-model/spdx-extracted-licensing-info.md"
+      - "docs/verification/spdx-model/spdx-extracted-licensing-info.md"
       - "src/DemaConsulting.SpdxModel/SpdxExtractedLicensingInfo.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxExtractedLicensingInfoTests.cs"
 
@@ -173,6 +193,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-file.yaml"
       - "docs/design/spdx-model/spdx-file.md"
+      - "docs/verification/spdx-model/spdx-file.md"
       - "src/DemaConsulting.SpdxModel/SpdxFile.cs"
       - "src/DemaConsulting.SpdxModel/SpdxFileType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxFileTests.cs"
@@ -182,6 +203,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-helpers.yaml"
       - "docs/design/spdx-model/spdx-helpers.md"
+      - "docs/verification/spdx-model/spdx-helpers.md"
       - "src/DemaConsulting.SpdxModel/SpdxHelpers.cs"
 
   - id: SpdxModel-SpdxLicenseElement
@@ -189,6 +211,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-license-element.yaml"
       - "docs/design/spdx-model/spdx-license-element.md"
+      - "docs/verification/spdx-model/spdx-license-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxLicenseElement.cs"
 
   - id: SpdxModel-SpdxPackage
@@ -196,6 +219,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-package.yaml"
       - "docs/design/spdx-model/spdx-package.md"
+      - "docs/verification/spdx-model/spdx-package.md"
       - "src/DemaConsulting.SpdxModel/SpdxPackage.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageTests.cs"
 
@@ -204,6 +228,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-package-verification-code.yaml"
       - "docs/design/spdx-model/spdx-package-verification-code.md"
+      - "docs/verification/spdx-model/spdx-package-verification-code.md"
       - "src/DemaConsulting.SpdxModel/SpdxPackageVerificationCode.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxPackageVerificationCodeTests.cs"
 
@@ -212,6 +237,7 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-relationship.yaml"
       - "docs/design/spdx-model/spdx-relationship.md"
+      - "docs/verification/spdx-model/spdx-relationship.md"
       - "src/DemaConsulting.SpdxModel/SpdxRelationship.cs"
       - "src/DemaConsulting.SpdxModel/SpdxRelationshipType.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxRelationshipTests.cs"
@@ -221,5 +247,6 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-snippet.yaml"
       - "docs/design/spdx-model/spdx-snippet.md"
+      - "docs/verification/spdx-model/spdx-snippet.md"
       - "src/DemaConsulting.SpdxModel/SpdxSnippet.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs"

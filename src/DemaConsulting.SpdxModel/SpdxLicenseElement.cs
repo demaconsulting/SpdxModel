@@ -23,6 +23,12 @@ namespace DemaConsulting.SpdxModel;
 /// <summary>
 ///     SPDX Element with License
 /// </summary>
+/// <remarks>
+///     Abstract intermediate base class that centralizes license-related fields (concluded
+///     license, copyright text, license comments, attribution notices, and annotations) to
+///     remove duplication across <see cref="SpdxPackage"/>, <see cref="SpdxFile"/>, and
+///     <see cref="SpdxSnippet"/>.
+/// </remarks>
 public abstract class SpdxLicenseElement : SpdxElement
 {
     /// <summary>
@@ -75,6 +81,13 @@ public abstract class SpdxLicenseElement : SpdxElement
     /// <summary>
     ///     Enhance missing fields in the license element
     /// </summary>
+    /// <remarks>
+    ///     String fields (ConcludedLicense, LicenseComments, CopyrightText) are selected by
+    ///     fitness ranking: concrete value (rank 3) > NOASSERTION (rank 2) > empty string (rank 1)
+    ///     > null (rank 0). AttributionText is merged by concatenation and deduplication.
+    ///     Annotations are merged by identity-match (enhance existing) and append (add new).
+    ///     Also calls EnhanceElement(other) to populate the inherited Id field if absent.
+    /// </remarks>
     /// <param name="other">Other license element to enhance with</param>
     protected void EnhanceLicenseElement(SpdxLicenseElement other)
     {

@@ -31,6 +31,8 @@ words:
   - NTIA
   - opencover
   - pandoc
+  - Postconditions
+  - Preconditions
   - Protecode
   - reqstream
   - reviewmark

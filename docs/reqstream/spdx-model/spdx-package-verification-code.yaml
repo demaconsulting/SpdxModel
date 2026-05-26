@@ -1,21 +1,46 @@
 ---
-# SpdxPackageVerificationCode Unit Requirements
-#
-# This file defines requirements for the SpdxPackageVerificationCode unit.
+# SpdxPackageVerificationCode unit requirements
 
 sections:
-  - title: SpdxPackageVerificationCode Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-PackageVerificationCodes
-        title: The library shall support SPDX package verification codes.
-        tags:
-          - data-model
-        justification: |
-          Package verification codes provide a way to verify package contents integrity. This
-          cryptographic verification mechanism is important for ensuring that package contents
-          have not been tampered with or corrupted.
-        tests:
-          - SpdxPackageVerificationCode_SameComparer_ComparesCorrectly
-          - SpdxPackageVerificationCode_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxPackageVerificationCode_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxPackageVerificationCode_Validate_InvalidValue
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxPackageVerificationCode Requirements
+        requirements:
+          - id: SpdxModel-Data-PackageVerificationCode-Compare
+            title: The library shall support equality comparison of package verification codes by value.
+            tags:
+              - data-model
+            justification: |
+              Verification codes must be compared by value to support deduplication and merging
+              operations. Equality is determined by the SHA1 digest value alone.
+            tests:
+              - SpdxPackageVerificationCode_SameComparer_SameValueDifferentExcludedFiles_ReturnsEqual
+          - id: SpdxModel-Data-PackageVerificationCode-DeepCopy
+            title: The library shall support creating independent deep copies of package verification codes.
+            tags:
+              - data-model
+            justification: |
+              Deep copies are required so that merging operations do not mutate the original
+              verification code instance.
+            tests:
+              - SpdxPackageVerificationCode_DeepCopy_FullyPopulatedCode_CreatesEqualButDistinctCopy
+          - id: SpdxModel-Data-PackageVerificationCode-Enhance
+            title: The library shall merge missing fields into a package verification code from another instance.
+            tags:
+              - data-model
+            justification: |
+              Enhance enables combining partial verification code information from multiple SPDX
+              documents into a single complete record.
+            tests:
+              - SpdxPackageVerificationCode_Enhance_MissingFields_MergesCorrectly
+          - id: SpdxModel-Data-PackageVerificationCode-Validate
+            title: The library shall validate that a package verification code value is a 40-character SHA1 hex digest.
+            tags:
+              - data-model
+            justification: |
+              The SPDX specification requires the verification code to be a valid SHA1 hex digest.
+              Validation ensures the value is exactly 40 lowercase or uppercase hexadecimal characters.
+            tests:
+              - SpdxPackageVerificationCode_Validate_ValidValue_ReportsNoIssues
+              - SpdxPackageVerificationCode_Validate_InvalidValue_ReportsIssue
+              - SpdxPackageVerificationCode_Validate_NonHexValue_ReportsIssue

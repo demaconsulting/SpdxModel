@@ -76,6 +76,11 @@ public class SpdxFileTests
                 }
             ]
         };
+        var f4 = new SpdxFile
+        {
+            FileName = "./file1.txt"
+            // no checksums — should still match f1/f2 by FileName
+        };
 
         // Assert: Verify files compare to themselves
         Assert.IsTrue(SpdxFile.Same.Equals(f1, f1));
@@ -90,6 +95,10 @@ public class SpdxFileTests
         Assert.IsFalse(SpdxFile.Same.Equals(f2, f3));
         Assert.IsFalse(SpdxFile.Same.Equals(f3, f2));
 
+        // Assert: Verify one-sided SHA1 boundary — same FileName, one has SHA1, other does not
+        Assert.IsTrue(SpdxFile.Same.Equals(f1, f4));
+        Assert.IsTrue(SpdxFile.Same.Equals(f4, f1));
+
         // Assert: Verify same files have identical hashes
         Assert.AreEqual(SpdxFile.Same.GetHashCode(f1), SpdxFile.Same.GetHashCode(f2));
     }
@@ -100,11 +109,12 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFile_DeepCopy_CreatesEqualButDistinctInstance()
     {
-        // Arrange: Create an SpdxFile instance with checksums and comments
+        // Arrange: Create an SpdxFile instance with all deep-copied fields populated
         var f1 = new SpdxFile
         {
             Id = "SPDXRef-File1",
             FileName = "./file1.txt",
+            FileTypes = [SpdxFileType.Source, SpdxFileType.Text],
             Checksums =
             [
                 new SpdxChecksum
@@ -118,7 +128,24 @@ public class SpdxFileTests
                     Value = "624c1abb3664f4b35547e7c73864ad24"
                 }
             ],
-            Comment = "File 1"
+            LicenseInfoInFiles = ["MIT"],
+            LicenseComments = "No issues",
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright 2024",
+            Comment = "File 1",
+            Notice = "See LICENSE",
+            Contributors = ["Contributor A"],
+            AttributionText = ["Attribution notice"],
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "Tool: test",
+                    Date = "2024-01-01T00:00:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Reviewed"
+                }
+            ]
         };
 
         // Act: Create a deep copy of the SpdxFile instance
@@ -128,12 +155,25 @@ public class SpdxFileTests
         Assert.AreEqual(f1, f2, SpdxFile.Same);
         Assert.AreEqual(f1.Id, f2.Id);
         Assert.AreEqual(f1.FileName, f2.FileName);
+        CollectionAssert.AreEquivalent(f1.FileTypes, f2.FileTypes);
         CollectionAssert.AreEquivalent(f1.Checksums, f2.Checksums, SpdxChecksum.Same);
+        CollectionAssert.AreEquivalent(f1.LicenseInfoInFiles, f2.LicenseInfoInFiles);
+        Assert.AreEqual(f1.LicenseComments, f2.LicenseComments);
+        Assert.AreEqual(f1.ConcludedLicense, f2.ConcludedLicense);
+        Assert.AreEqual(f1.CopyrightText, f2.CopyrightText);
         Assert.AreEqual(f1.Comment, f2.Comment);
+        Assert.AreEqual(f1.Notice, f2.Notice);
+        CollectionAssert.AreEquivalent(f1.Contributors, f2.Contributors);
+        CollectionAssert.AreEquivalent(f1.AttributionText, f2.AttributionText);
 
         // Assert: Verify deep-copy has distinct instances
         Assert.IsFalse(ReferenceEquals(f1, f2));
         Assert.IsFalse(ReferenceEquals(f1.Checksums, f2.Checksums));
+        Assert.IsFalse(ReferenceEquals(f1.FileTypes, f2.FileTypes));
+        Assert.IsFalse(ReferenceEquals(f1.LicenseInfoInFiles, f2.LicenseInfoInFiles));
+        Assert.IsFalse(ReferenceEquals(f1.Contributors, f2.Contributors));
+        Assert.IsFalse(ReferenceEquals(f1.AttributionText, f2.AttributionText));
+        Assert.IsFalse(ReferenceEquals(f1.Annotations, f2.Annotations));
     }
 
     /// <summary>
@@ -242,6 +282,64 @@ public class SpdxFileTests
     }
 
     /// <summary>
+    ///     Tests that an invalid file name fails validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFile_Validate_ReportsInvalidFileName()
+    {
+        // Arrange: Create an SpdxFile instance with a FileName that has no "./" prefix
+        var spdxFile = new SpdxFile
+        {
+            Id = "SPDXRef-File1",
+            FileName = "file1.txt",
+            Checksums =
+            [
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Sha1,
+                    Value = "85ed0817af83a24ad8da68c2b5094de69833983c"
+                }
+            ]
+        };
+
+        // Act: Perform validation on the SpdxFile instance.
+        var issues = new List<string>();
+        spdxFile.Validate(issues);
+
+        // Assert: Verify that the validation reports the invalid file name.
+        Assert.Contains(issue => issue.Contains("Invalid File Name Field"), issues);
+    }
+
+    /// <summary>
+    ///     Tests that a missing SHA1 checksum fails validation.
+    /// </summary>
+    [TestMethod]
+    public void SpdxFile_Validate_ReportsWhenSha1ChecksumMissing()
+    {
+        // Arrange: Create an SpdxFile instance with only an MD5 checksum (no SHA1)
+        var spdxFile = new SpdxFile
+        {
+            Id = "SPDXRef-File1",
+            FileName = "./file1.txt",
+            Checksums =
+            [
+                new SpdxChecksum
+                {
+                    Algorithm = SpdxChecksumAlgorithm.Md5,
+                    Value = "624c1abb3664f4b35547e7c73864ad24"
+                }
+            ]
+        };
+
+        // Act: Perform validation on the SpdxFile instance.
+        var issues = new List<string>();
+        spdxFile.Validate(issues);
+
+        // Assert: Verify that the validation reports the missing SHA1.
+        Assert.Contains(issue => issue.Contains("missing SHA1"), issues);
+    }
+
+    /// <summary>
     ///     Tests that a valid file passes validation.
     /// </summary>
     [TestMethod]
@@ -281,6 +379,9 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Valid()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all recognized file type strings map to expected enum values
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("SOURCE"));
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("source"));
         Assert.AreEqual(SpdxFileType.Source, SpdxFileTypeExtensions.FromText("Source"));
@@ -302,6 +403,9 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_FromText_Invalid()
     {
+        // Arrange: An unrecognized file type string
+
+        // Act / Assert: Verify that FromText throws with a message identifying the unsupported value
         var exception =
             Assert.ThrowsExactly<InvalidOperationException>(() => SpdxFileTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX File Type 'invalid'", exception.Message);
@@ -313,6 +417,9 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Valid()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all known enum values map to expected text representations
         Assert.AreEqual("SOURCE", SpdxFileType.Source.ToText());
         Assert.AreEqual("BINARY", SpdxFileType.Binary.ToText());
         Assert.AreEqual("ARCHIVE", SpdxFileType.Archive.ToText());
@@ -332,6 +439,9 @@ public class SpdxFileTests
     [TestMethod]
     public void SpdxFileTypeExtensions_ToText_Invalid()
     {
+        // Arrange: An unsupported file type enum value
+
+        // Act / Assert: Verify that ToText throws when given an unsupported enum value
         var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxFileType)1000).ToText());
         Assert.AreEqual("Unsupported SPDX File Type '1000'", exception.Message);
     }

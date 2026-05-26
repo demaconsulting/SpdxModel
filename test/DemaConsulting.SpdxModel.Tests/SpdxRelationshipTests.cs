@@ -23,14 +23,27 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxRelationship" /> class.
 /// </summary>
+/// <remarks>
+///     Covers equality comparison via <see cref="SpdxRelationship.Same" /> and
+///     <see cref="SpdxRelationship.SameElements" /> comparers, deep-copy independence, field merging via
+///     <see cref="SpdxRelationship.Enhance(SpdxRelationship[],SpdxRelationship[])" />, validation via
+///     <see cref="SpdxRelationship.Validate" />, and round-trip text conversion via
+///     <see cref="SpdxRelationshipTypeExtensions" />. Each test exercises a single scenario or
+///     boundary condition in isolation with no shared state between tests.
+/// </remarks>
 [TestClass]
 public class SpdxRelationshipTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxRelationship.Same" /> comparer compares relationships correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships with the same <c>Id</c>, <c>RelationshipType</c>, and
+    ///     <c>RelatedSpdxElement</c> are considered equal even when <c>Comment</c> differs, and that
+    ///     relationships with different element IDs or types are considered distinct.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_SameComparer_ComparesCorrectly()
+    public void SpdxRelationship_SameComparer_SameFieldsDifferentComment_ReturnsEqual()
     {
         // Arrange: Create three relationships with different properties
         var r1 = new SpdxRelationship
@@ -53,7 +66,7 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Assert: Verify relationships compare to themselves
+        // Act / Assert: Verify relationships compare to themselves
         Assert.IsTrue(SpdxRelationship.Same.Equals(r1, r1));
         Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r2));
         Assert.IsTrue(SpdxRelationship.Same.Equals(r3, r3));
@@ -74,8 +87,12 @@ public class SpdxRelationshipTests
     ///     Tests the <see cref="SpdxRelationship.SameElements" /> comparer compares relationships with the same elements
     ///     correctly,
     /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships with the same <c>Id</c> and <c>RelatedSpdxElement</c> are considered equal
+    ///     even when <c>RelationshipType</c> differs, and that relationships with different element IDs are distinct.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_SameElementsComparer_ComparesCorrectly()
+    public void SpdxRelationship_SameElementsComparer_SameElementsDifferentType_ReturnsEqual()
     {
         // Arrange: Create three relationships with different properties
         var r1 = new SpdxRelationship
@@ -98,7 +115,7 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Assert: Verifies relationships compare to themselves
+        // Act / Assert: Verifies relationships compare to themselves
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r1));
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r2));
         Assert.IsTrue(SpdxRelationship.SameElements.Equals(r3, r3));
@@ -118,8 +135,12 @@ public class SpdxRelationshipTests
     /// <summary>
     ///     Tests the <see cref="SpdxRelationship.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the returned instance has equal field values for all scalar properties and
+    ///     is a distinct object reference from the original.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxRelationship_DeepCopy_FullyPopulatedRelationship_CreatesEqualButDistinctCopy()
     {
         // Arrange: Create a relationship with properties
         var r1 = new SpdxRelationship
@@ -148,8 +169,13 @@ public class SpdxRelationshipTests
     ///     Tests the <see cref="SpdxRelationship.Enhance(SpdxRelationship[], SpdxRelationship[])" /> method adds or updates
     ///     information correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a matching relationship (same id, type, and related element) is enhanced in place
+    ///     and that a non-matching relationship from the source array is deep-copied and appended, resulting in
+    ///     an array of length two.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxRelationship_Enhance_MatchingAndNewRelationships_MergesCorrectly()
     {
         // Arrange: Create an array of relationships
         var relationships = new[]
@@ -195,8 +221,12 @@ public class SpdxRelationshipTests
     /// <summary>
     ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing ids
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an empty <c>Id</c> causes the "Relationship Invalid SPDX Element ID Field - Empty"
+    ///     issue to be reported.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_Validate_MissingId()
+    public void SpdxRelationship_Validate_MissingRelationshipId_ReportsIssue()
     {
         // Arrange: Create a bad relationship
         var relationship = new SpdxRelationship()
@@ -215,10 +245,14 @@ public class SpdxRelationshipTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing ids
+    ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing or empty related element IDs.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an empty <c>RelatedSpdxElement</c> causes the "Relationship Invalid Related SPDX Element
+    ///     Field - Empty" issue to be reported.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_Validate_MissingRelatedId()
+    public void SpdxRelationship_Validate_MissingRelatedElementId_ReportsIssue()
     {
         // Arrange: Create a bad relationship
         var relationship = new SpdxRelationship()
@@ -239,8 +273,12 @@ public class SpdxRelationshipTests
     /// <summary>
     ///     Tests the <see cref="SpdxRelationship.Validate" /> method reports missing relationships
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a <c>RelationshipType</c> of <see cref="SpdxRelationshipType.Missing" /> causes the
+    ///     "Relationship Invalid Relationship Type Field - Missing" issue to be reported.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_Validate_MissingRelationship()
+    public void SpdxRelationship_Validate_MissingRelationshipType_ReportsIssue()
     {
         // Arrange: Create a bad relationship
         var relationship = new SpdxRelationship()
@@ -262,9 +300,17 @@ public class SpdxRelationshipTests
     ///     Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)" /> method for the "CONTAINS" relationship
     ///     type.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all 44 recognized SPDX relationship type tokens (including case-insensitive variants) are
+    ///     correctly parsed to their corresponding <see cref="SpdxRelationshipType" /> enum values, and that an empty
+    ///     string maps to <see cref="SpdxRelationshipType.Missing" />.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationshipTypeExtensions_FromText_Valid()
+    public void SpdxRelationshipTypeExtensions_FromText_KnownText_ReturnsMappedEnum()
     {
+        // Arrange: (none required)
+
+        // Act / Assert: Verify all recognized relationship type strings parse to their enum values
         Assert.AreEqual(SpdxRelationshipType.Missing, SpdxRelationshipTypeExtensions.FromText(""));
         Assert.AreEqual(SpdxRelationshipType.Describes, SpdxRelationshipTypeExtensions.FromText("DESCRIBES"));
         Assert.AreEqual(SpdxRelationshipType.Describes, SpdxRelationshipTypeExtensions.FromText("describes"));
@@ -333,9 +379,16 @@ public class SpdxRelationshipTests
     /// <summary>
     ///     Tests the <see cref="SpdxRelationshipTypeExtensions.FromText(string)" /> method for an invalid relationship type.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an unrecognized relationship type string throws an
+    ///     <see cref="InvalidOperationException" /> with a descriptive error message.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationshipTypeExtensions_FromText_Invalid()
+    public void SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException()
     {
+        // Arrange: (none required)
+
+        // Act / Assert: Verify that an unknown type throws InvalidOperationException
         var exception =
             Assert.ThrowsExactly<InvalidOperationException>(() => SpdxRelationshipTypeExtensions.FromText("invalid"));
         Assert.AreEqual("Unsupported SPDX Relationship Type 'invalid'", exception.Message);
@@ -345,9 +398,16 @@ public class SpdxRelationshipTests
     ///     Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)" /> method for the "CONTAINS"
     ///     relationship type.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all 44 recognized <see cref="SpdxRelationshipType" /> enum values are correctly serialized to
+    ///     their canonical SPDX text representations (uppercase, underscore-separated tokens).
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationshipTypeExtensions_ToText_Valid()
+    public void SpdxRelationshipTypeExtensions_ToText_KnownEnum_ReturnsMappedText()
     {
+        // Arrange: (none required)
+
+        // Act / Assert: Verify all relationship type enum values serialize to their SPDX text representations
         Assert.AreEqual("DESCRIBES", SpdxRelationshipType.Describes.ToText());
         Assert.AreEqual("DESCRIBED_BY", SpdxRelationshipType.DescribedBy.ToText());
         Assert.AreEqual("CONTAINS", SpdxRelationshipType.Contains.ToText());
@@ -399,9 +459,17 @@ public class SpdxRelationshipTests
     ///     Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)" /> method for an invalid
     ///     relationship type.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that an out-of-range <see cref="SpdxRelationshipType" /> value (including the
+    ///     <see cref="SpdxRelationshipType.Missing" /> sentinel) throws an <see cref="InvalidOperationException" />
+    ///     with a descriptive error message.
+    /// </remarks>
     [TestMethod]
-    public void SpdxRelationshipTypeExtensions_ToText_Invalid()
+    public void SpdxRelationshipTypeExtensions_ToText_UnknownEnum_ThrowsInvalidOperationException()
     {
+        // Arrange: (none required)
+
+        // Act / Assert: Verify that an unknown type throws InvalidOperationException
         var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxRelationshipType)1000).ToText());
         Assert.AreEqual("Unsupported SPDX Relationship Type '1000'", exception.Message);
     }

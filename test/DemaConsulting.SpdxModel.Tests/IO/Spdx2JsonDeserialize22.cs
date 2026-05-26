@@ -37,14 +37,14 @@ public class Spdx2JsonDeserialize22
         // Arrange: Load the SPDX 2.2 JSON example from embedded resources
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.2.spdx.json");
-        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
 
-        // Act: Validate the document
+        // Act: Deserialize the JSON document
+        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+
+        // Assert: Verify that the document is valid
+        Assert.IsNotNull(doc);
         var issues = new List<string>();
         doc.Validate(issues);
-
-        // Assert: Verify that there are no validation issues
         Assert.IsEmpty(issues);
 
         // Assert: Verify the document properties

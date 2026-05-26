@@ -21,8 +21,13 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-///     SPDX Package class
+///     Represents an SPDX package — the primary unit of a Software Bill of Materials, capturing identity, provenance,
+///     licensing, and verification metadata for a software component.
 /// </summary>
+/// <remarks>
+///     An <see cref="SpdxPackage" /> is mutable. Instances are not thread-safe. The <see cref="Same" /> comparer matches
+///     by <see cref="Name" /> and <see cref="Version" />; it does not consider all fields.
+/// </remarks>
 public sealed class SpdxPackage : SpdxLicenseElement
 {
     /// <summary>
@@ -127,11 +132,18 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Package Checksum Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Multiple algorithms may be present simultaneously (e.g., both SHA-1 and SHA-256) to allow consumers to verify
+    ///     with their preferred algorithm.
+    /// </remarks>
     public SpdxChecksum[] Checksums { get; set; } = [];
 
     /// <summary>
     ///     Package Home Page Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Should be a valid URI. No URI format validation is performed during <see cref="Validate" />.
+    /// </remarks>
     public string? HomePage { get; set; }
 
     /// <summary>
@@ -184,6 +196,9 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Package Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Human-readable annotation for this package record. Not interpreted by the library.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
@@ -236,6 +251,11 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     All nested objects and arrays (including <see cref="VerificationCode" />, <see cref="Checksums" />,
+    ///     <see cref="ExternalReferences" />, <see cref="SpdxLicenseElement.Annotations" />) are deep-copied, so the caller is
+    ///     free to mutate the result without affecting the original.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxPackage DeepCopy()
     {
@@ -275,6 +295,11 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Enhance missing fields in the package
     /// </summary>
+    /// <remarks>
+    ///     Field fitness ranking used when choosing which value wins: <c>null</c> &lt; <c>""</c> &lt;
+    ///     <c>"NOASSERTION"</c> &lt; any concrete value. Array fields such as <see cref="LicenseInfoFromFiles" />,
+    ///     <see cref="Checksums" />, and <see cref="ExternalReferences" /> are merged by deduplication.
+    /// </remarks>
     /// <param name="other">Other package to enhance with</param>
     public void Enhance(SpdxPackage other)
     {
@@ -352,6 +377,11 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Enhance missing packages in array
     /// </summary>
+    /// <remarks>
+    ///     Packages are matched using the <see cref="Same" /> comparer (by <see cref="Name" /> and
+    ///     <see cref="Version" />). Matching packages are enhanced in place; non-matching packages from <paramref name="others" />
+    ///     are deep-copied and appended.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -384,6 +414,12 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     When <paramref name="doc" /> is non-null, each entry in <see cref="HasFiles" /> is verified to exist as a file
+    ///     ID in <c>doc.Files</c>. When <paramref name="ntia" /> is <c>true</c>, additionally calls
+    ///     <see cref="ValidateNtia" /> to enforce the NTIA minimum-elements requirements for <see cref="Supplier" /> and
+    ///     <see cref="Version" />.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="doc">Optional document for checking file-references</param>
     /// <param name="ntia">Perform NTIA validation</param>
@@ -480,6 +516,10 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Perform NTIA validation of information
     /// </summary>
+    /// <remarks>
+    ///     This is a separate validation path because NTIA minimum-elements compliance is an opt-in check
+    ///     (<c>ntia</c> flag) — not all SPDX documents need to comply with the NTIA minimum element requirements.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     private void ValidateNtia(List<string> issues)
     {
@@ -499,6 +539,13 @@ public sealed class SpdxPackage : SpdxLicenseElement
     /// <summary>
     ///     Equality Comparer to test for the same package
     /// </summary>
+    /// <remarks>
+    ///     Two packages are considered the same when they share the same <see cref="SpdxPackage.Name" /> and
+    ///     <see cref="SpdxPackage.Version" />. A dedicated nested class is used rather than an ad-hoc lambda so the
+    ///     comparer instance can be stored in the <see cref="SpdxPackage.Same" /> field and passed to LINQ operations.
+    ///     The match key intentionally excludes <see cref="SpdxElement.Id" /> because different SPDX documents may
+    ///     assign different IDs to the same logical package.
+    /// </remarks>
     private sealed class SpdxPackageSame : IEqualityComparer<SpdxPackage>
     {
         /// <inheritdoc />

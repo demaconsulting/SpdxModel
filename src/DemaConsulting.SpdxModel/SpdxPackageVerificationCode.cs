@@ -65,6 +65,10 @@ public sealed class SpdxPackageVerificationCode
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Both <see cref="Value" /> and <see cref="ExcludedFiles" /> are fully copied, so the caller is free to mutate
+    ///     the result without affecting the original.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxPackageVerificationCode DeepCopy()
     {
@@ -78,6 +82,10 @@ public sealed class SpdxPackageVerificationCode
     /// <summary>
     ///     Enhance missing fields in the verification code
     /// </summary>
+    /// <remarks>
+    ///     <see cref="ExcludedFiles" /> entries from <paramref name="other" /> are merged by deduplication.
+    ///     <see cref="Value" /> is updated only if the current value is null or empty.
+    /// </remarks>
     /// <param name="other">Other verification code to enhance with</param>
     public void Enhance(SpdxPackageVerificationCode other)
     {
@@ -91,20 +99,26 @@ public sealed class SpdxPackageVerificationCode
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Validation checks that <see cref="Value" /> is exactly 40 hex characters (a SHA1 hex digest). No format check
+    ///     is performed on <see cref="ExcludedFiles" /> entries.
+    /// </remarks>
     /// <param name="package">Associated package</param>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(string package, List<string> issues)
     {
         // Validate Package Verification Code Value Field
-        if (Value.Length != 40)
+        if (Value.Length != 40 || !System.Text.RegularExpressions.Regex.IsMatch(Value, "^[0-9a-fA-F]{40}$"))
         {
             issues.Add($"Package '{package}' Invalid Package Verification Code Value '{Value}'");
         }
     }
 
-    /// <summary>
-    ///     Equality Comparer to test for the same package verification code
-    /// </summary>
+    /// <summary>Equality comparer that considers two package verification codes the same when their Value fields are identical.</summary>
+    /// <remarks>
+    ///     A dedicated nested class is used rather than an ad-hoc lambda so the comparer instance can be stored in the
+    ///     <see cref="SpdxPackageVerificationCode.Same" /> field and passed to LINQ operations without boxing or allocation.
+    /// </remarks>
     private sealed class SpdxPackageVerificationCodeSame : IEqualityComparer<SpdxPackageVerificationCode>
     {
         /// <inheritdoc />

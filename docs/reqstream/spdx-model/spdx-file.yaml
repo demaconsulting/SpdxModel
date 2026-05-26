@@ -1,26 +1,28 @@
 ---
-# SpdxFile Unit Requirements
-#
-# This file defines requirements for the SpdxFile unit.
+# SpdxFile unit requirements
 
 sections:
-  - title: SpdxFile Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Files
-        title: The library shall support SPDX files.
-        tags:
-          - data-model
-        justification: |
-          Files are essential components in SPDX documents for detailed SBOM creation. Supporting
-          file elements enables fine-grained tracking of individual source files, binaries, and
-          their associated licensing and copyright information.
-        tests:
-          - SpdxFile_SameComparer_ComparesCorrectly
-          - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
-          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxFile_Validate_ReportsInvalidFileId
-          - SpdxFile_Validate_Success
-          - SpdxFileTypeExtensions_FromText_Valid
-          - SpdxFileTypeExtensions_FromText_Invalid
-          - SpdxFileTypeExtensions_ToText_Valid
-          - SpdxFileTypeExtensions_ToText_Invalid
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxFile Requirements
+        requirements:
+          - id: SpdxModel-Data-Files
+            title: The library shall support SPDX files.
+            tags:
+              - data-model
+            justification: |
+              Files are essential components in SPDX documents for detailed SBOM creation. Supporting
+              file elements enables fine-grained tracking of individual source files, binaries, and
+              their associated licensing and copyright information.
+            tests:
+              - SpdxFile_SameComparer_ComparesCorrectly
+              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxFile_Validate_ReportsInvalidFileId
+              - SpdxFile_Validate_ReportsInvalidFileName
+              - SpdxFile_Validate_ReportsWhenSha1ChecksumMissing
+              - SpdxFile_Validate_Success
+              - SpdxFileTypeExtensions_FromText_Valid
+              - SpdxFileTypeExtensions_FromText_Invalid
+              - SpdxFileTypeExtensions_ToText_Valid
+              - SpdxFileTypeExtensions_ToText_Invalid

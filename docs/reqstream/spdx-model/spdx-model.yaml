@@ -1,12 +1,44 @@
 ---
-# SpdxModel System Requirements
-#
-# This file defines the system-level and cross-cutting requirements
-# for the SpdxModel library.
+# SpdxModel system-level requirements
 
 sections:
-  - title: SpdxModel Library Requirements
+  - title: SpdxModel Requirements
     sections:
+      - title: SPDX Elements
+        requirements:
+          - id: SpdxModel-Data-Elements
+            title: The library shall provide an in-memory model for all SPDX 2.x element types.
+            tags:
+              - data-model
+            justification: |
+              Supporting all SPDX 2.x element types ensures complete coverage of the specification
+              and enables applications to work with any SPDX document without information loss.
+            tests:
+              - SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+              - SpdxModel_ReadSpdxJson_Spdx23Example_ParsesSuccessfully
+            children:
+              - SpdxModel-Data-Document-Ntia
+              - SpdxModel-Data-ExternalDocumentReferences
+              - SpdxModel-Data-ExternalReferences
+              - SpdxModel-Data-ExtractedLicensingInformation
+              - SpdxModel-Data-Snippet-DataModel
+          - id: SpdxModel-Data-Helpers
+            title: The library shall provide helper utilities for SPDX data processing.
+            tags:
+              - data-model
+            justification: |
+              Helper utilities provide shared functionality used across the data model, including
+              date-time validation and string enhancement operations.
+            tests:
+              - SpdxHelpers_IsValidSpdxDateTime_ValidFormat_ReturnsTrue
+              - SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue
+            children:
+              - SpdxModel-Data-Helpers-DateTime
+              - SpdxModel-Data-Helpers-EnhanceString
+              - SpdxModel-Data-LicenseElement
+              - SpdxModel-Data-LicenseElement-Enhance
+              - SpdxModel-Data-PackageVerificationCode-Validate
+
       - title: Data Model
         requirements:
           - id: SpdxModel-Data-RootPackages
@@ -18,7 +50,7 @@ sections:
               for understanding the primary software packages in a document and navigating the dependency
               graph from its entry points.
             children:
-              - SpdxModel-Data-Document-Query
+              - SpdxModel-Data-Document-RootPackageQuery
             tests:
               - SpdxModel_ReadSpdxJson_Spdx23Example_RootPackagesIdentified
 
@@ -32,7 +64,7 @@ sections:
               filtering, or transforming documents.
             children:
               - SpdxModel-Data-Document
-              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Package-DeepCopy
               - SpdxModel-Data-Files
             tests:
               - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
@@ -47,9 +79,9 @@ sections:
             children:
               - SpdxModel-Data-Element
               - SpdxModel-Data-Document
-              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Package-Validate
             tests:
-              - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
+              - SpdxModel_FieldOptionality_RequiredFieldsNotNull_OptionalFieldsNullable
 
           - id: SpdxModel-Data-ComparisonUtilities
             title: The library shall provide comparison utilities for SPDX elements.
@@ -61,9 +93,10 @@ sections:
               like document merging or deduplication.
             children:
               - SpdxModel-Data-Document
-              - SpdxModel-Data-Packages
+              - SpdxModel-Data-Package-Compare
               - SpdxModel-Data-Files
-              - SpdxModel-Data-Relationships
+              - SpdxModel-Data-Relationship-Compare
+              - SpdxModel-Data-Snippet-DataModel
             tests:
               - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
 
@@ -98,7 +131,7 @@ sections:
               other tools. Supporting both SPDX 2.2 and 2.3 formats ensures compatibility with the
               broad ecosystem of SPDX tooling and enables consumers to work with existing SBOMs.
             children:
-              - SpdxModel-IO-Serialization
+              - SpdxModel-IO-Deserialization
             tests:
               - SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
               - SpdxModel_ReadSpdxJson_Spdx23Example_ParsesSuccessfully
@@ -116,3 +149,17 @@ sections:
               - SpdxModel-IO-Serialization
             tests:
               - SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
+
+      - title: Transform
+        requirements:
+          - id: SpdxModel-Transform
+            title: The library shall provide utilities for transforming SPDX documents.
+            tags:
+              - transform
+            justification: |
+              Transform utilities enable programmatic modification of SPDX documents, supporting
+              use cases where documents need to be modified or enriched after initial creation.
+            children:
+              - SpdxModel-Transform-Utilities
+            tests:
+              - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists

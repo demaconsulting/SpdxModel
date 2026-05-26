@@ -65,7 +65,7 @@ public class SpdxExternalDocumentReferenceTests
             Document = "http://demo.com/some-document"
         };
 
-        // Assert: Verify external-document-references compare to themselves
+        // Act / Assert: Verify external-document-references compare to themselves
         Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r1, r1));
         Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r2, r2));
         Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r3, r3));
@@ -211,5 +211,33 @@ public class SpdxExternalDocumentReferenceTests
 
         // Assert: Verify that the validation fails and the error message includes the description
         Assert.Contains(issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty"), issues);
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports an invalid checksum.
+    /// </summary>
+    [TestMethod]
+    public void SpdxExternalDocumentReference_Validate_InvalidChecksum_ReportsIssue()
+    {
+        // Arrange: Create a reference with a missing-algorithm checksum
+        var reference = new SpdxExternalDocumentReference
+        {
+            ExternalDocumentId = "DocumentRef-spdx-tool-1.2",
+            Checksum = new SpdxChecksum
+            {
+                Algorithm = SpdxChecksumAlgorithm.Missing,
+                Value = ""
+            },
+            Document = "http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301"
+        };
+
+        // Act: Perform validation
+        var issues = new List<string>();
+        reference.Validate(issues);
+
+        // Assert: Verify that the checksum algorithm issue is reported
+        Assert.Contains(
+            issue => issue.Contains("Invalid Checksum Algorithm Field - Missing"),
+            issues);
     }
 }

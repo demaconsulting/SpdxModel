@@ -5,7 +5,7 @@ resource-path:
 input-files:
   - docs/design/title.txt
   - docs/design/introduction.md
-  - docs/design/spdx-model/spdx-model.md
+  - docs/design/spdx-model.md
   - docs/design/spdx-model/spdx-document.md
   - docs/design/spdx-model/spdx-element.md
   - docs/design/spdx-model/spdx-package.md

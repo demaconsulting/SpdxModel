@@ -38,37 +38,57 @@ public sealed class SpdxAnnotation : SpdxElement
     public static readonly IEqualityComparer<SpdxAnnotation> Same = new SpdxAnnotationSame();
 
     /// <summary>
-    ///     Annotator Field (optional)
+    ///     Annotator Field
     /// </summary>
     /// <remarks>
     ///     This field identifies the person, organization, or tool that has
     ///     commented on a file, package, snippet, or the entire document.
+    ///     This field is required for a valid SPDX annotation; <see cref="Validate"/>
+    ///     will report an error if it is absent.
     /// </remarks>
     public string Annotator { get; set; } = "";
 
     /// <summary>
-    ///     Annotation Date Field (optional)
+    ///     Annotation Date Field
     /// </summary>
     /// <remarks>
     ///     Identify when the comment was made. This is to be specified according
     ///     to the combined date and time in the UTC format, as specified in the
     ///     ISO 8601 standard.
+    ///     This field is required for a valid SPDX annotation; <see cref="Validate"/>
+    ///     will report an error if the value is absent or not a valid ISO 8601 date-time.
     /// </remarks>
     public string Date { get; set; } = "";
 
     /// <summary>
-    ///     Annotation Type Field (optional)
+    ///     Annotation Type Field
     /// </summary>
+    /// <remarks>
+    ///     Indicates the category of the annotation. Valid values are
+    ///     <see cref="SpdxAnnotationType.Review"/> and <see cref="SpdxAnnotationType.Other"/>.
+    ///     This field is required for a valid SPDX annotation; <see cref="Validate"/>
+    ///     will report an error if the value is <see cref="SpdxAnnotationType.Missing"/>.
+    /// </remarks>
     public SpdxAnnotationType Type { get; set; } = SpdxAnnotationType.Missing;
 
     /// <summary>
-    ///     Annotation Comment field (optional)
+    ///     Annotation Comment field
     /// </summary>
+    /// <remarks>
+    ///     Free-text content of the annotation describing the finding or note left by
+    ///     the annotator. This field is required for a valid SPDX annotation;
+    ///     <see cref="Validate"/> will report an error if the value is absent or empty.
+    /// </remarks>
     public string Comment { get; set; } = "";
 
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Returns an independent copy with no shared mutable references — mutating the copy
+    ///     does not affect the original and vice versa. Used by <see cref="Enhance(SpdxAnnotation[], SpdxAnnotation[])"/>
+    ///     when a new annotation is appended from the other array.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxAnnotation DeepCopy()
     {
@@ -85,6 +105,12 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     ///     Enhance missing fields in the annotation
     /// </summary>
+    /// <remarks>
+    ///     This operation is additive-only: it never overwrites a non-empty field on
+    ///     <c>this</c> instance. Fields are only populated when they are currently empty/missing.
+    ///     The <see cref="SpdxAnnotationType.Missing"/> sentinel is used to detect an absent
+    ///     <see cref="Type"/> field.
+    /// </remarks>
     /// <param name="other">Other annotation to enhance with</param>
     public void Enhance(SpdxAnnotation other)
     {
@@ -110,6 +136,12 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     ///     Enhance missing annotations in array
     /// </summary>
+    /// <remarks>
+    ///     Matches annotations using <see cref="Same"/> (annotator + date + type + comment).
+    ///     For each entry in <paramref name="others"/>: if a matching annotation already exists
+    ///     in <paramref name="array"/> it is enhanced in place; otherwise a deep copy is appended.
+    ///     The returned array may be larger than the input array.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -142,8 +174,16 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     ///     Perform validation of information
     /// </summary>
-    /// <param name="parent">Associated parent node</param>
-    /// <param name="issues">List to populate with issues</param>
+    /// <remarks>
+    ///     Issues are appended to <paramref name="issues"/> rather than thrown as exceptions,
+    ///     allowing all validation errors across the document to be collected in a single pass.
+    ///     The caller is responsible for checking whether any issues were added after this call.
+    /// </remarks>
+    /// <param name="parent">
+    ///     Identifier of the parent element (e.g. package or file SPDX-ID) used as
+    ///     a prefix in issue messages so callers can locate the problematic annotation.
+    /// </param>
+    /// <param name="issues">List to populate with validation issues</param>
     public void Validate(string parent, List<string> issues)
     {
         // Validate Annotator Field

@@ -87,6 +87,13 @@ public class Spdx2JsonSerializeDocument
         SpdxJsonHelpers.AssertEqual(
             "http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             json["documentNamespace"]);
+
+        // Assert: Verify creationInfo fields
+        SpdxJsonHelpers.AssertEqual("2010-01-29T18:30:22Z", json["creationInfo"]?["created"]);
+        SpdxJsonHelpers.AssertEqual("Tool: LicenseFind-1.0", json["creationInfo"]?["creators"]?[0]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect ()", json["creationInfo"]?["creators"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe ()", json["creationInfo"]?["creators"]?[2]);
+        SpdxJsonHelpers.AssertEqual("3.17", json["creationInfo"]?["licenseListVersion"]);
     }
 
     /// <summary>
@@ -149,5 +156,12 @@ public class Spdx2JsonSerializeDocument
         SpdxJsonHelpers.AssertEqual(
             "http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             json["documentNamespace"]);
+
+        // Assert: Verify creationInfo fields
+        SpdxJsonHelpers.AssertEqual("2010-01-29T18:30:22Z", json["creationInfo"]?["created"]);
+        SpdxJsonHelpers.AssertEqual("Tool: LicenseFind-1.0", json["creationInfo"]?["creators"]?[0]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect ()", json["creationInfo"]?["creators"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe ()", json["creationInfo"]?["creators"]?[2]);
+        SpdxJsonHelpers.AssertEqual("3.17", json["creationInfo"]?["licenseListVersion"]);
     }
 }

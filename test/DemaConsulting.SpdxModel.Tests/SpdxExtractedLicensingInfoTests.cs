@@ -29,6 +29,12 @@ public class SpdxExtractedLicensingInfoTests
     /// <summary>
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.Same" /> comparer compares extracted licensing infos correctly.
     /// </summary>
+    /// <remarks>
+    ///     Validates that the Same comparer treats two instances with identical ExtractedText as equal
+    ///     regardless of other field differences, treats instances with differing ExtractedText as
+    ///     distinct, handles reference equality, null arguments, and produces consistent hash codes
+    ///     for equal instances.
+    /// </remarks>
     [TestMethod]
     public void SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly()
     {
@@ -63,6 +69,11 @@ public class SpdxExtractedLicensingInfoTests
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l2, l3));
         Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l3, l2));
 
+        // Assert: Verify null handling
+        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(null!, null!));
+        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(null!, l1));
+        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l1, null!));
+
         // Assert: Verify same extracted-licensing-infos have identical hashes
         Assert.AreEqual(SpdxExtractedLicensingInfo.Same.GetHashCode(l1),
             SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
@@ -71,6 +82,10 @@ public class SpdxExtractedLicensingInfoTests
     /// <summary>
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.DeepCopy" /> method.
     /// </summary>
+    /// <remarks>
+    ///     Validates that DeepCopy produces a new instance with field values equal to the original
+    ///     and that arrays are independently copied (no shared references between original and copy).
+    /// </remarks>
     [TestMethod]
     public void SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance()
     {
@@ -79,6 +94,7 @@ public class SpdxExtractedLicensingInfoTests
         {
             LicenseId = "LicenseRef-1",
             ExtractedText = "The CyberNeko Software License",
+            CrossReferences = ["https://example.com/license"],
             Comment = "Extracted from files"
         };
 
@@ -93,6 +109,7 @@ public class SpdxExtractedLicensingInfoTests
 
         // Assert: Verify deep-copy has distinct instance
         Assert.IsFalse(ReferenceEquals(l1, l2));
+        Assert.IsFalse(ReferenceEquals(l1.CrossReferences, l2.CrossReferences));
     }
 
     /// <summary>
@@ -100,6 +117,10 @@ public class SpdxExtractedLicensingInfoTests
     ///     <see cref="SpdxExtractedLicensingInfo.Enhance(SpdxExtractedLicensingInfo[], SpdxExtractedLicensingInfo[])" />
     ///     method adds or updates information correctly.
     /// </summary>
+    /// <remarks>
+    ///     Validates that the static Enhance merges arrays by enhancing matching entries (matched
+    ///     by ExtractedText) and appending unmatched entries as new deep copies.
+    /// </remarks>
     [TestMethod]
     public void SpdxExtractedLicensingInfo_Enhance_AddsOrUpdatesInformationCorrectly()
     {
@@ -140,8 +161,37 @@ public class SpdxExtractedLicensingInfoTests
     }
 
     /// <summary>
+    ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method returns no issues for a valid input.
+    /// </summary>
+    /// <remarks>
+    ///     Validates that Validate reports no issues when both LicenseId and ExtractedText are
+    ///     non-empty, confirming the happy-path behavior of the validation logic.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxExtractedLicensingInfo_Validate_ValidInput_ReturnsNoIssues()
+    {
+        // Arrange: Create a valid extracted licensing info
+        var info = new SpdxExtractedLicensingInfo
+        {
+            LicenseId = "LicenseRef-1",
+            ExtractedText = "The CyberNeko Software License"
+        };
+
+        // Act: Perform validation on the SpdxExtractedLicensingInfo instance.
+        var issues = new List<string>();
+        info.Validate(issues);
+
+        // Assert: Verify that the validation reports no issues
+        Assert.IsEmpty(issues);
+    }
+
+    /// <summary>
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad license IDs
     /// </summary>
+    /// <remarks>
+    ///     Validates that Validate appends an issue message to the supplied list when LicenseId is
+    ///     empty, confirming the LicenseId validation path.
+    /// </remarks>
     [TestMethod]
     public void SpdxExtractedLicensingInfo_Validate_InvalidLicenseId()
     {
@@ -163,6 +213,10 @@ public class SpdxExtractedLicensingInfoTests
     /// <summary>
     ///     Tests the <see cref="SpdxExtractedLicensingInfo.Validate" /> method reports bad extracted text
     /// </summary>
+    /// <remarks>
+    ///     Validates that Validate appends an issue message to the supplied list when ExtractedText
+    ///     is empty, confirming the ExtractedText validation path.
+    /// </remarks>
     [TestMethod]
     public void SpdxExtractedLicensingInfo_Validate_InvalidExtractedText()
     {

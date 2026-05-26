@@ -169,4 +169,90 @@ public class SpdxModelTests
         roundTripped.Validate(issues);
         Assert.IsEmpty(issues);
     }
+
+    /// <summary>
+    ///     Tests that malformed JSON throws a JsonException when deserialized.
+    /// </summary>
+    [TestMethod]
+    public void SpdxModel_Deserialize_MalformedJson_ThrowsJsonException()
+    {
+        // Arrange: Prepare malformed JSON text
+        const string malformedJson = "{ this is not valid json }";
+
+        // Act / Assert: Deserialize should throw a JsonException or derived type
+        var threw = false;
+        try
+        {
+            Spdx2JsonDeserializer.Deserialize(malformedJson);
+        }
+        catch (System.Text.Json.JsonException)
+        {
+            threw = true;
+        }
+
+        Assert.IsTrue(threw, "Expected JsonException was not thrown.");
+    }
+
+    /// <summary>
+    ///     Tests that an invalid SPDX document reports specific validation issues.
+    /// </summary>
+    [TestMethod]
+    public void SpdxModel_Validate_InvalidDocument_ReportsIssues()
+    {
+        // Arrange: Create a deliberately incomplete SPDX document
+        var document = new SpdxDocument
+        {
+            Id = "",
+            Name = "",
+            Version = "",
+            DataLicense = "",
+            DocumentNamespace = ""
+        };
+
+        // Act: Validate the document
+        var issues = new List<string>();
+        document.Validate(issues);
+
+        // Assert: Verify that specific validation issues are reported
+        Assert.IsTrue(issues.Count > 0, "Expected validation issues but none were reported.");
+        Assert.IsTrue(issues.Exists(i => i.Contains("SPDX Version")),
+            "Expected a SPDX Version validation issue.");
+    }
+
+    /// <summary>
+    ///     Tests that required fields on SPDX data model types are non-nullable,
+    ///     and optional fields are nullable.
+    /// </summary>
+    [TestMethod]
+    public void SpdxModel_FieldOptionality_RequiredFieldsNotNull_OptionalFieldsNullable()
+    {
+        // Arrange: Create a default instance of key data model types
+        var document = new SpdxDocument();
+        var package = new SpdxPackage();
+        var file = new SpdxFile();
+        var relationship = new SpdxRelationship();
+
+        // Act / Assert: default-constructed instances have the expected field nullability
+
+        // Assert: Required fields are non-nullable (strings default to empty, not null)
+        Assert.IsNotNull(document.Id);
+        Assert.IsNotNull(document.Name);
+        Assert.IsNotNull(document.Version);
+        Assert.IsNotNull(document.DataLicense);
+        Assert.IsNotNull(document.DocumentNamespace);
+        Assert.IsNotNull(package.Id);
+        Assert.IsNotNull(package.Name);
+        Assert.IsNotNull(package.DownloadLocation);
+        Assert.IsNotNull(file.Id);
+        Assert.IsNotNull(file.FileName);
+        Assert.IsNotNull(relationship.Id);
+        Assert.IsNotNull(relationship.RelatedSpdxElement);
+
+        // Assert: Optional fields are nullable
+        Assert.IsNull(document.Comment);
+        Assert.IsNull(package.Comment);
+        Assert.IsNull(package.Version);
+        Assert.IsNull(file.Comment);
+        Assert.IsNull(relationship.Comment);
+    }
 }
