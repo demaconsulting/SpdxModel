@@ -72,7 +72,7 @@ public class SpdxSnippetTests
         Assert.IsTrue(SpdxSnippet.Same.Equals(s2, s2));
         Assert.IsTrue(SpdxSnippet.Same.Equals(s3, s3));
 
-        // Assert snippets compare correctly
+        // Assert: snippets compare correctly
         Assert.IsTrue(SpdxSnippet.Same.Equals(s1, s2));
         Assert.IsTrue(SpdxSnippet.Same.Equals(s2, s1));
         Assert.IsFalse(SpdxSnippet.Same.Equals(s1, s3));
@@ -80,7 +80,7 @@ public class SpdxSnippetTests
         Assert.IsFalse(SpdxSnippet.Same.Equals(s2, s3));
         Assert.IsFalse(SpdxSnippet.Same.Equals(s3, s2));
 
-        // Assert same snippets have identical hashes
+        // Assert: same snippets have identical hashes
         Assert.AreEqual(SpdxSnippet.Same.GetHashCode(s1), SpdxSnippet.Same.GetHashCode(s2));
     }
 
@@ -189,7 +189,9 @@ public class SpdxSnippetTests
             Id = "Invalid_ID",
             SnippetFromFile = "SPDXRef-File1",
             SnippetByteStart = 100,
-            SnippetByteEnd = 200
+            SnippetByteEnd = 200,
+            ConcludedLicense = "MIT",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting"
         };
 
         // Act: Validate the snippet

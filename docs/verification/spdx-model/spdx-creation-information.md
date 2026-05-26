@@ -18,39 +18,39 @@ All automated tests pass with zero failures.
 
 ### Test Scenarios
 
-**SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance**: Verifies that a deep
+**SpdxCreationInformation_DeepCopy_WithAllFieldsPopulated_CreatesEqualButDistinctInstance**: Verifies that a deep
 copy produces a new SpdxCreationInformation instance with equal field values but a distinct
 object reference, confirming no shared state between original and copy.
 This scenario is tested by
-`SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance`.
+`SpdxCreationInformation_DeepCopy_WithAllFieldsPopulated_CreatesEqualButDistinctInstance`.
 
-**SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly**: Verifies that Enhance
+**SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly**: Verifies that Enhance
 merges creation information by adding missing fields from the source while preserving
 existing field values on the target.
 This scenario is tested by
-`SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly`.
+`SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly`.
 
 **SpdxCreationInformation_Validate_ValidInformation_NoIssues**: Verifies that validation
 reports no issues for a fully populated valid SpdxCreationInformation instance.
 This scenario is tested by `SpdxCreationInformation_Validate_ValidInformation_NoIssues`.
 
-**SpdxCreationInformation_Validate_MissingCreators**: Verifies that validation reports an
+**SpdxCreationInformation_Validate_MissingCreators_ReportsIssue**: Verifies that validation reports an
 issue when the Creators list is empty or absent.
-This scenario is tested by `SpdxCreationInformation_Validate_MissingCreators`.
+This scenario is tested by `SpdxCreationInformation_Validate_MissingCreators_ReportsIssue`.
 
-**SpdxCreationInformation_Validate_InvalidCreator**: Verifies that validation reports an issue
+**SpdxCreationInformation_Validate_InvalidCreator_ReportsIssue**: Verifies that validation reports an issue
 when one or more entries in the Creators list do not conform to the required tool or
 organization format.
-This scenario is tested by `SpdxCreationInformation_Validate_InvalidCreator`.
+This scenario is tested by `SpdxCreationInformation_Validate_InvalidCreator_ReportsIssue`.
 
-**SpdxCreationInformation_Validate_InvalidCreatedDate**: Verifies that validation reports an
+**SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue**: Verifies that validation reports an
 issue when the Created timestamp is missing or does not conform to ISO 8601 date-time format.
-This scenario is tested by `SpdxCreationInformation_Validate_InvalidCreatedDate`.
+This scenario is tested by `SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue`.
 
-**SpdxCreationInformation_Validate_InvalidVersion**: Verifies that validation reports an issue
+**SpdxCreationInformation_Validate_InvalidVersion_ReportsIssue**: Verifies that validation reports an issue
 when the LicenseListVersion field is present but does not conform to the expected version
 format.
-This scenario is tested by `SpdxCreationInformation_Validate_InvalidVersion`.
+This scenario is tested by `SpdxCreationInformation_Validate_InvalidVersion_ReportsIssue`.
 
 **SpdxCreationInformation_Validate_EmptyCreatedField_NoDateIssue**: Verifies that validation
 does not report a date issue when the Created field is empty (empty is a permitted value for

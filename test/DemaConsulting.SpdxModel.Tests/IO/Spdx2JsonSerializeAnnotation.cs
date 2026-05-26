@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeAnnotation
     ///     Tests serializing an annotation.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeAnnotation_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeAnnotation_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample annotation
         var annotation = new SpdxAnnotation
@@ -59,7 +59,7 @@ public class Spdx2JsonSerializeAnnotation
     ///     Tests serializing multiple annotations.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeAnnotations_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeAnnotations_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample list of annotations
         var annotations = new[]

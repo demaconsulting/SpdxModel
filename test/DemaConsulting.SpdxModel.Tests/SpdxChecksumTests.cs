@@ -23,12 +23,23 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxChecksum" /> class.
 /// </summary>
+/// <remarks>
+///     Tests the <see cref="SpdxChecksum"/> class and the
+///     <see cref="SpdxChecksumAlgorithmExtensions"/> extension methods. Uses MSTest as the
+///     test framework (approved exception: xUnit adoption is deferred for this project).
+///     Each test method is fully self-contained with no shared fixture state.
+/// </remarks>
 [TestClass]
 public class SpdxChecksumTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxChecksum.Same" /> comparer compares checksums correctly.
     /// </summary>
+    /// <remarks>
+    ///     Sets up three checksums: two with identical algorithm and value (c1 and c2) and one
+    ///     with a different algorithm and value (c3). Verifies reflexive, symmetric, and
+    ///     cross-inequality comparisons, and that equal checksums produce identical hash codes.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_SameComparer_SameOrDifferentValues_ReturnsCorrectEquality()
     {
@@ -64,13 +75,18 @@ public class SpdxChecksumTests
         Assert.IsFalse(SpdxChecksum.Same.Equals(c2, c3));
         Assert.IsFalse(SpdxChecksum.Same.Equals(c3, c2));
 
-        // Assert same checksums have identical hashes
+        // Assert: same checksums have identical hashes
         Assert.AreEqual(SpdxChecksum.Same.GetHashCode(c1), SpdxChecksum.Same.GetHashCode(c2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxChecksum.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Creates a fully-populated checksum instance and deep-copies it. Verifies that the
+    ///     copy has equal field values (Algorithm and Value) but is a distinct object reference
+    ///     from the original, confirming no shallow aliasing.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_DeepCopy_PopulatedChecksum_CreatesEqualButDistinctInstance()
     {
@@ -97,6 +113,11 @@ public class SpdxChecksumTests
     ///     Tests the <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])" /> method adds or updates information
     ///     correctly.
     /// </summary>
+    /// <remarks>
+    ///     Starts with a single SHA1 checksum and enhances with a list containing the same SHA1
+    ///     entry and a new MD5 entry. Verifies that the existing entry is preserved and the new
+    ///     entry is appended, resulting in exactly two checksums.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_Enhance_ExistingAndNewAlgorithms_AddsOrUpdatesInformation()
     {
@@ -137,6 +158,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad algorithms.
     /// </summary>
+    /// <remarks>
+    ///     Uses <see cref="SpdxChecksumAlgorithm.Missing"/> as the algorithm sentinel to confirm
+    ///     that the validator catches the absent algorithm and includes the expected description
+    ///     string in the reported issue.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_Validate_MissingAlgorithm_ReportsAlgorithmIssue()
     {
@@ -158,6 +184,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports bad values.
     /// </summary>
+    /// <remarks>
+    ///     Uses an empty string as the checksum value — the minimal invalid state — to confirm
+    ///     that the validator catches the empty value and includes the expected description string
+    ///     in the reported issue.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_Validate_EmptyValue_ReportsValueIssue()
     {
@@ -179,6 +210,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksum.Validate" /> method reports unknown numeric algorithms.
     /// </summary>
+    /// <remarks>
+    ///     Casts the integer literal 1000 to <see cref="SpdxChecksumAlgorithm"/> to produce an
+    ///     out-of-range enum value. Verifies that the validator treats it as an unknown algorithm
+    ///     and reports the expected diagnostic message.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_Validate_UnknownNumericAlgorithm_ReportsAlgorithmIssue()
     {
@@ -200,6 +236,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
     /// </summary>
+    /// <remarks>
+    ///     Exercises every known algorithm string defined by the SPDX 2.x specification, plus
+    ///     case-variant inputs for SHA1, to confirm that <see cref="SpdxChecksumAlgorithmExtensions.FromText"/>
+    ///     maps each string to the correct <see cref="SpdxChecksumAlgorithm"/> enum value.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_KnownAlgorithmStrings_ReturnsCorrectEnumValues()
     {
@@ -231,6 +272,12 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
     /// </summary>
+    /// <remarks>
+    ///     Passes the unrecognized string <c>"unknown"</c> to confirm that
+    ///     <see cref="SpdxChecksumAlgorithmExtensions.FromText"/> throws
+    ///     <see cref="InvalidOperationException"/> with the expected message rather than
+    ///     returning a default value or silently succeeding.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException()
     {
@@ -246,6 +293,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
     /// </summary>
+    /// <remarks>
+    ///     Exercises every serializable <see cref="SpdxChecksumAlgorithm"/> enum value to confirm
+    ///     that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/> returns the canonical
+    ///     SPDX 2.x algorithm string for each value.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_KnownAlgorithmEnums_ReturnsCorrectStrings()
     {
@@ -274,6 +326,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
     /// </summary>
+    /// <remarks>
+    ///     Casts the integer literal 1000 to <see cref="SpdxChecksumAlgorithm"/> to produce an
+    ///     out-of-range value. Verifies that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/>
+    ///     throws <see cref="InvalidOperationException"/> with the expected message.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_OutOfRangeEnum_ThrowsInvalidOperationException()
     {
@@ -289,6 +346,11 @@ public class SpdxChecksumTests
     ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method throws for
     ///     <see cref="SpdxChecksumAlgorithm.Missing" />.
     /// </summary>
+    /// <remarks>
+    ///     Passes <see cref="SpdxChecksumAlgorithm.Missing"/> — the sentinel value that must
+    ///     never be serialized — to confirm that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/>
+    ///     throws <see cref="InvalidOperationException"/> with the expected message.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_ToText_MissingAlgorithm_ThrowsInvalidOperationException()
     {
@@ -303,6 +365,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests that <see cref="SpdxChecksum.Same" /> returns false when the first argument is null.
     /// </summary>
+    /// <remarks>
+    ///     Passes a null reference as the first argument and a valid checksum as the second.
+    ///     Verifies that the comparer returns false rather than throwing, exercising the null-guard
+    ///     on the left-hand operand.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_SameComparer_NullFirstArgument_ReturnsFalse()
     {
@@ -324,6 +391,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests that <see cref="SpdxChecksum.Same" /> returns false when the second argument is null.
     /// </summary>
+    /// <remarks>
+    ///     Passes a valid checksum as the first argument and a null reference as the second.
+    ///     Verifies that the comparer returns false rather than throwing, exercising the null-guard
+    ///     on the right-hand operand.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_SameComparer_NullSecondArgument_ReturnsFalse()
     {
@@ -345,6 +417,10 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests that <see cref="SpdxChecksum.Same" /> returns true when both arguments are null.
     /// </summary>
+    /// <remarks>
+    ///     Passes two null references to confirm that the comparer returns true when both
+    ///     operands are null, consistent with standard equality-comparer semantics.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksum_SameComparer_BothArgumentsNull_ReturnsTrue()
     {
@@ -362,6 +438,11 @@ public class SpdxChecksumTests
     /// <summary>
     ///     Tests that <see cref="SpdxChecksumAlgorithmExtensions.FromText" /> returns Missing for an empty string.
     /// </summary>
+    /// <remarks>
+    ///     Passes an empty string to confirm that <see cref="SpdxChecksumAlgorithmExtensions.FromText"/>
+    ///     returns <see cref="SpdxChecksumAlgorithm.Missing"/> rather than throwing, treating
+    ///     the empty string as the absent-algorithm sentinel.
+    /// </remarks>
     [TestMethod]
     public void SpdxChecksumAlgorithmExtensions_FromText_EmptyString_ReturnsMissing()
     {

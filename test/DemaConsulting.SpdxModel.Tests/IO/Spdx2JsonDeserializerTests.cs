@@ -41,7 +41,7 @@ public class Spdx2JsonDeserializerTests
     ///     <see cref="System.Text.Json.JsonException"/> rather than a silent failure.
     /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_Deserialize_MalformedJsonThrowsJsonException()
+    public void Spdx2JsonDeserializer_Deserialize_MalformedJson_ThrowsJsonException()
     {
         // Arrange
         const string malformedJson = "{ not valid json";

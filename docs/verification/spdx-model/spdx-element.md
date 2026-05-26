@@ -25,3 +25,11 @@ This scenario is tested by `SpdxElement_Id_ValidFormat_PassesValidation`.
 malformed SPDX-ID (missing the SPDXRef- prefix or containing invalid characters) is reported
 as a validation issue.
 This scenario is tested by `SpdxElement_Id_InvalidFormat_ReportsValidationIssue`.
+
+### Methods Without Direct Test Scenarios
+
+**EnhanceElement**: `EnhanceElement` is a `protected` method and therefore cannot be invoked
+directly from test code. Its behavior is verified indirectly through the `Enhance` method tests
+of concrete subclasses (`SpdxAnnotation`, `SpdxChecksum`, `SpdxPackage`, etc.), each of which
+exercises the inherited `EnhanceElement` call as part of their own `Enhance` validation. No
+separate `SpdxElement`-level scenario is required.

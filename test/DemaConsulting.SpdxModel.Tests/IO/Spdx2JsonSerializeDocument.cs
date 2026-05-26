@@ -33,7 +33,7 @@ public class Spdx2JsonSerializeDocument
     ///     Tests serializing a document to JSON.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeDocument_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeDocument_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
         var document = new SpdxDocument
@@ -100,7 +100,7 @@ public class Spdx2JsonSerializeDocument
     ///     Tests serializing a document to text
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_Serialize_CorrectResults()
+    public void Spdx2JsonSerializer_Serialize_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
         var document = new SpdxDocument

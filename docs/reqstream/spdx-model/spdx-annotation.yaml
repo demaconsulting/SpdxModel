@@ -26,3 +26,4 @@ sections:
               - SpdxAnnotationTypeExtensions_FromText_Invalid
               - SpdxAnnotationTypeExtensions_ToText_Valid
               - SpdxAnnotationTypeExtensions_ToText_Invalid
+              - SpdxAnnotationTypeExtensions_ToText_Missing

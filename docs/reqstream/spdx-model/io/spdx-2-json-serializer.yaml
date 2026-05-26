@@ -8,7 +8,7 @@ sections:
         sections:
           - title: Spdx2JsonSerializer Requirements
             requirements:
-              - id: SpdxModel-Serialization-SerializeJson
+              - id: SpdxModel-IO-SerializeJson
                 title: The library shall support serializing SPDX documents to JSON format.
                 tags:
                   - serialization
@@ -17,10 +17,10 @@ sections:
                   format. This enables users to generate SBOMs programmatically and share them with other
                   systems and tools in the SPDX ecosystem.
                 tests:
-                  - Spdx2JsonSerializer_SerializeDocument_CorrectResults
-                  - Spdx2JsonSerializer_Serialize_CorrectResults
+                  - Spdx2JsonSerializer_SerializeDocument_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_Serialize_ValidInput_CorrectResults
 
-              - id: SpdxModel-Serialization-SerializeElements
+              - id: SpdxModel-IO-SerializeElements
                 title: The library shall correctly serialize all SPDX 2.x element types to JSON.
                 tags:
                   - serialization
@@ -30,23 +30,27 @@ sections:
                   serialized correctly ensures the library faithfully produces all artifacts when writing
                   an SPDX JSON document.
                 tests:
-                  - Spdx2JsonSerializer_SerializeAnnotation_CorrectResults
-                  - Spdx2JsonSerializer_SerializeAnnotations_CorrectResults
-                  - Spdx2JsonSerializer_SerializeChecksum_CorrectResults
-                  - Spdx2JsonSerializer_SerializeChecksums_CorrectResults
-                  - Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExternalDocumentReference_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExternalDocumentReferences_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExternalReference_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExternalReferences_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults
-                  - Spdx2JsonSerializer_SerializeExtractedLicensingInfos_CorrectResults
-                  - Spdx2JsonSerializer_SerializeFile_CorrectResults
-                  - Spdx2JsonSerializer_SerializeFiles_CorrectResults
-                  - Spdx2JsonSerializer_SerializePackage_CorrectResults
-                  - Spdx2JsonSerializer_SerializePackages_CorrectResults
-                  - Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults
-                  - Spdx2JsonSerializer_SerializeRelationship_CorrectResults
-                  - Spdx2JsonSerializer_SerializeRelationships_CorrectResults
-                  - Spdx2JsonSerializer_SerializeSnippet_CorrectResults
-                  - Spdx2JsonSerializer_SerializeSnippets_CorrectResults
+                  - Spdx2JsonSerializer_SerializeAnnotation_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeAnnotations_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeAnnotation_NoId_OmitsSpdxId
+                  - Spdx2JsonSerializer_SerializeChecksum_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeChecksums_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeCreationInformation_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExternalDocumentReference_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExternalDocumentReferences_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExternalReference_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExternalReferences_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExtractedLicensingInfo_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeExtractedLicensingInfos_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeFile_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeFiles_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializePackage_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializePackages_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializePackageVerificationCode_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeRelationship_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeRelationships_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeSnippet_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeSnippets_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeSnippet_WithAnnotation_IncludesAnnotation
+                  - Spdx2JsonSerializer_SerializeSnippet_NoLineRange_EmitsByteRangeOnly
+                  - Spdx2JsonSerializer_SerializeSnippet_PartialLineRange_EmitsByteRangeOnly

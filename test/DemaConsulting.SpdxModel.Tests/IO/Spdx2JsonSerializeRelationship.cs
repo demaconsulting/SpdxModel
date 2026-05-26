@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeRelationship
     ///     Tests serializing a relationship.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeRelationship_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeRelationship_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxRelationship object
         var relationship = new SpdxRelationship
@@ -58,7 +58,7 @@ public class Spdx2JsonSerializeRelationship
     ///     Tests serializing multiple relationships.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeRelationships_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeRelationships_ValidInput_CorrectResults()
     {
         // Arrange: Create an array of sample SpdxRelationship objects
         var relationships = new[]

@@ -179,18 +179,16 @@ public class SpdxModelTests
         // Arrange: Prepare malformed JSON text
         const string malformedJson = "{ this is not valid json }";
 
-        // Act / Assert: Deserialize should throw a JsonException or derived type
-        var threw = false;
+        // Act / Assert: malformed JSON throws a JsonException
         try
         {
             Spdx2JsonDeserializer.Deserialize(malformedJson);
+            Assert.Fail("Expected JsonException was not thrown.");
         }
         catch (System.Text.Json.JsonException)
         {
-            threw = true;
+            // Expected — pass
         }
-
-        Assert.IsTrue(threw, "Expected JsonException was not thrown.");
     }
 
     /// <summary>
@@ -254,5 +252,69 @@ public class SpdxModelTests
         Assert.IsNull(package.Version);
         Assert.IsNull(file.Comment);
         Assert.IsNull(relationship.Comment);
+    }
+
+    /// <summary>
+    ///     Tests that SPDX date-time validation helper behavior is observable through the document model.
+    /// </summary>
+    /// <remarks>
+    ///     Demonstrates that <see cref="SpdxHelpers.IsValidSpdxDateTime"/> is exercised end-to-end when
+    ///     a real SPDX document is validated, satisfying the system-level observability requirement for
+    ///     helper utilities.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxModel_Helpers_DateTimeValidation_IsObservableThroughDocumentModel()
+    {
+        // Arrange: Load and deserialize a real SPDX 2.3 document
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+
+        // Act: Validate the document — validation internally invokes IsValidSpdxDateTime on
+        // the creation-information timestamp, making helper behavior observable at system level
+        var issues = new List<string>();
+        document.Validate(issues);
+
+        // Assert: The document is valid and the Created timestamp is a non-empty, well-formed value
+        Assert.IsEmpty(issues);
+        Assert.IsFalse(string.IsNullOrEmpty(document.CreationInformation.Created),
+            "Expected the Created field to be non-empty after deserialization.");
+    }
+
+    /// <summary>
+    ///     Tests that adding a relationship via the transform API is observable through the document model.
+    /// </summary>
+    /// <remarks>
+    ///     Demonstrates end-to-end transform behavior: deserialize a document, add a relationship using
+    ///     the public transform API, and verify the relationship is present in the document model.
+    ///     This satisfies the system-level observability requirement for the transform subsystem.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxModel_Transform_AddRelationship_IsObservableThroughDocumentModel()
+    {
+        // Arrange: Load and deserialize a real SPDX 2.3 document
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        var initialCount = document.Relationships.Length;
+        var newRelationship = new SpdxRelationship
+        {
+            Id = "SPDXRef-DOCUMENT",
+            RelationshipType = SpdxRelationshipType.DependsOn,
+            RelatedSpdxElement = "SPDXRef-Package"
+        };
+
+        // Act: Add a relationship using the transform public API
+        DemaConsulting.SpdxModel.Transform.SpdxRelationships.Add(document, newRelationship);
+
+        // Assert: The relationship is now present in the document
+        Assert.AreEqual(initialCount + 1, document.Relationships.Length,
+            "Expected document.Relationships to grow by one after Add.");
+        Assert.IsTrue(
+            Array.Exists(document.Relationships, r =>
+                r.Id == "SPDXRef-DOCUMENT" &&
+                r.RelationshipType == SpdxRelationshipType.DependsOn &&
+                r.RelatedSpdxElement == "SPDXRef-Package"),
+            "Expected the newly added relationship to be present in the document.");
     }
 }

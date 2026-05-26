@@ -23,6 +23,9 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxExtractedLicensingInfo" /> class.
 /// </summary>
+/// <remarks>
+///     Covers the Same equality comparer, DeepCopy, Enhance merge, and Validate methods.
+/// </remarks>
 [TestClass]
 public class SpdxExtractedLicensingInfoTests
 {
@@ -56,7 +59,7 @@ public class SpdxExtractedLicensingInfoTests
             ExtractedText = "Some Random License"
         };
 
-        // Assert: Verify extracted-licensing-infos compare to themselves
+        // Act / Assert: Verify extracted-licensing-infos compare to themselves
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l1, l1));
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l2, l2));
         Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l3, l3));
@@ -193,7 +196,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     empty, confirming the LicenseId validation path.
     /// </remarks>
     [TestMethod]
-    public void SpdxExtractedLicensingInfo_Validate_InvalidLicenseId()
+    public void SpdxExtractedLicensingInfo_Validate_InvalidLicenseId_ReportsIssue()
     {
         // Arrange: Create a bad licensing info
         var info = new SpdxExtractedLicensingInfo
@@ -218,7 +221,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     is empty, confirming the ExtractedText validation path.
     /// </remarks>
     [TestMethod]
-    public void SpdxExtractedLicensingInfo_Validate_InvalidExtractedText()
+    public void SpdxExtractedLicensingInfo_Validate_InvalidExtractedText_ReportsIssue()
     {
         // Arrange: Create a bad licensing info
         var info = new SpdxExtractedLicensingInfo

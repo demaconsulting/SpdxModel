@@ -15,12 +15,12 @@ sections:
               who created the document and when. Supporting this element is essential for SPDX compliance
               and traceability of document provenance.
             tests:
-              - SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxCreationInformation_DeepCopy_WithAllFieldsPopulated_CreatesEqualButDistinctInstance
+              - SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly
               - SpdxCreationInformation_Enhance_DuplicateCreators_DeduplicatesCreators
               - SpdxCreationInformation_Validate_ValidInformation_NoIssues
-              - SpdxCreationInformation_Validate_MissingCreators
-              - SpdxCreationInformation_Validate_InvalidCreator
-              - SpdxCreationInformation_Validate_InvalidCreatedDate
-              - SpdxCreationInformation_Validate_InvalidVersion
+              - SpdxCreationInformation_Validate_MissingCreators_ReportsIssue
+              - SpdxCreationInformation_Validate_InvalidCreator_ReportsIssue
+              - SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue
+              - SpdxCreationInformation_Validate_InvalidVersion_ReportsIssue
               - SpdxCreationInformation_Validate_EmptyCreatedField_NoDateIssue

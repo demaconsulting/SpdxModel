@@ -32,7 +32,7 @@ public class Spdx2JsonSerializePackageVerificationCode
     ///     Tests serializing a package verification code.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializePackageVerificationCode_CorrectResults()
+    public void Spdx2JsonSerializer_SerializePackageVerificationCode_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxPackageVerificationCode object
         var code = new SpdxPackageVerificationCode

@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX package verification codes to <see cref="SpdxPackageVerificationCode" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX package verification code elements using MSTest
+///     as the approved test framework for this repository. Constructs inline JSON and
+///     verifies the resulting <see cref="SpdxPackageVerificationCode"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializePackageVerificationCode
 {
     /// <summary>
     ///     Tests deserializing a package verification code.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that packageVerificationCodeValue and packageVerificationCodeExcludedFiles
+    ///     JSON fields are correctly mapped to the <see cref="SpdxPackageVerificationCode"/>
+    ///     properties and that the result is non-null.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializePackageVerificationCode_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a package verification code
         var json = new JsonObject
@@ -48,9 +58,9 @@ public class Spdx2JsonDeserializePackageVerificationCode
 
         // Act: Deserialize the JSON object to an SpdxPackageVerificationCode object
         var packageVerificationCode = Spdx2JsonDeserializer.DeserializeVerificationCode(json);
-        Assert.IsNotNull(packageVerificationCode);
 
         // Assert: Verify the deserialized object has the expected properties
+        Assert.IsNotNull(packageVerificationCode);
         Assert.AreEqual("d3b07384d113edec49eaa6238ad5ff00", packageVerificationCode.Value);
         Assert.HasCount(2, packageVerificationCode.ExcludedFiles);
         Assert.AreEqual("file1.txt", packageVerificationCode.ExcludedFiles[0]);

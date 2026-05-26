@@ -23,12 +23,23 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxAnnotation" /> class.
 /// </summary>
+/// <remarks>
+///     Uses MSTest as the approved test framework for this repository (formal exception to
+///     xUnit documented in <c>csharp-testing.md</c>). Each test method is fully isolated:
+///     no shared state is maintained between tests and all test inputs are constructed
+///     inline within the method body.
+/// </remarks>
 [TestClass]
 public class SpdxAnnotationTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Same" /> comparer compares annotations correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies reflexive equality (each annotation equals itself), cross-equality (two
+    ///     annotations with identical fields but different IDs are equal), and that hash codes
+    ///     match for equal annotations.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_SameComparer_ComparesCorrectly()
     {
@@ -75,6 +86,11 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the deep copy is logically equal (all fields match) but is a distinct
+    ///     object (not reference-equal), confirming no shared mutable references exist between
+    ///     original and copy.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance()
     {
@@ -105,6 +121,12 @@ public class SpdxAnnotationTests
     ///     Tests the <see cref="SpdxAnnotation.Enhance(SpdxAnnotation[], SpdxAnnotation[])" /> method adds or updates
     ///     information correctly
     /// </summary>
+    /// <remarks>
+    ///     Verifies two sub-scenarios in one test: (1) an existing annotation is enhanced with
+    ///     additional field values from a matching entry (Id is populated), and (2) a new
+    ///     annotation is appended when no match exists. Both sub-scenarios use the
+    ///     <see cref="SpdxAnnotation.Same"/> comparer for matching.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly()
     {
@@ -156,6 +178,11 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotators.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: an empty <see cref="SpdxAnnotation.Annotator"/> string is the only invalid
+    ///     field; all other fields are valid so that the issue list contains exactly one entry
+    ///     for the annotator.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_Validate_InvalidAnnotator()
     {
@@ -179,6 +206,10 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad dates.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: a non-ISO-8601 date string is the only invalid field; all other fields are
+    ///     valid so that the issue list contains exactly one entry for the date.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_Validate_InvalidDate()
     {
@@ -202,6 +233,10 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotation types.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: <see cref="SpdxAnnotationType.Missing"/> is the only invalid field; all
+    ///     other fields are valid so that the issue list contains exactly one entry for the type.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_Validate_InvalidType()
     {
@@ -225,6 +260,12 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad comments.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: an empty <see cref="SpdxAnnotation.Comment"/> string is the only invalid
+    ///     field; <see cref="SpdxAnnotation.Type"/> is set to
+    ///     <see cref="SpdxAnnotationType.Review"/> (valid) so that the issue list contains
+    ///     exactly one entry for the comment.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotation_Validate_InvalidComment()
     {
@@ -233,7 +274,7 @@ public class SpdxAnnotationTests
         {
             Annotator = "Person: Malcolm Nixon",
             Date = "2024-05-28T01:30:00Z",
-            Type = SpdxAnnotationType.Missing,
+            Type = SpdxAnnotationType.Review,
             Comment = ""
         };
 
@@ -248,6 +289,11 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for valid annotation types.
     /// </summary>
+    /// <remarks>
+    ///     Verifies case-insensitive mapping: "REVIEW", "review", and "Review" all map to
+    ///     <see cref="SpdxAnnotationType.Review"/>; similarly for "OTHER". An empty string maps
+    ///     to <see cref="SpdxAnnotationType.Missing"/>.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Valid()
     {
@@ -266,6 +312,10 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for an invalid annotation type.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: an unrecognized string causes <see cref="InvalidOperationException"/> with
+    ///     the expected message, confirming the error path is not silently swallowed.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
@@ -280,6 +330,10 @@ public class SpdxAnnotationTests
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for valid annotation types.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that <see cref="SpdxAnnotationType.Review"/> produces <c>"REVIEW"</c> and
+    ///     <see cref="SpdxAnnotationType.Other"/> produces <c>"OTHER"</c>.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Valid()
     {
@@ -294,6 +348,11 @@ public class SpdxAnnotationTests
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for an invalid annotation
     ///     type.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: an unrecognized numeric enum value (1000, which is not a defined
+    ///     <see cref="SpdxAnnotationType"/> member) causes <see cref="InvalidOperationException"/>
+    ///     with the expected message.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()
     {
@@ -308,6 +367,12 @@ public class SpdxAnnotationTests
     ///     Tests that <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> throws for the
     ///     <see cref="SpdxAnnotationType.Missing" /> sentinel value.
     /// </summary>
+    /// <remarks>
+    ///     Boundary: <see cref="SpdxAnnotationType.Missing"/> is a sentinel value that must
+    ///     never be serialized. Calling <c>ToText</c> with it throws
+    ///     <see cref="InvalidOperationException"/> with the expected "Attempt to serialize
+    ///     missing SPDX Annotation Type" message.
+    /// </remarks>
     [TestMethod]
     public void SpdxAnnotationTypeExtensions_ToText_Missing()
     {

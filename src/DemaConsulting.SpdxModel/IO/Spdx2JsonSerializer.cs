@@ -626,13 +626,13 @@ public static class Spdx2JsonSerializer
     /// <summary>
     ///     Emit an optional string array property into a JSON object.
     /// </summary>
-    /// <param name="json">JSON object to write into</param>
-    /// <param name="name">Property name</param>
-    /// <param name="values">Array of values; omitted when empty</param>
     /// <remarks>
     ///     Omits the property entirely when <paramref name="values"/> is empty, consistent
     ///     with the serializer convention of not writing null or empty optional fields.
     /// </remarks>
+    /// <param name="json">JSON object to write into</param>
+    /// <param name="name">Property name</param>
+    /// <param name="values">Array of values; omitted when empty</param>
     private static void EmitOptionalStrings(JsonNode json, string name, string[] values)
     {
         // Skip if empty

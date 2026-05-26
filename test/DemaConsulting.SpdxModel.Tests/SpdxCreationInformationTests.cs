@@ -41,7 +41,7 @@ public class SpdxCreationInformationTests
     ///     no shallow-copy aliasing occurs.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxCreationInformation_DeepCopy_WithAllFieldsPopulated_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create an instance of SpdxCreationInformation with multiple creators
         var c1 = new SpdxCreationInformation
@@ -75,7 +75,7 @@ public class SpdxCreationInformationTests
     ///     confirm additive merging of creators and fill-if-absent semantics for scalar fields.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly()
     {
         // Arrange: Create an instance of SpdxCreationInformation with initial values
         var info = new SpdxCreationInformation
@@ -112,7 +112,7 @@ public class SpdxCreationInformationTests
     ///     field values.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_MissingCreators()
+    public void SpdxCreationInformation_Validate_MissingCreators_ReportsIssue()
     {
         // Arrange: Create creation information with empty creators array
         var info = new SpdxCreationInformation
@@ -139,7 +139,7 @@ public class SpdxCreationInformationTests
     ///     fails all three prefixes, making the expected issue deterministic.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_InvalidCreator()
+    public void SpdxCreationInformation_Validate_InvalidCreator_ReportsIssue()
     {
         // Arrange: Create creation information with invalid creator format
         var info = new SpdxCreationInformation
@@ -166,7 +166,7 @@ public class SpdxCreationInformationTests
     ///     the regex/helper rejects it without false negatives.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_InvalidCreatedDate()
+    public void SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue()
     {
         // Arrange: Create creation information with invalid created date
         var info = new SpdxCreationInformation
@@ -193,13 +193,13 @@ public class SpdxCreationInformationTests
     ///     that the regex rejects non-numeric version strings.
     /// </remarks>
     [TestMethod]
-    public void SpdxCreationInformation_Validate_InvalidVersion()
+    public void SpdxCreationInformation_Validate_InvalidVersion_ReportsIssue()
     {
         // Arrange: Create creation information with invalid license list version
         var info = new SpdxCreationInformation
         {
             Creators = ["Tool: LicenseFind-1.0", "Organization: ExampleCodeInspect ()"],
-            Created = "BadDate",
+            Created = "2021-01-01T00:00:00Z",
             Comment = "This package has been shipped in source and binary form.",
             LicenseListVersion = "BadVersion"
         };

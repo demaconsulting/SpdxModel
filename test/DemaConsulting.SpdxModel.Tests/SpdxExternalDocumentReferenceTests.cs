@@ -23,6 +23,12 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxExternalDocumentReference" /> class.
 /// </summary>
+/// <remarks>
+///     Tests the <see cref="SpdxExternalDocumentReference"/> class using MSTest (approved
+///     exception: xUnit adoption is deferred for this project). Each test method constructs
+///     its own instance state with no shared fixture, covering the Same comparer, DeepCopy,
+///     Enhance, and Validate methods.
+/// </remarks>
 [TestClass]
 public class SpdxExternalDocumentReferenceTests
 {
@@ -30,8 +36,14 @@ public class SpdxExternalDocumentReferenceTests
     ///     Tests the <see cref="SpdxExternalDocumentReference.Same" /> comparer compares external document references
     ///     correctly.
     /// </summary>
+    /// <remarks>
+    ///     Constructs three references: r1 and r2 share the same Document URI (making them
+    ///     equal under the Same comparer) while r3 has a different URI. Verifies reflexive,
+    ///     symmetric, and cross-inequality comparisons, and that equal references produce
+    ///     identical hash codes.
+    /// </remarks>
     [TestMethod]
-    public void SpdxExternalDocumentReference_SameComparer_ComparesCorrectly()
+    public void SpdxExternalDocumentReference_SameComparer_SameDocument_ReturnsEqual()
     {
         // Arrange: Create three external document references with different properties
         var r1 = new SpdxExternalDocumentReference
@@ -86,8 +98,13 @@ public class SpdxExternalDocumentReferenceTests
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Creates a fully-populated external document reference with a checksum and deep-copies
+    ///     it. Verifies that the copy has equal field values but that both the top-level reference
+    ///     and the nested Checksum are distinct object references from the original.
+    /// </remarks>
     [TestMethod]
-    public void SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxExternalDocumentReference_DeepCopy_ValidInstance_ReturnsEqualButDistinctInstance()
     {
         // Arrange: Create an external document reference with a checksum
         var r1 = new SpdxExternalDocumentReference
@@ -120,8 +137,14 @@ public class SpdxExternalDocumentReferenceTests
     ///     <see cref="SpdxExternalDocumentReference.Enhance(SpdxExternalDocumentReference[], SpdxExternalDocumentReference[])" />
     ///     method adds or updates information correctly.
     /// </summary>
+    /// <remarks>
+    ///     Starts with a single reference that lacks a checksum, then enhances with a list
+    ///     containing one entry that updates the existing reference's checksum and one entirely
+    ///     new reference. Verifies that the merged array has exactly two entries with the correct
+    ///     checksum data and new reference details.
+    /// </remarks>
     [TestMethod]
-    public void SpdxExternalDocumentReference_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxExternalDocumentReference_Enhance_WithNewAndMatchingEntries_MergesAndAppendsCorrectly()
     {
         // Arrange: Create an array of external document references
         var references = new[]
@@ -174,8 +197,13 @@ public class SpdxExternalDocumentReferenceTests
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing external document ID
     /// </summary>
+    /// <remarks>
+    ///     Sets ExternalDocumentId to an empty string — the minimal invalid state — to confirm
+    ///     that the validator catches the absent ID and includes the expected description string
+    ///     in the reported issue.
+    /// </remarks>
     [TestMethod]
-    public void SpdxExternalDocumentReference_Validate_MissingId()
+    public void SpdxExternalDocumentReference_Validate_MissingId_ReportsIssue()
     {
         // Arrange: Create a bad reference
         var reference = new SpdxExternalDocumentReference
@@ -195,8 +223,13 @@ public class SpdxExternalDocumentReferenceTests
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports missing document URI
     /// </summary>
+    /// <remarks>
+    ///     Sets the Document URI to an empty string with a valid ExternalDocumentId to confirm
+    ///     that the validator catches the absent URI and includes the expected description string
+    ///     (including the reference ID) in the reported issue.
+    /// </remarks>
     [TestMethod]
-    public void SpdxExternalDocumentReference_Validate_MissingDocument()
+    public void SpdxExternalDocumentReference_Validate_MissingDocument_ReportsIssue()
     {
         // Arrange: Create a bad reference
         var reference = new SpdxExternalDocumentReference
@@ -216,6 +249,11 @@ public class SpdxExternalDocumentReferenceTests
     /// <summary>
     ///     Tests the <see cref="SpdxExternalDocumentReference.Validate" /> method reports an invalid checksum.
     /// </summary>
+    /// <remarks>
+    ///     Constructs a reference with a <see cref="SpdxChecksumAlgorithm.Missing"/> algorithm
+    ///     and an empty checksum value to confirm that the validator delegates to the checksum
+    ///     validator and surfaces the algorithm-missing diagnostic in the reported issues.
+    /// </remarks>
     [TestMethod]
     public void SpdxExternalDocumentReference_Validate_InvalidChecksum_ReportsIssue()
     {

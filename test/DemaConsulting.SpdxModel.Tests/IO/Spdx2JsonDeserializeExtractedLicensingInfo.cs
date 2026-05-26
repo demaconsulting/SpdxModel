@@ -26,14 +26,25 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX extracted licensing information to <see cref="SpdxExtractedLicensingInfo" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX extracted licensing information elements using
+///     MSTest as the approved test framework for this repository. Each test constructs
+///     inline JSON and verifies the resulting <see cref="SpdxExtractedLicensingInfo"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeExtractedLicensingInfo
 {
     /// <summary>
     ///     Tests deserializing an extracted licensing information.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that licenseId, extractedText, name, seeAlsos (cross-references), and
+    ///     comment JSON fields are correctly mapped to the
+    ///     <see cref="SpdxExtractedLicensingInfo"/> properties when a single object is
+    ///     deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing extracted licensing information
         var json = new JsonObject
@@ -60,8 +71,12 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
     /// <summary>
     ///     Tests deserializing multiple extracted licensing information.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array containing one extracted licensing info object is
+    ///     deserialized to a single-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple extracted licensing information
         var json = new JsonArray

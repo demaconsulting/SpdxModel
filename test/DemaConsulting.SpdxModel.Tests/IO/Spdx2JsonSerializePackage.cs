@@ -32,7 +32,7 @@ public class Spdx2JsonSerializePackage
     ///     Tests serializing a package.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializePackage_CorrectResults()
+    public void Spdx2JsonSerializer_SerializePackage_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxPackage object
         var package = new SpdxPackage
@@ -137,7 +137,7 @@ public class Spdx2JsonSerializePackage
     ///     Tests serializing multiple packages.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializePackages_CorrectResults()
+    public void Spdx2JsonSerializer_SerializePackages_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxPackage objects
         var packages = new[]

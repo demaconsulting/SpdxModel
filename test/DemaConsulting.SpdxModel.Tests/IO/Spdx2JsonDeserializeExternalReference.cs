@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX external references to <see cref="SpdxExternalReference" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX external reference elements using MSTest as the
+///     approved test framework for this repository. Each test constructs inline JSON and
+///     verifies the resulting <see cref="SpdxExternalReference"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeExternalReference
 {
     /// <summary>
     ///     Tests deserializing an external reference.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that comment, referenceLocator, referenceType, and referenceCategory JSON
+    ///     fields are correctly mapped to the <see cref="SpdxExternalReference"/> properties
+    ///     when a single SECURITY-category reference is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExternalReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an external reference
         var json = new JsonObject
@@ -57,8 +67,12 @@ public class Spdx2JsonDeserializeExternalReference
     /// <summary>
     ///     Tests deserializing multiple external references.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array of two external reference objects (one SECURITY, one OTHER
+    ///     category) is deserialized to a two-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalReferences_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExternalReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple external references
         var json = new JsonArray

@@ -26,14 +26,25 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX snippets to <see cref="SpdxSnippet" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX snippet elements using MSTest as the approved
+///     test framework for this repository. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxSnippet"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeSnippet
 {
     /// <summary>
     ///     Tests deserializing a snippet.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all snippet fields (SPDXID, comment, copyrightText, licenseComments,
+    ///     licenseConcluded, licenseInfoInSnippets, name, byte ranges, line ranges, and
+    ///     snippetFromFile) are correctly mapped to <see cref="SpdxSnippet"/> properties when
+    ///     a single snippet JSON object with both byte and line ranges is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeSnippet_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a snippet
         var json = new JsonObject
@@ -110,6 +121,11 @@ public class Spdx2JsonDeserializeSnippet
     ///     This is a regression test for a <see cref="FormatException" /> thrown when line-number
     ///     range fields were absent and the old code used <c>Convert.ToInt32("")</c>.
     /// </summary>
+    /// <remarks>
+    ///     Boundary condition: when only a byte-range entry exists in the ranges array and no
+    ///     lineNumber pointers are present, <see cref="SpdxSnippet.SnippetLineStart"/> and
+    ///     <see cref="SpdxSnippet.SnippetLineEnd"/> must default to zero rather than throwing.
+    /// </remarks>
     [TestMethod]
     public void Spdx2JsonDeserializer_DeserializeSnippet_WithoutLineRanges_DefaultsToZero()
     {
@@ -152,8 +168,12 @@ public class Spdx2JsonDeserializeSnippet
     /// <summary>
     ///     Tests deserializing multiple snippets.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array containing one snippet object with both byte and line
+    ///     ranges is deserialized to a single-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeSnippets_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeSnippets_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple snippets
         var json = new JsonArray

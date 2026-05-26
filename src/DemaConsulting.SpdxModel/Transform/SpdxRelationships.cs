@@ -35,6 +35,17 @@ public static class SpdxRelationships
     /// <summary>
     ///     Add new relationships to the SPDX document.
     /// </summary>
+    /// <remarks>
+    ///     All incoming relationships are validated before any mutation is performed.
+    ///     This ensures that a validation failure leaves the document in its original state
+    ///     (atomic with respect to the batch). Replacement uses
+    ///     <see cref="SpdxRelationship.SameElements"/> (type-agnostic, matches by source and
+    ///     target ID only) so that a replace-and-add can change the relationship type between
+    ///     the same pair of elements. Individual deduplication within the add path uses
+    ///     <see cref="SpdxRelationship.Same"/> (type-inclusive) so that relationships of
+    ///     different types between the same elements co-exist correctly.
+    ///     Side-effect: mutates <paramref name="document"/>.<see cref="SpdxDocument.Relationships"/>.
+    /// </remarks>
     /// <param name="document">SPDX document to modify</param>
     /// <param name="relationships">New relationships to add</param>
     /// <param name="replace">
@@ -47,17 +58,6 @@ public static class SpdxRelationships
     ///     neither <c>NOASSERTION</c> nor prefixed with <c>DocumentRef-</c>.
     ///     When this exception is thrown, the document is left unmodified.
     /// </exception>
-    /// <remarks>
-    ///     All incoming relationships are validated before any mutation is performed.
-    ///     This ensures that a validation failure leaves the document in its original state
-    ///     (atomic with respect to the batch). Replacement uses
-    ///     <see cref="SpdxRelationship.SameElements"/> (type-agnostic, matches by source and
-    ///     target ID only) so that a replace-and-add can change the relationship type between
-    ///     the same pair of elements. Individual deduplication within the add path uses
-    ///     <see cref="SpdxRelationship.Same"/> (type-inclusive) so that relationships of
-    ///     different types between the same elements co-exist correctly.
-    ///     Side-effect: mutates <paramref name="document"/>.<see cref="SpdxDocument.Relationships"/>.
-    /// </remarks>
     public static void Add(SpdxDocument document, IEnumerable<SpdxRelationship> relationships, bool replace = false)
     {
         // Materialize the enumerable so it can be iterated multiple times
@@ -91,6 +91,13 @@ public static class SpdxRelationships
     /// <summary>
     ///     Add a relationship to the SPDX document.
     /// </summary>
+    /// <remarks>
+    ///     If a relationship with the same source, target, and type already exists (as determined
+    ///     by <see cref="SpdxRelationship.Same"/>), the existing entry is enhanced with any
+    ///     additional field values from <paramref name="relationship"/>. Otherwise a deep copy is
+    ///     appended to <see cref="SpdxDocument.Relationships"/>.
+    ///     Side-effect: mutates <paramref name="document"/>.<see cref="SpdxDocument.Relationships"/>.
+    /// </remarks>
     /// <param name="document">SPDX document to modify</param>
     /// <param name="relationship">SPDX relationship to add</param>
     /// <exception cref="ArgumentException">
@@ -99,13 +106,6 @@ public static class SpdxRelationships
     ///     (<see cref="SpdxRelationship.RelatedSpdxElement"/>) is not found in the document and
     ///     is neither <c>NOASSERTION</c> nor prefixed with <c>DocumentRef-</c>.
     /// </exception>
-    /// <remarks>
-    ///     If a relationship with the same source, target, and type already exists (as determined
-    ///     by <see cref="SpdxRelationship.Same"/>), the existing entry is enhanced with any
-    ///     additional field values from <paramref name="relationship"/>. Otherwise a deep copy is
-    ///     appended to <see cref="SpdxDocument.Relationships"/>.
-    ///     Side-effect: mutates <paramref name="document"/>.<see cref="SpdxDocument.Relationships"/>.
-    /// </remarks>
     public static void Add(SpdxDocument document, SpdxRelationship relationship)
     {
         // Validate before any mutation

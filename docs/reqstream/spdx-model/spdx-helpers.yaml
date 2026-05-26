@@ -36,8 +36,8 @@ sections:
               meaningful data is preserved regardless of the order in which sources are merged.
             tests:
               - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
-              - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
-              - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly
+              - SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly
               - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
               - SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue
               - SpdxHelpers_EnhanceString_NullInputs_ReturnsNull

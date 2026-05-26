@@ -86,7 +86,7 @@ values and their canonical SPDX string representations.
 
 #### Enum Values
 
-The enumeration defines 44 relationship type values plus the sentinel value `Missing` (= -1).
+The enumeration defines 45 relationship type values plus the sentinel value `Missing` (= -1).
 Key values include:
 
 | Enum Value      | SPDX String                   |
@@ -96,7 +96,7 @@ Key values include:
 | `Contains`      | `CONTAINS`                    |
 | `DependsOn`     | `DEPENDS_ON`                  |
 | `GeneratedFrom` | `GENERATED_FROM`              |
-| …               | … (44 values total)           |
+| …               | … (45 values total)           |
 
 #### Conversion Methods
 

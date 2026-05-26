@@ -19,5 +19,5 @@ sections:
               - SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance
               - SpdxExtractedLicensingInfo_Enhance_AddsOrUpdatesInformationCorrectly
               - SpdxExtractedLicensingInfo_Validate_ValidInput_ReturnsNoIssues
-              - SpdxExtractedLicensingInfo_Validate_InvalidLicenseId
-              - SpdxExtractedLicensingInfo_Validate_InvalidExtractedText
+              - SpdxExtractedLicensingInfo_Validate_InvalidLicenseId_ReportsIssue
+              - SpdxExtractedLicensingInfo_Validate_InvalidExtractedText_ReportsIssue

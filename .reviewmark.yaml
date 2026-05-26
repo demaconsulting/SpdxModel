@@ -159,6 +159,7 @@ reviews:
       - "docs/design/spdx-model/spdx-element.md"
       - "docs/verification/spdx-model/spdx-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxElement.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxElementTests.cs"
 
   - id: SpdxModel-SpdxExternalDocumentReference
     title: Review that SpdxModel SpdxExternalDocumentReference Implementation is Correct

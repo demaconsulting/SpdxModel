@@ -26,12 +26,22 @@ namespace DemaConsulting.SpdxModel.Tests.Transforms;
 /// <summary>
 ///     Integration tests for the SpdxModel Transform subsystem.
 /// </summary>
+/// <remarks>
+///     Integration-scope tests: each test deserializes a real SPDX 2.3 JSON document from
+///     an embedded resource and exercises the <see cref="SpdxRelationships"/> transform
+///     against that document. MSTest is the approved framework for this repository.
+/// </remarks>
 [TestClass]
 public class SpdxModelTransformTests
 {
     /// <summary>
     ///     Tests that a relationship added to an SPDX document persists in the document.
     /// </summary>
+    /// <remarks>
+    ///     Happy path: a well-formed relationship whose source and target both exist in the
+    ///     document is added, the relationship count increases by one, and the document
+    ///     remains valid after the transform.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists()
     {
@@ -66,6 +76,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that adding a relationship with an invalid source element ID throws <see cref="ArgumentException" />.
     /// </summary>
+    /// <remarks>
+    ///     Error path: a source element ID that does not exist in the document causes an
+    ///     <see cref="ArgumentException"/> to be thrown. The document is expected to remain
+    ///     unmodified because the validation happens before any mutation.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_InvalidSourceId_ThrowsArgumentException()
     {
@@ -91,6 +106,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that adding a relationship with an invalid target element ID throws <see cref="ArgumentException" />.
     /// </summary>
+    /// <remarks>
+    ///     Error path: a target element ID that does not exist in the document, and is neither
+    ///     <c>NOASSERTION</c> nor prefixed with <c>DocumentRef-</c>, causes an
+    ///     <see cref="ArgumentException"/> to be thrown.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_InvalidTargetId_ThrowsArgumentException()
     {
@@ -116,6 +136,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that adding a duplicate relationship enhances the existing entry rather than duplicating it.
     /// </summary>
+    /// <remarks>
+    ///     Idempotency path: adding the same relationship a second time merges (enhances) the
+    ///     existing entry rather than appending a duplicate. The relationship count after two
+    ///     adds must equal the count after one add.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_Duplicate_EnhancesExistingRelationship()
     {
@@ -150,6 +175,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that the batch Add with replace=true removes pre-existing matching relationships.
     /// </summary>
+    /// <remarks>
+    ///     Replace-mode path: the batch overload with <c>replace: true</c> removes any
+    ///     existing relationships between the same pair of elements before adding the new ones.
+    ///     This allows changing the relationship type between a fixed pair of elements.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_Replace_RemovesPreExistingRelationships()
     {
@@ -197,6 +227,10 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that the batch Add with multiple relationships adds all of them.
     /// </summary>
+    /// <remarks>
+    ///     Batch path: the batch overload with two distinct relationships adds both in a single
+    ///     call, increasing the relationship count by exactly two.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_BatchMultiple_AddsAllRelationships()
     {
@@ -231,6 +265,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that a relationship with NOASSERTION as the target element is accepted as valid.
     /// </summary>
+    /// <remarks>
+    ///     Boundary path: <c>NOASSERTION</c> is a valid target element value (it means the
+    ///     related element is intentionally unspecified). The transform must accept it without
+    ///     throwing, regardless of whether any element with ID "NOASSERTION" exists.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_NoAssertionTarget_AddsRelationship()
     {
@@ -262,6 +301,11 @@ public class SpdxModelTransformTests
     /// <summary>
     ///     Tests that a relationship with a DocumentRef- prefixed target is accepted as valid.
     /// </summary>
+    /// <remarks>
+    ///     Boundary path: a target element prefixed with <c>DocumentRef-</c> refers to an
+    ///     element in an external document. The transform must accept it without throwing,
+    ///     regardless of whether the external document reference resolves locally.
+    /// </remarks>
     [TestMethod]
     public void SpdxModelTransform_AddRelationship_DocumentRefTarget_AddsRelationship()
     {

@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
     ///     Tests serializing an extracted licensing info.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfo_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxExtractedLicensingInfo object
         var info = new SpdxExtractedLicensingInfo
@@ -59,7 +59,7 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
     ///     Tests serializing multiple extracted licensing infos.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfos_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfos_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxExtractedLicensingInfo objects
         var info = new[]

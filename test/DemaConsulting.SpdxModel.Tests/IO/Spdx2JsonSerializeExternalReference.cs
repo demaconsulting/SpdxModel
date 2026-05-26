@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeExternalReference
     ///     Tests serializing an external reference.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExternalReference_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeExternalReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxExternalReference object
         var reference = new SpdxExternalReference
@@ -59,7 +59,7 @@ public class Spdx2JsonSerializeExternalReference
     ///     Tests serializing multiple external references.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExternalReferences_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeExternalReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create sample SpdxExternalReference objects
         var references = new[]

@@ -15,9 +15,9 @@ sections:
               enabling modular SBOM construction and linking between related software inventories. This
               is essential for managing complex multi-component software systems.
             tests:
-              - SpdxExternalDocumentReference_SameComparer_ComparesCorrectly
-              - SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxExternalDocumentReference_Enhance_AddsOrUpdatesInformationCorrectly
-              - SpdxExternalDocumentReference_Validate_MissingId
-              - SpdxExternalDocumentReference_Validate_MissingDocument
+              - SpdxExternalDocumentReference_SameComparer_SameDocument_ReturnsEqual
+              - SpdxExternalDocumentReference_DeepCopy_ValidInstance_ReturnsEqualButDistinctInstance
+              - SpdxExternalDocumentReference_Enhance_WithNewAndMatchingEntries_MergesAndAppendsCorrectly
+              - SpdxExternalDocumentReference_Validate_MissingId_ReportsIssue
+              - SpdxExternalDocumentReference_Validate_MissingDocument_ReportsIssue
               - SpdxExternalDocumentReference_Validate_InvalidChecksum_ReportsIssue

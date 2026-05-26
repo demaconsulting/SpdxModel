@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeCreationInformation
     ///     Tests serializing creation information.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeCreationInformation_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeCreationInformation_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxCreationInformation object
         var creationInformation = new SpdxCreationInformation

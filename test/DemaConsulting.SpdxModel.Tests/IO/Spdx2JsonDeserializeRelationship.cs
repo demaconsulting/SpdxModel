@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX relationships to <see cref="SpdxRelationship" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX relationship elements using MSTest as the approved
+///     test framework for this repository. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxRelationship"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeRelationship
 {
     /// <summary>
     ///     Tests deserializing a relationship.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that spdxElementId, relatedSpdxElement, relationshipType, and comment JSON
+    ///     fields are correctly mapped to the <see cref="SpdxRelationship"/> properties when a
+    ///     single relationship object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeRelationship_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a relationship
         var json = new JsonObject
@@ -57,8 +67,12 @@ public class Spdx2JsonDeserializeRelationship
     /// <summary>
     ///     Tests deserializing multiple relationships.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array of two relationship objects (DESCRIBES and DESCRIBED_BY)
+    ///     is deserialized to a two-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeRelationships_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeRelationships_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple relationships
         var json = new JsonArray

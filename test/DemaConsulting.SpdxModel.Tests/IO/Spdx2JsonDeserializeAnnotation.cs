@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX annotation elements using MSTest as the approved
+///     test framework for this repository. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxAnnotation"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeAnnotation
 {
     /// <summary>
     ///     Tests deserializing an annotation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all four annotation fields (annotationDate, annotationType, annotator,
+    ///     comment) are mapped to the correct <see cref="SpdxAnnotation"/> properties when a
+    ///     single JSON object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeAnnotation_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an annotation
         var json = new JsonObject
@@ -57,8 +67,12 @@ public class Spdx2JsonDeserializeAnnotation
     /// <summary>
     ///     Tests deserializing multiple annotations.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array of two annotation objects is deserialized to an array
+    ///     of two <see cref="SpdxAnnotation"/> instances with fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeAnnotations_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeAnnotations_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple annotations
         var json = new JsonArray

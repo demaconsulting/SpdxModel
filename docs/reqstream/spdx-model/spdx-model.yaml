@@ -30,8 +30,7 @@ sections:
               Helper utilities provide shared functionality used across the data model, including
               date-time validation and string enhancement operations.
             tests:
-              - SpdxHelpers_IsValidSpdxDateTime_ValidFormat_ReturnsTrue
-              - SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue
+              - SpdxModel_Helpers_DateTimeValidation_IsObservableThroughDocumentModel
             children:
               - SpdxModel-Data-Helpers-DateTime
               - SpdxModel-Data-Helpers-EnhanceString
@@ -113,7 +112,12 @@ sections:
             children:
               - SpdxModel-Data-Document-Validate
               - SpdxModel-Data-Annotations
-              - SpdxModel-Data-Checksums
+              - SpdxModel-Data-Checksum-Compare
+              - SpdxModel-Data-Checksum-DeepCopy
+              - SpdxModel-Data-Checksum-Enhance
+              - SpdxModel-Data-Checksum-Validate
+              - SpdxModel-Data-Checksum-FromText
+              - SpdxModel-Data-Checksum-ToText
               - SpdxModel-Data-CreationInformation
             tests:
               - SpdxModel_ReadSpdxJson_Spdx22Example_PassesValidation
@@ -162,4 +166,4 @@ sections:
             children:
               - SpdxModel-Transform-Utilities
             tests:
-              - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists
+              - SpdxModel_Transform_AddRelationship_IsObservableThroughDocumentModel

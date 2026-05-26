@@ -26,14 +26,25 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX files to <see cref="SpdxFile" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX file elements using MSTest as the approved test
+///     framework for this repository. Each test constructs inline JSON and verifies the
+///     resulting <see cref="SpdxFile"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeFile
 {
     /// <summary>
     ///     Tests deserializing a file.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all standard file fields (SPDXID, fileName, fileTypes, checksums,
+    ///     licenseConcluded, licenseInfoInFiles, licenseComments, comment, noticeText) are
+    ///     correctly mapped to <see cref="SpdxFile"/> properties when a single file JSON
+    ///     object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeFile_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeFile_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a file
         var json = new JsonObject
@@ -78,8 +89,12 @@ public class Spdx2JsonDeserializeFile
     /// <summary>
     ///     Tests deserializing multiple files.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array containing one file object is deserialized to a
+    ///     single-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeFiles_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeFiles_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple files
         var json = new JsonArray

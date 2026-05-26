@@ -109,7 +109,6 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
-    /// <returns>Deep copy of this object</returns>
     /// <remarks>
     ///     All arrays (<see cref="FileTypes"/>, <see cref="Checksums"/>,
     ///     <see cref="LicenseInfoInFiles"/>, <see cref="Contributors"/>,
@@ -117,6 +116,7 @@ public sealed class SpdxFile : SpdxLicenseElement
     ///     <see cref="SpdxLicenseElement.Annotations"/>) are independently deep-copied; the
     ///     returned instance shares no mutable state with the original.
     /// </remarks>
+    /// <returns>Deep copy of this object</returns>
     public SpdxFile DeepCopy()
     {
         return new SpdxFile
@@ -256,6 +256,10 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Equality Comparer to test for the same file
     /// </summary>
+    /// <remarks>
+    ///     Equality is based on <see cref="SpdxFile.FileName"/> with a SHA1 checksum tiebreaker:
+    ///     two entries with the same file name but differing SHA1 digests are treated as distinct.
+    /// </remarks>
     private sealed class SpdxFileSame : IEqualityComparer<SpdxFile>
     {
         /// <inheritdoc />

@@ -57,6 +57,15 @@ registries or vulnerability databases.
 **PrimaryPackagePurpose**: `string?` — Primary purpose classification (e.g., `LIBRARY`,
 `APPLICATION`).
 
+**ReleaseDate**: `string?` — Date and time the package was released, in SPDX date-time format
+(`YYYY-MM-DDThh:mm:ssZ`); `null` if not specified.
+
+**BuiltDate**: `string?` — Date and time the package was built, in SPDX date-time format
+(`YYYY-MM-DDThh:mm:ssZ`); `null` if not specified.
+
+**ValidUntilDate**: `string?` — Date and time after which the package should no longer be
+considered valid, in SPDX date-time format (`YYYY-MM-DDThh:mm:ssZ`); `null` if not specified.
+
 *Inherited from `SpdxLicenseElement`*: `Id`, `ConcludedLicense`, `LicenseComments`,
 `CopyrightText`, `AttributionText`, `Annotations`.
 
@@ -92,8 +101,10 @@ registries or vulnerability databases.
 - *Preconditions*: none.
 - *Postconditions*: All discovered issues including nested checksum and external reference
   issues are appended to `issues`; an empty `DeclaredLicense` does not produce a validation issue.
-  When `doc` is non-null, entries in `HasFiles` that do not match any file ID in `doc.Files`
-  cause an issue to be recorded.
+ Non-null `ReleaseDate`, `BuiltDate`, or `ValidUntilDate` values that do not conform to the SPDX
+ date-time format (`YYYY-MM-DDThh:mm:ssZ`) each cause a validation issue to be recorded.
+ When `doc` is non-null, entries in `HasFiles` that do not match any file ID in `doc.Files`
+ cause an issue to be recorded.
 
 **Same**: `static IEqualityComparer<SpdxPackage>` — compares by `Name` and `Version`.
 

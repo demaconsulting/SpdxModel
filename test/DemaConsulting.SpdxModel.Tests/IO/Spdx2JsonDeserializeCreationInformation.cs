@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX creation information to <see cref="SpdxCreationInformation" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX creation information using MSTest as the approved
+///     test framework for this repository. Constructs inline JSON and verifies the resulting
+///     <see cref="SpdxCreationInformation"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeCreationInformation
 {
     /// <summary>
     ///     Tests deserializing creation information.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all creation information fields (comment, created, creators array,
+    ///     licenseListVersion) are correctly mapped to the
+    ///     <see cref="SpdxCreationInformation"/> properties.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeCreationInformation_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing creation information
         var json = new JsonObject

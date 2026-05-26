@@ -25,14 +25,25 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxDocument" /> class.
 /// </summary>
+/// <remarks>
+///     Tests the <see cref="SpdxDocument"/> class using MSTest (approved exception: xUnit
+///     adoption is deferred for this project). Each test constructs its own document state
+///     from scratch or deserializes the embedded JSON fixture
+///     <c>SPDXJSONExample-v2.3.spdx.json</c>; no shared instance state is used.
+/// </remarks>
 [TestClass]
 public class SpdxDocumentTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetRootPackages" /> method returns the correct root packages
     /// </summary>
+    /// <remarks>
+    ///     Constructs a document with three packages and two root-package indicators (one via the
+    ///     Describes list and one via a DescribedBy relationship) to verify that GetRootPackages
+    ///     returns exactly the two packages named as roots and excludes the third.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_GetRootPackages_CorrectPackages()
+    public void SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages()
     {
         // Arrange: Create a sample SPDX document with multiple packages and relationships
         var document = new SpdxDocument
@@ -85,8 +96,14 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Same" /> comparer compares documents correctly.
     /// </summary>
+    /// <remarks>
+    ///     Sets up three documents: d1 and d2 both describe a root package with the same name
+    ///     and version (but different IDs and versions), and d3 describes a different package.
+    ///     Verifies reflexive, symmetric, cross-inequality comparisons, and hash-code consistency
+    ///     for equal documents.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_SameComparer_ComparesCorrectly()
+    public void SpdxDocument_Same_DocumentsWithMatchingRootPackages_AreEqual()
     {
         // Arrange: Create three documents with different properties
         var d1 = new SpdxDocument
@@ -163,8 +180,14 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Constructs a fully-populated document with external document references, extracted
+    ///     licensing info, annotations, files, packages, snippets, relationships, and a Describes
+    ///     list, then deep-copies it. Verifies that every collection and scalar field is equal
+    ///     but that all array references are distinct from the original.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxDocument_DeepCopy_WithPopulatedDocument_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create a sample SPDX document with various elements
         var d1 = new SpdxDocument
@@ -285,8 +308,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method successfully validates a document with no issues.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes <c>SPDXJSONExample-v2.3.spdx.json</c> (a known-good SPDX 2.3 example)
+    ///     to obtain a fully valid document and verifies that the validator reports no issues.
+    ///     Using the embedded JSON fixture ensures the document satisfies all field constraints.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_NoIssues()
+    public void SpdxDocument_Validate_ValidDocument_ReportsNoIssues()
     {
         // Arrange: Load a valid SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -305,8 +333,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method reports invalid IDs.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture to obtain a valid baseline document, then
+    ///     overwrites its SPDX-ID with <c>"BadId"</c>. Verifies that the validator reports
+    ///     the expected diagnostic for a malformed SPDX identifier.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidId()
+    public void SpdxDocument_Validate_InvalidId_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -328,8 +361,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method reports invalid names.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture to obtain a valid baseline document, then
+    ///     clears its name field. Verifies that the validator reports the expected diagnostic
+    ///     for an empty document name.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidName()
+    public void SpdxDocument_Validate_InvalidName_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -351,8 +389,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method reports invalid versions.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture to obtain a valid baseline document, then
+    ///     overwrites the version with <c>"BadVersion"</c>. Verifies that the validator reports
+    ///     the expected diagnostic for a version string that does not match the SPDX-2.x pattern.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidVersion()
+    public void SpdxDocument_Validate_InvalidVersion_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -374,8 +417,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method reports invalid data licenses.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture to obtain a valid baseline document, then
+    ///     overwrites the data license with <c>"BadLicense"</c>. Verifies that the validator
+    ///     reports the expected diagnostic for a value other than the mandatory CC0-1.0 license.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidDataLicense()
+    public void SpdxDocument_Validate_InvalidDataLicense_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -397,8 +445,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method reports invalid namespaces.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture to obtain a valid baseline document, then
+    ///     clears the namespace URI. Verifies that the validator reports the expected diagnostic
+    ///     for an empty document namespace.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidNameSpace()
+    public void SpdxDocument_Validate_InvalidNameSpace_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -420,8 +473,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method detects duplicate IDs.
     /// </summary>
+    /// <remarks>
+    ///     Constructs a minimal document containing two packages with the same SPDX-ID. Verifies
+    ///     that the validator reports the expected duplicate-ID diagnostic rather than silently
+    ///     accepting the malformed document.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_DuplicatePackageIds()
+    public void SpdxDocument_Validate_DuplicatePackageIds_ReportsIssue()
     {
         // Arrange: Create a sample SPDX document with duplicate package IDs
         var doc = new SpdxDocument
@@ -463,8 +521,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method detects bad relationships.
     /// </summary>
+    /// <remarks>
+    ///     Constructs a minimal document containing a relationship whose
+    ///     <c>RelatedSpdxElement</c> references an ID that does not exist in the document.
+    ///     Verifies that the validator reports the expected dangling-reference diagnostic.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidRelationship()
+    public void SpdxDocument_Validate_InvalidRelationship_ReportsIssue()
     {
         // Arrange: Create a sample SPDX document with a relationship to a non-existent package
         var doc = new SpdxDocument
@@ -502,8 +565,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method detects NTIA issues.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture, which deliberately omits required NTIA fields
+    ///     for some packages (supplier and version for Apache Commons Lang; supplier for Jena and
+    ///     Saxon). Verifies that the NTIA validation mode reports exactly those expected issues.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_NtiaIssues()
+    public void SpdxDocument_Validate_NtiaMinimumElements_ReportsIssues()
     {
         // Arrange: Load a sample SPDX JSON document with known NTIA issues
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -525,8 +593,14 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetAllElements" /> method returns all elements in the document.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture, which contains a document element, four
+    ///     packages, and five files. Verifies that <see cref="SpdxDocument.GetAllElements"/>
+    ///     returns exactly those elements and that <see cref="SpdxRelationship"/> entries are
+    ///     excluded from the result.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_GetAllElements_Correct()
+    public void SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
@@ -560,6 +634,11 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the document element.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture and queries for the document element by its
+    ///     SPDX-ID. Verifies that the returned object is the document itself and has the expected
+    ///     document name.
+    /// </remarks>
     [TestMethod]
     public void SpdxDocument_GetElement_Document_ReturnsDocumentElement()
     {
@@ -580,6 +659,10 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct file element.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture and queries for a file element by its SPDX-ID.
+    ///     Verifies that the returned object is the correct file and has the expected file name.
+    /// </remarks>
     [TestMethod]
     public void SpdxDocument_GetElement_File_ReturnsFileElement()
     {
@@ -600,6 +683,11 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct package element.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture and queries for a package element by its
+    ///     SPDX-ID. Verifies that the returned object is the correct package and has the
+    ///     expected file name property.
+    /// </remarks>
     [TestMethod]
     public void SpdxDocument_GetElement_Package_ReturnsPackageElement()
     {
@@ -620,6 +708,11 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.GetElement{T}" /> method returns the correct snippet element.
     /// </summary>
+    /// <remarks>
+    ///     Deserializes the embedded JSON fixture and queries for a snippet element by its
+    ///     SPDX-ID. Verifies that the returned object is the correct snippet and references
+    ///     the expected source file SPDX-ID.
+    /// </remarks>
     [TestMethod]
     public void SpdxDocument_GetElement_Snippet_ReturnsSnippetElement()
     {
@@ -640,8 +733,13 @@ public class SpdxDocumentTests
     /// <summary>
     ///     Tests the <see cref="SpdxDocument.Validate" /> method validates document-level annotations.
     /// </summary>
+    /// <remarks>
+    ///     Constructs a minimal valid document that contains a single annotation with an empty
+    ///     Annotator field. Verifies that the validator reports the annotation-level issue using
+    ///     the document element prefix so the issue can be attributed to the correct context.
+    /// </remarks>
     [TestMethod]
-    public void SpdxDocument_Validate_InvalidAnnotation()
+    public void SpdxDocument_Validate_InvalidAnnotation_ReportsIssue()
     {
         // Arrange: Create a document with an invalid annotation
         var doc = new SpdxDocument

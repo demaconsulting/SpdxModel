@@ -23,14 +23,23 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxFile" /> class.
 /// </summary>
+/// <remarks>
+///     Covers the Same equality comparer, DeepCopy, Enhance merge, Validate, and the
+///     SpdxFileType text-conversion extension methods (FromText/ToText).
+/// </remarks>
 [TestClass]
 public class SpdxFileTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxFile.Same" /> comparer compares files correctly.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that two files with the same FileName and compatible SHA1 checksums are
+    ///     considered equal, that differing SHA1 checksums or file names produce inequality,
+    ///     and that equal files produce identical hash codes.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_SameComparer_ComparesCorrectly()
+    public void SpdxFile_SameComparer_MatchingAndDistinctFiles_ComparesCorrectly()
     {
         // Arrange: Create several SpdxFile instances with different IDs, names, and checksums
         var f1 = new SpdxFile
@@ -106,8 +115,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFile.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the copy has equal field values to the original and that all array
+    ///     fields are independently copied with no shared references between original and copy.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxFile_DeepCopy_FullyPopulatedFile_CreatesEqualButDistinctCopy()
     {
         // Arrange: Create an SpdxFile instance with all deep-copied fields populated
         var f1 = new SpdxFile
@@ -179,8 +192,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFile.Enhance(SpdxFile[], SpdxFile[])" /> method correctly adds or updates information
     /// </summary>
+    /// <remarks>
+    ///     Verifies that matching entries are enhanced in place and unmatched entries from the
+    ///     source array are appended as new independent copies.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly()
     {
         // Arrange: Create an array of SpdxFile objects with one file
         var files = new[]
@@ -255,8 +272,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests that an invalid file ID fails validation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when the SPDX-ID does not conform
+    ///     to the required SPDXRef- prefix format.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_Validate_ReportsInvalidFileId()
+    public void SpdxFile_Validate_InvalidFileId_ReportsIssue()
     {
         // Arrange: Create an SpdxFile instance with an invalid ID format
         var spdxFile = new SpdxFile
@@ -284,8 +305,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests that an invalid file name fails validation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when FileName does not start with
+    ///     the required "./" prefix.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_Validate_ReportsInvalidFileName()
+    public void SpdxFile_Validate_InvalidFileName_ReportsIssue()
     {
         // Arrange: Create an SpdxFile instance with a FileName that has no "./" prefix
         var spdxFile = new SpdxFile
@@ -313,8 +338,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests that a missing SHA1 checksum fails validation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when no SHA1 checksum is present
+    ///     in the Checksums array.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_Validate_ReportsWhenSha1ChecksumMissing()
+    public void SpdxFile_Validate_MissingSha1Checksum_ReportsIssue()
     {
         // Arrange: Create an SpdxFile instance with only an MD5 checksum (no SHA1)
         var spdxFile = new SpdxFile
@@ -342,8 +371,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests that a valid file passes validation.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a fully populated valid SpdxFile passes all validation checks
+    ///     without reporting any issues.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFile_Validate_Success()
+    public void SpdxFile_Validate_ValidFile_ReportsNoIssues()
     {
         // Arrange: Create a valid SpdxFile instance
         var spdxFile = new SpdxFile
@@ -376,8 +409,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)" /> method with valid inputs.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all recognized file type strings, including case variants, map to the
+    ///     expected enum values.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFileTypeExtensions_FromText_Valid()
+    public void SpdxFileTypeExtensions_FromText_ValidInput_ParsesCorrectly()
     {
         // Arrange: (no external state needed)
 
@@ -400,8 +437,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFileTypeExtensions.FromText(string)" /> method with invalid input.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that FromText throws <see cref="InvalidOperationException"/> with a message
+    ///     identifying the unsupported value when given an unrecognized file type string.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFileTypeExtensions_FromText_Invalid()
+    public void SpdxFileTypeExtensions_FromText_InvalidInput_ThrowsException()
     {
         // Arrange: An unrecognized file type string
 
@@ -414,8 +455,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFileTypeExtensions.ToText" /> method with valid inputs
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all known file type enum values map to their expected SPDX text
+    ///     representations.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFileTypeExtensions_ToText_Valid()
+    public void SpdxFileTypeExtensions_ToText_ValidEnum_FormatsCorrectly()
     {
         // Arrange: (no external state needed)
 
@@ -436,8 +481,12 @@ public class SpdxFileTests
     /// <summary>
     ///     Tests the <see cref="SpdxFileTypeExtensions.ToText" /> method with invalid input.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that ToText throws <see cref="InvalidOperationException"/> when given an
+    ///     unsupported file type enum value.
+    /// </remarks>
     [TestMethod]
-    public void SpdxFileTypeExtensions_ToText_Invalid()
+    public void SpdxFileTypeExtensions_ToText_InvalidEnum_ThrowsException()
     {
         // Arrange: An unsupported file type enum value
 

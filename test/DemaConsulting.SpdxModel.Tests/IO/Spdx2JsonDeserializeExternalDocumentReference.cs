@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX external document references to <see cref="SpdxExternalDocumentReference" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX external document reference elements using MSTest
+///     as the approved test framework for this repository. Each test constructs inline JSON
+///     and verifies the resulting <see cref="SpdxExternalDocumentReference"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeExternalDocumentReference
 {
     /// <summary>
     ///     Tests deserializing an external document reference.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that externalDocumentId, checksum (algorithm and value), and spdxDocument
+    ///     JSON fields are correctly mapped to the <see cref="SpdxExternalDocumentReference"/>
+    ///     properties when a single object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an external document reference
         var json = new JsonObject
@@ -61,8 +71,12 @@ public class Spdx2JsonDeserializeExternalDocumentReference
     /// <summary>
     ///     Tests deserializing multiple external document references.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array containing one external document reference object is
+    ///     deserialized to a single-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple external document references
         var json = new JsonArray

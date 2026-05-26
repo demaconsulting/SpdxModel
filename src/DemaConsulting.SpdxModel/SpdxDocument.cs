@@ -25,6 +25,14 @@ namespace DemaConsulting.SpdxModel;
 /// <summary>
 ///     SPDX Document class
 /// </summary>
+/// <remarks>
+///     <see cref="SpdxDocument"/> is the root container of the SPDX in-memory object model.
+///     It aggregates all packages, files, snippets, relationships, and annotations that
+///     together form a complete SPDX Software Bill of Materials. The class is
+///     <see langword="sealed"/> to prevent inheritance. All mutable collection and scalar
+///     properties are not thread-safe; external synchronization is required when instances
+///     are shared across threads.
+/// </remarks>
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>

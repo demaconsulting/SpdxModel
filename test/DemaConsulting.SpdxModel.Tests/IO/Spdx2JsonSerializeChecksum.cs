@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeChecksum
     ///     Tests serializing a checksum.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeChecksum_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeChecksum_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample checksum
         var checksum = new SpdxChecksum
@@ -54,7 +54,7 @@ public class Spdx2JsonSerializeChecksum
     ///     Tests serializing multiple checksums.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeChecksums_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeChecksums_ValidInput_CorrectResults()
     {
         // Arrange: Create sample checksums
         var checksums = new[]

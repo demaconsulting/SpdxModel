@@ -78,11 +78,11 @@ public sealed class SpdxExternalReference
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
-    /// <returns>Deep copy of this object</returns>
     /// <remarks>
     ///     Used by the static Enhance merge to add new entries without aliasing the source array; also used by callers
     ///     that need an independent snapshot.
     /// </remarks>
+    /// <returns>Deep copy of this object</returns>
     public SpdxExternalReference DeepCopy()
     {
         return new SpdxExternalReference

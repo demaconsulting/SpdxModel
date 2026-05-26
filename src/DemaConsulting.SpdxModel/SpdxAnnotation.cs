@@ -214,9 +214,23 @@ public sealed class SpdxAnnotation : SpdxElement
     /// <summary>
     ///     Equality Comparer to test for the same annotation
     /// </summary>
+    /// <remarks>
+    ///     Implements identity semantics used by <see cref="Enhance(SpdxAnnotation[], SpdxAnnotation[])"/>
+    ///     to detect duplicate annotations before merging. Two annotations are considered the
+    ///     same when their <see cref="SpdxAnnotation.Annotator"/>, <see cref="SpdxAnnotation.Date"/>,
+    ///     <see cref="SpdxAnnotation.Type"/>, and <see cref="SpdxAnnotation.Comment"/> fields are all equal,
+    ///     regardless of their <see cref="SpdxElement.Id"/>.
+    /// </remarks>
     private sealed class SpdxAnnotationSame : IEqualityComparer<SpdxAnnotation>
     {
         /// <inheritdoc />
+        /// <remarks>
+        ///     Compares the four identity fields: <see cref="SpdxAnnotation.Annotator"/>,
+        ///     <see cref="SpdxAnnotation.Date"/>, <see cref="SpdxAnnotation.Type"/>, and
+        ///     <see cref="SpdxAnnotation.Comment"/>. The <see cref="SpdxElement.Id"/> field
+        ///     is intentionally excluded so that an annotation with or without an assigned
+        ///     SPDX-ID is still recognized as the same logical entry.
+        /// </remarks>
         public bool Equals(SpdxAnnotation? a1, SpdxAnnotation? a2)
         {
             if (ReferenceEquals(a1, a2))
@@ -236,6 +250,12 @@ public sealed class SpdxAnnotation : SpdxElement
         }
 
         /// <inheritdoc />
+        /// <remarks>
+        ///     Computes the hash from the same four identity fields as <see cref="Equals"/>:
+        ///     <see cref="SpdxAnnotation.Annotator"/>, <see cref="SpdxAnnotation.Date"/>,
+        ///     <see cref="SpdxAnnotation.Type"/>, and <see cref="SpdxAnnotation.Comment"/>.
+        ///     Uses <c>HashCode.Combine</c> for a well-distributed composite hash.
+        /// </remarks>
         public int GetHashCode(SpdxAnnotation obj)
         {
             return HashCode.Combine(

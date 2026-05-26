@@ -15,14 +15,14 @@ sections:
               file elements enables fine-grained tracking of individual source files, binaries, and
               their associated licensing and copyright information.
             tests:
-              - SpdxFile_SameComparer_ComparesCorrectly
-              - SpdxFile_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
-              - SpdxFile_Validate_ReportsInvalidFileId
-              - SpdxFile_Validate_ReportsInvalidFileName
-              - SpdxFile_Validate_ReportsWhenSha1ChecksumMissing
-              - SpdxFile_Validate_Success
-              - SpdxFileTypeExtensions_FromText_Valid
-              - SpdxFileTypeExtensions_FromText_Invalid
-              - SpdxFileTypeExtensions_ToText_Valid
-              - SpdxFileTypeExtensions_ToText_Invalid
+              - SpdxFile_SameComparer_MatchingAndDistinctFiles_ComparesCorrectly
+              - SpdxFile_DeepCopy_FullyPopulatedFile_CreatesEqualButDistinctCopy
+              - SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly
+              - SpdxFile_Validate_InvalidFileId_ReportsIssue
+              - SpdxFile_Validate_InvalidFileName_ReportsIssue
+              - SpdxFile_Validate_MissingSha1Checksum_ReportsIssue
+              - SpdxFile_Validate_ValidFile_ReportsNoIssues
+              - SpdxFileTypeExtensions_FromText_ValidInput_ParsesCorrectly
+              - SpdxFileTypeExtensions_FromText_InvalidInput_ThrowsException
+              - SpdxFileTypeExtensions_ToText_ValidEnum_FormatsCorrectly
+              - SpdxFileTypeExtensions_ToText_InvalidEnum_ThrowsException

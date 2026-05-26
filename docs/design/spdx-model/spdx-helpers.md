@@ -43,8 +43,24 @@ for invalid input rather than throwing.
 
 ### Callers
 
+**EnhanceString callers** (all data model `Enhance` methods):
+
 - **SpdxElement** — `EnhanceString` used in `EnhanceElement`.
-- All data model units that call `EnhanceString` in their `Enhance` methods.
+- **SpdxAnnotation** — `EnhanceString` used in `Enhance`.
+- **SpdxChecksum** — `EnhanceString` used in `Enhance`.
+- **SpdxCreationInformation** — `EnhanceString` used in `Enhance`.
+- **SpdxExternalDocumentReference** — `EnhanceString` used in `Enhance`.
+- **SpdxExternalReference** — `EnhanceString` used in `Enhance`.
+- **SpdxExtractedLicensingInfo** — `EnhanceString` used in `Enhance`.
+- **SpdxFile** — `EnhanceString` used in `Enhance`.
+- **SpdxLicenseElement** — `EnhanceString` used in `Enhance`.
+- **SpdxPackage** — `EnhanceString` used in `Enhance`.
+- **SpdxPackageVerificationCode** — `EnhanceString` used in `Enhance`.
+- **SpdxRelationship** — `EnhanceString` used in `Enhance`.
+- **SpdxSnippet** — `EnhanceString` used in `Enhance`.
+
+**IsValidSpdxDateTime callers**:
+
 - **SpdxCreationInformation** — `IsValidSpdxDateTime` used in `Validate`.
 - **SpdxAnnotation** — `IsValidSpdxDateTime` used in `Validate`.
 - **SpdxPackage** — `IsValidSpdxDateTime` used in `Validate`.

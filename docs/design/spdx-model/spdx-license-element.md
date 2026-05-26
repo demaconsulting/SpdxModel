@@ -59,6 +59,7 @@ N/A - `SpdxLicenseElement` is abstract. Subclasses implement their own `Validate
 
 - **SpdxElement** — abstract base class providing the `Id` property.
 - **SpdxAnnotation** — element-level annotations.
+- **SpdxHelpers** — shared utility functions for fitness-ranked string selection.
 
 ### Callers
 

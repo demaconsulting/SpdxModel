@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX checksums to <see cref="SpdxChecksum" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX checksum elements using MSTest as the approved
+///     test framework for this repository. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxChecksum"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeChecksum
 {
     /// <summary>
     ///     Tests deserializing a checksum.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that the algorithm and checksumValue JSON fields are mapped to the
+    ///     corresponding <see cref="SpdxChecksum"/> properties when a single checksum object
+    ///     is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeChecksum_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a checksum
         var json = new JsonObject
@@ -53,8 +63,13 @@ public class Spdx2JsonDeserializeChecksum
     /// <summary>
     ///     Tests deserializing multiple checksums.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array of two checksum objects (SHA1 and MD5) is deserialized
+    ///     to an array of two <see cref="SpdxChecksum"/> instances with correct algorithm and
+    ///     value mappings.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeChecksums_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeChecksums_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple checksums
         var json = new JsonArray

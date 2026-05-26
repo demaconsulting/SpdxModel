@@ -25,14 +25,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX 2.3 JSON documents to <see cref="SpdxDocument" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises end-to-end deserialization of a real SPDX 2.3 JSON example document
+///     (embedded resource) using MSTest as the approved test framework for this repository.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserialize23
 {
     /// <summary>
     ///     Test parsing SPDX 2.3 JSON document.
     /// </summary>
+    /// <remarks>
+    ///     Uses the canonical SPDX 2.3 JSON example bundled as an embedded resource. Verifies
+    ///     document-level fields, external document references, extracted licensing info,
+    ///     annotations, files, snippets, and relationships are all correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument()
+    public void Spdx2JsonDeserializer_Deserialize_ValidSpdx23Json_ReturnsExpectedDocument()
     {
         // Arrange: Get the SPDX 2.3 JSON example from embedded resources
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(

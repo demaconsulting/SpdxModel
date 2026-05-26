@@ -87,6 +87,7 @@ test/DemaConsulting.SpdxModel.Tests/
 │   ├── Examples/                    — Test example JSON files
 │   ├── Spdx2JsonDeserialize*.cs     — Deserializer unit tests
 │   ├── Spdx2JsonSerialize*.cs       — Serializer unit tests
+│   ├── SpdxJsonHelpers.cs          — IO test utility helpers
 │   └── SpdxModelIOTests.cs          — IO subsystem integration tests
 ├── Transforms/
 │   ├── SpdxModelTransformTests.cs  — Transform subsystem integration tests
@@ -96,6 +97,7 @@ test/DemaConsulting.SpdxModel.Tests/
 ├── SpdxChecksumTests.cs            — SpdxChecksum unit tests
 ├── SpdxCreationInformationTests.cs — SpdxCreationInformation unit tests
 ├── SpdxDocumentTests.cs            — SpdxDocument unit tests
+├── SpdxElementTests.cs             — SpdxElement unit tests
 ├── SpdxExternalDocumentReferenceTests.cs — SpdxExternalDocumentReference unit tests
 ├── SpdxExternalReferenceTests.cs   — SpdxExternalReference unit tests
 ├── SpdxExtractedLicensingInfoTests.cs — SpdxExtractedLicensingInfo unit tests
@@ -104,7 +106,8 @@ test/DemaConsulting.SpdxModel.Tests/
 ├── SpdxPackageTests.cs             — SpdxPackage unit tests
 ├── SpdxPackageVerificationCodeTests.cs — SpdxPackageVerificationCode unit tests
 ├── SpdxRelationshipTests.cs        — SpdxRelationship unit tests
-└── SpdxSnippetTests.cs             — SpdxSnippet unit tests
+├── SpdxSnippetTests.cs             — SpdxSnippet unit tests
+└── TestHelpers.cs                  — Test utility helpers (SpdxTestHelpers)
 ```
 
 ## Companion Artifact Structure

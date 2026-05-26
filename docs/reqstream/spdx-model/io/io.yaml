@@ -33,8 +33,8 @@ sections:
               toolchain integration, and compliance reporting. Producing well-formed SPDX JSON ensures
               interoperability with other tools in the SPDX ecosystem.
             children:
-              - SpdxModel-Serialization-SerializeJson
-              - SpdxModel-Serialization-SerializeElements
+              - SpdxModel-IO-SerializeJson
+              - SpdxModel-IO-SerializeElements
             tests:
               - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
               - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

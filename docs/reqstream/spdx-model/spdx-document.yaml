@@ -15,8 +15,8 @@ sections:
               packages, files, snippets, relationships, and annotations, and is required for
               expressing any SPDX-compliant bill of materials.
             tests:
-              - SpdxDocument_SameComparer_ComparesCorrectly
-              - SpdxDocument_DeepCopy_CreatesEqualButDistinctInstance
+              - SpdxDocument_Same_DocumentsWithMatchingRootPackages_AreEqual
+              - SpdxDocument_DeepCopy_WithPopulatedDocument_CreatesEqualButDistinctInstance
 
           - id: SpdxModel-Data-Document-Validate
             title: The library shall validate SPDX document fields and report all violations.
@@ -28,15 +28,15 @@ sections:
               consumed or distributed. Reporting all violations rather than failing on the first
               allows tooling to produce complete diagnostic output in a single pass.
             tests:
-              - SpdxDocument_Validate_NoIssues
-              - SpdxDocument_Validate_InvalidId
-              - SpdxDocument_Validate_InvalidName
-              - SpdxDocument_Validate_InvalidVersion
-              - SpdxDocument_Validate_InvalidDataLicense
-              - SpdxDocument_Validate_InvalidNameSpace
-              - SpdxDocument_Validate_DuplicatePackageIds
-              - SpdxDocument_Validate_InvalidRelationship
-              - SpdxDocument_Validate_InvalidAnnotation
+              - SpdxDocument_Validate_ValidDocument_ReportsNoIssues
+              - SpdxDocument_Validate_InvalidId_ReportsIssue
+              - SpdxDocument_Validate_InvalidName_ReportsIssue
+              - SpdxDocument_Validate_InvalidVersion_ReportsIssue
+              - SpdxDocument_Validate_InvalidDataLicense_ReportsIssue
+              - SpdxDocument_Validate_InvalidNameSpace_ReportsIssue
+              - SpdxDocument_Validate_DuplicatePackageIds_ReportsIssue
+              - SpdxDocument_Validate_InvalidRelationship_ReportsIssue
+              - SpdxDocument_Validate_InvalidAnnotation_ReportsIssue
 
           - id: SpdxModel-Data-Document-Ntia
             title: The library shall validate SPDX documents for NTIA minimum SBOM element compliance.
@@ -49,7 +49,7 @@ sections:
               data fields that must be present in a conforming SBOM. Supporting this check allows
               downstream tooling to assess NTIA compliance without reimplementing the rules.
             tests:
-              - SpdxDocument_Validate_NtiaIssues
+              - SpdxDocument_Validate_NtiaMinimumElements_ReportsIssues
 
           - id: SpdxModel-Data-Document-ElementQuery
             title: The library shall support querying SPDX document elements by ID.
@@ -60,7 +60,7 @@ sections:
               SPDX identifier. Providing a GetElement helper reduces boilerplate in downstream
               tools and ensures consistent traversal semantics.
             tests:
-              - SpdxDocument_GetAllElements_Correct
+              - SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements
               - SpdxDocument_GetElement_Document_ReturnsDocumentElement
               - SpdxDocument_GetElement_File_ReturnsFileElement
               - SpdxDocument_GetElement_Package_ReturnsPackageElement
@@ -75,4 +75,4 @@ sections:
               described by the document. Providing a GetRootPackages helper reduces boilerplate in
               downstream tools and ensures consistent traversal semantics.
             tests:
-              - SpdxDocument_GetRootPackages_CorrectPackages
+              - SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages

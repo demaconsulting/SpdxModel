@@ -34,16 +34,28 @@ public enum SpdxAnnotationType
     /// <summary>
     ///     Missing annotation type
     /// </summary>
+    /// <remarks>
+    ///     Sentinel value (<c>-1</c>) representing an absent or uninitialized annotation type.
+    ///     <see cref="SpdxAnnotationTypeExtensions.ToText"/> will throw
+    ///     <see cref="InvalidOperationException"/> if called with this value, and it must never
+    ///     be written to a serialized SPDX document.
+    /// </remarks>
     Missing = -1,
 
     /// <summary>
     ///     Annotation created during review
     /// </summary>
+    /// <remarks>
+    ///     Canonical SPDX 2.x text form: <c>"REVIEW"</c>.
+    /// </remarks>
     Review,
 
     /// <summary>
     ///     Annotation created for other reasons
     /// </summary>
+    /// <remarks>
+    ///     Canonical SPDX 2.x text form: <c>"OTHER"</c>.
+    /// </remarks>
     Other
 }
 

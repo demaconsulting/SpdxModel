@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeFile
     ///     Tests serializing a file.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeFile_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeFile_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxFile object
         var file = new SpdxFile
@@ -112,7 +112,7 @@ public class Spdx2JsonSerializeFile
     ///     Tests serializing multiple files.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeFiles_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeFiles_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array containing a single SpdxFile with all fields populated
         var file = new[]

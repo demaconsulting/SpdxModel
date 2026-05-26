@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX documents to <see cref="SpdxDocument" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX document-level elements using MSTest as the
+///     approved test framework for this repository. Constructs inline JSON and verifies
+///     the resulting <see cref="SpdxDocument"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializeDocument
 {
     /// <summary>
     ///     Tests deserializing a document.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all top-level document fields (SPDXID, spdxVersion, name, dataLicense,
+    ///     comment, documentNamespace, documentDescribes) and empty collection fields are
+    ///     correctly mapped when a full document JSON object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeDocument_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializeDocument_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a document
         var json = new JsonObject

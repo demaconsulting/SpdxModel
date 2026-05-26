@@ -26,14 +26,25 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX packages to <see cref="SpdxPackage" /> classes.
 /// </summary>
+/// <remarks>
+///     Exercises deserialization of SPDX package elements using MSTest as the approved
+///     test framework for this repository. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxPackage"/> fields.
+/// </remarks>
 [TestClass]
 public class Spdx2JsonDeserializePackage
 {
     /// <summary>
     ///     Tests deserializing a package.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that all standard package fields (SPDXID, annotations, attributionTexts,
+    ///     builtDate, checksums, copyrightText, description, downloadLocation, externalRefs)
+    ///     are correctly mapped to <see cref="SpdxPackage"/> properties when a single package
+    ///     JSON object is deserialized.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializePackage_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializePackage_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a package
         var json = new JsonObject
@@ -124,8 +135,12 @@ public class Spdx2JsonDeserializePackage
     /// <summary>
     ///     Tests deserializing multiple packages.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a JSON array containing one package object is deserialized to a
+    ///     single-element array with all fields correctly populated.
+    /// </remarks>
     [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializePackages_CorrectResults()
+    public void Spdx2JsonDeserializer_DeserializePackages_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple packages
         var json = new JsonArray

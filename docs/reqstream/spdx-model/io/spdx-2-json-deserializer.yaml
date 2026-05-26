@@ -17,7 +17,7 @@ sections:
                   interoperability with systems using the SPDX 2.2 specification. This ensures that the
                   library can read and process existing SPDX 2.2 documents from various sources.
                 tests:
-                  - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
+                  - Spdx2JsonDeserializer_Deserialize_ValidSpdx22Json_ReturnsExpectedDocument
 
               - id: SpdxModel-IO-Spdx2JsonDeserializer-Deserialize23Json
                 title: The library shall support deserializing SPDX 2.3 JSON documents.
@@ -28,7 +28,7 @@ sections:
                   SPDX specification. This allows users to leverage new features and improvements introduced
                   in SPDX 2.3 while maintaining compatibility with modern SBOM tools.
                 tests:
-                  - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
+                  - Spdx2JsonDeserializer_Deserialize_ValidSpdx23Json_ReturnsExpectedDocument
 
               - id: SpdxModel-IO-Spdx2JsonDeserializer-DeserializeElements
                 title: The library shall correctly deserialize all SPDX 2.x element types from JSON.
@@ -40,25 +40,25 @@ sections:
                   deserialized correctly ensures the library faithfully reconstructs every artifact present
                   in a source SPDX JSON document.
                 tests:
-                  - Spdx2JsonDeserializer_DeserializeDocument_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeAnnotations_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeChecksums_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExternalReferences_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeFile_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeFiles_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializePackage_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializePackages_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeRelationship_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeRelationships_CorrectResults
-                  - Spdx2JsonDeserializer_DeserializeSnippet_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeDocument_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeAnnotation_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeAnnotations_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeChecksum_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeChecksums_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeCreationInformation_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExternalDocumentReference_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExternalReference_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExternalReferences_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeFile_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeFiles_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializePackage_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializePackages_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializePackageVerificationCode_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeRelationship_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeRelationships_ValidInput_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeSnippet_ValidInput_CorrectResults
                   - Spdx2JsonDeserializer_DeserializeSnippet_WithoutLineRanges_DefaultsToZero
-                  - Spdx2JsonDeserializer_DeserializeSnippets_CorrectResults
+                  - Spdx2JsonDeserializer_DeserializeSnippets_ValidInput_CorrectResults

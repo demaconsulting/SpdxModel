@@ -14,8 +14,12 @@ sections:
               Relationships must be compared to support array merging and deduplication across
               SPDX documents.
             tests:
-              - SpdxRelationship_SameComparer_SameFieldsDifferentComment_ReturnsEqual
-              - SpdxRelationship_SameElementsComparer_SameElementsDifferentType_ReturnsEqual
+              - SpdxRelationship_SameComparer_MatchingRelationships_ReturnsTrue
+              - SpdxRelationship_SameComparer_DifferentRelationships_ReturnsFalse
+              - SpdxRelationship_SameComparer_MatchingRelationships_ReturnsSameHashCode
+              - SpdxRelationship_SameElementsComparer_MatchingElements_ReturnsTrue
+              - SpdxRelationship_SameElementsComparer_DifferentElements_ReturnsFalse
+              - SpdxRelationship_SameElementsComparer_MatchingElements_ReturnsSameHashCode
           - id: SpdxModel-Data-Relationship-DeepCopy
             title: The library shall support creating independent deep copies of SPDX relationships.
             tags:
@@ -46,7 +50,7 @@ sections:
               - SpdxRelationship_Validate_MissingRelatedElementId_ReportsIssue
               - SpdxRelationship_Validate_MissingRelationshipType_ReportsIssue
           - id: SpdxModel-Data-RelationshipType-Conversion
-            title: The library shall support round-trip text conversion for all 44 SPDX relationship type tokens.
+            title: The library shall support round-trip text conversion for all 45 SPDX relationship type tokens.
             tags:
               - data-model
             justification: |
@@ -56,4 +60,5 @@ sections:
               - SpdxRelationshipTypeExtensions_FromText_KnownText_ReturnsMappedEnum
               - SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException
               - SpdxRelationshipTypeExtensions_ToText_KnownEnum_ReturnsMappedText
+              - SpdxRelationshipTypeExtensions_ToText_MissingSentinel_ThrowsInvalidOperationException
               - SpdxRelationshipTypeExtensions_ToText_UnknownEnum_ThrowsInvalidOperationException

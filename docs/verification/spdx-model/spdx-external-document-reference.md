@@ -18,31 +18,31 @@ All automated tests pass with zero failures.
 
 ### Test Scenarios
 
-**SpdxExternalDocumentReference_SameComparer_ComparesCorrectly**: Verifies the comparer
+**SpdxExternalDocumentReference_SameComparer_SameDocument_ReturnsEqual**: Verifies the comparer
 considers two instances equal when their `Document` URI matches, and distinct when the URI
 differs (regardless of `ExternalDocumentId`).
 This scenario is tested by
-`SpdxExternalDocumentReference_SameComparer_ComparesCorrectly`.
+`SpdxExternalDocumentReference_SameComparer_SameDocument_ReturnsEqual`.
 
-**SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance**: Verifies that a
+**SpdxExternalDocumentReference_DeepCopy_ValidInstance_ReturnsEqualButDistinctInstance**: Verifies that a
 deep copy produces a new SpdxExternalDocumentReference with equal field values but a distinct
 object reference.
 This scenario is tested by
-`SpdxExternalDocumentReference_DeepCopy_CreatesEqualButDistinctInstance`.
+`SpdxExternalDocumentReference_DeepCopy_ValidInstance_ReturnsEqualButDistinctInstance`.
 
-**SpdxExternalDocumentReference_Enhance_AddsOrUpdatesInformationCorrectly**: Verifies that
+**SpdxExternalDocumentReference_Enhance_WithNewAndMatchingEntries_MergesAndAppendsCorrectly**: Verifies that
 Enhance merges external document reference data by adding missing fields from the source
 while preserving existing values on the target.
 This scenario is tested by
-`SpdxExternalDocumentReference_Enhance_AddsOrUpdatesInformationCorrectly`.
+`SpdxExternalDocumentReference_Enhance_WithNewAndMatchingEntries_MergesAndAppendsCorrectly`.
 
-**SpdxExternalDocumentReference_Validate_MissingId**: Verifies that validation reports an
+**SpdxExternalDocumentReference_Validate_MissingId_ReportsIssue**: Verifies that validation reports an
 issue when the external document reference ID field is missing or empty.
-This scenario is tested by `SpdxExternalDocumentReference_Validate_MissingId`.
+This scenario is tested by `SpdxExternalDocumentReference_Validate_MissingId_ReportsIssue`.
 
-**SpdxExternalDocumentReference_Validate_MissingDocument**: Verifies that validation reports
+**SpdxExternalDocumentReference_Validate_MissingDocument_ReportsIssue**: Verifies that validation reports
 an issue when the referenced external document URI is missing or empty.
-This scenario is tested by `SpdxExternalDocumentReference_Validate_MissingDocument`.
+This scenario is tested by `SpdxExternalDocumentReference_Validate_MissingDocument_ReportsIssue`.
 
 **SpdxExternalDocumentReference_Validate_InvalidChecksum_ReportsIssue**: Verifies that
 validation reports an issue when the external document reference contains an invalid checksum

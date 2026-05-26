@@ -33,36 +33,36 @@ existing values on the target.
 This scenario is tested by
 `SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly`.
 
-**SpdxExternalReference_Validate_InvalidCategory**: Verifies that validation reports an issue
+**SpdxExternalReference_Validate_InvalidCategory_ReportsIssue**: Verifies that validation reports an issue
 when the reference category is set to an unrecognized value.
-This scenario is tested by `SpdxExternalReference_Validate_InvalidCategory`.
+This scenario is tested by `SpdxExternalReference_Validate_InvalidCategory_ReportsIssue`.
 
-**SpdxExternalReference_Validate_InvalidType**: Verifies that validation reports an issue when
+**SpdxExternalReference_Validate_InvalidType_ReportsIssue**: Verifies that validation reports an issue when
 the reference type does not conform to the expected format for the given category.
-This scenario is tested by `SpdxExternalReference_Validate_InvalidType`.
+This scenario is tested by `SpdxExternalReference_Validate_InvalidType_ReportsIssue`.
 
-**SpdxExternalReference_Validate_InvalidLocator**: Verifies that validation reports an issue
+**SpdxExternalReference_Validate_InvalidLocator_ReportsIssue**: Verifies that validation reports an issue
 when the reference locator field is missing or empty.
-This scenario is tested by `SpdxExternalReference_Validate_InvalidLocator`.
+This scenario is tested by `SpdxExternalReference_Validate_InvalidLocator_ReportsIssue`.
 
-**SpdxReferenceCategoryExtensions_FromText_Valid**: Verifies that FromText correctly parses a
+**SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly**: Verifies that FromText correctly parses a
 recognized reference category string to its corresponding enum value.
-This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_Valid`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly`.
 
-**SpdxReferenceCategoryExtensions_FromText_Invalid**: Verifies that `FromText` throws
+**SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull**: Verifies that `FromText` throws
 `InvalidOperationException` with a message identifying the unsupported value when given an
 unrecognized reference category string.
-This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_Invalid`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull`.
 
-**SpdxReferenceCategoryExtensions_ToText_Valid**: Verifies that ToText correctly converts a
+**SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly**: Verifies that ToText correctly converts a
 recognized reference category enum value to its SPDX text representation.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_Valid`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly`.
 
-**SpdxReferenceCategoryExtensions_ToText_InvalidCategory**: Verifies that ToText throws
+**SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull**: Verifies that ToText throws
 `InvalidOperationException` with the unsupported-category message when called with an
 unrecognized enum value.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_InvalidCategory`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull`.
 
-**SpdxReferenceCategoryExtensions_ToText_MissingCategory**: Verifies that `ToText` throws
+**SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull**: Verifies that `ToText` throws
 `InvalidOperationException` with a specific message when called with `SpdxReferenceCategory.Missing`.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull`.

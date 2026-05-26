@@ -35,17 +35,16 @@ namespace DemaConsulting.SpdxModel.Tests;
 public class SpdxRelationshipTests
 {
     /// <summary>
-    ///     Tests the <see cref="SpdxRelationship.Same" /> comparer compares relationships correctly.
+    ///     Tests that the <see cref="SpdxRelationship.Same" /> comparer identifies matching relationships as equal.
     /// </summary>
     /// <remarks>
     ///     Verifies that two relationships with the same <c>Id</c>, <c>RelationshipType</c>, and
-    ///     <c>RelatedSpdxElement</c> are considered equal even when <c>Comment</c> differs, and that
-    ///     relationships with different element IDs or types are considered distinct.
+    ///     <c>RelatedSpdxElement</c> are considered equal even when <c>Comment</c> differs.
     /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_SameComparer_SameFieldsDifferentComment_ReturnsEqual()
+    public void SpdxRelationship_SameComparer_MatchingRelationships_ReturnsTrue()
     {
-        // Arrange: Create three relationships with different properties
+        // Arrange: Create two relationships that differ only in Comment
         var r1 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
@@ -59,6 +58,32 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package2",
             Comment = "Package 1 contains Package 2"
         };
+
+        // Act: Compare the two relationships
+        var result = SpdxRelationship.Same.Equals(r1, r2);
+
+        // Assert: Verify the relationships are considered equal
+        Assert.IsTrue(result);
+        Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r1));
+    }
+
+    /// <summary>
+    ///     Tests that the <see cref="SpdxRelationship.Same" /> comparer identifies different relationships as not equal.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships with different <c>Id</c>, <c>RelationshipType</c>, or
+    ///     <c>RelatedSpdxElement</c> values are considered distinct.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxRelationship_SameComparer_DifferentRelationships_ReturnsFalse()
+    {
+        // Arrange: Create two relationships with different key fields
+        var r1 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
         var r3 = new SpdxRelationship
         {
             Id = "SPDXRef-Package3",
@@ -66,35 +91,58 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Act / Assert: Verify relationships compare to themselves
-        Assert.IsTrue(SpdxRelationship.Same.Equals(r1, r1));
-        Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r2));
-        Assert.IsTrue(SpdxRelationship.Same.Equals(r3, r3));
+        // Act: Compare the two relationships
+        var result = SpdxRelationship.Same.Equals(r1, r3);
 
-        // Assert: Verify relationships compare correctly
-        Assert.IsTrue(SpdxRelationship.Same.Equals(r1, r2));
-        Assert.IsTrue(SpdxRelationship.Same.Equals(r2, r1));
-        Assert.IsFalse(SpdxRelationship.Same.Equals(r1, r3));
+        // Assert: Verify the relationships are considered distinct
+        Assert.IsFalse(result);
         Assert.IsFalse(SpdxRelationship.Same.Equals(r3, r1));
-        Assert.IsFalse(SpdxRelationship.Same.Equals(r2, r3));
-        Assert.IsFalse(SpdxRelationship.Same.Equals(r3, r2));
-
-        // Assert: Verify same relationships have identical hashes
-        Assert.AreEqual(SpdxRelationship.Same.GetHashCode(r1), SpdxRelationship.Same.GetHashCode(r2));
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxRelationship.SameElements" /> comparer compares relationships with the same elements
-    ///     correctly,
+    ///     Tests that the <see cref="SpdxRelationship.Same" /> comparer produces the same hash code for equal relationships.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships considered equal by <see cref="SpdxRelationship.Same" /> produce
+    ///     identical hash codes, satisfying the hash/equality contract.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxRelationship_SameComparer_MatchingRelationships_ReturnsSameHashCode()
+    {
+        // Arrange: Create two relationships that differ only in Comment
+        var r1 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+        var r2 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2",
+            Comment = "Package 1 contains Package 2"
+        };
+
+        // Act: Compute hash codes for both relationships
+        var hash1 = SpdxRelationship.Same.GetHashCode(r1);
+        var hash2 = SpdxRelationship.Same.GetHashCode(r2);
+
+        // Assert: Verify the hash codes are identical
+        Assert.AreEqual(hash1, hash2);
+    }
+
+    /// <summary>
+    ///     Tests that the <see cref="SpdxRelationship.SameElements" /> comparer identifies matching elements as equal.
     /// </summary>
     /// <remarks>
     ///     Verifies that two relationships with the same <c>Id</c> and <c>RelatedSpdxElement</c> are considered equal
-    ///     even when <c>RelationshipType</c> differs, and that relationships with different element IDs are distinct.
+    ///     even when <c>RelationshipType</c> differs.
     /// </remarks>
     [TestMethod]
-    public void SpdxRelationship_SameElementsComparer_SameElementsDifferentType_ReturnsEqual()
+    public void SpdxRelationship_SameElementsComparer_MatchingElements_ReturnsTrue()
     {
-        // Arrange: Create three relationships with different properties
+        // Arrange: Create two relationships that differ only in RelationshipType
         var r1 = new SpdxRelationship
         {
             Id = "SPDXRef-Package1",
@@ -108,6 +156,32 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package2",
             Comment = "Package 1 builds Package 2"
         };
+
+        // Act: Compare the two relationships
+        var result = SpdxRelationship.SameElements.Equals(r1, r2);
+
+        // Assert: Verify the relationships are considered equal
+        Assert.IsTrue(result);
+        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r1));
+    }
+
+    /// <summary>
+    ///     Tests that the <see cref="SpdxRelationship.SameElements" /> comparer identifies different elements as not equal.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships with different <c>Id</c> or <c>RelatedSpdxElement</c> are considered distinct,
+    ///     regardless of their <c>RelationshipType</c>.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxRelationship_SameElementsComparer_DifferentElements_ReturnsFalse()
+    {
+        // Arrange: Create two relationships with different element IDs
+        var r1 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
         var r3 = new SpdxRelationship
         {
             Id = "SPDXRef-Package3",
@@ -115,21 +189,45 @@ public class SpdxRelationshipTests
             RelatedSpdxElement = "SPDXRef-Package4"
         };
 
-        // Act / Assert: Verifies relationships compare to themselves
-        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r1));
-        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r2));
-        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r3, r3));
+        // Act: Compare the two relationships
+        var result = SpdxRelationship.SameElements.Equals(r1, r3);
 
-        // Assert: Verifies relationships compare correctly
-        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r1, r2));
-        Assert.IsTrue(SpdxRelationship.SameElements.Equals(r2, r1));
-        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r1, r3));
+        // Assert: Verify the relationships are considered distinct
+        Assert.IsFalse(result);
         Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r1));
-        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r2, r3));
-        Assert.IsFalse(SpdxRelationship.SameElements.Equals(r3, r2));
+    }
 
-        // Assert: Verifies same relationships have identical hashes
-        Assert.AreEqual(SpdxRelationship.SameElements.GetHashCode(r1), SpdxRelationship.SameElements.GetHashCode(r2));
+    /// <summary>
+    ///     Tests that the <see cref="SpdxRelationship.SameElements" /> comparer produces the same hash code for equal
+    ///     relationships.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that two relationships considered equal by <see cref="SpdxRelationship.SameElements" /> produce
+    ///     identical hash codes, satisfying the hash/equality contract.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxRelationship_SameElementsComparer_MatchingElements_ReturnsSameHashCode()
+    {
+        // Arrange: Create two relationships that differ only in RelationshipType
+        var r1 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.Contains,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+        var r2 = new SpdxRelationship
+        {
+            Id = "SPDXRef-Package1",
+            RelationshipType = SpdxRelationshipType.BuildToolOf,
+            RelatedSpdxElement = "SPDXRef-Package2"
+        };
+
+        // Act: Compute hash codes for both relationships
+        var hash1 = SpdxRelationship.SameElements.GetHashCode(r1);
+        var hash2 = SpdxRelationship.SameElements.GetHashCode(r2);
+
+        // Assert: Verify the hash codes are identical
+        Assert.AreEqual(hash1, hash2);
     }
 
     /// <summary>
@@ -301,7 +399,7 @@ public class SpdxRelationshipTests
     ///     type.
     /// </summary>
     /// <remarks>
-    ///     Verifies that all 44 recognized SPDX relationship type tokens (including case-insensitive variants) are
+    ///     Verifies that all 45 recognized SPDX relationship type tokens (including case-insensitive variants) are
     ///     correctly parsed to their corresponding <see cref="SpdxRelationshipType" /> enum values, and that an empty
     ///     string maps to <see cref="SpdxRelationshipType.Missing" />.
     /// </remarks>
@@ -399,7 +497,7 @@ public class SpdxRelationshipTests
     ///     relationship type.
     /// </summary>
     /// <remarks>
-    ///     Verifies that all 44 recognized <see cref="SpdxRelationshipType" /> enum values are correctly serialized to
+    ///     Verifies that all 45 recognized <see cref="SpdxRelationshipType" /> enum values are correctly serialized to
     ///     their canonical SPDX text representations (uppercase, underscore-separated tokens).
     /// </remarks>
     [TestMethod]
@@ -453,6 +551,27 @@ public class SpdxRelationshipTests
         Assert.AreEqual("REQUIREMENT_DESCRIPTION_FOR", SpdxRelationshipType.RequirementDescriptionFor.ToText());
         Assert.AreEqual("SPECIFICATION_FOR", SpdxRelationshipType.SpecificationFor.ToText());
         Assert.AreEqual("OTHER", SpdxRelationshipType.Other.ToText());
+    }
+
+    /// <summary>
+    ///     Tests the <see cref="SpdxRelationshipTypeExtensions.ToText(SpdxRelationshipType)" /> method for the
+    ///     <see cref="SpdxRelationshipType.Missing" /> sentinel value.
+    /// </summary>
+    /// <remarks>
+    ///     Verifies that attempting to serialize the <see cref="SpdxRelationshipType.Missing" /> sentinel throws an
+    ///     <see cref="InvalidOperationException" /> with a descriptive error message, since the sentinel is not a valid
+    ///     SPDX relationship type token.
+    /// </remarks>
+    [TestMethod]
+    public void SpdxRelationshipTypeExtensions_ToText_MissingSentinel_ThrowsInvalidOperationException()
+    {
+        // Arrange: (none required)
+
+        // Act: Attempt to convert the Missing sentinel to text
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => SpdxRelationshipType.Missing.ToText());
+
+        // Assert: Verify the exception has the expected message
+        Assert.AreEqual("Attempt to serialize missing SPDX Relationship Type", exception.Message);
     }
 
     /// <summary>

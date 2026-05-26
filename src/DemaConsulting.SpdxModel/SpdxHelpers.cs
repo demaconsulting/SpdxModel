@@ -80,13 +80,13 @@ internal static partial class SpdxHelpers
     /// <summary>
     ///     This method picks the best string.
     /// </summary>
-    /// <param name="values">String values to pick from</param>
-    /// <returns>Best string</returns>
     /// <remarks>
     ///     Fitness ranking: null=0, empty string=1, NOASSERTION=2, any other concrete value=3.
     ///     Returns the candidate with the highest fitness. When all candidates are null (or the
     ///     array is empty), returns null.
     /// </remarks>
+    /// <param name="values">String values to pick from</param>
+    /// <returns>Best string</returns>
     internal static string? EnhanceString(params string?[] values)
     {
         // Return the value with the highest fitness

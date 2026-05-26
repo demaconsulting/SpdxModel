@@ -206,7 +206,14 @@ public sealed class SpdxRelationship : SpdxElement
     /// </remarks>
     private sealed class SpdxRelationshipSame : IEqualityComparer<SpdxRelationship>
     {
-        /// <inheritdoc />
+        /// <summary>
+        ///     Determines whether two <see cref="SpdxRelationship" /> instances are considered the same.
+        /// </summary>
+        /// <remarks>
+        ///     Two relationships are considered equal when they share the same <see cref="SpdxElement.Id" />,
+        ///     <see cref="SpdxRelationship.RelatedSpdxElement" />, and <see cref="SpdxRelationship.RelationshipType" />.
+        ///     Fields such as <see cref="SpdxRelationship.Comment" /> are ignored during comparison.
+        /// </remarks>
         public bool Equals(SpdxRelationship? r1, SpdxRelationship? r2)
         {
             if (ReferenceEquals(r1, r2))
@@ -224,7 +231,14 @@ public sealed class SpdxRelationship : SpdxElement
                    r1.RelatedSpdxElement == r2.RelatedSpdxElement;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        ///     Returns a hash code for the specified <see cref="SpdxRelationship" /> instance.
+        /// </summary>
+        /// <remarks>
+        ///     The hash is derived from the <see cref="SpdxElement.Id" />, <see cref="SpdxRelationship.RelationshipType" />,
+        ///     and <see cref="SpdxRelationship.RelatedSpdxElement" /> fields, consistent with the equality comparison
+        ///     performed by <see cref="Equals(SpdxRelationship, SpdxRelationship)" />.
+        /// </remarks>
         public int GetHashCode(SpdxRelationship obj)
         {
             return HashCode.Combine(
@@ -245,7 +259,14 @@ public sealed class SpdxRelationship : SpdxElement
     /// </remarks>
     private sealed class SpdxRelationshipSameElements : IEqualityComparer<SpdxRelationship>
     {
-        /// <inheritdoc />
+        /// <summary>
+        ///     Determines whether two <see cref="SpdxRelationship" /> instances share the same elements.
+        /// </summary>
+        /// <remarks>
+        ///     Two relationships are considered equal when they share the same <see cref="SpdxElement.Id" /> and
+        ///     <see cref="SpdxRelationship.RelatedSpdxElement" />, regardless of
+        ///     <see cref="SpdxRelationship.RelationshipType" />. Used when deduplicating by element endpoints only.
+        /// </remarks>
         public bool Equals(SpdxRelationship? r1, SpdxRelationship? r2)
         {
             if (ReferenceEquals(r1, r2))
@@ -262,7 +283,14 @@ public sealed class SpdxRelationship : SpdxElement
                    r1.RelatedSpdxElement == r2.RelatedSpdxElement;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        ///     Returns a hash code for the specified <see cref="SpdxRelationship" /> instance.
+        /// </summary>
+        /// <remarks>
+        ///     The hash is derived from the <see cref="SpdxElement.Id" /> and
+        ///     <see cref="SpdxRelationship.RelatedSpdxElement" /> fields, consistent with the equality comparison
+        ///     performed by <see cref="Equals(SpdxRelationship, SpdxRelationship)" />.
+        /// </remarks>
         public int GetHashCode(SpdxRelationship obj)
         {
             return HashCode.Combine(obj.Id, obj.RelatedSpdxElement);

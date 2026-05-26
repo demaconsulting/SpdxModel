@@ -32,7 +32,7 @@ public class Spdx2JsonSerializeSnippet
     ///     Tests serializing a snippet.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeSnippet_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeSnippet_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxSnippet object
         var snippet = new SpdxSnippet
@@ -80,7 +80,7 @@ public class Spdx2JsonSerializeSnippet
     ///     Tests serializing multiple snippets.
     /// </summary>
     [TestMethod]
-    public void Spdx2JsonSerializer_SerializeSnippets_CorrectResults()
+    public void Spdx2JsonSerializer_SerializeSnippets_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxSnippet objects
         var snippets = new[]
