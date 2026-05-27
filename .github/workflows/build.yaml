@@ -519,7 +519,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/code_quality/generated/quality.html
-          "docs/generated/SpdxModel Code Quality.pdf"
+          "docs/generated/SpdxModel Code Quality Report.pdf"
 
       - name: Assert Code Quality Documents with FileAssert
         run: >
@@ -581,7 +581,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/code_review_plan/generated/plan.html
-          "docs/generated/SpdxModel Review Plan.pdf"
+          "docs/generated/SpdxModel Code Review Plan.pdf"
 
       - name: Generate Review Report HTML with Pandoc
         shell: bash
@@ -598,7 +598,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/code_review_report/generated/report.html
-          "docs/generated/SpdxModel Review Report.pdf"
+          "docs/generated/SpdxModel Code Review Report.pdf"
 
       - name: Assert Code Review Documents with FileAssert
         run: >
@@ -630,7 +630,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/design/generated/design.html
-          "docs/generated/SpdxModel Software Design.pdf"
+          "docs/generated/SpdxModel Software Design Document.pdf"
 
       - name: Assert Design Documents with FileAssert
         run: >
@@ -661,7 +661,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/verification/generated/verification.html
-          "docs/generated/SpdxModel Software Verification Design.pdf"
+          "docs/generated/SpdxModel Verification Design Document.pdf"
 
       - name: Assert Verification Documents with FileAssert
         run: >
@@ -758,7 +758,7 @@ jobs:
           dotnet weasyprint
           --pdf-variant pdf/a-3u
           docs/requirements_doc/generated/requirements.html
-          "docs/generated/SpdxModel Requirements.pdf"
+          "docs/generated/SpdxModel Requirements Document.pdf"
 
       - name: Generate Trace Matrix HTML with Pandoc
         shell: bash
