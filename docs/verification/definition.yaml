@@ -1,7 +1,5 @@
 ---
-resource-path:
-  - docs/verification
-  - docs/template
+resource-path: [docs/verification, docs/template]
 input-files:
   - docs/verification/title.txt
   - docs/verification/introduction.md
