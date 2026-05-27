@@ -38,6 +38,6 @@ sections:
               - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
               - SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly
               - SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly
-              - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly
               - SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue
               - SpdxHelpers_EnhanceString_NullInputs_ReturnsNull
