@@ -34,6 +34,11 @@ public class SpdxElementTests
     /// <summary>
     ///     Tests that an element with a valid SPDXRef-&lt;name&gt; identifier passes identity validation.
     /// </summary>
+    /// <remarks>
+    ///     Uses <c>SPDXRef-valid</c> as the identifier because it is a minimal, well-formed
+    ///     value that satisfies the SPDXRef- prefix pattern and contains only allowed characters,
+    ///     making it the simplest positive example to confirm the happy-path acceptance.
+    /// </remarks>
     [TestMethod]
     public void SpdxElement_Id_ValidFormat_PassesValidation()
     {
@@ -52,13 +57,18 @@ public class SpdxElementTests
     ///     Tests that an element with an ID that does not follow the SPDXRef-&lt;name&gt; format
     ///     reports an identity validation issue.
     /// </summary>
+    /// <remarks>
+    ///     Uses <c>BadId</c> as the identifier because it is a concise, obviously invalid value
+    ///     that omits the required SPDXRef- prefix entirely, making the expected failure
+    ///     unambiguous and the diagnostic message easy to verify.
+    /// </remarks>
     [TestMethod]
     public void SpdxElement_Id_InvalidFormat_ReportsValidationIssue()
     {
         // Arrange: Create a minimal package element with a bad ID
         var element = new SpdxPackage { Id = "BadId", Name = "test-package", Version = "1.0" };
 
-        // Act: Validate
+        // Act: Validate the element
         var issues = new List<string>();
         element.Validate(issues, null);
 

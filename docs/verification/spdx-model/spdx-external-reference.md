@@ -18,20 +18,20 @@ All automated tests pass with zero failures.
 
 ### Test Scenarios
 
-**SpdxExternalReference_SameComparer_ComparesCorrectly**: Verifies that SameComparer
+**SpdxExternalReference_SameComparer_EqualAndUnequalInstances_ComparesCorrectly**: Verifies that SameComparer
 correctly identifies two SpdxExternalReference instances as equal when all fields match and
 as distinct when any field differs.
-This scenario is tested by `SpdxExternalReference_SameComparer_ComparesCorrectly`.
+This scenario is tested by `SpdxExternalReference_SameComparer_EqualAndUnequalInstances_ComparesCorrectly`.
 
-**SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance**: Verifies that a deep copy
+**SpdxExternalReference_DeepCopy_WithAllFields_CreatesEqualButDistinctInstance**: Verifies that a deep copy
 produces a new SpdxExternalReference with equal field values but a distinct object reference.
-This scenario is tested by `SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance`.
+This scenario is tested by `SpdxExternalReference_DeepCopy_WithAllFields_CreatesEqualButDistinctInstance`.
 
-**SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly**: Verifies that Enhance
+**SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly**: Verifies that Enhance
 merges external reference data by adding missing fields from the source while preserving
 existing values on the target.
 This scenario is tested by
-`SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly`.
+`SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly`.
 
 **SpdxExternalReference_Validate_InvalidCategory_ReportsIssue**: Verifies that validation reports an issue
 when the reference category is set to an unrecognized value.
@@ -49,20 +49,20 @@ This scenario is tested by `SpdxExternalReference_Validate_InvalidLocator_Report
 recognized reference category string to its corresponding enum value.
 This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly`.
 
-**SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull**: Verifies that `FromText` throws
+**SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException**: Verifies that `FromText` throws
 `InvalidOperationException` with a message identifying the unsupported value when given an
 unrecognized reference category string.
-This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException`.
 
 **SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly**: Verifies that ToText correctly converts a
 recognized reference category enum value to its SPDX text representation.
 This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly`.
 
-**SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull**: Verifies that ToText throws
+**SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException**: Verifies that ToText throws
 `InvalidOperationException` with the unsupported-category message when called with an
 unrecognized enum value.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException`.
 
-**SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull**: Verifies that `ToText` throws
+**SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException**: Verifies that `ToText` throws
 `InvalidOperationException` with a specific message when called with `SpdxReferenceCategory.Missing`.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull`.
+This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException`.

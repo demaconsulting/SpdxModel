@@ -44,11 +44,11 @@ public class Spdx2JsonDeserialize23
     public void Spdx2JsonDeserializer_Deserialize_ValidSpdx23Json_ReturnsExpectedDocument()
     {
         // Arrange: Get the SPDX 2.3 JSON example from embedded resources
-        var json22Example = SpdxTestHelpers.GetEmbeddedResource(
+        var json23Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
 
         // Act: Deserialize the JSON document
-        var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
+        var doc = Spdx2JsonDeserializer.Deserialize(json23Example);
 
         // Assert: Verify that the document is valid
         Assert.IsNotNull(doc);

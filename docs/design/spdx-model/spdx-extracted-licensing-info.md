@@ -59,7 +59,7 @@ thrown by `DeepCopy`, `Enhance`, or the static merge method.
 
 ### Dependencies
 
-N/A - no external dependencies beyond base .NET BCL types.
+- **SpdxHelpers** — `EnhanceString` used in `Enhance`.
 
 ### Callers
 

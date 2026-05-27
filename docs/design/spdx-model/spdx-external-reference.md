@@ -61,6 +61,7 @@ thrown by `DeepCopy`, `Enhance`, or the static merge method.
 ### Dependencies
 
 - **SpdxReferenceCategory** — enumeration of supported reference categories.
+- **SpdxHelpers** — `EnhanceString` used in `Enhance`.
 
 ### SpdxReferenceCategory
 
@@ -89,6 +90,8 @@ value.
 - *Postconditions*: none.
 - *Exceptions*: `InvalidOperationException` — thrown when `category` is not a recognized SPDX
   reference category string.
+- *Note*: `PACKAGE_MANAGER` (with underscore) is accepted as a backward-compatibility alias for
+  `PACKAGE-MANAGER` (with hyphen). No equivalent underscore alias exists for any other category.
 
 #### ToText
 

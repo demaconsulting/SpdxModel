@@ -39,7 +39,7 @@ public class SpdxExternalReferenceTests
     ///     and that equal references produce identical hash codes.
     /// </remarks>
     [TestMethod]
-    public void SpdxExternalReference_SameComparer_ComparesCorrectly()
+    public void SpdxExternalReference_SameComparer_EqualAndUnequalInstances_ComparesCorrectly()
     {
         // Arrange: Create three external references with different properties
         var r1 = new SpdxExternalReference
@@ -87,7 +87,7 @@ public class SpdxExternalReferenceTests
     ///     object reference (not the same instance).
     /// </remarks>
     [TestMethod]
-    public void SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance()
+    public void SpdxExternalReference_DeepCopy_WithAllFields_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create an external reference
         var r1 = new SpdxExternalReference
@@ -121,7 +121,7 @@ public class SpdxExternalReferenceTests
     ///     source array are appended as new independent copies.
     /// </remarks>
     [TestMethod]
-    public void SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly()
+    public void SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly()
     {
         // Arrange: Create an array of external references
         var references = new[]
@@ -276,7 +276,7 @@ public class SpdxExternalReferenceTests
     ///     identifying the unsupported value when given an unrecognized category string.
     /// </remarks>
     [TestMethod]
-    public void SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull()
+    public void SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException()
     {
         // Arrange: (no external state needed)
 
@@ -312,7 +312,7 @@ public class SpdxExternalReferenceTests
     ///     unsupported-category message when called with an unrecognized enum value.
     /// </remarks>
     [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull()
+    public void SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException()
     {
         // Arrange: Create an invalid reference category
         var invalidCategory = (SpdxReferenceCategory)1000;
@@ -330,7 +330,7 @@ public class SpdxExternalReferenceTests
     ///     message when called with <see cref="SpdxReferenceCategory.Missing"/>.
     /// </remarks>
     [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull()
+    public void SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException()
     {
         // Arrange: Use Missing reference category
         var category = SpdxReferenceCategory.Missing;

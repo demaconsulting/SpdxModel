@@ -41,11 +41,14 @@ key when merging file arrays.
 - *Parameters*: `SpdxFile other` — source of additional field values.
 - *Returns*: `void`
 - *Preconditions*: none.
-- *Postconditions*: Empty fields and empty arrays in this instance are populated from `other`.
+- *Postconditions*: Fields in this instance are updated when the current value has lower fitness
+  than the source value, following the hierarchy: concrete value > NOASSERTION > empty string >
+  null. Array fields are merged by concatenation and deduplication (AttributionText) or
+  identity-match and append (other arrays).
 
 **Enhance (static array merge)**: Merges two file arrays, matching on `FileName`.
 
-- *Parameters*: `SpdxFile[] base`, `SpdxFile[] additions`.
+- *Parameters*: `SpdxFile[] array`, `SpdxFile[] others`.
 - *Returns*: `SpdxFile[]` — merged array.
 - *Preconditions*: none.
 - *Postconditions*: Matching entries are enhanced; new entries are appended.

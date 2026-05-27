@@ -39,10 +39,10 @@ This scenario is tested by
 extracted licensing info with both LicenseId and ExtractedText populated returns no issues.
 This scenario is tested by `SpdxExtractedLicensingInfo_Validate_ValidInput_ReturnsNoIssues`.
 
-**SpdxExtractedLicensingInfo_Validate_InvalidLicenseId**: Verifies that validation reports an
+**SpdxExtractedLicensingInfo_Validate_InvalidLicenseId_ReportsIssue**: Verifies that validation reports an
 issue when the LicenseId field is empty.
-This scenario is tested by `SpdxExtractedLicensingInfo_Validate_InvalidLicenseId`.
+This scenario is tested by `SpdxExtractedLicensingInfo_Validate_InvalidLicenseId_ReportsIssue`.
 
-**SpdxExtractedLicensingInfo_Validate_InvalidExtractedText**: Verifies that validation reports
+**SpdxExtractedLicensingInfo_Validate_InvalidExtractedText_ReportsIssue**: Verifies that validation reports
 an issue when the extracted license text field is missing or empty.
-This scenario is tested by `SpdxExtractedLicensingInfo_Validate_InvalidExtractedText`.
+This scenario is tested by `SpdxExtractedLicensingInfo_Validate_InvalidExtractedText_ReportsIssue`.

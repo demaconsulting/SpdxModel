@@ -137,7 +137,7 @@ public static class SpdxFileTypeExtensions
     /// </remarks>
     /// <param name="fileType">File Type text</param>
     /// <returns>SpdxFileType</returns>
-    /// <exception cref="InvalidOperationException">on error</exception>
+    /// <exception cref="InvalidOperationException">Thrown when <paramref name="fileType"/> does not match any known SPDX file type string.</exception>
     public static SpdxFileType FromText(string fileType)
     {
         return fileType.ToUpperInvariant() switch
@@ -166,7 +166,7 @@ public static class SpdxFileTypeExtensions
     /// </remarks>
     /// <param name="fileType">SpdxFileType</param>
     /// <returns>File Type text</returns>
-    /// <exception cref="InvalidOperationException">on error</exception>
+    /// <exception cref="InvalidOperationException">Thrown when <paramref name="fileType"/> is not a supported enum value.</exception>
     public static string ToText(this SpdxFileType fileType)
     {
         return fileType switch

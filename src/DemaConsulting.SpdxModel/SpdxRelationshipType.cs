@@ -417,7 +417,7 @@ public static class SpdxRelationshipTypeExtensions
     /// </summary>
     /// <remarks>
     ///     Comparison is case-insensitive. An empty or null input maps to <see cref="SpdxRelationshipType.Missing" />.
-    ///     All 44 SPDX 2.x relationship type tokens are recognized.
+    ///     All 45 SPDX 2.x relationship type tokens are recognized.
     /// </remarks>
     /// <param name="relationshipType">Relationship Type text</param>
     /// <returns>SpdxRelationshipType</returns>

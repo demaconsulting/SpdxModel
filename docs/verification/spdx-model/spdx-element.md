@@ -19,12 +19,10 @@ All automated tests pass with zero failures.
 **SpdxElement_Id_ValidFormat_PassesValidation**: Verifies that an element with a properly
 formatted SPDX-ID (matching the SPDXRef- prefix pattern) passes validation without reporting
 any issues.
-This scenario is tested by `SpdxElement_Id_ValidFormat_PassesValidation`.
 
 **SpdxElement_Id_InvalidFormat_ReportsValidationIssue**: Verifies that an element with a
 malformed SPDX-ID (missing the SPDXRef- prefix or containing invalid characters) is reported
 as a validation issue.
-This scenario is tested by `SpdxElement_Id_InvalidFormat_ReportsValidationIssue`.
 
 ### Methods Without Direct Test Scenarios
 

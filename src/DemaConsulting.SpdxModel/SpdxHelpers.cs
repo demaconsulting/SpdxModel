@@ -78,7 +78,7 @@ internal static partial class SpdxHelpers
     }
 
     /// <summary>
-    ///     This method picks the best string.
+    ///     Returns the highest-fitness string from the supplied candidates.
     /// </summary>
     /// <remarks>
     ///     Fitness ranking: null=0, empty string=1, NOASSERTION=2, any other concrete value=3.
@@ -86,7 +86,11 @@ internal static partial class SpdxHelpers
     ///     array is empty), returns null.
     /// </remarks>
     /// <param name="values">String values to pick from</param>
-    /// <returns>Best string</returns>
+    /// <returns>
+    ///     The highest-fitness candidate, selected by: concrete value (non-empty, non-NOASSERTION)
+    ///     &gt; <c>NOASSERTION</c> &gt; empty string &gt; <c>null</c>. Returns <c>null</c> when
+    ///     all candidates are null or the array is empty.
+    /// </returns>
     internal static string? EnhanceString(params string?[] values)
     {
         // Return the value with the highest fitness

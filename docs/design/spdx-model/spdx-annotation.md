@@ -68,7 +68,7 @@ issues. No exceptions are thrown by `DeepCopy` or `Enhance`.
 
 - **SpdxElement** — base class providing the `Id` property.
 - **SpdxAnnotationType** — enumeration for annotation type values.
-- **SpdxHelpers** — `IsValidSpdxDateTime` used in `Validate`.
+- **SpdxHelpers** — `IsValidSpdxDateTime` used in `Validate`; `EnhanceString` used in `Enhance`.
 
 ### SpdxAnnotationType
 

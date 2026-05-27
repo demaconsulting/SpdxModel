@@ -19,6 +19,7 @@ sections:
               - SpdxModel-IO-Spdx2JsonDeserializer-Deserialize22Json
               - SpdxModel-IO-Spdx2JsonDeserializer-Deserialize23Json
               - SpdxModel-IO-Spdx2JsonDeserializer-DeserializeElements
+              - SpdxModel-IO-Constants
             tests:
               - SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument
               - SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument

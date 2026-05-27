@@ -23,7 +23,7 @@ format required by SPDX.
 
 **EnhanceString**: Returns the highest-fitness string from the supplied candidates.
 
-- *Parameters*: `params string?[] candidates` — ordered list of candidate values.
+- *Parameters*: `params string?[] values` — ordered list of candidate values.
 - *Returns*: `string?` — the best candidate: concrete (non-empty, non-NOASSERTION) > `NOASSERTION`
   > empty string > `null`.
 - *Preconditions*: none.

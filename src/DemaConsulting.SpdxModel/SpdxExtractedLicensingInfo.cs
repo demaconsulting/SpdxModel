@@ -103,11 +103,11 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Enhance missing fields in the extracted licensing info
     /// </summary>
-    /// <param name="other">Other extracted licensing info to enhance with</param>
     /// <remarks>
     ///     Populates LicenseId, ExtractedText, Name, and Comment using fitness-based selection.
     ///     CrossReferences are merged by concatenation and deduplication.
     /// </remarks>
+    /// <param name="other">Other extracted licensing info to enhance with</param>
     public void Enhance(SpdxExtractedLicensingInfo other)
     {
         // Populate the license-id field if missing
@@ -129,13 +129,13 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Enhance missing extracted licensing info in array
     /// </summary>
-    /// <param name="array">Array to enhance</param>
-    /// <param name="others">Other array to enhance with</param>
-    /// <returns>Updated array</returns>
     /// <remarks>
     ///     Matches existing entries by ExtractedText (via the Same comparer) and enhances them;
     ///     entries with no match are appended as deep copies.
     /// </remarks>
+    /// <param name="array">Array to enhance</param>
+    /// <param name="others">Other array to enhance with</param>
+    /// <returns>Updated array</returns>
     public static SpdxExtractedLicensingInfo[] Enhance(SpdxExtractedLicensingInfo[] array,
         SpdxExtractedLicensingInfo[] others)
     {
@@ -166,11 +166,11 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Perform validation of information
     /// </summary>
-    /// <param name="issues">List to populate with issues</param>
     /// <remarks>
     ///     Validates that LicenseId is non-empty and ExtractedText is non-empty.
     ///     Issues are appended to <paramref name="issues"/>; no exceptions are thrown.
     /// </remarks>
+    /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
     {
         // Validate Extracted License ID Field

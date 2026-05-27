@@ -6,6 +6,13 @@ namespace DemaConsulting.SpdxModel.Tests.Transforms;
 /// <summary>
 ///     Tests for the <see cref="SpdxRelationship" /> transforms.
 /// </summary>
+/// <remarks>
+///     Uses MSTest as the approved test framework for this repository (see csharp-testing.md).
+///     Every test deserializes a fresh copy of <see cref="TestDocumentContents"/> to prevent
+///     inter-test state leakage. The class covers the full scope of <see cref="SpdxRelationships"/>
+///     operations: adding single and multiple relationships, deduplication, replacement, and
+///     atomicity on failure.
+/// </remarks>
 [TestClass]
 public class SpdxRelationshipsTests
 {
@@ -49,6 +56,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that adding a relationship with a missing source ID throws <see cref="ArgumentException" />.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the error path where the source element ID does not exist in the document.
+    ///     A fresh document is deserialized to ensure baseline state contains no relationships.
+    ///     Confirms the exception carries the correct parameter name and that the document
+    ///     relationships collection remains empty after the failed call.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_MissingId_ThrowsArgumentException()
     {
@@ -77,6 +90,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that adding a relationship with a missing related element throws <see cref="ArgumentException" />.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the error path where the target element ID does not exist in the document.
+    ///     A fresh document is deserialized to ensure baseline state contains no relationships.
+    ///     Confirms the exception carries the correct parameter name and that the document
+    ///     relationships collection remains empty after the failed call.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_MissingRelatedElement_ThrowsArgumentException()
     {
@@ -105,6 +124,11 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that adding a valid relationship appends it to the document.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the happy path where both source and target elements exist in the document.
+    ///     A fresh document is deserialized so the initial relationships collection is empty,
+    ///     making the single post-add entry the definitive proof of a successful append.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_ValidRelationship_AddsRelationship()
     {
@@ -131,6 +155,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that adding a duplicate relationship enhances the existing entry rather than duplicating it.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the deduplication behaviour: a second call with an identical relationship
+    ///     must not create a second entry. A fresh document is deserialized to isolate the
+    ///     count assertion; the final count of one proves that the second add merged into the
+    ///     existing entry rather than appending a new one.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_DuplicateRelationship_EnhancesExistingRelationship()
     {
@@ -165,6 +195,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that a relationship with a NOASSERTION target is accepted as valid.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that <see cref="SpdxElement.NoAssertion"/> is treated as a sentinel value
+    ///     that bypasses the element-existence check on the target. A fresh document is
+    ///     deserialized so the single resulting entry proves the add succeeded without requiring
+    ///     the target to be present in the document's element collections.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_NoAssertionTarget_AddsRelationship()
     {
@@ -191,6 +227,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that a relationship with a DocumentRef- prefixed target is accepted as valid.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a target ID beginning with <c>DocumentRef-</c> is treated as an
+    ///     external-document reference and bypasses the local element-existence check. A fresh
+    ///     document is deserialized so the single resulting entry proves the add succeeded
+    ///     without requiring the external element to appear in the local document.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship()
     {
@@ -217,6 +259,11 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that the batch Add with a single relationship appends it to the document.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the batch overload behaves identically to the single-item overload for a
+    ///     one-element array. A fresh document is deserialized so the count assertion unambiguously
+    ///     reflects the result of the batch call rather than any pre-existing state.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddMultiple_SingleRelationship_AddsRelationship()
     {
@@ -245,6 +292,11 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that adding multiple duplicate relationships deduplicates them.
     /// </summary>
+    /// <remarks>
+    ///     Verifies that a batch containing two identical entries results in only one relationship
+    ///     in the document. A fresh document is deserialized so the final count of one is solely
+    ///     the result of the batch call; no pre-existing entries could mask a deduplication failure.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddMultiple_DuplicateRelationships_DeduplicatesRelationships()
     {
@@ -279,6 +331,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that the batch Add with replace=true removes pre-existing matching relationships.
     /// </summary>
+    /// <remarks>
+    ///     Verifies the replace flag: when <c>replace: true</c> is passed, any pre-existing
+    ///     relationships whose source-target pair matches an entry in the batch are removed
+    ///     before the new relationships are inserted. A fresh document with a single pre-seeded
+    ///     relationship is used so the type change from the replacement is unambiguous.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddMultiple_Replace_RemovesAndReplacesExistingRelationships()
     {
@@ -314,6 +372,12 @@ public class SpdxRelationshipsTests
     /// <summary>
     ///     Tests that a batch Add with replace=true and an invalid relationship leaves the document unmodified.
     /// </summary>
+    /// <remarks>
+    ///     Verifies atomicity: when the batch contains an invalid relationship (missing source ID),
+    ///     the entire operation is rolled back and the document's relationships are unchanged.
+    ///     A pre-seeded relationship is added before the batch call so the assertion on the
+    ///     unchanged collection proves that even the valid first entry in the batch was not committed.
+    /// </remarks>
     [TestMethod]
     public void SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified()
     {

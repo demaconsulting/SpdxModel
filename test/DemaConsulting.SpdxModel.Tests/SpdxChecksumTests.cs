@@ -62,7 +62,7 @@ public class SpdxChecksumTests
             Value = "624c1abb3664f4b35547e7c73864ad24"
         };
 
-        // Assert: Verify checksums compare to themselves
+        // Act / Assert: Verify checksums compare to themselves
         Assert.IsTrue(SpdxChecksum.Same.Equals(c1, c1));
         Assert.IsTrue(SpdxChecksum.Same.Equals(c2, c2));
         Assert.IsTrue(SpdxChecksum.Same.Equals(c3, c3));
@@ -234,7 +234,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
+    ///     Tests that FromText maps every known SPDX algorithm string to the correct enum value.
     /// </summary>
     /// <remarks>
     ///     Exercises every known algorithm string defined by the SPDX 2.x specification, plus
@@ -246,7 +246,7 @@ public class SpdxChecksumTests
     {
         // Arrange: Known algorithm strings are implicit in the Act/Assert pairs below
 
-        // Assert: Verify each known algorithm string maps to the correct enum value
+        // Act / Assert: Verify each known algorithm string maps to the correct enum value
         Assert.AreEqual(SpdxChecksumAlgorithm.Missing, SpdxChecksumAlgorithmExtensions.FromText(""));
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("SHA1"));
         Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("sha1"));
@@ -270,7 +270,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.FromText(string)" /> method.
+    ///     Tests that FromText throws InvalidOperationException for an unrecognized algorithm string.
     /// </summary>
     /// <remarks>
     ///     Passes the unrecognized string <c>"unknown"</c> to confirm that
@@ -291,7 +291,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
+    ///     Tests that ToText returns the correct SPDX string for every serializable algorithm enum value.
     /// </summary>
     /// <remarks>
     ///     Exercises every serializable <see cref="SpdxChecksumAlgorithm"/> enum value to confirm
@@ -303,7 +303,7 @@ public class SpdxChecksumTests
     {
         // Arrange: Known algorithm enum values are implicit in the Act/Assert pairs below
 
-        // Assert: Verify each known algorithm enum maps to the correct string
+        // Act / Assert: Verify each known algorithm enum maps to the correct string
         Assert.AreEqual("SHA1", SpdxChecksumAlgorithm.Sha1.ToText());
         Assert.AreEqual("SHA224", SpdxChecksumAlgorithm.Sha224.ToText());
         Assert.AreEqual("SHA256", SpdxChecksumAlgorithm.Sha256.ToText());
@@ -324,7 +324,7 @@ public class SpdxChecksumTests
     }
 
     /// <summary>
-    ///     Tests the <see cref="SpdxChecksumAlgorithmExtensions.ToText(SpdxChecksumAlgorithm)" /> method.
+    ///     Tests that ToText throws InvalidOperationException for an out-of-range numeric enum value.
     /// </summary>
     /// <remarks>
     ///     Casts the integer literal 1000 to <see cref="SpdxChecksumAlgorithm"/> to produce an

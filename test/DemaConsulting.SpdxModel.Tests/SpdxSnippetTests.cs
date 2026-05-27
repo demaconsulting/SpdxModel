@@ -43,7 +43,7 @@ public class SpdxSnippetTests
     [TestMethod]
     public void SpdxSnippet_SameComparer_SameFileAndByteRange_ReturnsEqual()
     {
-        // Arrange: Create three snippet instances with different properties
+        // Arrange: Create two snippets with the same byte range and one distinct snippet
         var s1 = new SpdxSnippet
         {
             SnippetFromFile = "SPDXRef-File1",
@@ -268,7 +268,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the annotation issue is reported with the correct prefix
-        Assert.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty", issues);
+        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty"), issues);
     }
 
     /// <summary>

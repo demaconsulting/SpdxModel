@@ -46,7 +46,7 @@ the file, enabling granular compliance tracking for reused code segments.
 **Enhance (static array merge)**: Merges two snippet arrays by matching on file SPDX ID and byte
 range.
 
-- *Parameters*: `SpdxSnippet[] base`, `SpdxSnippet[] additions`.
+- *Parameters*: `SpdxSnippet[] array`, `SpdxSnippet[] others`.
 - *Returns*: `SpdxSnippet[]` — merged array.
 - *Preconditions*: none.
 - *Postconditions*: Matching entries are enhanced; new entries are appended.

@@ -43,10 +43,10 @@ public class Spdx2JsonDeserializerTests
     [TestMethod]
     public void Spdx2JsonDeserializer_Deserialize_MalformedJson_ThrowsJsonException()
     {
-        // Arrange
+        // Arrange:
         const string malformedJson = "{ not valid json";
 
-        // Act / Assert
+        // Act / Assert:
         try
         {
             Spdx2JsonDeserializer.Deserialize(malformedJson);

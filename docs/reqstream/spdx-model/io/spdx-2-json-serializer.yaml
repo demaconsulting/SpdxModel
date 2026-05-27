@@ -46,7 +46,7 @@ sections:
                   - Spdx2JsonSerializer_SerializeFiles_ValidInput_CorrectResults
                   - Spdx2JsonSerializer_SerializePackage_ValidInput_CorrectResults
                   - Spdx2JsonSerializer_SerializePackages_ValidInput_CorrectResults
-                  - Spdx2JsonSerializer_SerializePackageVerificationCode_ValidInput_CorrectResults
+                  - Spdx2JsonSerializer_SerializeVerificationCode_ValidInput_CorrectResults
                   - Spdx2JsonSerializer_SerializeRelationship_ValidInput_CorrectResults
                   - Spdx2JsonSerializer_SerializeRelationships_ValidInput_CorrectResults
                   - Spdx2JsonSerializer_SerializeSnippet_ValidInput_CorrectResults

@@ -102,10 +102,10 @@ This scenario is tested by `Spdx2JsonSerializer_SerializePackage_ValidInput_Corr
 SpdxPackage instances is serialized to the expected JSON array.
 This scenario is tested by `Spdx2JsonSerializer_SerializePackages_ValidInput_CorrectResults`.
 
-**Spdx2JsonSerializer_SerializePackageVerificationCode_ValidInput_CorrectResults**: Verifies that an
+**Spdx2JsonSerializer_SerializeVerificationCode_ValidInput_CorrectResults**: Verifies that an
 SpdxPackageVerificationCode is serialized to the expected JSON structure.
 This scenario is tested by
-`Spdx2JsonSerializer_SerializePackageVerificationCode_ValidInput_CorrectResults`.
+`Spdx2JsonSerializer_SerializeVerificationCode_ValidInput_CorrectResults`.
 
 **Spdx2JsonSerializer_SerializeRelationship_ValidInput_CorrectResults**: Verifies that a single
 SpdxRelationship is serialized to the expected JSON structure with all relationship fields

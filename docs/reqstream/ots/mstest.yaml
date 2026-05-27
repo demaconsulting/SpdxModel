@@ -15,6 +15,6 @@ sections:
               framework is functioning correctly.
             tags: [ots]
             tests:
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22JsonReturnsExpectedDocument
-              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23JsonReturnsExpectedDocument
-              - Spdx2JsonSerializer_SerializeDocument_CorrectResults
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx22Json_ReturnsExpectedDocument
+              - Spdx2JsonDeserializer_Deserialize_ValidSpdx23Json_ReturnsExpectedDocument
+              - Spdx2JsonSerializer_SerializeDocument_ValidInput_CorrectResults

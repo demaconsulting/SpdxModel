@@ -56,3 +56,8 @@ sections:
               - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
               - SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly
               - SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly
+              - SpdxLicenseElement_Enhance_EmptyAndNullFields_ReplacedByConcreteValues
+              - SpdxLicenseElement_Enhance_NoAssertionFields_ReplacedByConcreteValues
+              - SpdxLicenseElement_Enhance_ConcreteFields_NotReplacedBySecondaryValues
+              - SpdxLicenseElement_Enhance_AttributionText_MergedByDeduplication
+              - SpdxLicenseElement_Enhance_Annotations_MergedByIdentityAndAppend

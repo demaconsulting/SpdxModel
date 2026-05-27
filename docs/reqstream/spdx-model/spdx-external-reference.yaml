@@ -15,14 +15,14 @@ sections:
               registries, vulnerability databases, and documentation. This enriches SBOMs with
               contextual information from authoritative sources.
             tests:
-              - SpdxExternalReference_SameComparer_ComparesCorrectly
-              - SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance
-              - SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly
+              - SpdxExternalReference_SameComparer_EqualAndUnequalInstances_ComparesCorrectly
+              - SpdxExternalReference_DeepCopy_WithAllFields_CreatesEqualButDistinctInstance
+              - SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly
               - SpdxExternalReference_Validate_InvalidCategory_ReportsIssue
               - SpdxExternalReference_Validate_InvalidType_ReportsIssue
               - SpdxExternalReference_Validate_InvalidLocator_ReportsIssue
               - SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly
-              - SpdxReferenceCategoryExtensions_FromText_InvalidInput_ReturnsNull
+              - SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException
               - SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly
-              - SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ReturnsNull
-              - SpdxReferenceCategoryExtensions_ToText_MissingCategory_ReturnsNull
+              - SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException
+              - SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException

@@ -14,7 +14,7 @@ a document.
 **NoAssertion**: `const string` — The sentinel value `"NOASSERTION"` used by optional fields to
 indicate that the value was intentionally omitted or is not known.
 
-**SpdxRefRegex**: `protected static Regex` — Pre-compiled regular expression that validates
+**SpdxRefRegex**: `protected static readonly Regex` — Pre-compiled regular expression that validates
 the `SPDXRef-…` format; used by subclass `Validate` methods. Matches the full pattern
 `^SPDXRef-[a-zA-Z0-9.-]+$`. The 100 ms timeout is a ReDoS protection measure against
 pathological input strings from untrusted SPDX sources.

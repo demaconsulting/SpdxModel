@@ -24,7 +24,7 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-///     Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer" /> classes.
+///     Tests for deserializing SPDX annotations to <see cref="SpdxAnnotation" /> classes.
 /// </summary>
 /// <remarks>
 ///     Exercises deserialization of SPDX annotation elements using MSTest as the approved

@@ -59,6 +59,7 @@ static merge method.
 ### Dependencies
 
 - **SpdxChecksum** — integrity checksum for the referenced document.
+- **SpdxHelpers** — `EnhanceString` used in `Enhance`.
 
 ### Callers
 

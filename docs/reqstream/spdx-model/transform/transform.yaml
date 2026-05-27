@@ -20,4 +20,4 @@ sections:
               - SpdxModel-Transform-RelationshipUtilities-Validate
               - SpdxModel-Transform-RelationshipUtilities-Atomicity
             tests:
-              - SpdxModel_Transform_AddRelationship_IsObservableThroughDocumentModel
+              - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists

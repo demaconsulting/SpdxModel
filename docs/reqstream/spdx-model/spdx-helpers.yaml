@@ -18,7 +18,7 @@ sections:
               Absent or empty date-time values (null, empty string) shall be treated as
               not-set and shall be considered valid.
             tests:
-              - SpdxCreationInformation_Validate_InvalidCreatedDate
+              - SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue
               - SpdxHelpers_IsValidSpdxDateTime_NullInput_ReturnsTrue
               - SpdxHelpers_IsValidSpdxDateTime_EmptyInput_ReturnsTrue
               - SpdxHelpers_IsValidSpdxDateTime_ValidFormat_ReturnsTrue

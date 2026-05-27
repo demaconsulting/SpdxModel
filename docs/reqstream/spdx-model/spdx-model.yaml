@@ -18,10 +18,13 @@ sections:
               - SpdxModel_ReadSpdxJson_Spdx23Example_ParsesSuccessfully
             children:
               - SpdxModel-Data-Document-Ntia
+              - SpdxModel-Data-Document-ElementQuery
               - SpdxModel-Data-ExternalDocumentReferences
               - SpdxModel-Data-ExternalReferences
               - SpdxModel-Data-ExtractedLicensingInformation
               - SpdxModel-Data-Snippet-DataModel
+              - SpdxModel-Data-LicenseElement
+              - SpdxModel-Data-RelationshipType-Conversion
           - id: SpdxModel-Data-Helpers
             title: The library shall provide helper utilities for SPDX data processing.
             tags:
@@ -34,9 +37,12 @@ sections:
             children:
               - SpdxModel-Data-Helpers-DateTime
               - SpdxModel-Data-Helpers-EnhanceString
-              - SpdxModel-Data-LicenseElement
               - SpdxModel-Data-LicenseElement-Enhance
-              - SpdxModel-Data-PackageVerificationCode-Validate
+              - SpdxModel-Data-Package-Enhance
+              - SpdxModel-Data-PackageVerificationCode-Enhance
+              - SpdxModel-Data-Checksum-Enhance
+              - SpdxModel-Data-Relationship-Enhance
+              - SpdxModel-Data-Snippet-Enhance
 
       - title: Data Model
         requirements:
@@ -64,6 +70,10 @@ sections:
             children:
               - SpdxModel-Data-Document
               - SpdxModel-Data-Package-DeepCopy
+              - SpdxModel-Data-PackageVerificationCode-DeepCopy
+              - SpdxModel-Data-Checksum-DeepCopy
+              - SpdxModel-Data-Relationship-DeepCopy
+              - SpdxModel-Data-Snippet-DeepCopy
               - SpdxModel-Data-Files
             tests:
               - SpdxModel_ReadSpdxJson_Spdx23Example_DeepCopyProducesEquivalentDocument
@@ -93,6 +103,8 @@ sections:
             children:
               - SpdxModel-Data-Document
               - SpdxModel-Data-Package-Compare
+              - SpdxModel-Data-PackageVerificationCode-Compare
+              - SpdxModel-Data-Checksum-Compare
               - SpdxModel-Data-Files
               - SpdxModel-Data-Relationship-Compare
               - SpdxModel-Data-Snippet-DataModel
@@ -112,13 +124,15 @@ sections:
             children:
               - SpdxModel-Data-Document-Validate
               - SpdxModel-Data-Annotations
-              - SpdxModel-Data-Checksum-Compare
-              - SpdxModel-Data-Checksum-DeepCopy
-              - SpdxModel-Data-Checksum-Enhance
               - SpdxModel-Data-Checksum-Validate
               - SpdxModel-Data-Checksum-FromText
               - SpdxModel-Data-Checksum-ToText
               - SpdxModel-Data-CreationInformation
+              - SpdxModel-Data-Package-Validate
+              - SpdxModel-Data-PackageVerificationCode-Validate
+              - SpdxModel-Data-Package-ValidateNtia
+              - SpdxModel-Data-Relationship-Validate
+              - SpdxModel-Data-Snippet-Validate
             tests:
               - SpdxModel_ReadSpdxJson_Spdx22Example_PassesValidation
               - SpdxModel_ReadSpdxJson_Spdx23Example_PassesValidation
