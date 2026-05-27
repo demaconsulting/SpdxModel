@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text.RegularExpressions;
+
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
@@ -32,6 +34,17 @@ namespace DemaConsulting.SpdxModel;
 /// </remarks>
 public sealed class SpdxPackageVerificationCode
 {
+    /// <summary>
+    ///     Regex for validating SHA-1 hex strings (40 lowercase or uppercase hex digits).
+    /// </summary>
+    /// <remarks>
+    ///     The 100 ms timeout guards against ReDoS on untrusted or malformed input.
+    /// </remarks>
+    private static readonly Regex Sha1HexRegex = new(
+        "^[0-9a-fA-F]{40}$",
+        RegexOptions.None,
+        TimeSpan.FromMilliseconds(100));
+
     /// <summary>
     ///     Equality comparer for the same package verification code
     /// </summary>
@@ -108,7 +121,7 @@ public sealed class SpdxPackageVerificationCode
     public void Validate(string package, List<string> issues)
     {
         // Validate Package Verification Code Value Field
-        if (Value.Length != 40 || !System.Text.RegularExpressions.Regex.IsMatch(Value, "^[0-9a-fA-F]{40}$"))
+        if (Value.Length != 40 || !Sha1HexRegex.IsMatch(Value))
         {
             issues.Add($"Package '{package}' Invalid Package Verification Code Value '{Value}'");
         }
