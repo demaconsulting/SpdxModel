@@ -151,7 +151,7 @@ public sealed class SpdxChecksum
         {
             issues.Add($"{parent} Invalid Checksum Algorithm Field - Missing");
         }
-        else if (!Enum.IsDefined(typeof(SpdxChecksumAlgorithm), Algorithm))
+        else if (!Enum.IsDefined(Algorithm))
         {
             issues.Add($"{parent} Invalid Checksum Algorithm Field - Unknown");
         }

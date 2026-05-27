@@ -88,6 +88,6 @@ public class SpdxModelIOTests
         var exception = Record.Exception(() => Spdx2JsonDeserializer.Deserialize(malformedJson));
 
         // Assert: The exception must be a JsonException (or derived type such as JsonReaderException)
-        Assert.IsAssignableFrom<System.Text.Json.JsonException>(exception);
+        Assert.IsType<System.Text.Json.JsonException>(exception, exactMatch: false);
     }
 }
