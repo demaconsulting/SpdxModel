@@ -75,20 +75,20 @@ issues. No exceptions are thrown by `DeepCopy` or `Enhance`.
 `SpdxAnnotationType` is an enumeration of the SPDX annotation type tokens, with round-trip text
 conversion provided by `SpdxAnnotationTypeExtensions`.
 
-#### Purpose
+#### SpdxAnnotationType Purpose
 
 Enumerate the valid SPDX annotation type strings and provide lossless conversion between the enum
 representation used in the in-memory model and the text representation used in SPDX JSON documents.
 
-#### Data Model
+#### SpdxAnnotationType Data Model
 
-| Enum Value | Integer | SPDX Text Form |
-|------------|---------|----------------|
+| Enum Value | Integer | SPDX Text Form                                  |
+|------------|---------|-------------------------------------------------|
 | `Missing`  | -1      | `""` (sentinel; indicates no type has been set) |
-| `Review`   | 0       | `REVIEW` |
-| `Other`    | 1       | `OTHER` |
+| `Review`   | 0       | `REVIEW`                                        |
+| `Other`    | 1       | `OTHER`                                         |
 
-#### Key Methods
+#### SpdxAnnotationType Key Methods
 
 **FromText**: Converts an SPDX annotation type text string to its enum value.
 
@@ -107,7 +107,7 @@ representation used in the in-memory model and the text representation used in S
 - *Exceptions*: `InvalidOperationException` — thrown when the value is `Missing` or is a numeric
   value that does not correspond to any named enum member.
 
-#### Error Handling
+#### SpdxAnnotationType Error Handling
 
 - **`FromText`**: throws `InvalidOperationException` with a message identifying the unsupported
   value when given a non-empty string that is not a recognized annotation type token.

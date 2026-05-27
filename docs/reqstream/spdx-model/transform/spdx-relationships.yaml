@@ -22,7 +22,9 @@ sections:
                   - SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship
 
               - id: SpdxModel-Transform-RelationshipUtilities-AddMultiple
-                title: The library shall provide a utility to batch-add relationships to an SPDX document with optional replacement.
+                title: >-
+                  The library shall provide a utility to batch-add relationships to an
+                  SPDX document with optional replacement.
                 tags:
                   - data-model
                 justification: |

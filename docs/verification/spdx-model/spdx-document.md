@@ -17,8 +17,9 @@ All automated tests pass with zero failures.
 
 ### Test Scenarios
 
-**SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages**: Verifies that GetRootPackages returns only
-the packages that are the targets of DESCRIBES relationships from the document element.
+**SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages**: Verifies that
+GetRootPackages returns only the packages that are the targets of DESCRIBES relationships from the
+document element.
 This scenario is tested by `SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages`.
 
 **SpdxDocument_Same_DocumentsWithMatchingRootPackages_AreEqual**: Verifies that SameComparer correctly
@@ -67,9 +68,9 @@ This scenario is tested by `SpdxDocument_Validate_InvalidRelationship_ReportsIss
 document does not satisfy NTIA minimum element requirements for an SBOM.
 This scenario is tested by `SpdxDocument_Validate_NtiaMinimumElements_ReportsIssues`.
 
-**SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements**: Verifies that `GetAllElements` returns the combined
-collection of all packages, files, snippets, annotations, and the document element itself, and
-that `SpdxRelationship` elements are excluded.
+**SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements**: Verifies that
+`GetAllElements` returns the combined collection of all packages, files, snippets, annotations,
+and the document element itself, and that `SpdxRelationship` elements are excluded.
 This scenario is tested by `SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements`.
 
 **SpdxDocument_GetElement_Document_ReturnsDocumentElement**: Verifies that GetElement returns

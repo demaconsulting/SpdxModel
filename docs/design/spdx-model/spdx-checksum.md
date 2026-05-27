@@ -95,7 +95,8 @@ different security policies and tooling ecosystems.
 - *Preconditions*: none.
 - *Postconditions*: Missing or malformed fields are recorded in `issues`. Specifically:
   - If `Algorithm` is `Missing`, the message `"{parent} Invalid Checksum Algorithm Field - Missing"` is appended.
-  - If `Algorithm` is a numeric value not defined in the enumeration, the message `"{parent} Invalid Checksum Algorithm Field - Unknown"` is appended.
+  - If `Algorithm` is a numeric value not defined in the enumeration, the message
+    `"{parent} Invalid Checksum Algorithm Field - Unknown"` is appended.
   - If `Value` is empty, the message `"{parent} Invalid Checksum Value Field - Empty"` is appended.
 
 **Same**: `static IEqualityComparer<SpdxChecksum>` — compares checksums by algorithm and value.
@@ -110,7 +111,9 @@ thrown by `DeepCopy` or `Enhance`.
   unrecognized.
 - **`ToText`**: throws `InvalidOperationException` when the algorithm value is `Missing` or is
   an out-of-range numeric value not corresponding to any named enum member.
-- **`Validate` unknown-algorithm branch**: when `Algorithm` holds a numeric value that is not a named member of `SpdxChecksumAlgorithm`, `Validate` appends `"{parent} Invalid Checksum Algorithm Field - Unknown"` to the issues list.
+- **`Validate` unknown-algorithm branch**: when `Algorithm` holds a numeric value that is not
+  a named member of `SpdxChecksumAlgorithm`, `Validate` appends
+  `"{parent} Invalid Checksum Algorithm Field - Unknown"` to the issues list.
 
 ### Dependencies
 
