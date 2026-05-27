@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxSnippet is verified through automated unit tests using the MSTest framework. Tests are
+SpdxSnippet is verified through automated unit tests using the xUnit v3 framework. Tests are
 located in `test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs`. Each test constructs
 an SpdxSnippet instance directly and exercises the method under test with no mocked
 dependencies.

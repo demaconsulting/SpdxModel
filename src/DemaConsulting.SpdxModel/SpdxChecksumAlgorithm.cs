@@ -164,7 +164,7 @@ public static class SpdxChecksumAlgorithmExtensions
     ///     string maps to <see cref="SpdxChecksumAlgorithm.Missing"/> rather than throwing;
     ///     any other unrecognized value throws <see cref="InvalidOperationException"/>.
     /// </remarks>
-    /// <param name="checksumAlgorithm">Checksum algorithm text</param>
+    /// <param name="checksumAlgorithm">Checksum algorithm text. Must not be null.</param>
     /// <returns>SpdxChecksumAlgorithm</returns>
     /// <exception cref="InvalidOperationException">
     ///     Thrown when <paramref name="checksumAlgorithm"/> is a non-empty string that does not match any

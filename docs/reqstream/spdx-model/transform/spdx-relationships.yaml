@@ -8,7 +8,7 @@ sections:
         sections:
           - title: SpdxRelationships Requirements
             requirements:
-              - id: SpdxModel-Transform-RelationshipUtilities-AddSingle
+              - id: SpdxModel-Transform-SpdxRelationships-AddSingle
                 title: The library shall provide a utility to add a single relationship to an SPDX document.
                 tags:
                   - data-model
@@ -21,7 +21,7 @@ sections:
                   - SpdxRelationships_AddSingle_NoAssertionTarget_AddsRelationship
                   - SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship
 
-              - id: SpdxModel-Transform-RelationshipUtilities-AddMultiple
+              - id: SpdxModel-Transform-SpdxRelationships-AddMultiple
                 title: >-
                   The library shall provide a utility to batch-add relationships to an
                   SPDX document with optional replacement.
@@ -35,7 +35,7 @@ sections:
                   - SpdxRelationships_AddMultiple_DuplicateRelationships_DeduplicatesRelationships
                   - SpdxRelationships_AddMultiple_Replace_RemovesAndReplacesExistingRelationships
 
-              - id: SpdxModel-Transform-RelationshipUtilities-Validate
+              - id: SpdxModel-Transform-SpdxRelationships-Validate
                 title: The library shall validate relationship element IDs before adding them to an SPDX document.
                 tags:
                   - data-model
@@ -47,7 +47,7 @@ sections:
                   - SpdxRelationships_AddSingle_MissingRelatedElement_ThrowsArgumentException
                   - SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified
 
-              - id: SpdxModel-Transform-RelationshipUtilities-Atomicity
+              - id: SpdxModel-Transform-SpdxRelationships-Atomicity
                 title: The library shall guarantee that a failed batch-add leaves the document in its original state.
                 tags:
                   - data-model

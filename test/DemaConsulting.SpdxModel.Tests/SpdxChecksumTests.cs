@@ -25,11 +25,9 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// </summary>
 /// <remarks>
 ///     Tests the <see cref="SpdxChecksum"/> class and the
-///     <see cref="SpdxChecksumAlgorithmExtensions"/> extension methods. Uses MSTest as the
-///     test framework (approved exception: xUnit adoption is deferred for this project).
-///     Each test method is fully self-contained with no shared fixture state.
+///     <see cref="SpdxChecksumAlgorithmExtensions"/> extension methods. Uses xUnit v3 as the
+///     test framework. Each test method is fully self-contained with no shared fixture state.
 /// </remarks>
-[TestClass]
 public class SpdxChecksumTests
 {
     /// <summary>
@@ -40,7 +38,7 @@ public class SpdxChecksumTests
     ///     with a different algorithm and value (c3). Verifies reflexive, symmetric, and
     ///     cross-inequality comparisons, and that equal checksums produce identical hash codes.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_SameComparer_SameOrDifferentValues_ReturnsCorrectEquality()
     {
         // Arrange: Create three checksums with different algorithm/value combinations
@@ -63,20 +61,20 @@ public class SpdxChecksumTests
         };
 
         // Act / Assert: Verify checksums compare to themselves
-        Assert.IsTrue(SpdxChecksum.Same.Equals(c1, c1));
-        Assert.IsTrue(SpdxChecksum.Same.Equals(c2, c2));
-        Assert.IsTrue(SpdxChecksum.Same.Equals(c3, c3));
+        Assert.True(SpdxChecksum.Same.Equals(c1, c1));
+        Assert.True(SpdxChecksum.Same.Equals(c2, c2));
+        Assert.True(SpdxChecksum.Same.Equals(c3, c3));
 
         // Assert: Verify checksums compare correctly
-        Assert.IsTrue(SpdxChecksum.Same.Equals(c1, c2));
-        Assert.IsTrue(SpdxChecksum.Same.Equals(c2, c1));
-        Assert.IsFalse(SpdxChecksum.Same.Equals(c1, c3));
-        Assert.IsFalse(SpdxChecksum.Same.Equals(c3, c1));
-        Assert.IsFalse(SpdxChecksum.Same.Equals(c2, c3));
-        Assert.IsFalse(SpdxChecksum.Same.Equals(c3, c2));
+        Assert.True(SpdxChecksum.Same.Equals(c1, c2));
+        Assert.True(SpdxChecksum.Same.Equals(c2, c1));
+        Assert.False(SpdxChecksum.Same.Equals(c1, c3));
+        Assert.False(SpdxChecksum.Same.Equals(c3, c1));
+        Assert.False(SpdxChecksum.Same.Equals(c2, c3));
+        Assert.False(SpdxChecksum.Same.Equals(c3, c2));
 
         // Assert: same checksums have identical hashes
-        Assert.AreEqual(SpdxChecksum.Same.GetHashCode(c1), SpdxChecksum.Same.GetHashCode(c2));
+        Assert.Equal(SpdxChecksum.Same.GetHashCode(c1), SpdxChecksum.Same.GetHashCode(c2));
     }
 
     /// <summary>
@@ -87,7 +85,7 @@ public class SpdxChecksumTests
     ///     copy has equal field values (Algorithm and Value) but is a distinct object reference
     ///     from the original, confirming no shallow aliasing.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_DeepCopy_PopulatedChecksum_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create a checksum instance
@@ -101,12 +99,12 @@ public class SpdxChecksumTests
         var c2 = c1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(c1, c2, SpdxChecksum.Same);
-        Assert.AreEqual(c1.Algorithm, c2.Algorithm);
-        Assert.AreEqual(c1.Value, c2.Value);
+        Assert.Equal(c1, c2, SpdxChecksum.Same);
+        Assert.Equal(c1.Algorithm, c2.Algorithm);
+        Assert.Equal(c1.Value, c2.Value);
 
         // Assert: Verify deep-copy has distinct instance
-        Assert.IsFalse(ReferenceEquals(c1, c2));
+        Assert.False(ReferenceEquals(c1, c2));
     }
 
     /// <summary>
@@ -118,7 +116,7 @@ public class SpdxChecksumTests
     ///     entry and a new MD5 entry. Verifies that the existing entry is preserved and the new
     ///     entry is appended, resulting in exactly two checksums.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_Enhance_ExistingAndNewAlgorithms_AddsOrUpdatesInformation()
     {
         // Arrange: Create an original checksum
@@ -148,11 +146,11 @@ public class SpdxChecksumTests
             ]);
 
         // Assert: Verify checksums contain the expected values
-        Assert.HasCount(2, checksums);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
-        Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", checksums[0].Value);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
-        Assert.AreEqual("624c1abb3664f4b35547e7c73864ad24", checksums[1].Value);
+        Assert.Equal(2, checksums.Length);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
+        Assert.Equal("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", checksums[0].Value);
+        Assert.Equal(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
+        Assert.Equal("624c1abb3664f4b35547e7c73864ad24", checksums[1].Value);
     }
 
     /// <summary>
@@ -163,7 +161,7 @@ public class SpdxChecksumTests
     ///     that the validator catches the absent algorithm and includes the expected description
     ///     string in the reported issue.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_Validate_MissingAlgorithm_ReportsAlgorithmIssue()
     {
         // Arrange: Create a bad instance
@@ -178,7 +176,7 @@ public class SpdxChecksumTests
         checksum.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Checksum Algorithm Field - Missing"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Checksum Algorithm Field - Missing"));
     }
 
     /// <summary>
@@ -189,7 +187,7 @@ public class SpdxChecksumTests
     ///     that the validator catches the empty value and includes the expected description string
     ///     in the reported issue.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_Validate_EmptyValue_ReportsValueIssue()
     {
         // Arrange: Create a bad instance
@@ -204,7 +202,7 @@ public class SpdxChecksumTests
         checksum.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Checksum Value Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Checksum Value Field - Empty"));
     }
 
     /// <summary>
@@ -215,7 +213,7 @@ public class SpdxChecksumTests
     ///     out-of-range enum value. Verifies that the validator treats it as an unknown algorithm
     ///     and reports the expected diagnostic message.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_Validate_UnknownNumericAlgorithm_ReportsAlgorithmIssue()
     {
         // Arrange: Create a checksum with an out-of-range numeric algorithm value
@@ -230,7 +228,7 @@ public class SpdxChecksumTests
         checksum.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the unknown algorithm
-        Assert.Contains(issue => issue.Contains("Test Invalid Checksum Algorithm Field - Unknown"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Checksum Algorithm Field - Unknown"));
     }
 
     /// <summary>
@@ -241,32 +239,32 @@ public class SpdxChecksumTests
     ///     case-variant inputs for SHA1, to confirm that <see cref="SpdxChecksumAlgorithmExtensions.FromText"/>
     ///     maps each string to the correct <see cref="SpdxChecksumAlgorithm"/> enum value.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_FromText_KnownAlgorithmStrings_ReturnsCorrectEnumValues()
     {
         // Arrange: Known algorithm strings are implicit in the Act/Assert pairs below
 
         // Act / Assert: Verify each known algorithm string maps to the correct enum value
-        Assert.AreEqual(SpdxChecksumAlgorithm.Missing, SpdxChecksumAlgorithmExtensions.FromText(""));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("SHA1"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("sha1"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("Sha1"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha224, SpdxChecksumAlgorithmExtensions.FromText("SHA224"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha256, SpdxChecksumAlgorithmExtensions.FromText("SHA256"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha384, SpdxChecksumAlgorithmExtensions.FromText("SHA384"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha512, SpdxChecksumAlgorithmExtensions.FromText("SHA512"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md2, SpdxChecksumAlgorithmExtensions.FromText("MD2"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md4, SpdxChecksumAlgorithmExtensions.FromText("MD4"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md5, SpdxChecksumAlgorithmExtensions.FromText("MD5"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md6, SpdxChecksumAlgorithmExtensions.FromText("MD6"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3256, SpdxChecksumAlgorithmExtensions.FromText("SHA3-256"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3384, SpdxChecksumAlgorithmExtensions.FromText("SHA3-384"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha3512, SpdxChecksumAlgorithmExtensions.FromText("SHA3-512"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B256, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-256"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B384, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-384"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Blake2B512, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-512"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Blake3, SpdxChecksumAlgorithmExtensions.FromText("BLAKE3"));
-        Assert.AreEqual(SpdxChecksumAlgorithm.Adler32, SpdxChecksumAlgorithmExtensions.FromText("ADLER32"));
+        Assert.Equal(SpdxChecksumAlgorithm.Missing, SpdxChecksumAlgorithmExtensions.FromText(""));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("SHA1"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("sha1"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, SpdxChecksumAlgorithmExtensions.FromText("Sha1"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha224, SpdxChecksumAlgorithmExtensions.FromText("SHA224"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha256, SpdxChecksumAlgorithmExtensions.FromText("SHA256"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha384, SpdxChecksumAlgorithmExtensions.FromText("SHA384"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha512, SpdxChecksumAlgorithmExtensions.FromText("SHA512"));
+        Assert.Equal(SpdxChecksumAlgorithm.Md2, SpdxChecksumAlgorithmExtensions.FromText("MD2"));
+        Assert.Equal(SpdxChecksumAlgorithm.Md4, SpdxChecksumAlgorithmExtensions.FromText("MD4"));
+        Assert.Equal(SpdxChecksumAlgorithm.Md5, SpdxChecksumAlgorithmExtensions.FromText("MD5"));
+        Assert.Equal(SpdxChecksumAlgorithm.Md6, SpdxChecksumAlgorithmExtensions.FromText("MD6"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha3256, SpdxChecksumAlgorithmExtensions.FromText("SHA3-256"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha3384, SpdxChecksumAlgorithmExtensions.FromText("SHA3-384"));
+        Assert.Equal(SpdxChecksumAlgorithm.Sha3512, SpdxChecksumAlgorithmExtensions.FromText("SHA3-512"));
+        Assert.Equal(SpdxChecksumAlgorithm.Blake2B256, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-256"));
+        Assert.Equal(SpdxChecksumAlgorithm.Blake2B384, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-384"));
+        Assert.Equal(SpdxChecksumAlgorithm.Blake2B512, SpdxChecksumAlgorithmExtensions.FromText("BLAKE2b-512"));
+        Assert.Equal(SpdxChecksumAlgorithm.Blake3, SpdxChecksumAlgorithmExtensions.FromText("BLAKE3"));
+        Assert.Equal(SpdxChecksumAlgorithm.Adler32, SpdxChecksumAlgorithmExtensions.FromText("ADLER32"));
     }
 
     /// <summary>
@@ -278,7 +276,7 @@ public class SpdxChecksumTests
     ///     <see cref="InvalidOperationException"/> with the expected message rather than
     ///     returning a default value or silently succeeding.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException()
     {
         // Arrange: Use an algorithm string that is not in the known-algorithm list
@@ -286,8 +284,8 @@ public class SpdxChecksumTests
 
         // Act / Assert: Verify that FromText throws for an unrecognized algorithm string
         var exception =
-            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
-        Assert.AreEqual("Unsupported SPDX Checksum Algorithm 'unknown'", exception.Message);
+            Assert.Throws<InvalidOperationException>(() => SpdxChecksumAlgorithmExtensions.FromText("unknown"));
+        Assert.Equal("Unsupported SPDX Checksum Algorithm 'unknown'", exception.Message);
     }
 
     /// <summary>
@@ -298,29 +296,29 @@ public class SpdxChecksumTests
     ///     that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/> returns the canonical
     ///     SPDX 2.x algorithm string for each value.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_ToText_KnownAlgorithmEnums_ReturnsCorrectStrings()
     {
         // Arrange: Known algorithm enum values are implicit in the Act/Assert pairs below
 
         // Act / Assert: Verify each known algorithm enum maps to the correct string
-        Assert.AreEqual("SHA1", SpdxChecksumAlgorithm.Sha1.ToText());
-        Assert.AreEqual("SHA224", SpdxChecksumAlgorithm.Sha224.ToText());
-        Assert.AreEqual("SHA256", SpdxChecksumAlgorithm.Sha256.ToText());
-        Assert.AreEqual("SHA384", SpdxChecksumAlgorithm.Sha384.ToText());
-        Assert.AreEqual("SHA512", SpdxChecksumAlgorithm.Sha512.ToText());
-        Assert.AreEqual("MD2", SpdxChecksumAlgorithm.Md2.ToText());
-        Assert.AreEqual("MD4", SpdxChecksumAlgorithm.Md4.ToText());
-        Assert.AreEqual("MD5", SpdxChecksumAlgorithm.Md5.ToText());
-        Assert.AreEqual("MD6", SpdxChecksumAlgorithm.Md6.ToText());
-        Assert.AreEqual("SHA3-256", SpdxChecksumAlgorithm.Sha3256.ToText());
-        Assert.AreEqual("SHA3-384", SpdxChecksumAlgorithm.Sha3384.ToText());
-        Assert.AreEqual("SHA3-512", SpdxChecksumAlgorithm.Sha3512.ToText());
-        Assert.AreEqual("BLAKE2b-256", SpdxChecksumAlgorithm.Blake2B256.ToText());
-        Assert.AreEqual("BLAKE2b-384", SpdxChecksumAlgorithm.Blake2B384.ToText());
-        Assert.AreEqual("BLAKE2b-512", SpdxChecksumAlgorithm.Blake2B512.ToText());
-        Assert.AreEqual("BLAKE3", SpdxChecksumAlgorithm.Blake3.ToText());
-        Assert.AreEqual("ADLER32", SpdxChecksumAlgorithm.Adler32.ToText());
+        Assert.Equal("SHA1", SpdxChecksumAlgorithm.Sha1.ToText());
+        Assert.Equal("SHA224", SpdxChecksumAlgorithm.Sha224.ToText());
+        Assert.Equal("SHA256", SpdxChecksumAlgorithm.Sha256.ToText());
+        Assert.Equal("SHA384", SpdxChecksumAlgorithm.Sha384.ToText());
+        Assert.Equal("SHA512", SpdxChecksumAlgorithm.Sha512.ToText());
+        Assert.Equal("MD2", SpdxChecksumAlgorithm.Md2.ToText());
+        Assert.Equal("MD4", SpdxChecksumAlgorithm.Md4.ToText());
+        Assert.Equal("MD5", SpdxChecksumAlgorithm.Md5.ToText());
+        Assert.Equal("MD6", SpdxChecksumAlgorithm.Md6.ToText());
+        Assert.Equal("SHA3-256", SpdxChecksumAlgorithm.Sha3256.ToText());
+        Assert.Equal("SHA3-384", SpdxChecksumAlgorithm.Sha3384.ToText());
+        Assert.Equal("SHA3-512", SpdxChecksumAlgorithm.Sha3512.ToText());
+        Assert.Equal("BLAKE2b-256", SpdxChecksumAlgorithm.Blake2B256.ToText());
+        Assert.Equal("BLAKE2b-384", SpdxChecksumAlgorithm.Blake2B384.ToText());
+        Assert.Equal("BLAKE2b-512", SpdxChecksumAlgorithm.Blake2B512.ToText());
+        Assert.Equal("BLAKE3", SpdxChecksumAlgorithm.Blake3.ToText());
+        Assert.Equal("ADLER32", SpdxChecksumAlgorithm.Adler32.ToText());
     }
 
     /// <summary>
@@ -331,15 +329,15 @@ public class SpdxChecksumTests
     ///     out-of-range value. Verifies that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/>
     ///     throws <see cref="InvalidOperationException"/> with the expected message.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_ToText_OutOfRangeEnum_ThrowsInvalidOperationException()
     {
         // Arrange: Use a numeric enum value that has no named member in SpdxChecksumAlgorithm
         // (No variable needed — the value is inlined directly into the Act / Assert.)
 
         // Act / Assert: Verify that ToText throws for an out-of-range enum value
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxChecksumAlgorithm)1000).ToText());
-        Assert.AreEqual("Unsupported SPDX Checksum Algorithm '1000'", exception.Message);
+        var exception = Assert.Throws<InvalidOperationException>(() => ((SpdxChecksumAlgorithm)1000).ToText());
+        Assert.Equal("Unsupported SPDX Checksum Algorithm '1000'", exception.Message);
     }
 
     /// <summary>
@@ -351,15 +349,15 @@ public class SpdxChecksumTests
     ///     never be serialized — to confirm that <see cref="SpdxChecksumAlgorithmExtensions.ToText"/>
     ///     throws <see cref="InvalidOperationException"/> with the expected message.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_ToText_MissingAlgorithm_ThrowsInvalidOperationException()
     {
         // Arrange: Use the Missing sentinel value, which must never be serialized
 
         // Act / Assert: Verify that ToText throws for the Missing sentinel
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(
+        var exception = Assert.Throws<InvalidOperationException>(
             () => SpdxChecksumAlgorithm.Missing.ToText());
-        Assert.AreEqual("Attempt to serialize missing SPDX Checksum Algorithm", exception.Message);
+        Assert.Equal("Attempt to serialize missing SPDX Checksum Algorithm", exception.Message);
     }
 
     /// <summary>
@@ -370,7 +368,7 @@ public class SpdxChecksumTests
     ///     Verifies that the comparer returns false rather than throwing, exercising the null-guard
     ///     on the left-hand operand.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_SameComparer_NullFirstArgument_ReturnsFalse()
     {
         // Arrange: Create one valid checksum and one null reference
@@ -385,7 +383,7 @@ public class SpdxChecksumTests
         var result = SpdxChecksum.Same.Equals(nullChecksum!, c1);
 
         // Assert: Verify null-first comparison returns false
-        Assert.IsFalse(result);
+        Assert.False(result);
     }
 
     /// <summary>
@@ -396,7 +394,7 @@ public class SpdxChecksumTests
     ///     Verifies that the comparer returns false rather than throwing, exercising the null-guard
     ///     on the right-hand operand.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_SameComparer_NullSecondArgument_ReturnsFalse()
     {
         // Arrange: Create one valid checksum and one null reference
@@ -411,7 +409,7 @@ public class SpdxChecksumTests
         var result = SpdxChecksum.Same.Equals(c1, nullChecksum!);
 
         // Assert: Verify null-second comparison returns false
-        Assert.IsFalse(result);
+        Assert.False(result);
     }
 
     /// <summary>
@@ -421,7 +419,7 @@ public class SpdxChecksumTests
     ///     Passes two null references to confirm that the comparer returns true when both
     ///     operands are null, consistent with standard equality-comparer semantics.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksum_SameComparer_BothArgumentsNull_ReturnsTrue()
     {
         // Arrange: Two null references
@@ -432,7 +430,7 @@ public class SpdxChecksumTests
         var result = SpdxChecksum.Same.Equals(c1!, c2!);
 
         // Assert: Verify null-null comparison returns true
-        Assert.IsTrue(result);
+        Assert.True(result);
     }
 
     /// <summary>
@@ -443,7 +441,7 @@ public class SpdxChecksumTests
     ///     returns <see cref="SpdxChecksumAlgorithm.Missing"/> rather than throwing, treating
     ///     the empty string as the absent-algorithm sentinel.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxChecksumAlgorithmExtensions_FromText_EmptyString_ReturnsMissing()
     {
         // Arrange: An empty string
@@ -453,6 +451,6 @@ public class SpdxChecksumTests
         var result = SpdxChecksumAlgorithmExtensions.FromText(input);
 
         // Assert: Verify empty string maps to Missing
-        Assert.AreEqual(SpdxChecksumAlgorithm.Missing, result);
+        Assert.Equal(SpdxChecksumAlgorithm.Missing, result);
     }
 }

@@ -25,13 +25,12 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxAnnotation" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeAnnotation
 {
     /// <summary>
     ///     Tests serializing an annotation.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeAnnotation_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample annotation
@@ -58,7 +57,7 @@ public class Spdx2JsonSerializeAnnotation
     /// <summary>
     ///     Tests serializing multiple annotations.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeAnnotations_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample list of annotations
@@ -86,8 +85,8 @@ public class Spdx2JsonSerializeAnnotation
         var json = Spdx2JsonSerializer.SerializeAnnotations(annotations);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(2, json.Count);
+        Assert.NotNull(json);
+        Assert.Equal(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Annotation1", json[0]?["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("John Doe", json[0]?["annotator"]);
         SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json[0]?["annotationDate"]);
@@ -103,7 +102,7 @@ public class Spdx2JsonSerializeAnnotation
     /// <summary>
     ///     Tests that an annotation with no ID omits the SPDXID field from the serialized JSON.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeAnnotation_NoId_OmitsSpdxId()
     {
         // Arrange: Create an annotation with no ID (empty string)
@@ -120,7 +119,7 @@ public class Spdx2JsonSerializeAnnotation
         var json = Spdx2JsonSerializer.SerializeAnnotation(annotation);
 
         // Assert: SPDXID is absent and other fields are present
-        Assert.IsNull(json["SPDXID"]);
+        Assert.Null(json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("John Doe", json["annotator"]);
         SpdxJsonHelpers.AssertEqual("2021-09-01T12:00:00Z", json["annotationDate"]);
         SpdxJsonHelpers.AssertEqual("REVIEW", json["annotationType"]);

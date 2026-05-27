@@ -20,7 +20,7 @@ The following items are in scope for this document:
 
 The following items are out of scope:
 
-- OTS item verification: MSTest, ReqStream, BuildMark, VersionMark, SarifMark, SonarMark,
+- OTS item verification: xUnit v3, ReqStream, BuildMark, VersionMark, SarifMark, SonarMark,
   ReviewMark, FileAssert, Pandoc, WeasyPrint
 - Test infrastructure and test helpers
 
@@ -32,6 +32,16 @@ The following companion artifacts are related to this verification document:
 - Software design documents are located in `docs/design/spdx-model/`
 - Production source code is located in `src/DemaConsulting.SpdxModel/`
 - Automated test suite is located in `test/DemaConsulting.SpdxModel.Tests/`
+
+## Structural Deviation
+
+The companion artifact layout described in this document places subsystem verification files at
+the subsystem level (e.g., `docs/verification/spdx-model/io/` for the IO subsystem). In practice,
+subsystem verification files (`transform.md`, `io.md`) and their children are located inside their
+respective subsystem subfolders rather than at the parent `spdx-model/` level. This deviation
+mirrors the layout adopted in the design documentation and is accepted as a project-wide structural
+deviation. Existing file references in review-sets and traceability tooling reflect the actual folder
+layout and do not require updating.
 
 ## References
 

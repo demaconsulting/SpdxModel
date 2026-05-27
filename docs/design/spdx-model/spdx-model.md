@@ -129,7 +129,8 @@ flowchart LR
 
 ### Design Constraints
 
-- Targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0` simultaneously.
+- Targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0` simultaneously; the library builds
+  and runs on Windows, Linux, and macOS.
 - Minimal runtime dependencies: relies on BCL/framework APIs where possible; compatibility NuGet
   packages used on older targets.
 - Nullable reference types enabled: all public API members declare nullability explicitly.

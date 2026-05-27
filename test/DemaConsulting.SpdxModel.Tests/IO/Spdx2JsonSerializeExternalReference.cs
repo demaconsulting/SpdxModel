@@ -25,13 +25,12 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxExternalReference" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeExternalReference
 {
     /// <summary>
     ///     Tests serializing an external reference.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeExternalReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxExternalReference object
@@ -47,7 +46,7 @@ public class Spdx2JsonSerializeExternalReference
         var json = Spdx2JsonSerializer.SerializeExternalReference(reference);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
+        Assert.NotNull(json);
         SpdxJsonHelpers.AssertEqual("SECURITY", json["referenceCategory"]);
         SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
             json["referenceLocator"]);
@@ -58,7 +57,7 @@ public class Spdx2JsonSerializeExternalReference
     /// <summary>
     ///     Tests serializing multiple external references.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeExternalReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create sample SpdxExternalReference objects
@@ -85,8 +84,8 @@ public class Spdx2JsonSerializeExternalReference
         var json = Spdx2JsonSerializer.SerializeExternalReferences(references);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(2, json.Count);
+        Assert.NotNull(json);
+        Assert.Equal(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SECURITY", json[0]?["referenceCategory"]);
         SpdxJsonHelpers.AssertEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*",
             json[0]?["referenceLocator"]);

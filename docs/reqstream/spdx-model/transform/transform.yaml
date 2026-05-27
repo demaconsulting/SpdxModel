@@ -15,9 +15,9 @@ sections:
               relationship management. This supports use cases where documents need to be modified or
               enriched after initial creation.
             children:
-              - SpdxModel-Transform-RelationshipUtilities-AddSingle
-              - SpdxModel-Transform-RelationshipUtilities-AddMultiple
-              - SpdxModel-Transform-RelationshipUtilities-Validate
-              - SpdxModel-Transform-RelationshipUtilities-Atomicity
+              - SpdxModel-Transform-SpdxRelationships-AddSingle
+              - SpdxModel-Transform-SpdxRelationships-AddMultiple
+              - SpdxModel-Transform-SpdxRelationships-Validate
+              - SpdxModel-Transform-SpdxRelationships-Atomicity
             tests:
               - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists

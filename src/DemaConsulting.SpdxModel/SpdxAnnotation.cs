@@ -21,10 +21,14 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-///     SPDX Annotation class
+///     Represents an SPDX annotation — a review or informational comment attached to an SPDX element.
 /// </summary>
 /// <remarks>
-///     An Annotation is a comment on an SpdxItem by an agent.
+///     Annotations support compliance workflows where reviewers document findings and decisions about
+///     software components. Each annotation records who made it (<see cref="Annotator"/>), when
+///     (<see cref="Date"/>), what category it belongs to (<see cref="Type"/>), and the free-text
+///     content (<see cref="Comment"/>). See the <em>SpdxAnnotation Design</em> for the full data
+///     model and method descriptions.
 /// </remarks>
 public sealed class SpdxAnnotation : SpdxElement
 {

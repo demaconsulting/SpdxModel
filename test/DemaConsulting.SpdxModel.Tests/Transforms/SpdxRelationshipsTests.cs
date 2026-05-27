@@ -4,16 +4,15 @@ using DemaConsulting.SpdxModel.Transform;
 namespace DemaConsulting.SpdxModel.Tests.Transforms;
 
 /// <summary>
-///     Tests for the <see cref="SpdxRelationship" /> transforms.
+///     Tests for the <see cref="SpdxRelationships" /> transforms.
 /// </summary>
 /// <remarks>
-///     Uses MSTest as the approved test framework for this repository (see csharp-testing.md).
+///     Uses xUnit v3 as the test framework.
 ///     Every test deserializes a fresh copy of <see cref="TestDocumentContents"/> to prevent
 ///     inter-test state leakage. The class covers the full scope of <see cref="SpdxRelationships"/>
 ///     operations: adding single and multiple relationships, deduplication, replacement, and
 ///     atomicity on failure.
 /// </remarks>
-[TestClass]
 public class SpdxRelationshipsTests
 {
     /// <summary>
@@ -62,14 +61,14 @@ public class SpdxRelationshipsTests
     ///     Confirms the exception carries the correct parameter name and that the document
     ///     relationships collection remains empty after the failed call.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_MissingId_ThrowsArgumentException()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
 
         // Act: Attempt to add a relationship with a non-existent ID
-        var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+        var ex = Assert.Throws<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
                 document,
@@ -83,8 +82,8 @@ public class SpdxRelationshipsTests
 
         // Assert: Verify the exception message and that no relationships were added
         Assert.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document", ex.Message);
-        Assert.AreEqual("relationship", ex.ParamName);
-        Assert.IsEmpty(document.Relationships);
+        Assert.Equal("relationship", ex.ParamName);
+        Assert.Empty(document.Relationships);
     }
 
     /// <summary>
@@ -96,14 +95,14 @@ public class SpdxRelationshipsTests
     ///     Confirms the exception carries the correct parameter name and that the document
     ///     relationships collection remains empty after the failed call.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_MissingRelatedElement_ThrowsArgumentException()
     {
         // Arrange: Deserialize the test document contents
         var document = Spdx2JsonDeserializer.Deserialize(TestDocumentContents);
 
         // Act: Attempt to add a relationship with a missing related element
-        var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+        var ex = Assert.Throws<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
                 document,
@@ -117,8 +116,8 @@ public class SpdxRelationshipsTests
 
         // Assert: Verify the exception message and that no relationships were added
         Assert.StartsWith("Element SPDXRef-Package-Missing not found in SPDX document", ex.Message);
-        Assert.AreEqual("relationship", ex.ParamName);
-        Assert.IsEmpty(document.Relationships);
+        Assert.Equal("relationship", ex.ParamName);
+        Assert.Empty(document.Relationships);
     }
 
     /// <summary>
@@ -129,7 +128,7 @@ public class SpdxRelationshipsTests
     ///     A fresh document is deserialized so the initial relationships collection is empty,
     ///     making the single post-add entry the definitive proof of a successful append.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_ValidRelationship_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
@@ -146,10 +145,10 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added correctly
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -161,7 +160,7 @@ public class SpdxRelationshipsTests
     ///     count assertion; the final count of one proves that the second add merged into the
     ///     existing entry rather than appending a new one.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_DuplicateRelationship_EnhancesExistingRelationship()
     {
         // Arrange: Deserialize the test document contents
@@ -186,10 +185,10 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added only once
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -201,7 +200,7 @@ public class SpdxRelationshipsTests
     ///     deserialized so the single resulting entry proves the add succeeded without requiring
     ///     the target to be present in the document's element collections.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_NoAssertionTarget_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
@@ -218,10 +217,10 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added correctly
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual(SpdxElement.NoAssertion, document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal(SpdxElement.NoAssertion, document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -233,7 +232,7 @@ public class SpdxRelationshipsTests
     ///     document is deserialized so the single resulting entry proves the add succeeded
     ///     without requiring the external element to appear in the local document.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddSingle_DocumentRefTarget_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
@@ -250,10 +249,10 @@ public class SpdxRelationshipsTests
             });
 
         // Assert: Verify the relationship was added correctly without requiring the element in the document
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("DocumentRef-external:SPDXRef-Package-3", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("DocumentRef-external:SPDXRef-Package-3", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -264,7 +263,7 @@ public class SpdxRelationshipsTests
     ///     one-element array. A fresh document is deserialized so the count assertion unambiguously
     ///     reflects the result of the batch call rather than any pre-existing state.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddMultiple_SingleRelationship_AddsRelationship()
     {
         // Arrange: Deserialize the test document contents
@@ -283,10 +282,10 @@ public class SpdxRelationshipsTests
             ]);
 
         // Assert: Verify the relationship was added correctly
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -297,7 +296,7 @@ public class SpdxRelationshipsTests
     ///     in the document. A fresh document is deserialized so the final count of one is solely
     ///     the result of the batch call; no pre-existing entries could mask a deduplication failure.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddMultiple_DuplicateRelationships_DeduplicatesRelationships()
     {
         // Arrange: Deserialize the test document contents
@@ -322,10 +321,10 @@ public class SpdxRelationshipsTests
             ]);
 
         // Assert: Verify the relationship was added only once
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -337,7 +336,7 @@ public class SpdxRelationshipsTests
     ///     before the new relationships are inserted. A fresh document with a single pre-seeded
     ///     relationship is used so the type change from the replacement is unambiguous.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddMultiple_Replace_RemovesAndReplacesExistingRelationships()
     {
         // Arrange: Deserialize the test document contents and add an initial relationship
@@ -363,10 +362,10 @@ public class SpdxRelationshipsTests
             true);
 
         // Assert: Verify the relationship was replaced with the new type
-        Assert.HasCount(1, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.BuildToolOf, document.Relationships[0].RelationshipType);
+        Assert.Single(document.Relationships);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.BuildToolOf, document.Relationships[0].RelationshipType);
     }
 
     /// <summary>
@@ -378,7 +377,7 @@ public class SpdxRelationshipsTests
     ///     A pre-seeded relationship is added before the batch call so the assertion on the
     ///     unchanged collection proves that even the valid first entry in the batch was not committed.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxRelationships_AddMultiple_InvalidRelationship_LeavesDocumentUnmodified()
     {
         // Arrange: Deserialize the test document and add an initial relationship
@@ -394,7 +393,7 @@ public class SpdxRelationshipsTests
         var initialRelationships = document.Relationships.ToArray();
 
         // Act: Attempt a batch-add with replace=true where the second relationship has an invalid source ID
-        Assert.ThrowsExactly<ArgumentException>(() =>
+        Assert.Throws<ArgumentException>(() =>
         {
             SpdxRelationships.Add(
                 document,
@@ -416,9 +415,9 @@ public class SpdxRelationshipsTests
         });
 
         // Assert: Document relationships are unchanged after the failed batch-add
-        Assert.HasCount(initialRelationships.Length, document.Relationships);
-        Assert.AreEqual("SPDXRef-Package-1", document.Relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
+        Assert.Equal(initialRelationships.Length, document.Relationships.Length);
+        Assert.Equal("SPDXRef-Package-1", document.Relationships[0].Id);
+        Assert.Equal("SPDXRef-Package-2", document.Relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DependsOn, document.Relationships[0].RelationshipType);
     }
 }

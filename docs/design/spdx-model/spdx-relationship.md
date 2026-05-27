@@ -42,14 +42,17 @@ ID, and type.
 - *Preconditions*: none.
 - *Postconditions*: Matching entries are enhanced; new entries are appended.
 
-**Validate**: Validates that the referenced element IDs exist in the owning document.
+**Validate**: Validates the relationship fields and, when a document is provided, verifies that
+referenced element IDs exist in that document.
 
 - *Parameters*: `List<string> issues` — list to append issues to; `SpdxDocument? document` —
-  document for element ID resolution.
+  optional document for element ID resolution.
 - *Returns*: `void`
 - *Preconditions*: none.
-- *Postconditions*: References to non-existent elements (that are not `NOASSERTION` or
-  `DocumentRef-`) are recorded in `issues`.
+- *Postconditions*: An empty source ID, an empty related element ID, or a `Missing` relationship
+  type each produce a validation issue. When `document` is provided, source and related element
+  IDs that do not resolve to an element in that document also produce issues, unless the related
+  element is `NOASSERTION` or uses a `DocumentRef-` cross-document prefix.
 
 **Same**: `static IEqualityComparer<SpdxRelationship>` — compares by source ID, target ID, and
 relationship type.

@@ -83,7 +83,11 @@ considered valid, in SPDX date-time format (`YYYY-MM-DDThh:mm:ssZ`); `null` if n
 - *Parameters*: `SpdxPackage other` — source of additional field values.
 - *Returns*: `void`
 - *Preconditions*: none.
-- *Postconditions*: Empty or null fields in this instance are populated from `other`.
+- *Postconditions*: Empty or null fields in this instance are populated from `other`. The nullable
+  `FilesAnalyzed` field is populated from `other` when null. Array fields `LicenseInfoFromFiles`,
+  `Checksums`, and `ExternalReferences` are merged by deduplication. The `HasFiles` array is
+  intentionally not merged because it contains document-scoped SPDX element IDs that may not be
+  valid across documents.
 
 **Enhance (static array merge)**: Merges two package arrays, matching on `Name` and `Version`.
 

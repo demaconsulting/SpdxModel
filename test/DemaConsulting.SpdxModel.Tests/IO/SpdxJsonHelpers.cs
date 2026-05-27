@@ -34,7 +34,7 @@ internal static class SpdxJsonHelpers
     /// <param name="node">JSON node</param>
     public static void AssertEqual(string expected, JsonNode? node)
     {
-        Assert.IsNotNull(node);
-        Assert.AreEqual(expected, node.ToString());
+        Assert.NotNull(node);
+        Assert.Equal(expected, node.ToString());
     }
 }

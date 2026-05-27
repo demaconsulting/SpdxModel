@@ -2,7 +2,7 @@
 
 #### Verification Approach
 
-The IO subsystem is verified through automated integration tests using the MSTest framework.
+The IO subsystem is verified through automated integration tests using the xUnit v3 framework.
 Tests are located in `test/DemaConsulting.SpdxModel.Tests/IO/SpdxModelIOTests.cs`. Integration
 tests verify the IO subsystem end-to-end using real JSON input and output.
 System.Text.Json is not mocked as JSON parsing is part of the verification scope.

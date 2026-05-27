@@ -2,7 +2,7 @@
 
 #### Verification Approach
 
-Spdx2JsonSerializer is verified through automated unit tests using the MSTest framework.
+Spdx2JsonSerializer is verified through automated unit tests using the xUnit v3 framework.
 Tests are located in the IO subdirectory under
 `test/DemaConsulting.SpdxModel.Tests/`. Each test constructs the relevant SPDX model
 objects directly and verifies the serialized JSON output. System.Text.Json is not mocked

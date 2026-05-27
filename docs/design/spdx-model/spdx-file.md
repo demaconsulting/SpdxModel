@@ -43,8 +43,9 @@ key when merging file arrays.
 - *Preconditions*: none.
 - *Postconditions*: Fields in this instance are updated when the current value has lower fitness
   than the source value, following the hierarchy: concrete value > NOASSERTION > empty string >
-  null. Array fields are merged by concatenation and deduplication (AttributionText) or
-  identity-match and append (other arrays).
+  null. `FileTypes`, `LicenseInfoInFiles`, `Contributors`, and `AttributionText` (inherited) are
+  merged by concatenation and deduplication. `Checksums` are merged using identity-match and
+  enhance via `SpdxChecksum.Enhance`.
 
 **Enhance (static array merge)**: Merges two file arrays, matching on `FileName`.
 

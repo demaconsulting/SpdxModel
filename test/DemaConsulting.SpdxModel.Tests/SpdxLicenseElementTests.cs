@@ -29,7 +29,6 @@ namespace DemaConsulting.SpdxModel.Tests;
 ///     fields: <c>ConcludedLicense</c>, <c>LicenseComments</c>, <c>CopyrightText</c>,
 ///     <c>AttributionText</c>, and <c>Annotations</c>.
 /// </remarks>
-[TestClass]
 public class SpdxLicenseElementTests
 {
     /// <summary>
@@ -40,7 +39,7 @@ public class SpdxLicenseElementTests
     ///     <c>CopyrightText</c>, and null <c>LicenseComments</c> are all replaced when the
     ///     source carries concrete (rank-3) values.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxLicenseElement_Enhance_EmptyAndNullFields_ReplacedByConcreteValues()
     {
         // Arrange: Create a package with empty/null license-element fields
@@ -65,9 +64,9 @@ public class SpdxLicenseElementTests
         primary.Enhance(secondary);
 
         // Assert: Verify that empty/null fields were replaced with concrete values
-        Assert.AreEqual("MIT", primary.ConcludedLicense);
-        Assert.AreEqual("Copyright 2024 DEMA Consulting", primary.CopyrightText);
-        Assert.AreEqual("License determined from source headers", primary.LicenseComments);
+        Assert.Equal("MIT", primary.ConcludedLicense);
+        Assert.Equal("Copyright 2024 DEMA Consulting", primary.CopyrightText);
+        Assert.Equal("License determined from source headers", primary.LicenseComments);
     }
 
     /// <summary>
@@ -78,7 +77,7 @@ public class SpdxLicenseElementTests
     ///     <c>NOASSERTION</c> (rank 2) are replaced when the source carries concrete (rank-3)
     ///     values. <c>LicenseComments</c> set to <c>NOASSERTION</c> is similarly replaced.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxLicenseElement_Enhance_NoAssertionFields_ReplacedByConcreteValues()
     {
         // Arrange: Create a package with NOASSERTION license-element fields
@@ -103,9 +102,9 @@ public class SpdxLicenseElementTests
         primary.Enhance(secondary);
 
         // Assert: Verify that NOASSERTION fields were replaced with concrete values
-        Assert.AreEqual("Apache-2.0", primary.ConcludedLicense);
-        Assert.AreEqual("Copyright 2024 DEMA Consulting", primary.CopyrightText);
-        Assert.AreEqual("Apache license confirmed", primary.LicenseComments);
+        Assert.Equal("Apache-2.0", primary.ConcludedLicense);
+        Assert.Equal("Copyright 2024 DEMA Consulting", primary.CopyrightText);
+        Assert.Equal("Apache license confirmed", primary.LicenseComments);
     }
 
     /// <summary>
@@ -116,7 +115,7 @@ public class SpdxLicenseElementTests
     ///     must not be overwritten by any secondary value regardless of the secondary's fitness
     ///     level (null, empty, NOASSERTION, or another concrete value).
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxLicenseElement_Enhance_ConcreteFields_NotReplacedBySecondaryValues()
     {
         // Arrange: Create a package with concrete license-element fields
@@ -141,9 +140,9 @@ public class SpdxLicenseElementTests
         primary.Enhance(secondary);
 
         // Assert: Verify that concrete fields were not replaced
-        Assert.AreEqual("MIT", primary.ConcludedLicense);
-        Assert.AreEqual("Copyright 2024 DEMA Consulting", primary.CopyrightText);
-        Assert.AreEqual("MIT license confirmed", primary.LicenseComments);
+        Assert.Equal("MIT", primary.ConcludedLicense);
+        Assert.Equal("Copyright 2024 DEMA Consulting", primary.CopyrightText);
+        Assert.Equal("MIT license confirmed", primary.LicenseComments);
     }
 
     /// <summary>
@@ -154,7 +153,7 @@ public class SpdxLicenseElementTests
     ///     <c>AttributionText</c> array while duplicate entries are discarded so that each
     ///     attribution notice appears exactly once in the merged result.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxLicenseElement_Enhance_AttributionText_MergedByDeduplication()
     {
         // Arrange: Create packages with overlapping and unique attribution texts
@@ -175,7 +174,7 @@ public class SpdxLicenseElementTests
         primary.Enhance(secondary);
 
         // Assert: Verify that attribution texts were merged with deduplication
-        Assert.HasCount(3, primary.AttributionText);
+        Assert.Equal(3, primary.AttributionText.Length);
         Assert.Contains("Attribution A", primary.AttributionText);
         Assert.Contains("Attribution B", primary.AttributionText);
         Assert.Contains("Attribution C", primary.AttributionText);
@@ -190,7 +189,7 @@ public class SpdxLicenseElementTests
     ///     the primary are appended as new independent copies, leaving the total annotation
     ///     count equal to the number of distinct annotations across both sources.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxLicenseElement_Enhance_Annotations_MergedByIdentityAndAppend()
     {
         // Arrange: Create packages where primary has one annotation and secondary adds a new one
@@ -236,10 +235,10 @@ public class SpdxLicenseElementTests
         primary.Enhance(secondary);
 
         // Assert: Verify that annotations were merged by identity-match and append
-        Assert.HasCount(2, primary.Annotations);
-        Assert.AreEqual("Tool: tool-a", primary.Annotations[0].Annotator);
-        Assert.AreEqual("Initial review", primary.Annotations[0].Comment);
-        Assert.AreEqual("Tool: tool-b", primary.Annotations[1].Annotator);
-        Assert.AreEqual("Additional review", primary.Annotations[1].Comment);
+        Assert.Equal(2, primary.Annotations.Length);
+        Assert.Equal("Tool: tool-a", primary.Annotations[0].Annotator);
+        Assert.Equal("Initial review", primary.Annotations[0].Comment);
+        Assert.Equal("Tool: tool-b", primary.Annotations[1].Annotator);
+        Assert.Equal("Additional review", primary.Annotations[1].Comment);
     }
 }

@@ -33,6 +33,8 @@ ones.
   (same source, target, and type) already exists it is enhanced; otherwise a deep copy is appended.
 - *Constraints*: The source element ID must exist in the document. The target element ID must
   either exist in the document, be `NOASSERTION`, or use the `DocumentRef-` prefix.
+- *Atomicity*: When `ArgumentException` is thrown, the document is left in its original state —
+  no relationship is added or removed.
 
 #### Design
 

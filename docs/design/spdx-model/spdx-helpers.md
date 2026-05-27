@@ -37,6 +37,8 @@ for invalid input rather than throwing.
 
 ### Dependencies
 
+- **SpdxElement** — `SpdxElement.NoAssertion` constant used in `EnhanceString` fitness ranking to
+  identify `NOASSERTION` values.
 - **System.Text.RegularExpressions** — date-time validation regex. On .NET 7 and later, a
   source-generated `[GeneratedRegex]` is used for AOT safety; earlier targets use a cached
   `Regex` instance.

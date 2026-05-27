@@ -21,6 +21,7 @@ comprehensive in-memory model for reading, manipulating, and writing SPDX Softwa
 - 🔍 **Transform Support** - Built-in utilities for manipulating SPDX relationships
 - 🔁 **Deep Copy Support** - Deep copy any SPDX element or entire documents
 - ⚖️ **Comparison Utilities** - Compare and check equality of SPDX elements
+- ✅ **Validation Support** - Validate SPDX documents and elements against the specification
 - ⚡ **Multi-Target** - Supports .NET Standard 2.0, .NET 8, 9, and 10
 - 🖥️ **Multi-Platform** - Builds and runs on Windows, Linux, and macOS
 - 🧪 **Well-Tested** - Comprehensive test suite with high code coverage

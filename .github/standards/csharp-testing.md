@@ -66,13 +66,8 @@ These are non-obvious v3 behaviors that differ from v2 or common assumptions:
 
 # Repository-Specific Exceptions
 
-## MSTest Approval (SpdxModel)
-
-The `DemaConsulting.SpdxModel.Tests` project uses **MSTest** instead of xUnit v3. This is
-an approved exception for this repository: the test project predates this standard and a
-full migration to xUnit v3 would be high risk with low value. MSTest remains the approved
-test framework for this repository's existing test suite. New test projects in this repository
-should follow the xUnit v3 standard unless this section is updated.
+No active exceptions. The `DemaConsulting.SpdxModel.Tests` project was migrated from MSTest
+to xUnit v3 and now follows this standard.
 
 # Quality Checks
 

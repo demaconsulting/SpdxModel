@@ -24,12 +24,10 @@ namespace DemaConsulting.SpdxModel.Tests;
 ///     Tests for the <see cref="SpdxExternalDocumentReference" /> class.
 /// </summary>
 /// <remarks>
-///     Tests the <see cref="SpdxExternalDocumentReference"/> class using MSTest (approved
-///     exception: xUnit adoption is deferred for this project). Each test method constructs
+///     Tests the <see cref="SpdxExternalDocumentReference"/> class using xUnit v3. Each test method constructs
 ///     its own instance state with no shared fixture, covering the Same comparer, DeepCopy,
 ///     Enhance, and Validate methods.
 /// </remarks>
-[TestClass]
 public class SpdxExternalDocumentReferenceTests
 {
     /// <summary>
@@ -42,7 +40,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     symmetric, and cross-inequality comparisons, and that equal references produce
     ///     identical hash codes.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_SameComparer_SameDocument_ReturnsEqual()
     {
         // Arrange: Create three external document references with different properties
@@ -78,20 +76,20 @@ public class SpdxExternalDocumentReferenceTests
         };
 
         // Act / Assert: Verify external-document-references compare to themselves
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r1, r1));
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r2, r2));
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r3, r3));
+        Assert.True(SpdxExternalDocumentReference.Same.Equals(r1, r1));
+        Assert.True(SpdxExternalDocumentReference.Same.Equals(r2, r2));
+        Assert.True(SpdxExternalDocumentReference.Same.Equals(r3, r3));
 
         // Assert: Verify external-document-references compare correctly
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r1, r2));
-        Assert.IsTrue(SpdxExternalDocumentReference.Same.Equals(r2, r1));
-        Assert.IsFalse(SpdxExternalDocumentReference.Same.Equals(r1, r3));
-        Assert.IsFalse(SpdxExternalDocumentReference.Same.Equals(r3, r1));
-        Assert.IsFalse(SpdxExternalDocumentReference.Same.Equals(r2, r3));
-        Assert.IsFalse(SpdxExternalDocumentReference.Same.Equals(r3, r2));
+        Assert.True(SpdxExternalDocumentReference.Same.Equals(r1, r2));
+        Assert.True(SpdxExternalDocumentReference.Same.Equals(r2, r1));
+        Assert.False(SpdxExternalDocumentReference.Same.Equals(r1, r3));
+        Assert.False(SpdxExternalDocumentReference.Same.Equals(r3, r1));
+        Assert.False(SpdxExternalDocumentReference.Same.Equals(r2, r3));
+        Assert.False(SpdxExternalDocumentReference.Same.Equals(r3, r2));
 
         // Assert: Verify same external-document-references have identical hashes
-        Assert.AreEqual(SpdxExternalDocumentReference.Same.GetHashCode(r1),
+        Assert.Equal(SpdxExternalDocumentReference.Same.GetHashCode(r1),
             SpdxExternalDocumentReference.Same.GetHashCode(r2));
     }
 
@@ -103,7 +101,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     it. Verifies that the copy has equal field values but that both the top-level reference
     ///     and the nested Checksum are distinct object references from the original.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_DeepCopy_ValidInstance_ReturnsEqualButDistinctInstance()
     {
         // Arrange: Create an external document reference with a checksum
@@ -122,14 +120,14 @@ public class SpdxExternalDocumentReferenceTests
         var r2 = r1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(r1, r2, SpdxExternalDocumentReference.Same);
-        Assert.AreEqual(r1.ExternalDocumentId, r2.ExternalDocumentId);
-        Assert.AreEqual(r1.Checksum, r2.Checksum, SpdxChecksum.Same);
-        Assert.AreEqual(r1.Document, r2.Document);
+        Assert.Equal(r1, r2, SpdxExternalDocumentReference.Same);
+        Assert.Equal(r1.ExternalDocumentId, r2.ExternalDocumentId);
+        Assert.Equal(r1.Checksum, r2.Checksum, SpdxChecksum.Same);
+        Assert.Equal(r1.Document, r2.Document);
 
         // Assert: Verify deep-copy has distinct instances
-        Assert.IsFalse(ReferenceEquals(r1, r2));
-        Assert.IsFalse(ReferenceEquals(r1.Checksum, r2.Checksum));
+        Assert.False(ReferenceEquals(r1, r2));
+        Assert.False(ReferenceEquals(r1.Checksum, r2.Checksum));
     }
 
     /// <summary>
@@ -143,7 +141,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     new reference. Verifies that the merged array has exactly two entries with the correct
     ///     checksum data and new reference details.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_Enhance_WithNewAndMatchingEntries_MergesAndAppendsCorrectly()
     {
         // Arrange: Create an array of external document references
@@ -182,16 +180,16 @@ public class SpdxExternalDocumentReferenceTests
             ]);
 
         // Assert: Verify the references array has correct information
-        Assert.HasCount(2, references);
-        Assert.AreEqual("DocumentRef-spdx-tool-1.2", references[0].ExternalDocumentId);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, references[0].Checksum.Algorithm);
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", references[0].Checksum.Value);
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+        Assert.Equal(2, references.Length);
+        Assert.Equal("DocumentRef-spdx-tool-1.2", references[0].ExternalDocumentId);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, references[0].Checksum.Algorithm);
+        Assert.Equal("d6a770ba38583ed4bb4525bd96e50461655d2759", references[0].Checksum.Value);
+        Assert.Equal("http://spdx.org/spdxdocs/spdx-tools-v1.2-3F2504E0-4F89-41D3-9A0C-0305E82C3301",
             references[0].Document);
-        Assert.AreEqual("DocumentRef-OtherDoc", references[1].ExternalDocumentId);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, references[1].Checksum.Algorithm);
-        Assert.AreEqual("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", references[1].Checksum.Value);
-        Assert.AreEqual("http://demo.com/some-document", references[1].Document);
+        Assert.Equal("DocumentRef-OtherDoc", references[1].ExternalDocumentId);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, references[1].Checksum.Algorithm);
+        Assert.Equal("c2b4e1c67a2d28fced849ee1bb76e7391b93f125", references[1].Checksum.Value);
+        Assert.Equal("http://demo.com/some-document", references[1].Document);
     }
 
     /// <summary>
@@ -202,7 +200,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     that the validator catches the absent ID and includes the expected description string
     ///     in the reported issue.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_Validate_MissingId_ReportsIssue()
     {
         // Arrange: Create a bad reference
@@ -217,7 +215,7 @@ public class SpdxExternalDocumentReferenceTests
         reference.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("External Document Reference Invalid External Document ID Field - Empty"));
     }
 
     /// <summary>
@@ -228,7 +226,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     that the validator catches the absent URI and includes the expected description string
     ///     (including the reference ID) in the reported issue.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_Validate_MissingDocument_ReportsIssue()
     {
         // Arrange: Create a bad reference
@@ -243,7 +241,7 @@ public class SpdxExternalDocumentReferenceTests
         reference.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("External Document Reference 'DocumentRef-spdx-tool-1.2' Invalid SPDX Document URI Field - Empty"));
     }
 
     /// <summary>
@@ -254,7 +252,7 @@ public class SpdxExternalDocumentReferenceTests
     ///     and an empty checksum value to confirm that the validator delegates to the checksum
     ///     validator and surfaces the algorithm-missing diagnostic in the reported issues.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExternalDocumentReference_Validate_InvalidChecksum_ReportsIssue()
     {
         // Arrange: Create a reference with a missing-algorithm checksum
@@ -275,7 +273,7 @@ public class SpdxExternalDocumentReferenceTests
 
         // Assert: Verify that the checksum algorithm issue is reported
         Assert.Contains(
-            issue => issue.Contains("Invalid Checksum Algorithm Field - Missing"),
-            issues);
+            issues,
+            issue => issue.Contains("Invalid Checksum Algorithm Field - Missing"));
     }
 }

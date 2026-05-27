@@ -41,7 +41,9 @@ the file, enabling granular compliance tracking for reused code segments.
 - *Parameters*: `SpdxSnippet other` — source of additional field values.
 - *Returns*: `void`
 - *Preconditions*: none.
-- *Postconditions*: Empty or null fields are populated from `other`.
+- *Postconditions*: Empty or null string fields are populated from `other`; integer fields with value
+  `0` are replaced by the corresponding non-zero value from `other`; `LicenseInfoInSnippet` is merged
+  by deduplication from both instances.
 
 **Enhance (static array merge)**: Merges two snippet arrays by matching on file SPDX ID and byte
 range.

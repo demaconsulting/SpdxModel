@@ -35,6 +35,10 @@ var document = new SpdxDocument
 Always handle potential errors when reading SPDX documents from untrusted sources:
 
 ```csharp
+using System.IO;
+using System.Text.Json;
+using DemaConsulting.SpdxModel.IO;
+
 try
 {
     var json = File.ReadAllText("sbom.spdx.json");

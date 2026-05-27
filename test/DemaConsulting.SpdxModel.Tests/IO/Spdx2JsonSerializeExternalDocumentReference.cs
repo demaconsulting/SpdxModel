@@ -25,13 +25,12 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxExternalDocumentReference" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeExternalDocumentReference
 {
     /// <summary>
     ///     Tests serializing an external document reference.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeExternalDocumentReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxExternalDocumentReference object
@@ -60,7 +59,7 @@ public class Spdx2JsonSerializeExternalDocumentReference
     /// <summary>
     ///     Tests serializing multiple external document references.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeExternalDocumentReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxExternalDocumentReference objects
@@ -82,8 +81,8 @@ public class Spdx2JsonSerializeExternalDocumentReference
         var json = Spdx2JsonSerializer.SerializeExternalDocumentReferences(references);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(1, json.Count);
+        Assert.NotNull(json);
+        Assert.Single(json);
         SpdxJsonHelpers.AssertEqual("DocumentRef-spdx-tool-1.2", json[0]?["externalDocumentId"]);
         SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["checksum"]?["algorithm"]);
         SpdxJsonHelpers.AssertEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", json[0]?["checksum"]?["checksumValue"]);

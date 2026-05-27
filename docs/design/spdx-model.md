@@ -46,6 +46,36 @@ flowchart TD
     Spdx2JsonSerializer --> SpdxConstants
     SpdxRelationships --> SpdxDocument
     SpdxRelationships --> SpdxRelationship
+    SpdxDocument --> SpdxPackage
+    SpdxDocument --> SpdxFile
+    SpdxDocument --> SpdxSnippet
+    SpdxDocument --> SpdxRelationship
+    SpdxDocument --> SpdxAnnotation
+    SpdxDocument --> SpdxExternalDocumentReference
+    SpdxDocument --> SpdxCreationInformation
+    SpdxDocument --> SpdxExtractedLicensingInfo
+    SpdxFile --> SpdxChecksum
+    SpdxPackage --> SpdxChecksum
+    SpdxPackage --> SpdxExternalReference
+    SpdxPackage --> SpdxPackageVerificationCode
+    SpdxExternalDocumentReference --> SpdxChecksum
+    Spdx2JsonDeserializer --> SpdxHelpers
+    Spdx2JsonSerializer --> SpdxHelpers
+    SpdxDocument --> SpdxPackage
+    SpdxDocument --> SpdxFile
+    SpdxDocument --> SpdxSnippet
+    SpdxDocument --> SpdxRelationship
+    SpdxDocument --> SpdxAnnotation
+    SpdxDocument --> SpdxExternalDocumentReference
+    SpdxDocument --> SpdxCreationInformation
+    SpdxDocument --> SpdxExtractedLicensingInfo
+    SpdxFile --> SpdxChecksum
+    SpdxPackage --> SpdxChecksum
+    SpdxPackage --> SpdxExternalReference
+    SpdxPackage --> SpdxPackageVerificationCode
+    SpdxExternalDocumentReference --> SpdxChecksum
+    Spdx2JsonDeserializer --> SpdxHelpers
+    Spdx2JsonSerializer --> SpdxHelpers
 ```
 
 ## External Interfaces

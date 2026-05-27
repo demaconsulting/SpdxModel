@@ -27,11 +27,10 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 ///     Tests for deserializing SPDX documents to <see cref="SpdxDocument" /> classes.
 /// </summary>
 /// <remarks>
-///     Exercises deserialization of SPDX document-level elements using MSTest as the
-///     approved test framework for this repository. Constructs inline JSON and verifies
+///     Exercises deserialization of SPDX document-level elements using xUnit v3 as the
+///     test framework. Constructs inline JSON and verifies
 ///     the resulting <see cref="SpdxDocument"/> fields.
 /// </remarks>
-[TestClass]
 public class Spdx2JsonDeserializeDocument
 {
     /// <summary>
@@ -42,7 +41,7 @@ public class Spdx2JsonDeserializeDocument
     ///     comment, documentNamespace, documentDescribes) and empty collection fields are
     ///     correctly mapped when a full document JSON object is deserialized.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_DeserializeDocument_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a document
@@ -86,22 +85,22 @@ public class Spdx2JsonDeserializeDocument
         var document = Spdx2JsonDeserializer.DeserializeDocument(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("SPDXRef-DOCUMENT", document.Id);
-        Assert.AreEqual("SPDX-2.3", document.Version);
-        Assert.AreEqual("SPDX-Tools-v2.0", document.Name);
-        Assert.AreEqual("CC0-1.0", document.DataLicense);
-        Assert.AreEqual("This document was created using SPDX 2.0 using licenses from the web site.", document.Comment);
-        Assert.AreEqual("http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
+        Assert.Equal("SPDXRef-DOCUMENT", document.Id);
+        Assert.Equal("SPDX-2.3", document.Version);
+        Assert.Equal("SPDX-Tools-v2.0", document.Name);
+        Assert.Equal("CC0-1.0", document.DataLicense);
+        Assert.Equal("This document was created using SPDX 2.0 using licenses from the web site.", document.Comment);
+        Assert.Equal("http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             document.DocumentNamespace);
-        Assert.HasCount(3, document.Describes);
-        Assert.AreEqual("SPDXRef-File", document.Describes[0]);
-        Assert.AreEqual("SPDXRef-File", document.Describes[1]);
-        Assert.AreEqual("SPDXRef-Package", document.Describes[2]);
-        Assert.IsEmpty(document.ExternalDocumentReferences);
-        Assert.IsEmpty(document.ExtractedLicensingInfo);
-        Assert.IsEmpty(document.Packages);
-        Assert.IsEmpty(document.Files);
-        Assert.IsEmpty(document.Snippets);
-        Assert.IsEmpty(document.Relationships);
+        Assert.Equal(3, document.Describes.Length);
+        Assert.Equal("SPDXRef-File", document.Describes[0]);
+        Assert.Equal("SPDXRef-File", document.Describes[1]);
+        Assert.Equal("SPDXRef-Package", document.Describes[2]);
+        Assert.Empty(document.ExternalDocumentReferences);
+        Assert.Empty(document.ExtractedLicensingInfo);
+        Assert.Empty(document.Packages);
+        Assert.Empty(document.Files);
+        Assert.Empty(document.Snippets);
+        Assert.Empty(document.Relationships);
     }
 }

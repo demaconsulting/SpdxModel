@@ -27,11 +27,10 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 ///     Tests for deserializing SPDX relationships to <see cref="SpdxRelationship" /> classes.
 /// </summary>
 /// <remarks>
-///     Exercises deserialization of SPDX relationship elements using MSTest as the approved
-///     test framework for this repository. Each test constructs inline JSON and verifies
+///     Exercises deserialization of SPDX relationship elements using xUnit v3 as the test
+///     framework. Each test constructs inline JSON and verifies
 ///     the resulting <see cref="SpdxRelationship"/> fields.
 /// </remarks>
-[TestClass]
 public class Spdx2JsonDeserializeRelationship
 {
     /// <summary>
@@ -42,7 +41,7 @@ public class Spdx2JsonDeserializeRelationship
     ///     fields are correctly mapped to the <see cref="SpdxRelationship"/> properties when a
     ///     single relationship object is deserialized.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_DeserializeRelationship_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a relationship
@@ -58,10 +57,10 @@ public class Spdx2JsonDeserializeRelationship
         var relationship = Spdx2JsonDeserializer.DeserializeRelationship(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("SPDXRef-DOCUMENT", relationship.Id);
-        Assert.AreEqual("SPDXRef-Package", relationship.RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.Describes, relationship.RelationshipType);
-        Assert.AreEqual("This is just an example", relationship.Comment);
+        Assert.Equal("SPDXRef-DOCUMENT", relationship.Id);
+        Assert.Equal("SPDXRef-Package", relationship.RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.Describes, relationship.RelationshipType);
+        Assert.Equal("This is just an example", relationship.Comment);
     }
 
     /// <summary>
@@ -71,7 +70,7 @@ public class Spdx2JsonDeserializeRelationship
     ///     Verifies that a JSON array of two relationship objects (DESCRIBES and DESCRIBED_BY)
     ///     is deserialized to a two-element array with all fields correctly populated.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_DeserializeRelationships_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple relationships
@@ -97,14 +96,14 @@ public class Spdx2JsonDeserializeRelationship
         var relationships = Spdx2JsonDeserializer.DeserializeRelationships(json);
 
         // Assert: Verify the deserialized objects have the expected properties
-        Assert.HasCount(2, relationships);
-        Assert.AreEqual("SPDXRef-DOCUMENT", relationships[0].Id);
-        Assert.AreEqual("SPDXRef-Package", relationships[0].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.Describes, relationships[0].RelationshipType);
-        Assert.AreEqual("This is just an example", relationships[0].Comment);
-        Assert.AreEqual("SPDXRef-Package", relationships[1].Id);
-        Assert.AreEqual("SPDXRef-DOCUMENT", relationships[1].RelatedSpdxElement);
-        Assert.AreEqual(SpdxRelationshipType.DescribedBy, relationships[1].RelationshipType);
-        Assert.AreEqual("This is just an example", relationships[1].Comment);
+        Assert.Equal(2, relationships.Length);
+        Assert.Equal("SPDXRef-DOCUMENT", relationships[0].Id);
+        Assert.Equal("SPDXRef-Package", relationships[0].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.Describes, relationships[0].RelationshipType);
+        Assert.Equal("This is just an example", relationships[0].Comment);
+        Assert.Equal("SPDXRef-Package", relationships[1].Id);
+        Assert.Equal("SPDXRef-DOCUMENT", relationships[1].RelatedSpdxElement);
+        Assert.Equal(SpdxRelationshipType.DescribedBy, relationships[1].RelationshipType);
+        Assert.Equal("This is just an example", relationships[1].Comment);
     }
 }

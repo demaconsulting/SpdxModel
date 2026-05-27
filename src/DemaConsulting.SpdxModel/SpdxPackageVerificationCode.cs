@@ -45,7 +45,7 @@ public sealed class SpdxPackageVerificationCode
     ///     Excluded Files Field
     /// </summary>
     /// <remarks>
-    ///     Files that was excluded when calculating the package verification code.
+    ///     Files that were excluded when calculating the package verification code.
     ///     This is usually a file containing SPDX data regarding the package.
     ///     If a package contains more than one SPDX file all SPDX files must be
     ///     excluded from the package verification code. If this is not done it

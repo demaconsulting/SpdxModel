@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxDocument is verified through automated unit tests using the MSTest framework. Tests are
+SpdxDocument is verified through automated unit tests using the xUnit v3 framework. Tests are
 located in `test/DemaConsulting.SpdxModel.Tests/SpdxDocumentTests.cs`. Each test constructs
 an SpdxDocument instance directly and exercises the method under test with no mocked
 dependencies.

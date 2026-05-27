@@ -25,7 +25,6 @@ words:
   - Doap
   - fileassert
   - hotspots
-  - mstest
   - Neko
   - netstandard
   - NOASSERTION
@@ -53,6 +52,7 @@ words:
   - versionmark
   - weasyprint
   - Weasy
+  - xunit
   - yamlfix
 
 # Exclude common build artifacts, dependencies, and vendored third-party code

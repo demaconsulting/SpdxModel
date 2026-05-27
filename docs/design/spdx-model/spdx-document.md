@@ -62,12 +62,13 @@ when `DESCRIBES` relationships are not present).
 - *Postconditions*: All validation issues found in the document and its elements are appended
   to `issues`.
 
-**GetRootPackages**: Returns packages directly described by the document via `DESCRIBES`
-relationships.
+**GetRootPackages**: Returns packages directly described by the document.
 
 - *Parameters*: none.
-- *Returns*: `IEnumerable<SpdxPackage>` — packages whose SPDX ID appears in a `DESCRIBES`
-  relationship from this document.
+- *Returns*: `SpdxPackage[]` — packages whose SPDX ID appears in the `Describes` array, is the
+  target of a `DESCRIBES` relationship from the document element, or is the source of a
+  `DESCRIBED_BY` relationship pointing at the document element. All three mechanisms are checked
+  and the results are unioned.
 - *Preconditions*: none.
 - *Postconditions*: none.
 
@@ -90,8 +91,8 @@ relationships.
 
 **Same**: `static IEqualityComparer<SpdxDocument>` — compares documents by `Name` and root-package
 identity. Two documents are considered the same when their `Name` values match AND their sets of
-root packages (as returned by `GetRootPackages`) are sequence-equal under `SpdxPackage.Same`.
-Used for deduplication scenarios.
+root packages (as returned by `GetRootPackages`) contain the same packages in any order under
+`SpdxPackage.Same`. Used for deduplication scenarios.
 
 ### Error Handling
 

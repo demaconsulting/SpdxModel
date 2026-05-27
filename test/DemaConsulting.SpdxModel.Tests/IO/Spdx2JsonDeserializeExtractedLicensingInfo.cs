@@ -28,10 +28,9 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// </summary>
 /// <remarks>
 ///     Exercises deserialization of SPDX extracted licensing information elements using
-///     MSTest as the approved test framework for this repository. Each test constructs
+///     xUnit v3 as the test framework. Each test constructs
 ///     inline JSON and verifies the resulting <see cref="SpdxExtractedLicensingInfo"/> fields.
 /// </remarks>
-[TestClass]
 public class Spdx2JsonDeserializeExtractedLicensingInfo
 {
     /// <summary>
@@ -43,7 +42,7 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
     ///     <see cref="SpdxExtractedLicensingInfo"/> properties when a single object is
     ///     deserialized.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfo_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing extracted licensing information
@@ -60,12 +59,12 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
         var extractedLicensingInfo = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfo(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("MIT", extractedLicensingInfo.LicenseId);
-        Assert.AreEqual("This is the MIT license", extractedLicensingInfo.ExtractedText);
-        Assert.AreEqual("MIT License", extractedLicensingInfo.Name);
-        Assert.HasCount(1, extractedLicensingInfo.CrossReferences);
-        Assert.AreEqual("https://opensource.org/licenses/MIT", extractedLicensingInfo.CrossReferences[0]);
-        Assert.AreEqual("This is a comment", extractedLicensingInfo.Comment);
+        Assert.Equal("MIT", extractedLicensingInfo.LicenseId);
+        Assert.Equal("This is the MIT license", extractedLicensingInfo.ExtractedText);
+        Assert.Equal("MIT License", extractedLicensingInfo.Name);
+        Assert.Single(extractedLicensingInfo.CrossReferences);
+        Assert.Equal("https://opensource.org/licenses/MIT", extractedLicensingInfo.CrossReferences[0]);
+        Assert.Equal("This is a comment", extractedLicensingInfo.Comment);
     }
 
     /// <summary>
@@ -75,7 +74,7 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
     ///     Verifies that a JSON array containing one extracted licensing info object is
     ///     deserialized to a single-element array with all fields correctly populated.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_DeserializeExtractedLicensingInfos_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple extracted licensing information
@@ -95,12 +94,12 @@ public class Spdx2JsonDeserializeExtractedLicensingInfo
         var extractedLicensingInfos = Spdx2JsonDeserializer.DeserializeExtractedLicensingInfos(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.HasCount(1, extractedLicensingInfos);
-        Assert.AreEqual("MIT", extractedLicensingInfos[0].LicenseId);
-        Assert.AreEqual("This is the MIT license", extractedLicensingInfos[0].ExtractedText);
-        Assert.AreEqual("MIT License", extractedLicensingInfos[0].Name);
-        Assert.HasCount(1, extractedLicensingInfos[0].CrossReferences);
-        Assert.AreEqual("https://opensource.org/licenses/MIT", extractedLicensingInfos[0].CrossReferences[0]);
-        Assert.AreEqual("This is a comment", extractedLicensingInfos[0].Comment);
+        Assert.Single(extractedLicensingInfos);
+        Assert.Equal("MIT", extractedLicensingInfos[0].LicenseId);
+        Assert.Equal("This is the MIT license", extractedLicensingInfos[0].ExtractedText);
+        Assert.Equal("MIT License", extractedLicensingInfos[0].Name);
+        Assert.Single(extractedLicensingInfos[0].CrossReferences);
+        Assert.Equal("https://opensource.org/licenses/MIT", extractedLicensingInfos[0].CrossReferences[0]);
+        Assert.Equal("This is a comment", extractedLicensingInfos[0].Comment);
     }
 }

@@ -83,7 +83,7 @@ public sealed class SpdxChecksum
     ///     fields that are absent in this instance. Fields that are already populated
     ///     are preserved; only missing (default/empty) values are replaced.
     /// </remarks>
-    /// <param name="other">Other checksum to enhance with</param>
+    /// <param name="other">Other checksum to enhance with. Must not be null.</param>
     public void Enhance(SpdxChecksum other)
     {
         // Populate the algorithm if missing
@@ -105,8 +105,8 @@ public sealed class SpdxChecksum
     ///     instance <see cref="Enhance(SpdxChecksum)"/> method. Entries with no match are
     ///     deep-copied before being appended to preserve independence from the source array.
     /// </remarks>
-    /// <param name="array">Array to enhance</param>
-    /// <param name="others">Other array to enhance with</param>
+    /// <param name="array">Array to enhance. Must not be null.</param>
+    /// <param name="others">Other array to enhance with. Must not be null.</param>
     /// <returns>Updated array</returns>
     public static SpdxChecksum[] Enhance(SpdxChecksum[] array, SpdxChecksum[] others)
     {
@@ -143,7 +143,7 @@ public sealed class SpdxChecksum
     ///     string is prepended to each issue message to provide context in diagnostic output.
     /// </remarks>
     /// <param name="parent">Associated parent node</param>
-    /// <param name="issues">List to populate with issues</param>
+    /// <param name="issues">List to populate with issues. Must not be null.</param>
     public void Validate(string parent, List<string> issues)
     {
         // Validate Algorithm Field

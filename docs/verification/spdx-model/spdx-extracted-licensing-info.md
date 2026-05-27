@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxExtractedLicensingInfo is verified through automated unit tests using the MSTest
+SpdxExtractedLicensingInfo is verified through automated unit tests using the xUnit v3
 framework. Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/SpdxExtractedLicensingInfoTests.cs`. Each test
 constructs an SpdxExtractedLicensingInfo instance directly and exercises the method under

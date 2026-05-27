@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxPackageVerificationCode is verified through automated unit tests using the MSTest
+SpdxPackageVerificationCode is verified through automated unit tests using the xUnit v3
 framework. Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/SpdxPackageVerificationCodeTests.cs`. Each test
 constructs an SpdxPackageVerificationCode instance directly and exercises the method under

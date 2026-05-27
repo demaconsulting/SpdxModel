@@ -21,10 +21,13 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-///     SPDX Snippet Class
+///     Represents a portion of a file in an SPDX document with distinct licensing or provenance.
 /// </summary>
 /// <remarks>
-///     Snippets referenced in the SPDX document
+///     Snippets are used when a specific byte or line range within a file has different licensing
+///     or provenance from the rest of the file, enabling granular compliance tracking for reused
+///     code segments. This class is not thread-safe; callers must synchronize access when sharing
+///     instances across threads.
 /// </remarks>
 public sealed class SpdxSnippet : SpdxLicenseElement
 {
@@ -102,7 +105,7 @@ public sealed class SpdxSnippet : SpdxLicenseElement
     ///     Snippet Name Field (optional)
     /// </summary>
     /// <remarks>
-    ///     Identify name of this snippet.
+    ///     Optional human-readable name for this snippet.
     /// </remarks>
     public string? Name { get; set; }
 

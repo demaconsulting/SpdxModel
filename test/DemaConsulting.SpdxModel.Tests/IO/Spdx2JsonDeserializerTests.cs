@@ -30,7 +30,6 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 ///     Covers the error-handling paths of <see cref="Spdx2JsonDeserializer"/>: invalid JSON
 ///     input that should throw rather than return a partially-populated document.
 /// </remarks>
-[TestClass]
 public class Spdx2JsonDeserializerTests
 {
     /// <summary>
@@ -40,21 +39,13 @@ public class Spdx2JsonDeserializerTests
     ///     Confirms that syntactically broken JSON (missing closing brace) causes a
     ///     <see cref="System.Text.Json.JsonException"/> rather than a silent failure.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonDeserializer_Deserialize_MalformedJson_ThrowsJsonException()
     {
         // Arrange:
         const string malformedJson = "{ not valid json";
 
         // Act / Assert:
-        try
-        {
-            Spdx2JsonDeserializer.Deserialize(malformedJson);
-            Assert.Fail("Expected JsonException was not thrown");
-        }
-        catch (JsonException)
-        {
-            // Pass
-        }
+        Assert.ThrowsAny<JsonException>(() => Spdx2JsonDeserializer.Deserialize(malformedJson));
     }
 }

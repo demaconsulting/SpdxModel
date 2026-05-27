@@ -2,7 +2,7 @@
 
 #### Verification Approach
 
-Spdx2JsonDeserializer is verified through automated unit tests using the MSTest framework.
+Spdx2JsonDeserializer is verified through automated unit tests using the xUnit v3 framework.
 Tests are located in the IO subdirectory under
 `test/DemaConsulting.SpdxModel.Tests/`. Each test provides representative JSON input and
 verifies the deserialized SPDX model objects match the expected values. System.Text.Json

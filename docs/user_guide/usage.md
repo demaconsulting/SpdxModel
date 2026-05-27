@@ -36,6 +36,7 @@ var document = new SpdxDocument
     Id = "SPDXRef-DOCUMENT",
     Name = "My Software",
     Version = "SPDX-2.3",
+    DataLicense = "CC0-1.0",
     DocumentNamespace = "https://example.com/my-software/1.0.0",
     CreationInformation = new SpdxCreationInformation
     {

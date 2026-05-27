@@ -2,7 +2,7 @@
 
 ## Verification Approach
 
-The SpdxModel library is verified through automated unit and integration tests using the MSTest
+The SpdxModel library is verified through automated unit and integration tests using the xUnit v3
 framework. Tests are organized in `test/DemaConsulting.SpdxModel.Tests/`. Unit tests verify
 individual data model classes in isolation; integration tests verify the IO subsystem end-to-end
 and the Transform subsystem with real document instances. No external dependencies are mocked.
@@ -54,3 +54,13 @@ validation error messages.
 **SpdxModel_FieldOptionality_RequiredFieldsNotNull_OptionalFieldsNullable**: Verifies that
 required fields on key SPDX data model types are non-nullable string types with default empty
 values, and that optional fields are nullable.
+
+**SpdxModel_Helpers_DateTimeValidation_IsObservableThroughDocumentModel**: Verifies that the
+date-time validation utility (`SpdxHelpers.IsValidSpdxDateTime`) is exercised through the
+document model by confirming that an invalid creation date is caught by document-level
+validation. Linked from `SpdxModel-Data-Helpers`.
+
+**SpdxModel_Transform_AddRelationship_IsObservableThroughDocumentModel**: Verifies that the
+`AddRelationship` transform utility correctly adds a new relationship to an SPDX document and
+that the addition is observable through the document model's relationship collection. Linked
+from `SpdxModel-Transform`.

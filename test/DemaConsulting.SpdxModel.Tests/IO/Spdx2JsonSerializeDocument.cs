@@ -26,13 +26,12 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxDocument" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeDocument
 {
     /// <summary>
     ///     Tests serializing a document to JSON.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_SerializeDocument_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
@@ -99,7 +98,7 @@ public class Spdx2JsonSerializeDocument
     /// <summary>
     ///     Tests serializing a document to text
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void Spdx2JsonSerializer_Serialize_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
@@ -143,7 +142,7 @@ public class Spdx2JsonSerializeDocument
         var json = JsonNode.Parse(jsonText) as JsonObject;
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
+        Assert.NotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("SPDX-2.3", json["spdxVersion"]);
         SpdxJsonHelpers.AssertEqual("SPDX-Tools-v2.0", json["name"]);

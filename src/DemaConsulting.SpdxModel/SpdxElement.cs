@@ -61,8 +61,10 @@ public abstract class SpdxElement
     ///     Gets or sets the Element ID
     /// </summary>
     /// <remarks>
-    ///     Uniquely identify any element in an SPDX document which may be
-    ///     referenced by other elements.
+    ///     Uniquely identifies any element in an SPDX document. The value must follow the
+    ///     <c>SPDXRef-&lt;name&gt;</c> format (validated by <see cref="SpdxRefRegex"/>) and must
+    ///     be unique within the document. Elements with duplicate or malformed identifiers are
+    ///     reported as validation issues by the concrete subclass <c>Validate</c> methods.
     /// </remarks>
     public string Id { get; set; } = "";
 
@@ -74,7 +76,7 @@ public abstract class SpdxElement
     ///     <paramref name="other"/> when the current <see cref="Id"/> is empty. This is a no-op if
     ///     <paramref name="other"/>'s <see cref="Id"/> is also empty.
     /// </remarks>
-    /// <param name="other">Other element to enhance with</param>
+    /// <param name="other">Source element whose <see cref="Id"/> supplies the fallback value. Must not be null.</param>
     protected void EnhanceElement(SpdxElement other)
     {
         // Populate the ID if missing

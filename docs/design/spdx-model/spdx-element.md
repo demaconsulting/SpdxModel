@@ -25,7 +25,7 @@ pathological input strings from untrusted SPDX sources.
 
 - *Parameters*: `SpdxElement other` — source element.
 - *Returns*: `void`
-- *Preconditions*: none.
+- *Preconditions*: `other` must not be null.
 - *Postconditions*: If `Id` is empty or null, it is set to `other.Id` via `SpdxHelpers.EnhanceString`.
 
 ### Error Handling

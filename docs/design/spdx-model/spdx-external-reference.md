@@ -37,7 +37,7 @@ enrich SBOMs with contextual information from authoritative sources.
 **Enhance (static array merge)**: Merges two external reference arrays by matching on category,
 type, and locator.
 
-- *Parameters*: `SpdxExternalReference[] base`, `SpdxExternalReference[] additions`.
+- *Parameters*: `SpdxExternalReference[] array`, `SpdxExternalReference[] others`.
 - *Returns*: `SpdxExternalReference[]` — merged array.
 - *Preconditions*: none.
 - *Postconditions*: Matching entries are enhanced; new entries are appended.

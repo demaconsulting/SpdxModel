@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxRelationship is verified through automated unit tests using the MSTest framework. Tests
+SpdxRelationship is verified through automated unit tests using the xUnit v3 framework. Tests
 are located in `test/DemaConsulting.SpdxModel.Tests/SpdxRelationshipTests.cs`. Each test
 constructs an SpdxRelationship instance directly and exercises the method under test with no
 mocked dependencies.

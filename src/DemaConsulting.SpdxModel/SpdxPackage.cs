@@ -299,6 +299,9 @@ public sealed class SpdxPackage : SpdxLicenseElement
     ///     Field fitness ranking used when choosing which value wins: <c>null</c> &lt; <c>""</c> &lt;
     ///     <c>"NOASSERTION"</c> &lt; any concrete value. Array fields such as <see cref="LicenseInfoFromFiles" />,
     ///     <see cref="Checksums" />, and <see cref="ExternalReferences" /> are merged by deduplication.
+    ///     The nullable <see cref="FilesAnalyzed" /> field is populated from <paramref name="other" /> when null.
+    ///     The <see cref="HasFiles" /> array is intentionally not merged: it contains SPDX element IDs that are
+    ///     document-scoped and may not be valid across documents.
     /// </remarks>
     /// <param name="other">Other package to enhance with</param>
     public void Enhance(SpdxPackage other)
@@ -323,6 +326,9 @@ public sealed class SpdxPackage : SpdxLicenseElement
 
         // Populate the download-location field if missing
         DownloadLocation = SpdxHelpers.EnhanceString(DownloadLocation, other.DownloadLocation) ?? "";
+
+        // Populate the files-analyzed field if missing
+        FilesAnalyzed ??= other.FilesAnalyzed;
 
         // Enhance or populate the verification code
         if (VerificationCode != null && other.VerificationCode != null)

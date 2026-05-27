@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxElement is verified through automated unit tests using the MSTest framework. Tests are
+SpdxElement is verified through automated unit tests using the xUnit v3 framework. Tests are
 located in `test/DemaConsulting.SpdxModel.Tests/SpdxElementTests.cs`. Each test exercises
 the element ID validation logic directly with no mocked dependencies.
 

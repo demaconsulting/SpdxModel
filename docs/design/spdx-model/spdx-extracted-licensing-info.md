@@ -33,7 +33,8 @@ external locations.
 - *Parameters*: `SpdxExtractedLicensingInfo other` — source of additional field values.
 - *Returns*: `void`
 - *Preconditions*: none.
-- *Postconditions*: Empty or null fields are populated from `other`.
+- *Postconditions*: Empty or null fields are populated from `other`; CrossReferences are merged by
+  concatenation and deduplication.
 
 **Enhance (static array merge)**: Merges two extracted licensing info arrays by matching on
 `ExtractedText`.

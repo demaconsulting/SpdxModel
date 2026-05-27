@@ -29,7 +29,6 @@ namespace DemaConsulting.SpdxModel.Tests;
 ///     validation of required fields and byte range constraints. Each test exercises a single scenario or
 ///     boundary condition in isolation with no shared state between tests.
 /// </remarks>
-[TestClass]
 public class SpdxSnippetTests
 {
     /// <summary>
@@ -40,7 +39,7 @@ public class SpdxSnippetTests
     ///     <c>SnippetByteEnd</c> are considered equal even when other fields differ, and that snippets
     ///     with different file or byte range are distinct.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_SameComparer_SameFileAndByteRange_ReturnsEqual()
     {
         // Arrange: Create two snippets with the same byte range and one distinct snippet
@@ -68,55 +67,85 @@ public class SpdxSnippetTests
         };
 
         // Act / Assert: Verify snippets compare to themselves
-        Assert.IsTrue(SpdxSnippet.Same.Equals(s1, s1));
-        Assert.IsTrue(SpdxSnippet.Same.Equals(s2, s2));
-        Assert.IsTrue(SpdxSnippet.Same.Equals(s3, s3));
+        Assert.True(SpdxSnippet.Same.Equals(s1, s1));
+        Assert.True(SpdxSnippet.Same.Equals(s2, s2));
+        Assert.True(SpdxSnippet.Same.Equals(s3, s3));
 
         // Assert: snippets compare correctly
-        Assert.IsTrue(SpdxSnippet.Same.Equals(s1, s2));
-        Assert.IsTrue(SpdxSnippet.Same.Equals(s2, s1));
-        Assert.IsFalse(SpdxSnippet.Same.Equals(s1, s3));
-        Assert.IsFalse(SpdxSnippet.Same.Equals(s3, s1));
-        Assert.IsFalse(SpdxSnippet.Same.Equals(s2, s3));
-        Assert.IsFalse(SpdxSnippet.Same.Equals(s3, s2));
+        Assert.True(SpdxSnippet.Same.Equals(s1, s2));
+        Assert.True(SpdxSnippet.Same.Equals(s2, s1));
+        Assert.False(SpdxSnippet.Same.Equals(s1, s3));
+        Assert.False(SpdxSnippet.Same.Equals(s3, s1));
+        Assert.False(SpdxSnippet.Same.Equals(s2, s3));
+        Assert.False(SpdxSnippet.Same.Equals(s3, s2));
 
         // Assert: same snippets have identical hashes
-        Assert.AreEqual(SpdxSnippet.Same.GetHashCode(s1), SpdxSnippet.Same.GetHashCode(s2));
+        Assert.Equal(SpdxSnippet.Same.GetHashCode(s1), SpdxSnippet.Same.GetHashCode(s2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxSnippet.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
     /// <remarks>
-    ///     Verifies that the returned instance has equal field values for all scalar properties and
-    ///     is a distinct object reference from the original.
+    ///     Verifies that the returned instance has equal field values for all properties including
+    ///     array fields, is a distinct object reference from the original, and that all array fields
+    ///     are independent instances so that mutating the copy does not affect the original.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_DeepCopy_FullyPopulatedSnippet_CreatesEqualButDistinctCopy()
     {
-        // Arrange: Create a SpdxSnippet instance with various properties
+        // Arrange: Create a fully-populated SpdxSnippet instance with all fields set
         var s1 = new SpdxSnippet
         {
+            Id = "SPDXRef-Snippet",
             SnippetFromFile = "SPDXRef-File1",
             SnippetByteStart = 100,
             SnippetByteEnd = 200,
+            SnippetLineStart = 5,
+            SnippetLineEnd = 10,
+            ConcludedLicense = "MIT",
+            LicenseInfoInSnippet = ["MIT", "Apache-2.0"],
+            LicenseComments = "License comment",
+            CopyrightText = "Copyright(c) 2024 DEMA Consulting",
             Comment = "Found snippet",
-            ConcludedLicense = "MIT"
+            Name = "MySnippet",
+            AttributionText = ["Attribution text"],
+            Annotations =
+            [
+                new SpdxAnnotation
+                {
+                    Annotator = "Tool: test-tool",
+                    Date = "2024-05-28T01:30:00Z",
+                    Type = SpdxAnnotationType.Review,
+                    Comment = "Reviewed"
+                }
+            ]
         };
 
         // Act: Create a deep copy of the SpdxSnippet instance
         var s2 = s1.DeepCopy();
 
-        // Assert: Verify the deep-copy is equal to the original
-        Assert.AreEqual(s1, s2, SpdxSnippet.Same);
-        Assert.AreEqual(s1.SnippetFromFile, s2.SnippetFromFile);
-        Assert.AreEqual(s1.SnippetByteStart, s2.SnippetByteStart);
-        Assert.AreEqual(s1.SnippetByteEnd, s2.SnippetByteEnd);
-        Assert.AreEqual(s1.Comment, s2.Comment);
-        Assert.AreEqual(s1.ConcludedLicense, s2.ConcludedLicense);
+        // Assert: Verify the deep-copy has equal field values to the original
+        Assert.Equal(s1, s2, SpdxSnippet.Same);
+        Assert.Equal(s1.Id, s2.Id);
+        Assert.Equal(s1.SnippetFromFile, s2.SnippetFromFile);
+        Assert.Equal(s1.SnippetByteStart, s2.SnippetByteStart);
+        Assert.Equal(s1.SnippetByteEnd, s2.SnippetByteEnd);
+        Assert.Equal(s1.SnippetLineStart, s2.SnippetLineStart);
+        Assert.Equal(s1.SnippetLineEnd, s2.SnippetLineEnd);
+        Assert.Equal(s1.ConcludedLicense, s2.ConcludedLicense);
+        Assert.Equal(s1.LicenseInfoInSnippet, s2.LicenseInfoInSnippet);
+        Assert.Equal(s1.LicenseComments, s2.LicenseComments);
+        Assert.Equal(s1.CopyrightText, s2.CopyrightText);
+        Assert.Equal(s1.Comment, s2.Comment);
+        Assert.Equal(s1.Name, s2.Name);
+        Assert.Equal(s1.AttributionText, s2.AttributionText);
 
-        // Assert: Verify the deep-copy is a distinct instance
-        Assert.IsFalse(ReferenceEquals(s1, s2));
+        // Assert: Verify the deep-copy is a distinct instance with independent array references
+        Assert.False(ReferenceEquals(s1, s2));
+        Assert.False(ReferenceEquals(s1.LicenseInfoInSnippet, s2.LicenseInfoInSnippet));
+        Assert.False(ReferenceEquals(s1.AttributionText, s2.AttributionText));
+        Assert.False(ReferenceEquals(s1.Annotations, s2.Annotations));
     }
 
     /// <summary>
@@ -127,7 +156,7 @@ public class SpdxSnippetTests
     ///     Verifies that a matching snippet (same file and byte range) is enhanced in place and that a non-matching
     ///     snippet from the source array is deep-copied and appended, resulting in an array of length two.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly()
     {
         // Arrange: Create an array of SpdxSnippet objects
@@ -162,15 +191,15 @@ public class SpdxSnippetTests
             ]);
 
         // Assert: Check that the snippets array has been enhanced correctly
-        Assert.HasCount(2, snippets);
-        Assert.AreEqual("SPDXRef-File1", snippets[0].SnippetFromFile);
-        Assert.AreEqual(100, snippets[0].SnippetByteStart);
-        Assert.AreEqual(200, snippets[0].SnippetByteEnd);
-        Assert.AreEqual("Found snippet", snippets[0].Comment);
-        Assert.AreEqual("MIT", snippets[0].ConcludedLicense);
-        Assert.AreEqual("SPDXRef-File2", snippets[1].SnippetFromFile);
-        Assert.AreEqual(10, snippets[1].SnippetByteStart);
-        Assert.AreEqual(40, snippets[1].SnippetByteEnd);
+        Assert.Equal(2, snippets.Length);
+        Assert.Equal("SPDXRef-File1", snippets[0].SnippetFromFile);
+        Assert.Equal(100, snippets[0].SnippetByteStart);
+        Assert.Equal(200, snippets[0].SnippetByteEnd);
+        Assert.Equal("Found snippet", snippets[0].Comment);
+        Assert.Equal("MIT", snippets[0].ConcludedLicense);
+        Assert.Equal("SPDXRef-File2", snippets[1].SnippetFromFile);
+        Assert.Equal(10, snippets[1].SnippetByteStart);
+        Assert.Equal(40, snippets[1].SnippetByteEnd);
     }
 
     /// <summary>
@@ -180,7 +209,7 @@ public class SpdxSnippetTests
     ///     Verifies that an <c>Id</c> not matching the <c>SPDXRef-</c> prefix format causes the
     ///     "Snippet Invalid SPDX Identifier Field" issue to be reported.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_InvalidSnippetId_ReportsIssue()
     {
         // Arrange: Create a SpdxSnippet with an invalid ID
@@ -199,7 +228,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Check that the issues list contains the expected error message
-        Assert.Contains(issue => issue.Contains("Snippet Invalid SPDX Identifier Field 'Invalid_ID'"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet Invalid SPDX Identifier Field 'Invalid_ID'"));
     }
 
     /// <summary>
@@ -210,7 +239,7 @@ public class SpdxSnippetTests
     ///     non-empty <c>SnippetFromFile</c>, byte range ≥ 1, non-empty license, and copyright)
     ///     passes all validation checks without reporting any issues.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues()
     {
         // Arrange: Create a valid SpdxSnippet
@@ -229,7 +258,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify that the validation reports no issues.
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
     }
 
     /// <summary>
@@ -239,7 +268,7 @@ public class SpdxSnippetTests
     ///     Verifies that an annotation with an empty <c>Annotator</c> field causes the
     ///     "Invalid Annotator Field - Empty" issue to be reported with the correct snippet prefix.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_InvalidAnnotation_ReportsIssue()
     {
         // Arrange: Create a valid snippet with an invalid annotation
@@ -268,7 +297,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the annotation issue is reported with the correct prefix
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Annotator Field - Empty"));
     }
 
     /// <summary>
@@ -278,7 +307,7 @@ public class SpdxSnippetTests
     ///     Verifies the boundary condition where <c>SnippetFromFile</c> is empty: validation must report
     ///     the "Invalid Snippet From File Field - Empty" issue.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_EmptySnippetFromFile_ReportsIssue()
     {
         // Arrange: Create a snippet with an empty SnippetFromFile
@@ -297,7 +326,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the empty SnippetFromFile issue is reported
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet From File Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet From File Field - Empty"));
     }
 
     /// <summary>
@@ -307,7 +336,7 @@ public class SpdxSnippetTests
     ///     Verifies the lower boundary condition: a <c>SnippetByteStart</c> value of 0 (less than the
     ///     required minimum of 1) causes the "Invalid Snippet Byte Range Start Field" issue to be reported.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_InvalidByteStart_ReportsIssue()
     {
         // Arrange: Create a snippet with SnippetByteStart < 1
@@ -326,7 +355,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the invalid byte start issue is reported
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range Start Field '0'"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range Start Field '0'"));
     }
 
     /// <summary>
@@ -336,7 +365,7 @@ public class SpdxSnippetTests
     ///     Verifies the range boundary condition: a <c>SnippetByteEnd</c> less than <c>SnippetByteStart</c>
     ///     causes the "Invalid Snippet Byte Range End Field" issue to be reported.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_InvalidByteEnd_ReportsIssue()
     {
         // Arrange: Create a snippet where SnippetByteEnd is less than SnippetByteStart
@@ -355,7 +384,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the invalid byte end issue is reported
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range End Field '50' < '100'"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Snippet Byte Range End Field '50' < '100'"));
     }
 
     /// <summary>
@@ -365,7 +394,7 @@ public class SpdxSnippetTests
     ///     Verifies that an empty <c>ConcludedLicense</c> causes the "Invalid Concluded License Field - Empty"
     ///     issue to be reported.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_EmptyConcludedLicense_ReportsIssue()
     {
         // Arrange: Create a snippet with an empty ConcludedLicense
@@ -384,7 +413,7 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the empty ConcludedLicense issue is reported
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Concluded License Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Concluded License Field - Empty"));
     }
 
     /// <summary>
@@ -394,7 +423,7 @@ public class SpdxSnippetTests
     ///     Verifies that an empty <c>CopyrightText</c> causes the "Invalid Copyright Text Field - Empty"
     ///     issue to be reported.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxSnippet_Validate_EmptyCopyrightText_ReportsIssue()
     {
         // Arrange: Create a snippet with an empty CopyrightText
@@ -413,6 +442,6 @@ public class SpdxSnippetTests
         snippet.Validate(issues);
 
         // Assert: Verify the empty CopyrightText issue is reported
-        Assert.Contains(issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Copyright Text Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Snippet 'SPDXRef-Snippet' Invalid Copyright Text Field - Empty"));
     }
 }

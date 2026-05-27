@@ -26,12 +26,10 @@ namespace DemaConsulting.SpdxModel.Tests;
 ///     Tests for the <see cref="SpdxDocument" /> class.
 /// </summary>
 /// <remarks>
-///     Tests the <see cref="SpdxDocument"/> class using MSTest (approved exception: xUnit
-///     adoption is deferred for this project). Each test constructs its own document state
+///     Tests the <see cref="SpdxDocument"/> class using xUnit v3. Each test constructs its own document state
 ///     from scratch or deserializes the embedded JSON fixture
 ///     <c>SPDXJSONExample-v2.3.spdx.json</c>; no shared instance state is used.
 /// </remarks>
-[TestClass]
 public class SpdxDocumentTests
 {
     /// <summary>
@@ -42,7 +40,7 @@ public class SpdxDocumentTests
     ///     Describes list and one via a DescribedBy relationship) to verify that GetRootPackages
     ///     returns exactly the two packages named as roots and excludes the third.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetRootPackages_WithDescribesAndRelationships_ReturnsCorrectPackages()
     {
         // Arrange: Create a sample SPDX document with multiple packages and relationships
@@ -88,9 +86,9 @@ public class SpdxDocumentTests
         var packages = document.GetRootPackages();
 
         // Assert: Verify the correct root packages are returned
-        Assert.HasCount(2, packages);
-        Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package1"));
-        Assert.IsTrue(Array.Exists(packages, p => p.Id == "SPDXRef-Package2"));
+        Assert.Equal(2, packages.Length);
+        Assert.True(Array.Exists(packages, p => p.Id == "SPDXRef-Package1"));
+        Assert.True(Array.Exists(packages, p => p.Id == "SPDXRef-Package2"));
     }
 
     /// <summary>
@@ -102,7 +100,7 @@ public class SpdxDocumentTests
     ///     Verifies reflexive, symmetric, cross-inequality comparisons, and hash-code consistency
     ///     for equal documents.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Same_DocumentsWithMatchingRootPackages_AreEqual()
     {
         // Arrange: Create three documents with different properties
@@ -161,20 +159,20 @@ public class SpdxDocumentTests
         };
 
         // Act / Assert: Verify documents compare to themselves
-        Assert.IsTrue(SpdxDocument.Same.Equals(d1, d1));
-        Assert.IsTrue(SpdxDocument.Same.Equals(d2, d2));
-        Assert.IsTrue(SpdxDocument.Same.Equals(d3, d3));
+        Assert.True(SpdxDocument.Same.Equals(d1, d1));
+        Assert.True(SpdxDocument.Same.Equals(d2, d2));
+        Assert.True(SpdxDocument.Same.Equals(d3, d3));
 
         // Act / Assert: Verify documents compare correctly
-        Assert.IsTrue(SpdxDocument.Same.Equals(d1, d2));
-        Assert.IsTrue(SpdxDocument.Same.Equals(d2, d1));
-        Assert.IsFalse(SpdxDocument.Same.Equals(d1, d3));
-        Assert.IsFalse(SpdxDocument.Same.Equals(d3, d1));
-        Assert.IsFalse(SpdxDocument.Same.Equals(d2, d3));
-        Assert.IsFalse(SpdxDocument.Same.Equals(d3, d2));
+        Assert.True(SpdxDocument.Same.Equals(d1, d2));
+        Assert.True(SpdxDocument.Same.Equals(d2, d1));
+        Assert.False(SpdxDocument.Same.Equals(d1, d3));
+        Assert.False(SpdxDocument.Same.Equals(d3, d1));
+        Assert.False(SpdxDocument.Same.Equals(d2, d3));
+        Assert.False(SpdxDocument.Same.Equals(d3, d2));
 
         // Assert: Verify same documents have identical hashes
-        Assert.AreEqual(SpdxDocument.Same.GetHashCode(d1), SpdxDocument.Same.GetHashCode(d2));
+        Assert.Equal(SpdxDocument.Same.GetHashCode(d1), SpdxDocument.Same.GetHashCode(d2));
     }
 
     /// <summary>
@@ -186,7 +184,7 @@ public class SpdxDocumentTests
     ///     list, then deep-copies it. Verifies that every collection and scalar field is equal
     ///     but that all array references are distinct from the original.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_DeepCopy_WithPopulatedDocument_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create a sample SPDX document with various elements
@@ -278,31 +276,31 @@ public class SpdxDocumentTests
         var d2 = d1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(d1, d2, SpdxDocument.Same);
-        Assert.AreEqual(d1.Id, d2.Id);
-        Assert.AreEqual(d1.Version, d2.Version);
-        Assert.AreEqual(d1.Name, d2.Name);
-        CollectionAssert.AreEquivalent(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences,
+        Assert.Equal(d1, d2, SpdxDocument.Same);
+        Assert.Equal(d1.Id, d2.Id);
+        Assert.Equal(d1.Version, d2.Version);
+        Assert.Equal(d1.Name, d2.Name);
+        SpdxTestHelpers.AssertEquivalent(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences,
             SpdxExternalDocumentReference.Same);
-        CollectionAssert.AreEquivalent(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo,
+        SpdxTestHelpers.AssertEquivalent(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo,
             SpdxExtractedLicensingInfo.Same);
-        CollectionAssert.AreEquivalent(d1.Annotations, d2.Annotations, SpdxAnnotation.Same);
-        CollectionAssert.AreEquivalent(d1.Files, d2.Files, SpdxFile.Same);
-        CollectionAssert.AreEquivalent(d1.Packages, d2.Packages, SpdxPackage.Same);
-        CollectionAssert.AreEquivalent(d1.Snippets, d2.Snippets, SpdxSnippet.Same);
-        CollectionAssert.AreEquivalent(d1.Relationships, d2.Relationships, SpdxRelationship.Same);
-        CollectionAssert.AreEqual(d1.Describes, d2.Describes);
+        SpdxTestHelpers.AssertEquivalent(d1.Annotations, d2.Annotations, SpdxAnnotation.Same);
+        SpdxTestHelpers.AssertEquivalent(d1.Files, d2.Files, SpdxFile.Same);
+        SpdxTestHelpers.AssertEquivalent(d1.Packages, d2.Packages, SpdxPackage.Same);
+        SpdxTestHelpers.AssertEquivalent(d1.Snippets, d2.Snippets, SpdxSnippet.Same);
+        SpdxTestHelpers.AssertEquivalent(d1.Relationships, d2.Relationships, SpdxRelationship.Same);
+        Assert.Equal(d1.Describes, d2.Describes);
 
         // Assert: Verify deep-copy has distinct instances
-        Assert.IsFalse(ReferenceEquals(d1, d2));
-        Assert.IsFalse(ReferenceEquals(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences));
-        Assert.IsFalse(ReferenceEquals(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo));
-        Assert.IsFalse(ReferenceEquals(d1.Annotations, d2.Annotations));
-        Assert.IsFalse(ReferenceEquals(d1.Files, d2.Files));
-        Assert.IsFalse(ReferenceEquals(d1.Packages, d2.Packages));
-        Assert.IsFalse(ReferenceEquals(d1.Snippets, d2.Snippets));
-        Assert.IsFalse(ReferenceEquals(d1.Relationships, d2.Relationships));
-        Assert.IsFalse(ReferenceEquals(d1.Describes, d2.Describes));
+        Assert.False(ReferenceEquals(d1, d2));
+        Assert.False(ReferenceEquals(d1.ExternalDocumentReferences, d2.ExternalDocumentReferences));
+        Assert.False(ReferenceEquals(d1.ExtractedLicensingInfo, d2.ExtractedLicensingInfo));
+        Assert.False(ReferenceEquals(d1.Annotations, d2.Annotations));
+        Assert.False(ReferenceEquals(d1.Files, d2.Files));
+        Assert.False(ReferenceEquals(d1.Packages, d2.Packages));
+        Assert.False(ReferenceEquals(d1.Snippets, d2.Snippets));
+        Assert.False(ReferenceEquals(d1.Relationships, d2.Relationships));
+        Assert.False(ReferenceEquals(d1.Describes, d2.Describes));
     }
 
     /// <summary>
@@ -313,21 +311,21 @@ public class SpdxDocumentTests
     ///     to obtain a fully valid document and verifies that the validator reports no issues.
     ///     Using the embedded JSON fixture ensures the document satisfies all field constraints.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_ValidDocument_ReportsNoIssues()
     {
         // Arrange: Load a valid SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Perform validation on the document
         var issues = new List<string>();
         doc.Validate(issues);
 
         // Assert: Verify no validation issues are reported
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
     }
 
     /// <summary>
@@ -338,14 +336,14 @@ public class SpdxDocumentTests
     ///     overwrites its SPDX-ID with <c>"BadId"</c>. Verifies that the validator reports
     ///     the expected diagnostic for a malformed SPDX identifier.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidId_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Arrange: Corrupt the document with invalid ID
         doc.Id = "BadId";
@@ -366,14 +364,14 @@ public class SpdxDocumentTests
     ///     clears its name field. Verifies that the validator reports the expected diagnostic
     ///     for an empty document name.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidName_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Arrange: Corrupt the document with empty name
         doc.Name = "";
@@ -394,14 +392,14 @@ public class SpdxDocumentTests
     ///     overwrites the version with <c>"BadVersion"</c>. Verifies that the validator reports
     ///     the expected diagnostic for a version string that does not match the SPDX-2.x pattern.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidVersion_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Arrange: Corrupt the document with invalid version
         doc.Version = "BadVersion";
@@ -422,14 +420,14 @@ public class SpdxDocumentTests
     ///     overwrites the data license with <c>"BadLicense"</c>. Verifies that the validator
     ///     reports the expected diagnostic for a value other than the mandatory CC0-1.0 license.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidDataLicense_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Arrange: Corrupt the document with invalid data license
         doc.DataLicense = "BadLicense";
@@ -450,14 +448,14 @@ public class SpdxDocumentTests
     ///     clears the namespace URI. Verifies that the validator reports the expected diagnostic
     ///     for an empty document namespace.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidNameSpace_ReportsIssue()
     {
         // Arrange: Load and deserialize a valid SPDX document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Arrange: Corrupt the document with empty namespace
         doc.DocumentNamespace = "";
@@ -478,7 +476,7 @@ public class SpdxDocumentTests
     ///     that the validator reports the expected duplicate-ID diagnostic rather than silently
     ///     accepting the malformed document.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_DuplicatePackageIds_ReportsIssue()
     {
         // Arrange: Create a sample SPDX document with duplicate package IDs
@@ -526,7 +524,7 @@ public class SpdxDocumentTests
     ///     <c>RelatedSpdxElement</c> references an ID that does not exist in the document.
     ///     Verifies that the validator reports the expected dangling-reference diagnostic.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidRelationship_ReportsIssue()
     {
         // Arrange: Create a sample SPDX document with a relationship to a non-existent package
@@ -570,14 +568,14 @@ public class SpdxDocumentTests
     ///     for some packages (supplier and version for Apache Commons Lang; supplier for Jena and
     ///     Saxon). Verifies that the NTIA validation mode reports exactly those expected issues.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_NtiaMinimumElements_ReportsIssues()
     {
         // Arrange: Load a sample SPDX JSON document with known NTIA issues
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Perform validation
         var issues = new List<string>();
@@ -599,36 +597,36 @@ public class SpdxDocumentTests
     ///     returns exactly those elements and that <see cref="SpdxRelationship"/> entries are
     ///     excluded from the result.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetAllElements_WithMixedElements_ReturnsAllNonRelationshipElements()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Get all elements
         var elements = doc.GetAllElements().ToList();
 
         // Assert: Verify the document is in the list
-        Assert.AreEqual(1, elements.OfType<SpdxDocument>().Count());
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-DOCUMENT"));
+        Assert.Single(elements.OfType<SpdxDocument>());
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-DOCUMENT"));
 
         // Assert: Verify all packages are in the list
-        Assert.AreEqual(4, elements.OfType<SpdxPackage>().Count());
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Package"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-1"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-0"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Saxon"));
+        Assert.Equal(4, elements.OfType<SpdxPackage>().Count());
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-Package"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-1"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-fromDoap-0"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-Saxon"));
 
         // Assert: Verify all files are in the list
-        Assert.AreEqual(5, elements.OfType<SpdxFile>().Count());
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-DoapSource"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-CommonsLangSrc"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-JenaLib"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-Specification"));
-        Assert.IsNotNull(elements.Find(e => e.Id == "SPDXRef-File"));
+        Assert.Equal(5, elements.OfType<SpdxFile>().Count());
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-DoapSource"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-CommonsLangSrc"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-JenaLib"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-Specification"));
+        Assert.NotNull(elements.Find(e => e.Id == "SPDXRef-File"));
     }
 
     /// <summary>
@@ -639,21 +637,21 @@ public class SpdxDocumentTests
     ///     SPDX-ID. Verifies that the returned object is the document itself and has the expected
     ///     document name.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetElement_Document_ReturnsDocumentElement()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Find the document element by ID
         var foundDoc = doc.GetElement<SpdxDocument>("SPDXRef-DOCUMENT");
 
         // Assert: Verify the document element is correct
-        Assert.IsNotNull(foundDoc);
-        Assert.AreEqual("SPDX-Tools-v2.0", foundDoc.Name);
+        Assert.NotNull(foundDoc);
+        Assert.Equal("SPDX-Tools-v2.0", foundDoc.Name);
     }
 
     /// <summary>
@@ -663,21 +661,21 @@ public class SpdxDocumentTests
     ///     Deserializes the embedded JSON fixture and queries for a file element by its SPDX-ID.
     ///     Verifies that the returned object is the correct file and has the expected file name.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetElement_File_ReturnsFileElement()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Find a file element by ID
         var foundFile = doc.GetElement<SpdxFile>("SPDXRef-JenaLib");
 
         // Assert: Verify the file element is correct
-        Assert.IsNotNull(foundFile);
-        Assert.AreEqual("./lib-source/jena-2.6.3-sources.jar", foundFile.FileName);
+        Assert.NotNull(foundFile);
+        Assert.Equal("./lib-source/jena-2.6.3-sources.jar", foundFile.FileName);
     }
 
     /// <summary>
@@ -688,21 +686,21 @@ public class SpdxDocumentTests
     ///     SPDX-ID. Verifies that the returned object is the correct package and has the
     ///     expected file name property.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetElement_Package_ReturnsPackageElement()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Find a package element by ID
         var foundPackage = doc.GetElement<SpdxPackage>("SPDXRef-Saxon");
 
         // Assert: Verify the package element is correct
-        Assert.IsNotNull(foundPackage);
-        Assert.AreEqual("saxonB-8.8.zip", foundPackage.FileName);
+        Assert.NotNull(foundPackage);
+        Assert.Equal("saxonB-8.8.zip", foundPackage.FileName);
     }
 
     /// <summary>
@@ -713,21 +711,21 @@ public class SpdxDocumentTests
     ///     SPDX-ID. Verifies that the returned object is the correct snippet and references
     ///     the expected source file SPDX-ID.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_GetElement_Snippet_ReturnsSnippetElement()
     {
         // Arrange: Load a sample SPDX JSON document
         var json22Example = SpdxTestHelpers.GetEmbeddedResource(
             "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
         var doc = Spdx2JsonDeserializer.Deserialize(json22Example);
-        Assert.IsNotNull(doc);
+        Assert.NotNull(doc);
 
         // Act: Find a snippet element by ID
         var foundSnippet = doc.GetElement<SpdxSnippet>("SPDXRef-Snippet");
 
         // Assert: Verify the snippet element is correct
-        Assert.IsNotNull(foundSnippet);
-        Assert.AreEqual("SPDXRef-DoapSource", foundSnippet.SnippetFromFile);
+        Assert.NotNull(foundSnippet);
+        Assert.Equal("SPDXRef-DoapSource", foundSnippet.SnippetFromFile);
     }
 
     /// <summary>
@@ -738,7 +736,7 @@ public class SpdxDocumentTests
     ///     Annotator field. Verifies that the validator reports the annotation-level issue using
     ///     the document element prefix so the issue can be attributed to the correct context.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxDocument_Validate_InvalidAnnotation_ReportsIssue()
     {
         // Arrange: Create a document with an invalid annotation

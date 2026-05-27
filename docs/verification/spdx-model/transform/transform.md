@@ -2,7 +2,7 @@
 
 #### Verification Approach
 
-The Transform subsystem is verified through automated integration tests using the MSTest
+The Transform subsystem is verified through automated integration tests using the xUnit v3
 framework. Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxModelTransformTests.cs`. Integration tests
 verify Transform operations using real SpdxDocument instances with no mocked dependencies.

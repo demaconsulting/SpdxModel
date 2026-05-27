@@ -142,9 +142,11 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// </summary>
     /// <remarks>
     ///     Non-destructive merge: existing non-empty fields are preserved. String fields use
-    ///     fitness-based selection (concrete value > NOASSERTION > empty > null). Array fields
-    ///     (<see cref="FileTypes"/>, <see cref="LicenseInfoInFiles"/>, <see cref="Contributors"/>)
-    ///     are merged by concatenation and deduplication.
+    ///     fitness-based selection (concrete value > NOASSERTION > empty > null).
+    ///     <see cref="FileTypes"/>, <see cref="LicenseInfoInFiles"/>, and
+    ///     <see cref="Contributors"/> are merged by concatenation and deduplication.
+    ///     <see cref="Checksums"/> are merged by identity-match and enhance via
+    ///     <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])"/>.
     /// </remarks>
     /// <param name="other">Other file to enhance with</param>
     public void Enhance(SpdxFile other)

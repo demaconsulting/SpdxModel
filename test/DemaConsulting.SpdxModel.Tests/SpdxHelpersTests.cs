@@ -23,13 +23,12 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxHelpers" /> class.
 /// </summary>
-[TestClass]
 public class SpdxHelpersTests
 {
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.IsValidSpdxDateTime" /> returns true for null input.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_IsValidSpdxDateTime_NullInput_ReturnsTrue()
     {
         // Arrange: null represents a not-set date-time field
@@ -38,13 +37,13 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.IsValidSpdxDateTime(null);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.True(result);
     }
 
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.IsValidSpdxDateTime" /> returns true for an empty string.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_IsValidSpdxDateTime_EmptyInput_ReturnsTrue()
     {
         // Arrange: empty string represents a not-set date-time field
@@ -53,13 +52,13 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.IsValidSpdxDateTime("");
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.True(result);
     }
 
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.IsValidSpdxDateTime" /> returns true for a valid ISO 8601 UTC timestamp.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_IsValidSpdxDateTime_ValidFormat_ReturnsTrue()
     {
         // Arrange
@@ -69,13 +68,13 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.IsValidSpdxDateTime(validDateTime);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.True(result);
     }
 
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.IsValidSpdxDateTime" /> returns false for an invalid format.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_IsValidSpdxDateTime_InvalidFormat_ReturnsFalse()
     {
         // Arrange
@@ -85,14 +84,14 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.IsValidSpdxDateTime(invalidDateTime);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.False(result);
     }
 
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.EnhanceString" /> returns the concrete value when given a
     ///     mix of concrete value and NOASSERTION.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue()
     {
         // Arrange
@@ -103,13 +102,13 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.EnhanceString(noAssertion, concrete);
 
         // Assert
-        Assert.AreEqual(concrete, result);
+        Assert.Equal(concrete, result);
     }
 
     /// <summary>
     ///     Tests that <see cref="SpdxHelpers.EnhanceString" /> returns null when all inputs are null.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxHelpers_EnhanceString_NullInputs_ReturnsNull()
     {
         // Arrange: all candidates are null
@@ -118,6 +117,6 @@ public class SpdxHelpersTests
         var result = SpdxHelpers.EnhanceString(null, null);
 
         // Assert
-        Assert.IsNull(result);
+        Assert.Null(result);
     }
 }

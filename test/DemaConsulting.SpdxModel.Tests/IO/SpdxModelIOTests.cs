@@ -25,13 +25,12 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Integration tests for the SpdxModel IO subsystem.
 /// </summary>
-[TestClass]
 public class SpdxModelIOTests
 {
     /// <summary>
     ///     Tests that an SPDX 2.2 document survives a JSON serialization round trip.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxModelIO_ReadWriteSpdxJson_Spdx22Document_RoundTripProducesValidDocument()
     {
         // Arrange: Load the SPDX 2.2 JSON example from embedded resources
@@ -44,18 +43,18 @@ public class SpdxModelIOTests
         var roundTripped = Spdx2JsonDeserializer.Deserialize(serialized);
 
         // Assert: Verify the round-tripped document is valid and matches the original
-        Assert.IsNotNull(roundTripped);
-        Assert.AreEqual(original.Name, roundTripped.Name);
-        Assert.AreEqual(original.Version, roundTripped.Version);
+        Assert.NotNull(roundTripped);
+        Assert.Equal(original.Name, roundTripped.Name);
+        Assert.Equal(original.Version, roundTripped.Version);
         var issues = new List<string>();
         roundTripped.Validate(issues);
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
     }
 
     /// <summary>
     ///     Tests that an SPDX 2.3 document survives a JSON serialization round trip.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxModelIO_ReadWriteSpdxJson_Spdx23Document_RoundTripProducesValidDocument()
     {
         // Arrange: Load the SPDX 2.3 JSON example from embedded resources
@@ -68,34 +67,27 @@ public class SpdxModelIOTests
         var roundTripped = Spdx2JsonDeserializer.Deserialize(serialized);
 
         // Assert: Verify the round-tripped document is valid and matches the original
-        Assert.IsNotNull(roundTripped);
-        Assert.AreEqual(original.Name, roundTripped.Name);
-        Assert.AreEqual(original.Version, roundTripped.Version);
+        Assert.NotNull(roundTripped);
+        Assert.Equal(original.Name, roundTripped.Name);
+        Assert.Equal(original.Version, roundTripped.Version);
         var issues = new List<string>();
         roundTripped.Validate(issues);
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
     }
 
     /// <summary>
     ///     Tests that malformed JSON throws a JsonException during deserialization.
     /// </summary>
-    [TestMethod]
+    [Fact]
     public void SpdxModelIO_ReadSpdxJson_InvalidJson_ThrowsJsonException()
     {
         // Arrange: Prepare malformed JSON text
         const string malformedJson = "{ not valid json at all }";
 
-        // Act / Assert: Deserialize should throw a JsonException or derived type
-        var threw = false;
-        try
-        {
-            Spdx2JsonDeserializer.Deserialize(malformedJson);
-        }
-        catch (System.Text.Json.JsonException)
-        {
-            threw = true;
-        }
+        // Act: Capture any exception thrown by the deserializer
+        var exception = Record.Exception(() => Spdx2JsonDeserializer.Deserialize(malformedJson));
 
-        Assert.IsTrue(threw, "Expected JsonException was not thrown.");
+        // Assert: The exception must be a JsonException (or derived type such as JsonReaderException)
+        Assert.IsAssignableFrom<System.Text.Json.JsonException>(exception);
     }
 }

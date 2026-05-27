@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxCreationInformation is verified through automated unit tests using the MSTest framework.
+SpdxCreationInformation is verified through automated unit tests using the xUnit v3 framework.
 Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/SpdxCreationInformationTests.cs`. Each test constructs
 an SpdxCreationInformation instance directly and exercises the method under test with no

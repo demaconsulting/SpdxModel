@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-The SpdxModel library is verified through automated unit and integration tests using the MSTest
+The SpdxModel library is verified through automated unit and integration tests using the xUnit v3
 framework. Tests are organized in `test/DemaConsulting.SpdxModel.Tests/`. Unit tests verify
 individual data model classes in isolation; integration tests verify the IO subsystem end-to-end
 and the Transform subsystem with real document instances. No external dependencies are mocked.

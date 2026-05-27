@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxExternalReference is verified through automated unit tests using the MSTest framework.
+SpdxExternalReference is verified through automated unit tests using the xUnit v3 framework.
 Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/SpdxExternalReferenceTests.cs`. Each test constructs
 an SpdxExternalReference instance directly and exercises the method under test with no
@@ -34,7 +34,7 @@ This scenario is tested by
 `SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly`.
 
 **SpdxExternalReference_Validate_InvalidCategory_ReportsIssue**: Verifies that validation reports an issue
-when the reference category is set to an unrecognized value.
+when the reference category is `SpdxReferenceCategory.Missing`.
 This scenario is tested by `SpdxExternalReference_Validate_InvalidCategory_ReportsIssue`.
 
 **SpdxExternalReference_Validate_InvalidType_ReportsIssue**: Verifies that validation reports an issue when

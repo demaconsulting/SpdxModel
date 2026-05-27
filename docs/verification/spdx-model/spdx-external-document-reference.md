@@ -2,7 +2,7 @@
 
 ### Verification Approach
 
-SpdxExternalDocumentReference is verified through automated unit tests using the MSTest
+SpdxExternalDocumentReference is verified through automated unit tests using the xUnit v3
 framework. Tests are located in
 `test/DemaConsulting.SpdxModel.Tests/SpdxExternalDocumentReferenceTests.cs`. Each test
 constructs an SpdxExternalDocumentReference instance directly and exercises the method under

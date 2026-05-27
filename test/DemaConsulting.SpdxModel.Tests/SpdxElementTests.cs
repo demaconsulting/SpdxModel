@@ -28,7 +28,6 @@ namespace DemaConsulting.SpdxModel.Tests;
 ///     concrete subclass to exercise base-class identity behavior, as its Validate method
 ///     uses the standard <c>SpdxRefRegex</c> check.
 /// </remarks>
-[TestClass]
 public class SpdxElementTests
 {
     /// <summary>
@@ -39,7 +38,7 @@ public class SpdxElementTests
     ///     value that satisfies the SPDXRef- prefix pattern and contains only allowed characters,
     ///     making it the simplest positive example to confirm the happy-path acceptance.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxElement_Id_ValidFormat_PassesValidation()
     {
         // Arrange: Create a minimal package element with a valid SPDXRef-<name> ID
@@ -50,7 +49,7 @@ public class SpdxElementTests
         element.Validate(issues, null);
 
         // Assert: No issue about the SPDX Identifier field
-        Assert.IsFalse(issues.Any(i => i.Contains("Invalid SPDX Identifier")));
+        Assert.DoesNotContain(issues, i => i.Contains("Invalid SPDX Identifier"));
     }
 
     /// <summary>
@@ -62,7 +61,7 @@ public class SpdxElementTests
     ///     that omits the required SPDXRef- prefix entirely, making the expected failure
     ///     unambiguous and the diagnostic message easy to verify.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxElement_Id_InvalidFormat_ReportsValidationIssue()
     {
         // Arrange: Create a minimal package element with a bad ID
@@ -73,6 +72,6 @@ public class SpdxElementTests
         element.Validate(issues, null);
 
         // Assert: The invalid identifier is reported
-        Assert.IsTrue(issues.Any(i => i.Contains("Invalid SPDX Identifier Field 'BadId'")));
+        Assert.Contains(issues, i => i.Contains("Invalid SPDX Identifier Field 'BadId'"));
     }
 }

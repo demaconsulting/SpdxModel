@@ -11,10 +11,10 @@ includes a checksum to verify the integrity of the referenced document.
 **ExternalDocumentId**: `string` — Local identifier for the referenced document within this
 document (e.g., `DocumentRef-tools`). Used as a prefix when referencing elements across documents.
 
-**Document**: `string` — URI of the referenced SPDX document.
-
 **Checksum**: `SpdxChecksum` — Cryptographic checksum of the referenced document for integrity
 verification.
+
+**Document**: `string` — URI of the referenced SPDX document.
 
 ### Key Methods
 
@@ -35,7 +35,7 @@ verification.
 **Enhance (static array merge)**: Merges two external document reference arrays by matching on
 `Document` URI.
 
-- *Parameters*: `SpdxExternalDocumentReference[] base`, `SpdxExternalDocumentReference[] additions`.
+- *Parameters*: `SpdxExternalDocumentReference[] array`, `SpdxExternalDocumentReference[] others`.
 - *Returns*: `SpdxExternalDocumentReference[]` — merged array.
 - *Preconditions*: none.
 - *Postconditions*: Entries present in both arrays (matched by `Document` URI via `Same.Equals`)

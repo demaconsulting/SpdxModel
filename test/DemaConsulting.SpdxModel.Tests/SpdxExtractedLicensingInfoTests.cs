@@ -26,7 +26,6 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <remarks>
 ///     Covers the Same equality comparer, DeepCopy, Enhance merge, and Validate methods.
 /// </remarks>
-[TestClass]
 public class SpdxExtractedLicensingInfoTests
 {
     /// <summary>
@@ -38,7 +37,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     distinct, handles reference equality, null arguments, and produces consistent hash codes
     ///     for equal instances.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_SameComparer_ComparesCorrectly()
     {
         // Arrange: Create three extracted licensing infos with different properties
@@ -60,25 +59,25 @@ public class SpdxExtractedLicensingInfoTests
         };
 
         // Act / Assert: Verify extracted-licensing-infos compare to themselves
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l1, l1));
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l2, l2));
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l3, l3));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(l1, l1));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(l2, l2));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(l3, l3));
 
         // Assert: Verify extracted-licensing-infos compare correctly
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l1, l2));
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(l2, l1));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l1, l3));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l3, l1));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l2, l3));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l3, l2));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(l1, l2));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(l2, l1));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(l1, l3));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(l3, l1));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(l2, l3));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(l3, l2));
 
         // Assert: Verify null handling
-        Assert.IsTrue(SpdxExtractedLicensingInfo.Same.Equals(null!, null!));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(null!, l1));
-        Assert.IsFalse(SpdxExtractedLicensingInfo.Same.Equals(l1, null!));
+        Assert.True(SpdxExtractedLicensingInfo.Same.Equals(null!, null!));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(null!, l1));
+        Assert.False(SpdxExtractedLicensingInfo.Same.Equals(l1, null!));
 
         // Assert: Verify same extracted-licensing-infos have identical hashes
-        Assert.AreEqual(SpdxExtractedLicensingInfo.Same.GetHashCode(l1),
+        Assert.Equal(SpdxExtractedLicensingInfo.Same.GetHashCode(l1),
             SpdxExtractedLicensingInfo.Same.GetHashCode(l2));
     }
 
@@ -89,7 +88,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Validates that DeepCopy produces a new instance with field values equal to the original
     ///     and that arrays are independently copied (no shared references between original and copy).
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_DeepCopy_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create an extracted licensing info object
@@ -105,14 +104,14 @@ public class SpdxExtractedLicensingInfoTests
         var l2 = l1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(l1, l2, SpdxExtractedLicensingInfo.Same);
-        Assert.AreEqual(l1.LicenseId, l2.LicenseId);
-        Assert.AreEqual(l1.ExtractedText, l2.ExtractedText);
-        Assert.AreEqual(l1.Comment, l2.Comment);
+        Assert.Equal(l1, l2, SpdxExtractedLicensingInfo.Same);
+        Assert.Equal(l1.LicenseId, l2.LicenseId);
+        Assert.Equal(l1.ExtractedText, l2.ExtractedText);
+        Assert.Equal(l1.Comment, l2.Comment);
 
         // Assert: Verify deep-copy has distinct instance
-        Assert.IsFalse(ReferenceEquals(l1, l2));
-        Assert.IsFalse(ReferenceEquals(l1.CrossReferences, l2.CrossReferences));
+        Assert.False(ReferenceEquals(l1, l2));
+        Assert.False(ReferenceEquals(l1.CrossReferences, l2.CrossReferences));
     }
 
     /// <summary>
@@ -124,7 +123,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Validates that the static Enhance merges arrays by enhancing matching entries (matched
     ///     by ExtractedText) and appending unmatched entries as new deep copies.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_Enhance_AddsOrUpdatesInformationCorrectly()
     {
         // Arrange: Create an array of extracted licensing infos
@@ -155,12 +154,12 @@ public class SpdxExtractedLicensingInfoTests
             ]);
 
         // Assert: Verify the infos array has correct information
-        Assert.HasCount(2, infos);
-        Assert.AreEqual("LicenseRef-1", infos[0].LicenseId);
-        Assert.AreEqual("The CyberNeko Software License", infos[0].ExtractedText);
-        Assert.AreEqual("Extracted from files", infos[0].Comment);
-        Assert.AreEqual("LicenseRef-2", infos[1].LicenseId);
-        Assert.AreEqual("Some Random License", infos[1].ExtractedText);
+        Assert.Equal(2, infos.Length);
+        Assert.Equal("LicenseRef-1", infos[0].LicenseId);
+        Assert.Equal("The CyberNeko Software License", infos[0].ExtractedText);
+        Assert.Equal("Extracted from files", infos[0].Comment);
+        Assert.Equal("LicenseRef-2", infos[1].LicenseId);
+        Assert.Equal("Some Random License", infos[1].ExtractedText);
     }
 
     /// <summary>
@@ -170,7 +169,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Validates that Validate reports no issues when both LicenseId and ExtractedText are
     ///     non-empty, confirming the happy-path behavior of the validation logic.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_Validate_ValidInput_ReturnsNoIssues()
     {
         // Arrange: Create a valid extracted licensing info
@@ -185,7 +184,7 @@ public class SpdxExtractedLicensingInfoTests
         info.Validate(issues);
 
         // Assert: Verify that the validation reports no issues
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
     }
 
     /// <summary>
@@ -195,7 +194,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Validates that Validate appends an issue message to the supplied list when LicenseId is
     ///     empty, confirming the LicenseId validation path.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_Validate_InvalidLicenseId_ReportsIssue()
     {
         // Arrange: Create a bad licensing info
@@ -210,7 +209,7 @@ public class SpdxExtractedLicensingInfoTests
         info.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Extracted License Information Invalid License ID Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Extracted License Information Invalid License ID Field - Empty"));
     }
 
     /// <summary>
@@ -220,7 +219,7 @@ public class SpdxExtractedLicensingInfoTests
     ///     Validates that Validate appends an issue message to the supplied list when ExtractedText
     ///     is empty, confirming the ExtractedText validation path.
     /// </remarks>
-    [TestMethod]
+    [Fact]
     public void SpdxExtractedLicensingInfo_Validate_InvalidExtractedText_ReportsIssue()
     {
         // Arrange: Create a bad licensing info
@@ -235,6 +234,6 @@ public class SpdxExtractedLicensingInfoTests
         info.Validate(issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Extracted License Information 'LicenseRef-1' Invalid Extracted Text Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Extracted License Information 'LicenseRef-1' Invalid Extracted Text Field - Empty"));
     }
 }

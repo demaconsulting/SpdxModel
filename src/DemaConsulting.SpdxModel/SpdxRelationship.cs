@@ -21,10 +21,14 @@
 namespace DemaConsulting.SpdxModel;
 
 /// <summary>
-///     SPDX Relationship class
+///     Represents a directed relationship between two SPDX elements in an SPDX document.
 /// </summary>
 /// <remarks>
-///     Relationships referenced in the SPDX document.
+///     Relationships define the dependency graph, containment hierarchy, and other associations
+///     between packages, files, and snippets. This class provides equality comparison via the
+///     <see cref="Same" /> and <see cref="SameElements" /> comparers to support array merging and
+///     deduplication. Instances are mutable; see <see cref="DeepCopy" /> for producing independent
+///     copies. Not thread-safe for concurrent mutation.
 /// </remarks>
 public sealed class SpdxRelationship : SpdxElement
 {
