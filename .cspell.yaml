@@ -17,13 +17,14 @@ words:
   - acmecorp
   - acmenator
   - Alsos
+  - behaviour
   - buildmark
+  - centralised
   - Cyper
   - Dema
   - Doap
   - fileassert
   - hotspots
-  - mstest
   - Neko
   - netstandard
   - NOASSERTION
@@ -31,6 +32,8 @@ words:
   - NTIA
   - opencover
   - pandoc
+  - Postconditions
+  - Preconditions
   - Protecode
   - reqstream
   - reviewmark
@@ -39,9 +42,17 @@ words:
   - sonarmark
   - SPDXID
   - SPDXJSON
+  - subclassing
+  - subfolders
+  - throwingly
+  - uninitialised
+  - unioned
+  - Unrecognised
+  - unvalidated
   - versionmark
   - weasyprint
   - Weasy
+  - xunit
   - yamlfix
 
 # Exclude common build artifacts, dependencies, and vendored third-party code

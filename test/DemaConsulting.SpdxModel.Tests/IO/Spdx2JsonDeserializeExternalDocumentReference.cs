@@ -26,14 +26,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX external document references to <see cref="SpdxExternalDocumentReference" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX external document reference elements using xUnit v3
+///     as the test framework. Each test constructs inline JSON
+///     and verifies the resulting <see cref="SpdxExternalDocumentReference"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeExternalDocumentReference
 {
     /// <summary>
     ///     Tests deserializing an external document reference.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReference_CorrectResults()
+    /// <remarks>
+    ///     Verifies that externalDocumentId, checksum (algorithm and value), and spdxDocument
+    ///     JSON fields are correctly mapped to the <see cref="SpdxExternalDocumentReference"/>
+    ///     properties when a single object is deserialized.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an external document reference
         var json = new JsonObject
@@ -52,17 +61,21 @@ public class Spdx2JsonDeserializeExternalDocumentReference
         var externalDocumentReference = Spdx2JsonDeserializer.DeserializeExternalDocumentReference(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("DocumentRef-1", externalDocumentReference.ExternalDocumentId);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReference.Checksum.Algorithm);
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReference.Checksum.Value);
-        Assert.AreEqual("SPDXRef-Document", externalDocumentReference.Document);
+        Assert.Equal("DocumentRef-1", externalDocumentReference.ExternalDocumentId);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, externalDocumentReference.Checksum.Algorithm);
+        Assert.Equal("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReference.Checksum.Value);
+        Assert.Equal("SPDXRef-Document", externalDocumentReference.Document);
     }
 
     /// <summary>
     ///     Tests deserializing multiple external document references.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_CorrectResults()
+    /// <remarks>
+    ///     Verifies that a JSON array containing one external document reference object is
+    ///     deserialized to a single-element array with all fields correctly populated.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeExternalDocumentReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple external document references
         var json = new JsonArray
@@ -84,10 +97,10 @@ public class Spdx2JsonDeserializeExternalDocumentReference
         var externalDocumentReferences = Spdx2JsonDeserializer.DeserializeExternalDocumentReferences(json);
 
         // Assert: Verify the deserialized array has the expected number of references and their properties
-        Assert.HasCount(1, externalDocumentReferences);
-        Assert.AreEqual("DocumentRef-1", externalDocumentReferences[0].ExternalDocumentId);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, externalDocumentReferences[0].Checksum.Algorithm);
-        Assert.AreEqual("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReferences[0].Checksum.Value);
-        Assert.AreEqual("SPDXRef-Document", externalDocumentReferences[0].Document);
+        Assert.Single(externalDocumentReferences);
+        Assert.Equal("DocumentRef-1", externalDocumentReferences[0].ExternalDocumentId);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, externalDocumentReferences[0].Checksum.Algorithm);
+        Assert.Equal("d6a770ba38583ed4bb4525bd96e50461655d2759", externalDocumentReferences[0].Checksum.Value);
+        Assert.Equal("SPDXRef-Document", externalDocumentReferences[0].Document);
     }
 }

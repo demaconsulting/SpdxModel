@@ -35,6 +35,11 @@ public sealed class SpdxCreationInformation
     /// <summary>
     ///     Regular expression for checking license list versions
     /// </summary>
+    /// <remarks>
+    ///     The pattern <c>^\d+\.\d+$</c> matches the SPDX major.minor version format (e.g.,
+    ///     <c>3.9</c> or <c>3.21</c>). The 100 ms timeout passed to the <see cref="Regex"/>
+    ///     constructor guards against ReDoS on untrusted or malformed input.
+    /// </remarks>
     private static readonly Regex LicenseListVersionRegex = new(
         @"^\d+\.\d+$",
         RegexOptions.None,
@@ -68,6 +73,11 @@ public sealed class SpdxCreationInformation
     /// <summary>
     ///     Creator Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     An optional free-text comment from the document creators providing supplemental context
+    ///     about the creation process. This field is preserved during deep-copy and propagated
+    ///     during enhance if absent from this instance.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
@@ -82,6 +92,11 @@ public sealed class SpdxCreationInformation
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Returns a structurally independent copy with no shared mutable references. The
+    ///     <see cref="Creators"/> array is cloned so that mutations to one instance do not
+    ///     affect the other.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxCreationInformation DeepCopy()
     {
@@ -97,6 +112,11 @@ public sealed class SpdxCreationInformation
     /// <summary>
     ///     Enhance missing fields in the creation information
     /// </summary>
+    /// <remarks>
+    ///     Merges <paramref name="other"/> into this instance using a union-and-deduplicate strategy
+    ///     for <see cref="Creators"/> and a fill-if-absent strategy for scalar fields. This method
+    ///     is used during document merge operations to consolidate creation metadata.
+    /// </remarks>
     /// <param name="other">Other creation information to enhance with</param>
     public void Enhance(SpdxCreationInformation other)
     {
@@ -116,6 +136,13 @@ public sealed class SpdxCreationInformation
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Checks four rules: (1) <see cref="Creators"/> must be non-empty; (2) each creator entry
+    ///     must start with <c>Person:</c>, <c>Organization:</c>, or <c>Tool:</c>; (3) <see cref="Created"/>
+    ///     must be a valid SPDX date-time string when non-empty (empty is permitted for
+    ///     partially-constructed documents); (4) <see cref="LicenseListVersion"/>, when present,
+    ///     must match the pattern <c>\d+\.\d+</c>.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
     {

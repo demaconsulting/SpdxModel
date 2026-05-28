@@ -1,25 +1,28 @@
-# DemaConsulting.SpdxModel Design Documentation
+# Introduction
+
+SpdxModel is a .NET library for working with SPDX (Software Package Data Exchange) documents.
+It provides a comprehensive in-memory model for reading, manipulating, and writing SPDX Software
+Bill of Materials (SBOM) files in JSON format. The library is organized into a root data model
+system with IO and Transform subsystems.
 
 ## Purpose
 
-This document provides the design overview for the DemaConsulting.SpdxModel library, a .NET library
-for reading, writing, and manipulating SPDX (Software Package Data Exchange) documents. It serves as
-the entry point for the design documentation, providing architectural context for formal code review,
-compliance auditing, and maintenance support.
+This document defines the design for each software item in SpdxModel — full architectural and
+detailed design for local items (systems, subsystems, and units). A reviewer should be able to
+understand how each item satisfies its requirements without reading source code.
 
 ## Scope
 
-This design documentation covers the DemaConsulting.SpdxModel library, including:
+Local items:
 
-- The SPDX data model (documents, packages, files, snippets, relationships, annotations, checksums, etc.)
-- JSON serialization and deserialization (SPDX 2.2 and SPDX 2.3)
-- Relationship manipulation utilities
+- **SpdxModel**: system, subsystem, and unit design.
 
-Excluded from scope:
+Out of scope:
 
-- Consumer application code using this library
-- CI/CD pipeline configuration
+- Test projects
+- Build pipeline
 - NuGet package distribution infrastructure
+- The internal design of OTS software items
 
 ## Software Structure
 
@@ -48,92 +51,91 @@ DemaConsulting.SpdxModel (System)
 └── SpdxSnippet (Unit)
 ```
 
-OTS Software Items:
-
-- MSTest — unit test framework
-- ReqStream — requirements traceability enforcement
-- BuildMark — build notes documentation generation
-- VersionMark — tool version documentation
-- SarifMark — CodeQL SARIF report generation
-- SonarMark — SonarCloud quality report generation
-
 ## Folder Layout
-
-```text
-docs/design/
-├── introduction.md
-└── spdx-model/
-    ├── spdx-model.md
-    ├── io/
-    │   ├── io.md
-    │   ├── spdx-2-json-deserializer.md
-    │   ├── spdx-2-json-serializer.md
-    │   └── spdx-constants.md
-    ├── transform/
-    │   ├── transform.md
-    │   └── spdx-relationships.md
-    ├── spdx-annotation.md
-    ├── spdx-checksum.md
-    ├── spdx-creation-information.md
-    ├── spdx-document.md
-    ├── spdx-element.md
-    ├── spdx-external-document-reference.md
-    ├── spdx-external-reference.md
-    ├── spdx-extracted-licensing-info.md
-    ├── spdx-file.md
-    ├── spdx-helpers.md
-    ├── spdx-license-element.md
-    ├── spdx-package-verification-code.md
-    ├── spdx-package.md
-    ├── spdx-relationship.md
-    └── spdx-snippet.md
-```
 
 ```text
 src/DemaConsulting.SpdxModel/
 ├── IO/
 │   ├── Spdx2JsonDeserializer.cs    — SPDX 2.x JSON deserialization
 │   ├── Spdx2JsonSerializer.cs      — SPDX 2.x JSON serialization
-│   └── SpdxConstants.cs            — SPDX constants
+│   └── SpdxConstants.cs            — SPDX JSON field name constants
 ├── Transform/
 │   └── SpdxRelationships.cs        — Relationship manipulation utilities
 ├── SpdxAnnotation.cs               — Annotation data model
-├── SpdxAnnotationType.cs           — Annotation type enum
+├── SpdxAnnotationType.cs           — Annotation type enumeration
 ├── SpdxChecksum.cs                 — Checksum data model
-├── SpdxChecksumAlgorithm.cs        — Checksum algorithm enum
+├── SpdxChecksumAlgorithm.cs        — Checksum algorithm enumeration
 ├── SpdxCreationInformation.cs      — Creation information data model
-├── SpdxDocument.cs                 — Document data model
-├── SpdxElement.cs                  — Base element class
+├── SpdxDocument.cs                 — Root document data model
+├── SpdxElement.cs                  — Abstract base element class
 ├── SpdxExternalDocumentReference.cs — External document reference model
 ├── SpdxExternalReference.cs        — External reference data model
-├── SpdxExtractedLicensingInfo.cs   — Extracted licensing info model
+├── SpdxExtractedLicensingInfo.cs   — Extracted licensing information model
 ├── SpdxFile.cs                     — File data model
-├── SpdxFileType.cs                 — File type enum
-├── SpdxHelpers.cs                  — Helper utilities
-├── SpdxLicenseElement.cs           — License element base class
+├── SpdxFileType.cs                 — File type enumeration
+├── SpdxHelpers.cs                  — Shared utility functions
+├── SpdxLicenseElement.cs           — Abstract license element base class
 ├── SpdxPackage.cs                  — Package data model
 ├── SpdxPackageVerificationCode.cs  — Package verification code model
-├── SpdxReferenceCategory.cs        — Reference category enum
+├── SpdxReferenceCategory.cs        — Reference category enumeration
 ├── SpdxRelationship.cs             — Relationship data model
-├── SpdxRelationshipType.cs         — Relationship type enum
+├── SpdxRelationshipType.cs         — Relationship type enumeration
 └── SpdxSnippet.cs                  — Snippet data model
 
 test/DemaConsulting.SpdxModel.Tests/
 ├── IO/
 │   ├── Examples/                    — Test example JSON files
-│   └── (Spdx2JsonDeserialize*.cs and Spdx2JsonSerialize*.cs test files)
+│   ├── Spdx2JsonDeserialize*.cs     — Deserializer unit tests
+│   ├── Spdx2JsonSerialize*.cs       — Serializer unit tests
+│   ├── SpdxJsonHelpers.cs          — IO test utility helpers
+│   └── SpdxModelIOTests.cs          — IO subsystem integration tests
 ├── Transforms/
-│   └── SpdxRelationshipsTests.cs   — Relationship utility tests
-├── SpdxAnnotationTests.cs
-├── SpdxChecksumTests.cs
-├── SpdxCreationInformationTests.cs
-├── SpdxDocumentTests.cs
-├── SpdxExternalDocumentReferenceTests.cs
-├── SpdxExternalReferenceTests.cs
-├── SpdxExtractedLicensingInfoTests.cs
-├── SpdxFileTests.cs
-├── SpdxPackageTests.cs
-├── SpdxPackageVerificationCodeTests.cs
-├── SpdxRelationshipTests.cs
-└── SpdxSnippetTests.cs
+│   ├── SpdxModelTransformTests.cs  — Transform subsystem integration tests
+│   └── SpdxRelationshipsTests.cs   — Relationship utilities tests
+├── SpdxModelTests.cs               — System-level integration tests
+├── SpdxAnnotationTests.cs          — SpdxAnnotation unit tests
+├── SpdxChecksumTests.cs            — SpdxChecksum unit tests
+├── SpdxCreationInformationTests.cs — SpdxCreationInformation unit tests
+├── SpdxDocumentTests.cs            — SpdxDocument unit tests
+├── SpdxElementTests.cs             — SpdxElement unit tests
+├── SpdxExternalDocumentReferenceTests.cs — SpdxExternalDocumentReference unit tests
+├── SpdxExternalReferenceTests.cs   — SpdxExternalReference unit tests
+├── SpdxExtractedLicensingInfoTests.cs — SpdxExtractedLicensingInfo unit tests
+├── SpdxFileTests.cs                — SpdxFile unit tests
+├── SpdxHelpersTests.cs             — SpdxHelpers unit tests
+├── SpdxPackageTests.cs             — SpdxPackage unit tests
+├── SpdxPackageVerificationCodeTests.cs — SpdxPackageVerificationCode unit tests
+├── SpdxRelationshipTests.cs        — SpdxRelationship unit tests
+├── SpdxSnippetTests.cs             — SpdxSnippet unit tests
+└── TestHelpers.cs                  — Test utility helpers (SpdxTestHelpers)
 ```
+
+## Companion Artifact Structure
+
+Each local software item has corresponding artifacts in parallel directory trees:
+
+- Requirements: `docs/reqstream/spdx-model/spdx-model.yaml`,
+  `docs/reqstream/spdx-model[/{subsystem-name}...]/{item}.yaml`
+- Design: `docs/design/spdx-model.md`,
+  `docs/design/spdx-model[/{subsystem-name}...]/{item}.md`
+- Verification: `docs/verification/spdx-model.md`,
+  `docs/verification/spdx-model[/{subsystem-name}...]/{item}.md`
+- Source: `src/DemaConsulting.SpdxModel[/{SubsystemName}...]/{Item}.cs`
+- Tests: `test/DemaConsulting.SpdxModel.Tests[/{SubsystemName}...]/{Item}Tests.cs`
+
+Review-sets: defined in `.reviewmark.yaml`
+
+## References
+
+- [REF-1] SpdxModel releases, <https://github.com/demaconsulting/SpdxModel/releases>
+
+## Structural Deviation
+
+The companion artifact layout described in this document places subsystem design and verification
+files at the subsystem level (e.g., `docs/design/spdx-model/io/` for the IO subsystem).
+In practice, subsystem design files (`transform.md`, `io.md`) and verification files are located
+inside their respective subsystem subfolders rather than at the parent `spdx-model/` level.
+This layout was chosen for consistency with the IO subsystem file organization conventions
+adopted early in the project and is accepted as a project-wide structural deviation.
+Existing file references in review-sets and traceability tooling reflect the actual folder
+layout and do not require updating.

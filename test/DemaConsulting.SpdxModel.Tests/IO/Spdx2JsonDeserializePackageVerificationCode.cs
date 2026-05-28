@@ -26,14 +26,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX package verification codes to <see cref="SpdxPackageVerificationCode" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX package verification code elements using xUnit v3
+///     as the test framework. Constructs inline JSON and
+///     verifies the resulting <see cref="SpdxPackageVerificationCode"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializePackageVerificationCode
 {
     /// <summary>
     ///     Tests deserializing a package verification code.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializePackageVerificationCode_CorrectResults()
+    /// <remarks>
+    ///     Verifies that packageVerificationCodeValue and packageVerificationCodeExcludedFiles
+    ///     JSON fields are correctly mapped to the <see cref="SpdxPackageVerificationCode"/>
+    ///     properties and that the result is non-null.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializePackageVerificationCode_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a package verification code
         var json = new JsonObject
@@ -48,12 +57,12 @@ public class Spdx2JsonDeserializePackageVerificationCode
 
         // Act: Deserialize the JSON object to an SpdxPackageVerificationCode object
         var packageVerificationCode = Spdx2JsonDeserializer.DeserializeVerificationCode(json);
-        Assert.IsNotNull(packageVerificationCode);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("d3b07384d113edec49eaa6238ad5ff00", packageVerificationCode.Value);
-        Assert.HasCount(2, packageVerificationCode.ExcludedFiles);
-        Assert.AreEqual("file1.txt", packageVerificationCode.ExcludedFiles[0]);
-        Assert.AreEqual("file2.txt", packageVerificationCode.ExcludedFiles[1]);
+        Assert.NotNull(packageVerificationCode);
+        Assert.Equal("d3b07384d113edec49eaa6238ad5ff00", packageVerificationCode.Value);
+        Assert.Equal(2, packageVerificationCode.ExcludedFiles.Length);
+        Assert.Equal("file1.txt", packageVerificationCode.ExcludedFiles[0]);
+        Assert.Equal("file2.txt", packageVerificationCode.ExcludedFiles[1]);
     }
 }

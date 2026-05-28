@@ -25,14 +25,13 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxPackage" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializePackage
 {
     /// <summary>
     ///     Tests serializing a package.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializePackage_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializePackage_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxPackage object
         var package = new SpdxPackage
@@ -97,7 +96,7 @@ public class Spdx2JsonSerializePackage
         var json = Spdx2JsonSerializer.SerializePackage(package);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
+        Assert.NotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("glibc", json["name"]);
         SpdxJsonHelpers.AssertEqual("2.11.1", json["versionInfo"]);
@@ -136,8 +135,8 @@ public class Spdx2JsonSerializePackage
     /// <summary>
     ///     Tests serializing multiple packages.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializePackages_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializePackages_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxPackage objects
         var packages = new[]
@@ -205,8 +204,8 @@ public class Spdx2JsonSerializePackage
         var json = Spdx2JsonSerializer.SerializePackages(packages);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(1, json.Count);
+        Assert.NotNull(json);
+        Assert.Single(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-Package", json[0]?["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("glibc", json[0]?["name"]);
         SpdxJsonHelpers.AssertEqual("2.11.1", json[0]?["versionInfo"]);

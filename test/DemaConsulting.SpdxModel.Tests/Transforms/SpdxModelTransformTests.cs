@@ -26,13 +26,22 @@ namespace DemaConsulting.SpdxModel.Tests.Transforms;
 /// <summary>
 ///     Integration tests for the SpdxModel Transform subsystem.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Integration-scope tests: each test deserializes a real SPDX 2.3 JSON document from
+///     an embedded resource and exercises the <see cref="SpdxRelationships"/> transform
+///     against that document. xUnit v3 is the test framework.
+/// </remarks>
 public class SpdxModelTransformTests
 {
     /// <summary>
     ///     Tests that a relationship added to an SPDX document persists in the document.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Happy path: a well-formed relationship whose source and target both exist in the
+    ///     document is added, the relationship count increases by one, and the document
+    ///     remains valid after the transform.
+    /// </remarks>
+    [Fact]
     public void SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists()
     {
         // Arrange: Load the SPDX 2.3 JSON example as a real document to transform
@@ -52,14 +61,275 @@ public class SpdxModelTransformTests
             });
 
         // Assert: Verify the relationship was added and the document remains valid
-        Assert.AreEqual(initialCount + 1, document.Relationships.Length);
-        Assert.IsTrue(Array.Exists(
+        Assert.Equal(initialCount + 1, document.Relationships.Length);
+        Assert.True(Array.Exists(
             document.Relationships,
             r => r.Id == "SPDXRef-Package" &&
                  r.RelatedSpdxElement == "SPDXRef-fromDoap-0" &&
                  r.RelationshipType == SpdxRelationshipType.DependsOn));
         var issues = new List<string>();
         document.Validate(issues);
-        Assert.IsEmpty(issues);
+        Assert.Empty(issues);
+    }
+
+    /// <summary>
+    ///     Tests that adding a relationship with an invalid source element ID throws <see cref="ArgumentException" />.
+    /// </summary>
+    /// <remarks>
+    ///     Error path: a source element ID that does not exist in the document causes an
+    ///     <see cref="ArgumentException"/> to be thrown. The document is expected to remain
+    ///     unmodified because the validation happens before any mutation.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_InvalidSourceId_ThrowsArgumentException()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example as a real document to transform
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+
+        // Act / Assert: Adding with a non-existent source ID throws ArgumentException
+        Assert.Throws<ArgumentException>(() =>
+        {
+            SpdxRelationships.Add(
+                document,
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-NonExistent",
+                    RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                    RelationshipType = SpdxRelationshipType.DependsOn
+                });
+        });
+    }
+
+    /// <summary>
+    ///     Tests that adding a relationship with an invalid target element ID throws <see cref="ArgumentException" />.
+    /// </summary>
+    /// <remarks>
+    ///     Error path: a target element ID that does not exist in the document, and is neither
+    ///     <c>NOASSERTION</c> nor prefixed with <c>DocumentRef-</c>, causes an
+    ///     <see cref="ArgumentException"/> to be thrown.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_InvalidTargetId_ThrowsArgumentException()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example as a real document to transform
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+
+        // Act / Assert: Adding with a non-existent target that is neither NOASSERTION nor DocumentRef- throws
+        Assert.Throws<ArgumentException>(() =>
+        {
+            SpdxRelationships.Add(
+                document,
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-Package",
+                    RelatedSpdxElement = "SPDXRef-NonExistent",
+                    RelationshipType = SpdxRelationshipType.DependsOn
+                });
+        });
+    }
+
+    /// <summary>
+    ///     Tests that adding a duplicate relationship enhances the existing entry rather than duplicating it.
+    /// </summary>
+    /// <remarks>
+    ///     Idempotency path: adding the same relationship a second time merges (enhances) the
+    ///     existing entry rather than appending a duplicate. The relationship count after two
+    ///     adds must equal the count after one add.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_Duplicate_EnhancesExistingRelationship()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example and add an initial relationship
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        var initialCount = document.Relationships.Length;
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package",
+                RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Act: Add the same relationship again
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package",
+                RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Assert: Only one new relationship was added (duplicate was merged, not appended)
+        Assert.Equal(initialCount + 1, document.Relationships.Length);
+    }
+
+    /// <summary>
+    ///     Tests that the batch Add with replace=true removes pre-existing matching relationships.
+    /// </summary>
+    /// <remarks>
+    ///     Replace-mode path: the batch overload with <c>replace: true</c> removes any
+    ///     existing relationships between the same pair of elements before adding the new ones.
+    ///     This allows changing the relationship type between a fixed pair of elements.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_Replace_RemovesPreExistingRelationships()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example and add an initial relationship
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package",
+                RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+        var countAfterFirstAdd = document.Relationships.Length;
+
+        // Act: Replace the relationship with a different type using the batch overload
+        SpdxRelationships.Add(
+            document,
+            [
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-Package",
+                    RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                    RelationshipType = SpdxRelationshipType.BuildToolOf
+                }
+            ],
+            replace: true);
+
+        // Assert: The count is unchanged (old removed, new added) and the type changed
+        Assert.Equal(countAfterFirstAdd, document.Relationships.Length);
+        Assert.True(Array.Exists(
+            document.Relationships,
+            r => r.Id == "SPDXRef-Package" &&
+                 r.RelatedSpdxElement == "SPDXRef-fromDoap-0" &&
+                 r.RelationshipType == SpdxRelationshipType.BuildToolOf));
+        Assert.False(Array.Exists(
+            document.Relationships,
+            r => r.Id == "SPDXRef-Package" &&
+                 r.RelatedSpdxElement == "SPDXRef-fromDoap-0" &&
+                 r.RelationshipType == SpdxRelationshipType.DependsOn));
+    }
+
+    /// <summary>
+    ///     Tests that the batch Add with multiple relationships adds all of them.
+    /// </summary>
+    /// <remarks>
+    ///     Batch path: the batch overload with two distinct relationships adds both in a single
+    ///     call, increasing the relationship count by exactly two.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_BatchMultiple_AddsAllRelationships()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        var initialCount = document.Relationships.Length;
+
+        // Act: Add two distinct relationships in a single batch call
+        SpdxRelationships.Add(
+            document,
+            [
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-Package",
+                    RelatedSpdxElement = "SPDXRef-fromDoap-0",
+                    RelationshipType = SpdxRelationshipType.DependsOn
+                },
+                new SpdxRelationship
+                {
+                    Id = "SPDXRef-Package",
+                    RelatedSpdxElement = "SPDXRef-fromDoap-1",
+                    RelationshipType = SpdxRelationshipType.DependsOn
+                }
+            ]);
+
+        // Assert: Both relationships were added
+        Assert.Equal(initialCount + 2, document.Relationships.Length);
+    }
+
+    /// <summary>
+    ///     Tests that a relationship with NOASSERTION as the target element is accepted as valid.
+    /// </summary>
+    /// <remarks>
+    ///     Boundary path: <c>NOASSERTION</c> is a valid target element value (it means the
+    ///     related element is intentionally unspecified). The transform must accept it without
+    ///     throwing, regardless of whether any element with ID "NOASSERTION" exists.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_NoAssertionTarget_AddsRelationship()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        var initialCount = document.Relationships.Length;
+
+        // Act: Add a relationship where the target is NOASSERTION
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package",
+                RelatedSpdxElement = SpdxElement.NoAssertion,
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Assert: Relationship was added without an exception
+        Assert.Equal(initialCount + 1, document.Relationships.Length);
+        Assert.True(Array.Exists(
+            document.Relationships,
+            r => r.Id == "SPDXRef-Package" &&
+                 r.RelatedSpdxElement == SpdxElement.NoAssertion &&
+                 r.RelationshipType == SpdxRelationshipType.DependsOn));
+    }
+
+    /// <summary>
+    ///     Tests that a relationship with a DocumentRef- prefixed target is accepted as valid.
+    /// </summary>
+    /// <remarks>
+    ///     Boundary path: a target element prefixed with <c>DocumentRef-</c> refers to an
+    ///     element in an external document. The transform must accept it without throwing,
+    ///     regardless of whether the external document reference resolves locally.
+    /// </remarks>
+    [Fact]
+    public void SpdxModelTransform_AddRelationship_DocumentRefTarget_AddsRelationship()
+    {
+        // Arrange: Load the SPDX 2.3 JSON example
+        var json = SpdxTestHelpers.GetEmbeddedResource(
+            "DemaConsulting.SpdxModel.Tests.IO.Examples.SPDXJSONExample-v2.3.spdx.json");
+        var document = Spdx2JsonDeserializer.Deserialize(json);
+        var initialCount = document.Relationships.Length;
+
+        // Act: Add a relationship where the target uses the DocumentRef- prefix
+        SpdxRelationships.Add(
+            document,
+            new SpdxRelationship
+            {
+                Id = "SPDXRef-Package",
+                RelatedSpdxElement = "DocumentRef-spdx-tool-1.2:SPDXRef-Package",
+                RelationshipType = SpdxRelationshipType.DependsOn
+            });
+
+        // Assert: Relationship was added without an exception
+        Assert.Equal(initialCount + 1, document.Relationships.Length);
+        Assert.True(Array.Exists(
+            document.Relationships,
+            r => r.Id == "SPDXRef-Package" &&
+                 r.RelatedSpdxElement == "DocumentRef-spdx-tool-1.2:SPDXRef-Package" &&
+                 r.RelationshipType == SpdxRelationshipType.DependsOn));
     }
 }

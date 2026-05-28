@@ -8,6 +8,7 @@ includes:
   - docs/reqstream/spdx-model/spdx-model.yaml
   - docs/reqstream/spdx-model/platform-requirements.yaml
   - docs/reqstream/spdx-model/io/io.yaml
+  - docs/reqstream/spdx-model/io/spdx-constants.yaml
   - docs/reqstream/spdx-model/io/spdx-2-json-deserializer.yaml
   - docs/reqstream/spdx-model/io/spdx-2-json-serializer.yaml
   - docs/reqstream/spdx-model/transform/transform.yaml
@@ -27,7 +28,7 @@ includes:
   - docs/reqstream/spdx-model/spdx-package-verification-code.yaml
   - docs/reqstream/spdx-model/spdx-relationship.yaml
   - docs/reqstream/spdx-model/spdx-snippet.yaml
-  - docs/reqstream/ots/mstest.yaml
+  - docs/reqstream/ots/xunit.yaml
   - docs/reqstream/ots/reqstream.yaml
   - docs/reqstream/ots/buildmark.yaml
   - docs/reqstream/ots/versionmark.yaml

@@ -26,14 +26,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX external references to <see cref="SpdxExternalReference" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX external reference elements using xUnit v3 as the
+///     test framework. Each test constructs inline JSON and
+///     verifies the resulting <see cref="SpdxExternalReference"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeExternalReference
 {
     /// <summary>
     ///     Tests deserializing an external reference.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalReference_CorrectResults()
+    /// <remarks>
+    ///     Verifies that comment, referenceLocator, referenceType, and referenceCategory JSON
+    ///     fields are correctly mapped to the <see cref="SpdxExternalReference"/> properties
+    ///     when a single SECURITY-category reference is deserialized.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeExternalReference_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an external reference
         var json = new JsonObject
@@ -48,17 +57,21 @@ public class Spdx2JsonDeserializeExternalReference
         var reference = Spdx2JsonDeserializer.DeserializeExternalReference(json);
 
         // Assert: Verify the deserialized object has the expected properties  
-        Assert.AreEqual("This is just an example", reference.Comment);
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", reference.Locator);
-        Assert.AreEqual("cpe23Type", reference.Type);
-        Assert.AreEqual(SpdxReferenceCategory.Security, reference.Category);
+        Assert.Equal("This is just an example", reference.Comment);
+        Assert.Equal("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", reference.Locator);
+        Assert.Equal("cpe23Type", reference.Type);
+        Assert.Equal(SpdxReferenceCategory.Security, reference.Category);
     }
 
     /// <summary>
     ///     Tests deserializing multiple external references.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeExternalReferences_CorrectResults()
+    /// <remarks>
+    ///     Verifies that a JSON array of two external reference objects (one SECURITY, one OTHER
+    ///     category) is deserialized to a two-element array with all fields correctly populated.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeExternalReferences_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple external references
         var json = new JsonArray
@@ -84,16 +97,16 @@ public class Spdx2JsonDeserializeExternalReference
         var references = Spdx2JsonDeserializer.DeserializeExternalReferences(json);
 
         // Assert: Verify the deserialized array has the expected number of references and their properties
-        Assert.HasCount(2, references);
-        Assert.AreEqual("This is just an example", references[0].Comment);
-        Assert.AreEqual("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", references[0].Locator);
-        Assert.AreEqual("cpe23Type", references[0].Type);
-        Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);
-        Assert.AreEqual("This is the external ref for Acme", references[1].Comment);
-        Assert.AreEqual("acmecorp/acmenator/4.1.3-alpha", references[1].Locator);
-        Assert.AreEqual(
+        Assert.Equal(2, references.Length);
+        Assert.Equal("This is just an example", references[0].Comment);
+        Assert.Equal("cpe:2.3:a:pivotal_software:spring_framework:4.1.0:*:*:*:*:*:*:*", references[0].Locator);
+        Assert.Equal("cpe23Type", references[0].Type);
+        Assert.Equal(SpdxReferenceCategory.Security, references[0].Category);
+        Assert.Equal("This is the external ref for Acme", references[1].Comment);
+        Assert.Equal("acmecorp/acmenator/4.1.3-alpha", references[1].Locator);
+        Assert.Equal(
             "http://spdx.org/spdxdocs/spdx-example-444504E0-4F89-41D3-9A0C-0305E82C3301#LocationRef-acmeforge",
             references[1].Type);
-        Assert.AreEqual(SpdxReferenceCategory.Other, references[1].Category);
+        Assert.Equal(SpdxReferenceCategory.Other, references[1].Category);
     }
 }

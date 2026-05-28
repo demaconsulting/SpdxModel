@@ -24,16 +24,25 @@ using DemaConsulting.SpdxModel.IO;
 namespace DemaConsulting.SpdxModel.Tests.IO;
 
 /// <summary>
-///     Tests for deserializing SPDX annotations to <see cref="Spdx2JsonDeserializer" /> classes.
+///     Tests for deserializing SPDX annotations to <see cref="SpdxAnnotation" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX annotation elements using xUnit v3 as the test
+///     framework. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxAnnotation"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeAnnotation
 {
     /// <summary>
     ///     Tests deserializing an annotation.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeAnnotation_CorrectResults()
+    /// <remarks>
+    ///     Verifies that all four annotation fields (annotationDate, annotationType, annotator,
+    ///     comment) are mapped to the correct <see cref="SpdxAnnotation"/> properties when a
+    ///     single JSON object is deserialized.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeAnnotation_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing an annotation
         var json = new JsonObject
@@ -48,17 +57,21 @@ public class Spdx2JsonDeserializeAnnotation
         var annotation = Spdx2JsonDeserializer.DeserializeAnnotation(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("2010-01-29T18:30:22Z", annotation.Date);
-        Assert.AreEqual(SpdxAnnotationType.Other, annotation.Type);
-        Assert.AreEqual("Person: Jane Doe ()", annotation.Annotator);
-        Assert.AreEqual("Document level annotation", annotation.Comment);
+        Assert.Equal("2010-01-29T18:30:22Z", annotation.Date);
+        Assert.Equal(SpdxAnnotationType.Other, annotation.Type);
+        Assert.Equal("Person: Jane Doe ()", annotation.Annotator);
+        Assert.Equal("Document level annotation", annotation.Comment);
     }
 
     /// <summary>
     ///     Tests deserializing multiple annotations.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeAnnotations_CorrectResults()
+    /// <remarks>
+    ///     Verifies that a JSON array of two annotation objects is deserialized to an array
+    ///     of two <see cref="SpdxAnnotation"/> instances with fields correctly populated.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeAnnotations_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple annotations
         var json = new JsonArray
@@ -84,15 +97,15 @@ public class Spdx2JsonDeserializeAnnotation
         var annotations = Spdx2JsonDeserializer.DeserializeAnnotations(json);
 
         // Assert: Verify the deserialized array has the expected number of annotations and their properties
-        Assert.HasCount(2, annotations);
-        Assert.AreEqual("2010-01-29T18:30:22Z", annotations[0].Date);
-        Assert.AreEqual(SpdxAnnotationType.Other, annotations[0].Type);
-        Assert.AreEqual("Person: Jane Doe ()", annotations[0].Annotator);
-        Assert.AreEqual("Document level annotation", annotations[0].Comment);
-        Assert.AreEqual("2010-02-10T00:00:00Z", annotations[1].Date);
-        Assert.AreEqual(SpdxAnnotationType.Review, annotations[1].Type);
-        Assert.AreEqual("Person: Joe Reviewer", annotations[1].Annotator);
-        Assert.AreEqual(
+        Assert.Equal(2, annotations.Length);
+        Assert.Equal("2010-01-29T18:30:22Z", annotations[0].Date);
+        Assert.Equal(SpdxAnnotationType.Other, annotations[0].Type);
+        Assert.Equal("Person: Jane Doe ()", annotations[0].Annotator);
+        Assert.Equal("Document level annotation", annotations[0].Comment);
+        Assert.Equal("2010-02-10T00:00:00Z", annotations[1].Date);
+        Assert.Equal(SpdxAnnotationType.Review, annotations[1].Type);
+        Assert.Equal("Person: Joe Reviewer", annotations[1].Annotator);
+        Assert.Equal(
             "This is just an example.  Some of the non-standard licenses look like they are actually BSD 3 clause licenses",
             annotations[1].Comment);
     }

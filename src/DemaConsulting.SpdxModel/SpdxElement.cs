@@ -25,34 +25,58 @@ namespace DemaConsulting.SpdxModel;
 /// <summary>
 ///     SPDX Element base class
 /// </summary>
+/// <remarks>
+///     Acts as the abstract base for all identifiable SPDX model objects (documents, packages,
+///     files, snippets, relationships, and annotations). Centralizing the identity property here
+///     ensures that element lookup, traversal, and duplicate-detection logic works uniformly
+///     across the entire object model.
+/// </remarks>
 public abstract class SpdxElement
 {
     /// <summary>
-    ///     No Assertion value
+    ///     Sentinel value indicating that a field was intentionally omitted or its value is not known.
     /// </summary>
+    /// <remarks>
+    ///     Used by optional fields throughout the SPDX model (e.g., package supplier, originator, and
+    ///     download location) to distinguish an explicit "no assertion" from an absent value.
+    /// </remarks>
     public const string NoAssertion = "NOASSERTION";
 
     /// <summary>
     ///     Regular expression for checking element IDs of the form "SPDXRef-name"
     /// </summary>
+    /// <remarks>
+    ///     Matches the full pattern <c>^SPDXRef-[a-zA-Z0-9.-]+$</c>, which allows letters,
+    ///     digits, hyphens, and dots after the mandatory <c>SPDXRef-</c> prefix.
+    ///     Declared as <c>static readonly</c> so a single compiled instance is shared safely
+    ///     across all concurrent callers. The 100 ms timeout is a ReDoS protection measure
+    ///     against pathological input strings from untrusted SPDX sources.
+    /// </remarks>
     protected static readonly Regex SpdxRefRegex = new(
         "^SPDXRef-[a-zA-Z0-9.-]+$",
         RegexOptions.None,
-        TimeSpan.FromMilliseconds(100));
+        TimeSpan.FromMilliseconds(100)); // 100 ms timeout guards against ReDoS on untrusted SPDX identifier strings
 
     /// <summary>
     ///     Gets or sets the Element ID
     /// </summary>
     /// <remarks>
-    ///     Uniquely identify any element in an SPDX document which may be
-    ///     referenced by other elements.
+    ///     Uniquely identifies any element in an SPDX document. The value must follow the
+    ///     <c>SPDXRef-&lt;name&gt;</c> format (validated by <see cref="SpdxRefRegex"/>) and must
+    ///     be unique within the document. Elements with duplicate or malformed identifiers are
+    ///     reported as validation issues by the concrete subclass <c>Validate</c> methods.
     /// </remarks>
     public string Id { get; set; } = "";
 
     /// <summary>
     ///     Enhance missing fields in the element
     /// </summary>
-    /// <param name="other">Other element to enhance with</param>
+    /// <remarks>
+    ///     Called by subclass <c>Enhance</c> methods to propagate the element identity from
+    ///     <paramref name="other"/> when the current <see cref="Id"/> is empty. This is a no-op if
+    ///     <paramref name="other"/>'s <see cref="Id"/> is also empty.
+    /// </remarks>
+    /// <param name="other">Source element whose <see cref="Id"/> supplies the fallback value. Must not be null.</param>
     protected void EnhanceElement(SpdxElement other)
     {
         // Populate the ID if missing

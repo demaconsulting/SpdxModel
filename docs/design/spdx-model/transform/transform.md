@@ -1,36 +1,55 @@
-# Transform Subsystem Design
-
-## Purpose
+### Transform
 
 The Transform subsystem provides utilities for manipulating SPDX documents in memory, enabling
 consumers to programmatically build and modify SPDX relationship graphs.
 
-## Units
+#### Overview
 
-| Unit | File | Responsibility |
-| ---- | ---- | -------------- |
-| `SpdxRelationships` | `Transform/SpdxRelationships.cs` | Utilities for adding and managing SPDX relationships |
+The Transform subsystem contains a single unit, `SpdxRelationships`, which provides static
+helper methods for adding relationships to an `SpdxDocument`. It handles deduplication
+automatically so that callers do not need to check for existing relationships before adding new
+ones.
 
-## Design
+#### Interfaces
 
-### SpdxRelationships
+**SpdxRelationships.Add (batch)**: Adds multiple relationships to a document with deduplication.
 
-`SpdxRelationships` is a static utility class that provides helper methods for adding relationships
-to an `SpdxDocument`. It ensures relationships are added without duplication and in a consistent
-manner, reducing boilerplate for consumers constructing SPDX documents programmatically.
+- *Type*: In-process .NET public API
+- *Role*: Provider
+- *Contract*: Accepts an `SpdxDocument`, an `IEnumerable<SpdxRelationship>`, and an optional
+  `replace` flag. Adds each relationship if not already present; when `replace` is `true`,
+  existing relationships with matching source and target elements are removed first.
+- *Constraints*: The source element ID must always exist in the document; the target element ID
+  must either exist in the document, be `NOASSERTION`, or use the `DocumentRef-` external-reference
+  prefix. An `ArgumentException` is thrown when either constraint is violated.
+- *Atomicity*: When `ArgumentException` is thrown, the document is left in its original state —
+  no relationships are added or removed.
 
-Key methods:
+**SpdxRelationships.Add (single)**: Adds a single relationship to a document if not already present.
 
-- `Add(...)` — adds a single relationship to the document if it does not already exist
-- `Add(...)` — adds multiple relationships, deduplicating against existing entries, with an optional `replace` parameter
+- *Type*: In-process .NET public API
+- *Role*: Provider
+- *Contract*: Accepts an `SpdxDocument` and an `SpdxRelationship`. If the same relationship
+  (same source, target, and type) already exists it is enhanced; otherwise a deep copy is appended.
+- *Constraints*: The source element ID must exist in the document. The target element ID must
+  either exist in the document, be `NOASSERTION`, or use the `DocumentRef-` prefix.
+- *Atomicity*: When `ArgumentException` is thrown, the document is left in its original state —
+  no relationship is added or removed.
 
-Key design decisions:
+#### Design
 
-- Static class with no instance state to simplify usage
-- Deduplication logic prevents malformed documents with duplicate relationship entries
+`SpdxRelationships` is a static class with no instance state:
 
-## Dependencies
+The batch `Add` overload executes in three phases to preserve atomicity:
 
-The Transform subsystem depends on:
+1. **Pre-validate**: Materialize the incoming enumerable into an array and call the internal
+   `ValidateRelationship` helper on every relationship. If any validation fails an
+   `ArgumentException` is thrown immediately and the document is left unchanged.
+2. **Replace** (when `replace` is `true`): Remove all existing relationships whose source and
+   target element IDs match any incoming relationship, using `SpdxRelationship.SameElements`
+   (type-agnostic comparison).
+3. **Add**: Call the internal `AddValidated` helper for each incoming relationship. `AddValidated`
+   searches for an existing match using `SpdxRelationship.Same` (type-inclusive); if found it
+   calls `Enhance`, otherwise it appends a `DeepCopy`.
 
-- `SpdxDocument` and `SpdxRelationship` data model units
+The single `Add` overload delegates directly: it calls `ValidateRelationship` then `AddValidated`.

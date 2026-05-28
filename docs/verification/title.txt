@@ -1,0 +1,14 @@
+---
+title: SpdxModel Verification Design
+subtitle: SPDX document model for .NET
+author: DEMA Consulting
+description: Verification Design Document for SpdxModel
+lang: en-US
+keywords:
+  - Verification
+  - Testing
+  - SpdxModel
+  - C#
+  - .NET
+  - SPDX
+---

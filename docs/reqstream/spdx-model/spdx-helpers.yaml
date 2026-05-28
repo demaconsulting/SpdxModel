@@ -1,35 +1,43 @@
 ---
-# SpdxHelpers Unit Requirements
-#
-# This file defines requirements for the SpdxHelpers unit.
+# SpdxHelpers unit requirements
 
 sections:
-  - title: SpdxHelpers Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Helpers-DateTime
-        title: The library shall validate SPDX date-time strings against the ISO 8601 UTC format.
-        tags:
-          - data-model
-          - validation
-        justification: |
-          SPDX requires all date-time fields to conform to ISO 8601 UTC format
-          (YYYY-MM-DDThh:mm:ssZ). Consistent validation of this format across all
-          date-time fields ensures compliant SPDX documents are produced.
-        tests:
-          - SpdxCreationInformation_Validate_InvalidCreatedDate
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxHelpers Requirements
+        requirements:
+          - id: SpdxModel-Data-Helpers-DateTime
+            title: The library shall validate SPDX date-time strings against the ISO 8601 UTC format.
+            tags:
+              - data-model
+              - validation
+            justification: |
+              SPDX requires all date-time fields to conform to ISO 8601 UTC format
+              (YYYY-MM-DDThh:mm:ssZ). Consistent validation of this format across all
+              date-time fields ensures compliant SPDX documents are produced.
+              Absent or empty date-time values (null, empty string) shall be treated as
+              not-set and shall be considered valid.
+            tests:
+              - SpdxCreationInformation_Validate_InvalidCreatedDate_ReportsIssue
+              - SpdxHelpers_IsValidSpdxDateTime_NullInput_ReturnsTrue
+              - SpdxHelpers_IsValidSpdxDateTime_EmptyInput_ReturnsTrue
+              - SpdxHelpers_IsValidSpdxDateTime_ValidFormat_ReturnsTrue
+              - SpdxHelpers_IsValidSpdxDateTime_InvalidFormat_ReturnsFalse
 
-      - id: SpdxModel-Data-Helpers-EnhanceString
-        title: >-
-          When merging optional SPDX fields, the library shall prefer a concrete
-          value over NOASSERTION or absent values.
-        tags:
-          - data-model
-        justification: |
-          When combining partial SPDX data from multiple sources, individual fields may be
-          null, empty, NOASSERTION, or a concrete value. Preferring a concrete value ensures
-          meaningful data is preserved regardless of the order in which sources are merged.
-        tests:
-          - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
-          - SpdxFile_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxSnippet_Enhance_AddsOrUpdatesInformationCorrectly
-          - SpdxCreationInformation_Enhance_AddsOrUpdatesInformationCorrectly
+          - id: SpdxModel-Data-Helpers-EnhanceString
+            title: >-
+              When merging optional SPDX fields, the library shall prefer a concrete
+              value over NOASSERTION or absent values.
+            tags:
+              - data-model
+            justification: |
+              When combining partial SPDX data from multiple sources, individual fields may be
+              null, empty, NOASSERTION, or a concrete value. Preferring a concrete value ensures
+              meaningful data is preserved regardless of the order in which sources are merged.
+            tests:
+              - SpdxPackage_Enhance_AddsOrUpdatesPackagesCorrectly
+              - SpdxFile_Enhance_MatchingAndNewFiles_MergesCorrectly
+              - SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCorrectly
+              - SpdxCreationInformation_Enhance_WithMissingFieldsInBase_AddsOrUpdatesInformationCorrectly
+              - SpdxHelpers_EnhanceString_ConcretePreferredOverNoAssertion_ReturnsConcreteValue
+              - SpdxHelpers_EnhanceString_NullInputs_ReturnsNull

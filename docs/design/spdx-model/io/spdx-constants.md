@@ -1,24 +1,33 @@
-# SpdxConstants Unit Design
+### SpdxConstants
 
-## Purpose
+#### Purpose
 
 `SpdxConstants` is a static class that centralizes all JSON property-name strings used when
 serializing and deserializing SPDX 2.x JSON documents. It eliminates hard-coded string literals
-scattered throughout the IO subsystem and provides a single place to update field names if the
+throughout the IO subsystem and provides a single place to update field names if the SPDX
 specification changes.
 
-## Design
+#### Data Model
 
-`SpdxConstants` is a non-instantiable `internal` static class containing only `internal const string` fields.
-Each constant corresponds to one JSON property name in the SPDX 2.x JSON schema (e.g.,
-`FieldSpdxId`, `FieldName`, `FieldVersionInfo`).
+N/A - `SpdxConstants` contains only `internal const string` fields and no instance state.
+Representative constants include `FieldSpdxId` (`"SPDXID"`), `FieldName` (`"name"`),
+`FieldVersionInfo` (`"versionInfo"`), `FieldPackages` (`"packages"`),
+`FieldRelationships` (`"relationships"`), `FieldAnnotationType` (`"annotationType"`) and over
+sixty other property-name constants covering all SPDX 2.x JSON fields.
 
-Key design decisions:
+#### Key Methods
 
-- All constants are `const string` to allow use as switch-case labels and compile-time
-  embedding.
-- No logic or state — purely a name registry.
+N/A - `SpdxConstants` contains no methods; it is a pure name registry of `const string` values.
 
-## Dependencies
+#### Error Handling
 
-- None (no external dependencies; consumed by `Spdx2JsonDeserializer` and `Spdx2JsonSerializer`)
+N/A - no logic is executed; all values are compile-time constants.
+
+#### Dependencies
+
+N/A - no external dependencies; consumed by `Spdx2JsonDeserializer` and `Spdx2JsonSerializer`.
+
+#### Callers
+
+- **Spdx2JsonDeserializer** — uses constants as JSON property name keys when reading elements.
+- **Spdx2JsonSerializer** — uses constants as JSON property name keys when writing elements.

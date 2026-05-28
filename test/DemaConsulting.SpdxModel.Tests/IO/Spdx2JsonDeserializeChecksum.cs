@@ -26,14 +26,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX checksums to <see cref="SpdxChecksum" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX checksum elements using xUnit v3 as the test
+///     framework. Each test constructs inline JSON and verifies
+///     the resulting <see cref="SpdxChecksum"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeChecksum
 {
     /// <summary>
     ///     Tests deserializing a checksum.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeChecksum_CorrectResults()
+    /// <remarks>
+    ///     Verifies that the algorithm and checksumValue JSON fields are mapped to the
+    ///     corresponding <see cref="SpdxChecksum"/> properties when a single checksum object
+    ///     is deserialized.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeChecksum_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a checksum
         var json = new JsonObject
@@ -46,15 +55,20 @@ public class Spdx2JsonDeserializeChecksum
         var checksum = Spdx2JsonDeserializer.DeserializeChecksum(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksum.Algorithm);
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksum.Value);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, checksum.Algorithm);
+        Assert.Equal("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksum.Value);
     }
 
     /// <summary>
     ///     Tests deserializing multiple checksums.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeChecksums_CorrectResults()
+    /// <remarks>
+    ///     Verifies that a JSON array of two checksum objects (SHA1 and MD5) is deserialized
+    ///     to an array of two <see cref="SpdxChecksum"/> instances with correct algorithm and
+    ///     value mappings.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeChecksums_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple checksums
         var json = new JsonArray
@@ -75,10 +89,10 @@ public class Spdx2JsonDeserializeChecksum
         var checksums = Spdx2JsonDeserializer.DeserializeChecksums(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.HasCount(2, checksums);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
-        Assert.AreEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksums[0].Value);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
-        Assert.AreEqual("d41d8cd98f00b204e9800998ecf8427e", checksums[1].Value);
+        Assert.Equal(2, checksums.Length);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, checksums[0].Algorithm);
+        Assert.Equal("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", checksums[0].Value);
+        Assert.Equal(SpdxChecksumAlgorithm.Md5, checksums[1].Algorithm);
+        Assert.Equal("d41d8cd98f00b204e9800998ecf8427e", checksums[1].Value);
     }
 }

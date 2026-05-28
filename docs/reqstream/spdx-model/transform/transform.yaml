@@ -1,22 +1,23 @@
 ---
-# SpdxModel Transform Subsystem Requirements
-#
-# This is the subsystem-level requirements file for the Transform subsystem.
-# Unit requirements are in the sibling unit file:
-#   spdx-relationships.yaml
+# Transform subsystem requirements
 
 sections:
-  - title: Transform Subsystem Requirements
-    requirements:
-      - id: SpdxModel-Transform-Utilities
-        title: The library shall provide utilities for transforming SPDX document relationships.
-        tags:
-          - transform
-        justification: |
-          Transform utilities enable programmatic modification of SPDX documents, starting with
-          relationship management. This supports use cases where documents need to be modified or
-          enriched after initial creation.
-        children:
-          - SpdxModel-Data-RelationshipUtilities
-        tests:
-          - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists
+  - title: SpdxModel Requirements
+    sections:
+      - title: Transform Requirements
+        requirements:
+          - id: SpdxModel-Transform-Utilities
+            title: The library shall provide utilities for transforming SPDX document relationships.
+            tags:
+              - transform
+            justification: |
+              Transform utilities enable programmatic modification of SPDX documents, starting with
+              relationship management. This supports use cases where documents need to be modified or
+              enriched after initial creation.
+            children:
+              - SpdxModel-Transform-SpdxRelationships-AddSingle
+              - SpdxModel-Transform-SpdxRelationships-AddMultiple
+              - SpdxModel-Transform-SpdxRelationships-Validate
+              - SpdxModel-Transform-SpdxRelationships-Atomicity
+            tests:
+              - SpdxModelTransform_AddRelationship_ToDocument_RelationshipPersists

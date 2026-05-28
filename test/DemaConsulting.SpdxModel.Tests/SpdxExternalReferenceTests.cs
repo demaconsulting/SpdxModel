@@ -23,14 +23,22 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxExternalReference" /> class.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Covers the Same equality comparer, DeepCopy, Enhance merge, Validate, and the
+///     SpdxReferenceCategory text-conversion extension methods (FromText/ToText).
+/// </remarks>
 public class SpdxExternalReferenceTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.Same" /> comparer compares external references correctly.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_SameComparer_ComparesCorrectly()
+    /// <remarks>
+    ///     Verifies that two references with the same Category, Type, and Locator are equal
+    ///     regardless of Comment differences, that differing field values produce inequality,
+    ///     and that equal references produce identical hash codes.
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_SameComparer_EqualAndUnequalInstances_ComparesCorrectly()
     {
         // Arrange: Create three external references with different properties
         var r1 = new SpdxExternalReference
@@ -53,28 +61,32 @@ public class SpdxExternalReferenceTests
             Locator = "pkg:nuget/SomePackage@0.0.0"
         };
 
-        // Assert: Verify external-references compare to themselves
-        Assert.IsTrue(SpdxExternalReference.Same.Equals(r1, r1));
-        Assert.IsTrue(SpdxExternalReference.Same.Equals(r2, r2));
-        Assert.IsTrue(SpdxExternalReference.Same.Equals(r3, r3));
+        // Act / Assert: Verify external-references compare to themselves
+        Assert.True(SpdxExternalReference.Same.Equals(r1, r1));
+        Assert.True(SpdxExternalReference.Same.Equals(r2, r2));
+        Assert.True(SpdxExternalReference.Same.Equals(r3, r3));
 
         // Assert: Verify external-references compare correctly
-        Assert.IsTrue(SpdxExternalReference.Same.Equals(r1, r2));
-        Assert.IsTrue(SpdxExternalReference.Same.Equals(r2, r1));
-        Assert.IsFalse(SpdxExternalReference.Same.Equals(r1, r3));
-        Assert.IsFalse(SpdxExternalReference.Same.Equals(r3, r1));
-        Assert.IsFalse(SpdxExternalReference.Same.Equals(r2, r3));
-        Assert.IsFalse(SpdxExternalReference.Same.Equals(r3, r2));
+        Assert.True(SpdxExternalReference.Same.Equals(r1, r2));
+        Assert.True(SpdxExternalReference.Same.Equals(r2, r1));
+        Assert.False(SpdxExternalReference.Same.Equals(r1, r3));
+        Assert.False(SpdxExternalReference.Same.Equals(r3, r1));
+        Assert.False(SpdxExternalReference.Same.Equals(r2, r3));
+        Assert.False(SpdxExternalReference.Same.Equals(r3, r2));
 
         // Assert: Verify same external-references have identical hashes
-        Assert.AreEqual(SpdxExternalReference.Same.GetHashCode(r1), SpdxExternalReference.Same.GetHashCode(r2));
+        Assert.Equal(SpdxExternalReference.Same.GetHashCode(r1), SpdxExternalReference.Same.GetHashCode(r2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_DeepCopy_CreatesEqualButDistinctInstance()
+    /// <remarks>
+    ///     Verifies that the copy has equal field values to the original and that it is a distinct
+    ///     object reference (not the same instance).
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_DeepCopy_WithAllFields_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create an external reference
         var r1 = new SpdxExternalReference
@@ -89,22 +101,26 @@ public class SpdxExternalReferenceTests
         var r2 = r1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(r1, r2, SpdxExternalReference.Same);
-        Assert.AreEqual(r1.Category, r2.Category);
-        Assert.AreEqual(r1.Type, r2.Type);
-        Assert.AreEqual(r1.Locator, r2.Locator);
-        Assert.AreEqual(r1.Comment, r2.Comment);
+        Assert.Equal(r1, r2, SpdxExternalReference.Same);
+        Assert.Equal(r1.Category, r2.Category);
+        Assert.Equal(r1.Type, r2.Type);
+        Assert.Equal(r1.Locator, r2.Locator);
+        Assert.Equal(r1.Comment, r2.Comment);
 
         // Assert: Verify deep-copy has distinct instance
-        Assert.IsFalse(ReferenceEquals(r1, r2));
+        Assert.False(ReferenceEquals(r1, r2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.Enhance(SpdxExternalReference[], SpdxExternalReference[])" /> method
     ///     adds or updates information correctly.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_Enhance_AddsOrUpdatesInformationCorrectly()
+    /// <remarks>
+    ///     Verifies that matching entries are enhanced in place and unmatched entries from the
+    ///     source array are appended as new independent copies.
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_Enhance_WithMatchingAndNewEntries_MergesCorrectly()
     {
         // Arrange: Create an array of external references
         var references = new[]
@@ -137,21 +153,25 @@ public class SpdxExternalReferenceTests
             ]);
 
         // Assert: Verify the references array has correct information
-        Assert.HasCount(2, references);
-        Assert.AreEqual(SpdxReferenceCategory.Security, references[0].Category);
-        Assert.AreEqual("cpe23Type", references[0].Type);
-        Assert.AreEqual("cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*", references[0].Locator);
-        Assert.AreEqual("CPE23 Standard Identifier", references[0].Comment);
-        Assert.AreEqual(SpdxReferenceCategory.PackageManager, references[1].Category);
-        Assert.AreEqual("purl", references[1].Type);
-        Assert.AreEqual("pkg:nuget/SomePackage@0.0.0", references[1].Locator);
+        Assert.Equal(2, references.Length);
+        Assert.Equal(SpdxReferenceCategory.Security, references[0].Category);
+        Assert.Equal("cpe23Type", references[0].Type);
+        Assert.Equal("cpe:2.3:a:company:product:0.0.0:*:*:*:*:*:*:*", references[0].Locator);
+        Assert.Equal("CPE23 Standard Identifier", references[0].Comment);
+        Assert.Equal(SpdxReferenceCategory.PackageManager, references[1].Category);
+        Assert.Equal("purl", references[1].Type);
+        Assert.Equal("pkg:nuget/SomePackage@0.0.0", references[1].Locator);
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid categories.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_Validate_InvalidCategory()
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when the Category field is
+    ///     <see cref="SpdxReferenceCategory.Missing"/>.
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_Validate_InvalidCategory_ReportsIssue()
     {
         // Arrange: Create an external reference with invalid category
         var reference = new SpdxExternalReference
@@ -167,14 +187,17 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid category
-        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Package 'Test' Invalid External Reference Category Field - Missing"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid types.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_Validate_InvalidType()
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when the Type field is empty.
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_Validate_InvalidType_ReportsIssue()
     {
         // Arrange: Create an external reference with invalid type
         var reference = new SpdxExternalReference
@@ -190,14 +213,17 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid type
-        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Package 'Test' Invalid External Reference Type Field - Empty"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxExternalReference.Validate" /> method reports invalid locators.
     /// </summary>
-    [TestMethod]
-    public void SpdxExternalReference_Validate_InvalidLocator()
+    /// <remarks>
+    ///     Verifies that Validate appends an issue message when the Locator field is empty.
+    /// </remarks>
+    [Fact]
+    public void SpdxExternalReference_Validate_InvalidLocator_ReportsIssue()
     {
         // Arrange: Create an external reference with invalid locator
         var reference = new SpdxExternalReference
@@ -213,75 +239,103 @@ public class SpdxExternalReferenceTests
         reference.Validate("Test", issues);
 
         // Assert: Verify that the validation reports the invalid locator
-        Assert.Contains(issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Package 'Test' Invalid External Reference Locator Field - Empty"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)" /> method with valid input.
     /// </summary>
-    [TestMethod]
-    public void SpdxReferenceCategoryExtensions_FromText_Valid()
+    /// <remarks>
+    ///     Verifies that all recognized category strings, including case variants, map to the
+    ///     expected enum values, and that an empty string maps to Missing.
+    /// </remarks>
+    [Fact]
+    public void SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly()
     {
-        Assert.AreEqual(SpdxReferenceCategory.Missing, SpdxReferenceCategoryExtensions.FromText(""));
-        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("SECURITY"));
-        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("security"));
-        Assert.AreEqual(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("Security"));
-        Assert.AreEqual(SpdxReferenceCategory.PackageManager,
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all recognized category strings map to expected enum values
+        Assert.Equal(SpdxReferenceCategory.Missing, SpdxReferenceCategoryExtensions.FromText(""));
+        Assert.Equal(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("SECURITY"));
+        Assert.Equal(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("security"));
+        Assert.Equal(SpdxReferenceCategory.Security, SpdxReferenceCategoryExtensions.FromText("Security"));
+        Assert.Equal(SpdxReferenceCategory.PackageManager,
             SpdxReferenceCategoryExtensions.FromText("PACKAGE-MANAGER"));
-        Assert.AreEqual(SpdxReferenceCategory.PackageManager,
+        Assert.Equal(SpdxReferenceCategory.PackageManager,
             SpdxReferenceCategoryExtensions.FromText("PACKAGE_MANAGER"));
-        Assert.AreEqual(SpdxReferenceCategory.PersistentId, SpdxReferenceCategoryExtensions.FromText("PERSISTENT-ID"));
-        Assert.AreEqual(SpdxReferenceCategory.Other, SpdxReferenceCategoryExtensions.FromText("OTHER"));
+        Assert.Equal(SpdxReferenceCategory.PersistentId, SpdxReferenceCategoryExtensions.FromText("PERSISTENT-ID"));
+        Assert.Equal(SpdxReferenceCategory.Other, SpdxReferenceCategoryExtensions.FromText("OTHER"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.FromText(string)" /> method with invalid input.
     /// </summary>
-    [TestMethod]
-    public void SpdxReferenceCategoryExtensions_FromText_Invalid()
+    /// <remarks>
+    ///     Verifies that FromText throws <see cref="InvalidOperationException"/> with a message
+    ///     identifying the unsupported value when given an unrecognized category string.
+    /// </remarks>
+    [Fact]
+    public void SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException()
     {
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify that FromText throws for an unrecognized category string
         var exception =
-            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
-        Assert.AreEqual("Unsupported SPDX Reference Category 'invalid'", exception.Message);
+            Assert.Throws<InvalidOperationException>(() => SpdxReferenceCategoryExtensions.FromText("invalid"));
+        Assert.Equal("Unsupported SPDX Reference Category 'invalid'", exception.Message);
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with valid input.
     /// </summary>
-    [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_Valid()
+    /// <remarks>
+    ///     Verifies that all known enum values map to their expected SPDX text representations.
+    /// </remarks>
+    [Fact]
+    public void SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly()
     {
-        Assert.AreEqual("SECURITY", SpdxReferenceCategory.Security.ToText());
-        Assert.AreEqual("PACKAGE-MANAGER", SpdxReferenceCategory.PackageManager.ToText());
-        Assert.AreEqual("PERSISTENT-ID", SpdxReferenceCategory.PersistentId.ToText());
-        Assert.AreEqual("OTHER", SpdxReferenceCategory.Other.ToText());
+        // Arrange: (no external state needed)
+
+        // Act / Assert: Verify all known enum values map to expected text representations
+        Assert.Equal("SECURITY", SpdxReferenceCategory.Security.ToText());
+        Assert.Equal("PACKAGE-MANAGER", SpdxReferenceCategory.PackageManager.ToText());
+        Assert.Equal("PERSISTENT-ID", SpdxReferenceCategory.PersistentId.ToText());
+        Assert.Equal("OTHER", SpdxReferenceCategory.Other.ToText());
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with invalid input.
     /// </summary>
-    [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_InvalidCategory()
+    /// <remarks>
+    ///     Verifies that ToText throws <see cref="InvalidOperationException"/> with the
+    ///     unsupported-category message when called with an unrecognized enum value.
+    /// </remarks>
+    [Fact]
+    public void SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException()
     {
         // Arrange: Create an invalid reference category
         var invalidCategory = (SpdxReferenceCategory)1000;
 
-        // Act & Assert: Verify that ToText throws an exception for unsupported category
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => invalidCategory.ToText());
-        Assert.AreEqual("Unsupported SPDX Reference Category '1000'", exception.Message);
+        // Act / Assert: Verify that ToText throws an exception for unsupported category
+        var exception = Assert.Throws<InvalidOperationException>(() => invalidCategory.ToText());
+        Assert.Equal("Unsupported SPDX Reference Category '1000'", exception.Message);
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxReferenceCategoryExtensions.ToText" /> method with Missing category.
     /// </summary>
-    [TestMethod]
-    public void SpdxReferenceCategoryExtensions_ToText_MissingCategory()
+    /// <remarks>
+    ///     Verifies that ToText throws <see cref="InvalidOperationException"/> with a specific
+    ///     message when called with <see cref="SpdxReferenceCategory.Missing"/>.
+    /// </remarks>
+    [Fact]
+    public void SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException()
     {
         // Arrange: Use Missing reference category
         var category = SpdxReferenceCategory.Missing;
 
-        // Act & Assert: Verify that ToText throws an exception for Missing category
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => category.ToText());
-        Assert.AreEqual("Attempt to serialize missing SPDX Reference Category", exception.Message);
+        // Act / Assert: Verify that ToText throws an exception for Missing category
+        var exception = Assert.Throws<InvalidOperationException>(() => category.ToText());
+        Assert.Equal("Attempt to serialize missing SPDX Reference Category", exception.Message);
     }
 }

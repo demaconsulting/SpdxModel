@@ -25,14 +25,13 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxExtractedLicensingInfo" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeExtractedLicensingInfo
 {
     /// <summary>
     ///     Tests serializing an extracted licensing info.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfo_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfo_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxExtractedLicensingInfo object
         var info = new SpdxExtractedLicensingInfo
@@ -58,8 +57,8 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
     /// <summary>
     ///     Tests serializing multiple extracted licensing infos.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfos_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeExtractedLicensingInfos_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample array of SpdxExtractedLicensingInfo objects
         var info = new[]
@@ -78,8 +77,8 @@ public class Spdx2JsonSerializeExtractedLicensingInfo
         var json = Spdx2JsonSerializer.SerializeExtractedLicensingInfos(info);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(1, json.Count);
+        Assert.NotNull(json);
+        Assert.Single(json);
         SpdxJsonHelpers.AssertEqual("MIT", json[0]?["licenseId"]);
         SpdxJsonHelpers.AssertEqual("This is the MIT license", json[0]?["extractedText"]);
         SpdxJsonHelpers.AssertEqual("MIT License", json[0]?["name"]);

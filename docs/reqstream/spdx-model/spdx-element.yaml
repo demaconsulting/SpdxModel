@@ -1,20 +1,19 @@
 ---
-# SpdxElement Unit Requirements
-#
-# This file defines requirements for the SpdxElement unit.
+# SpdxElement unit requirements
 
 sections:
-  - title: SpdxElement Unit Requirements
-    requirements:
-      - id: SpdxModel-Data-Element
-        title: Every SPDX element shall carry a unique identifier in the form SPDXRef-<name>.
-        tags:
-          - data-model
-        justification: |
-          Every SPDX element (document, package, file, snippet) must carry a unique SPDX
-          identifier in the form SPDXRef-<name>. Consistent identity handling across the
-          entire object model enables element lookup and traversal.
-        tests:
-          - SpdxDocument_Validate_InvalidId
-          - SpdxDocument_GetAllElements_Correct
-          - SpdxDocument_GetElement_Correct
+  - title: SpdxModel Requirements
+    sections:
+      - title: SpdxElement Requirements
+        requirements:
+          - id: SpdxModel-Data-Element
+            title: Every SPDX element shall carry a unique identifier in the form SPDXRef-<name>.
+            tags:
+              - data-model
+            justification: |
+              Every SPDX element (document, package, file, snippet) must carry a unique SPDX
+              identifier in the form SPDXRef-<name>. Consistent identity handling across the
+              entire object model enables element lookup and traversal.
+            tests:
+              - SpdxElement_Id_ValidFormat_PassesValidation
+              - SpdxElement_Id_InvalidFormat_ReportsValidationIssue

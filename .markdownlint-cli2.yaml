@@ -52,3 +52,4 @@ ignores:
   - "**/3rd-party/**"
   - "**/AGENT_REPORT_*.md"
   - "**/.agent-logs/**"
+  - "artifacts/**"

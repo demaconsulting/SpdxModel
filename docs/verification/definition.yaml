@@ -1,0 +1,30 @@
+---
+resource-path: [docs/verification, docs/template]
+input-files:
+  - docs/verification/title.txt
+  - docs/verification/introduction.md
+  - docs/verification/spdx-model.md
+  - docs/verification/spdx-model/spdx-annotation.md
+  - docs/verification/spdx-model/spdx-checksum.md
+  - docs/verification/spdx-model/spdx-creation-information.md
+  - docs/verification/spdx-model/spdx-document.md
+  - docs/verification/spdx-model/spdx-element.md
+  - docs/verification/spdx-model/spdx-external-document-reference.md
+  - docs/verification/spdx-model/spdx-external-reference.md
+  - docs/verification/spdx-model/spdx-extracted-licensing-info.md
+  - docs/verification/spdx-model/spdx-file.md
+  - docs/verification/spdx-model/spdx-helpers.md
+  - docs/verification/spdx-model/spdx-license-element.md
+  - docs/verification/spdx-model/spdx-package-verification-code.md
+  - docs/verification/spdx-model/spdx-package.md
+  - docs/verification/spdx-model/spdx-relationship.md
+  - docs/verification/spdx-model/spdx-snippet.md
+  - docs/verification/spdx-model/io/io.md
+  - docs/verification/spdx-model/io/spdx-constants.md
+  - docs/verification/spdx-model/io/spdx-2-json-serializer.md
+  - docs/verification/spdx-model/io/spdx-2-json-deserializer.md
+  - docs/verification/spdx-model/transform/transform.md
+  - docs/verification/spdx-model/transform/spdx-relationships.md
+template: template.html
+table-of-contents: true
+number-sections: true

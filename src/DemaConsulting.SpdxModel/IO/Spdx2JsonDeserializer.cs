@@ -26,14 +26,22 @@ namespace DemaConsulting.SpdxModel.IO;
 /// <summary>
 ///     JSON Deserializer class
 /// </summary>
+/// <remarks>
+///     This class is stateless: all methods are static and carry no instance state, making
+///     it safe for concurrent calls from multiple threads. Unrecognised JSON fields are
+///     silently ignored during deserialization.
+/// </remarks>
 public static class Spdx2JsonDeserializer
 {
     /// <summary>
     ///     Deserialize SPDX Document
     /// </summary>
+    /// <remarks>
+    ///     Parses the JSON string into a DOM and delegates to <see cref="DeserializeDocument"/>.
+    /// </remarks>
     /// <param name="json">Json string</param>
     /// <returns>SPDX Document</returns>
-    /// <exception cref="JsonException">thrown on error</exception>
+    /// <exception cref="JsonException">Thrown when <paramref name="json"/> is not valid JSON text or does not represent a JSON object.</exception>
     public static SpdxDocument Deserialize(string json)
     {
         // Deserialize the Json
@@ -47,6 +55,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize the SPDX Document
     /// </summary>
+    /// <remarks>
+    ///     Maps all SPDX 2.x JSON top-level fields to the <see cref="SpdxDocument"/> object model.
+    ///     Fields absent from the JSON produce empty strings, empty arrays, or null optional values.
+    /// </remarks>
     /// <param name="json">Json Document Node</param>
     /// <returns>SPDX Document</returns>
     public static SpdxDocument DeserializeDocument(JsonNode json)
@@ -76,8 +88,12 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Creation Information
     /// </summary>
+    /// <remarks>
+    ///     Returns a default-valued <see cref="SpdxCreationInformation"/> when <paramref name="json"/>
+    ///     is null (i.e., the <c>creationInfo</c> key is absent from the document).
+    /// </remarks>
     /// <param name="json">Json Creation Information Node</param>
-    /// <returns>SPDX Document</returns>
+    /// <returns>Populated <see cref="SpdxCreationInformation"/>; fields absent in the JSON default to empty strings or empty arrays.</returns>
     public static SpdxCreationInformation DeserializeCreationInformation(JsonNode? json)
     {
         return new SpdxCreationInformation
@@ -92,6 +108,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX External Document References
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json External Document References Array</param>
     /// <returns>SPDX External Document References</returns>
     public static SpdxExternalDocumentReference[] DeserializeExternalDocumentReferences(JsonArray? json)
@@ -103,6 +122,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX External Document Reference
     /// </summary>
+    /// <remarks>
+    ///     Deserializes a single external document reference including its nested checksum object.
+    /// </remarks>
     /// <param name="json">Json External Document Reference Node</param>
     /// <returns>SPDX External Document Reference</returns>
     public static SpdxExternalDocumentReference DeserializeExternalDocumentReference(JsonNode? json)
@@ -118,6 +140,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Extracted Licensing Infos
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Extracted Licensing Info Array</param>
     /// <returns>SPDX Extracted Licensing Infos</returns>
     public static SpdxExtractedLicensingInfo[] DeserializeExtractedLicensingInfos(JsonArray? json)
@@ -128,6 +153,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Extracted Licensing Info
     /// </summary>
+    /// <remarks>
+    ///     Deserializes a single extracted licensing info entry; optional fields default to null.
+    /// </remarks>
     /// <param name="json">Json Extracted Licensing Info Node</param>
     /// <returns>SPDX Extracted Licensing Info</returns>
     public static SpdxExtractedLicensingInfo DeserializeExtractedLicensingInfo(JsonNode? json)
@@ -145,6 +173,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Files
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Files Array</param>
     /// <returns>SPDX Files</returns>
     public static SpdxFile[] DeserializeFiles(JsonArray? json)
@@ -155,6 +186,11 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX File
     /// </summary>
+    /// <remarks>
+    ///     Deserializes a single SPDX file entry including file types, checksums, and annotations.
+    ///     File type strings are converted to <see cref="SpdxFileType"/> enum values via
+    ///     <see cref="SpdxFileTypeExtensions.FromText"/>.
+    /// </remarks>
     /// <param name="json">Json File Node</param>
     /// <returns>SPDX File</returns>
     public static SpdxFile DeserializeFile(JsonNode? json)
@@ -181,6 +217,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Packages
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Packages Array</param>
     /// <returns>SPDX Packages</returns>
     public static SpdxPackage[] DeserializePackages(JsonArray? json)
@@ -191,6 +230,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Package
     /// </summary>
+    /// <remarks>
+    ///     Deserializes a single SPDX package entry. Optional fields are mapped to null or empty
+    ///     string when absent from the JSON.
+    /// </remarks>
     /// <param name="json">Json Package Node</param>
     /// <returns>SPDX Package</returns>
     public static SpdxPackage DeserializePackage(JsonNode? json)
@@ -231,6 +274,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Snippets
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Snippets Array</param>
     /// <returns>SPDX Snippets</returns>
     public static SpdxSnippet[] DeserializeSnippets(JsonArray? json)
@@ -241,6 +287,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Snippet
     /// </summary>
+    /// <remarks>
+    ///     Byte-range and line-range values are extracted from the nested <c>ranges</c> array
+    ///     using the private <c>Find</c> helper. Values absent from the JSON default to 0.
+    /// </remarks>
     /// <param name="json">Json Snippet Node</param>
     /// <returns>SPDX Snippet</returns>
     public static SpdxSnippet DeserializeSnippet(JsonNode? json)
@@ -271,6 +321,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Relationships
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Relationships Array</param>
     /// <returns>SPDX Relationships</returns>
     public static SpdxRelationship[] DeserializeRelationships(JsonArray? json)
@@ -281,6 +334,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Relationship
     /// </summary>
+    /// <remarks>
+    ///     The relationship type string is converted to <see cref="SpdxRelationshipType"/> via
+    ///     <see cref="SpdxRelationshipTypeExtensions.FromText"/>.
+    /// </remarks>
     /// <param name="json">Json Relationship Node</param>
     /// <returns>SPDX Relationship</returns>
     public static SpdxRelationship DeserializeRelationship(JsonNode? json)
@@ -298,6 +355,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Package Verification Code
     /// </summary>
+    /// <remarks>
+    ///     Returns null when <paramref name="json"/> is null (i.e., the field is absent from
+    ///     the package JSON object).
+    /// </remarks>
     /// <param name="json">Json Package Verification Code Node</param>
     /// <returns>SPDX Package Verification Code</returns>
     public static SpdxPackageVerificationCode? DeserializeVerificationCode(JsonNode? json)
@@ -314,6 +375,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX External References
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json External References Array</param>
     /// <returns>SPDX External References</returns>
     public static SpdxExternalReference[] DeserializeExternalReferences(JsonArray? json)
@@ -324,6 +388,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX External Reference
     /// </summary>
+    /// <remarks>
+    ///     The reference category string is converted to <see cref="SpdxReferenceCategory"/> via
+    ///     <see cref="SpdxReferenceCategoryExtensions.FromText"/>.
+    /// </remarks>
     /// <param name="json">Json External Reference Node</param>
     /// <returns>SPDX External Reference</returns>
     public static SpdxExternalReference DeserializeExternalReference(JsonNode? json)
@@ -341,6 +409,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Checksums
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Checksums Array</param>
     /// <returns>SPDX Checksums</returns>
     public static SpdxChecksum[] DeserializeChecksums(JsonArray? json)
@@ -351,6 +422,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Checksum
     /// </summary>
+    /// <remarks>
+    ///     The algorithm string is converted to <see cref="SpdxChecksumAlgorithm"/> via
+    ///     <see cref="SpdxChecksumAlgorithmExtensions.FromText"/>.
+    /// </remarks>
     /// <param name="json">Json Checksum Node</param>
     /// <returns>SPDX Checksum</returns>
     public static SpdxChecksum DeserializeChecksum(JsonNode? json)
@@ -365,6 +440,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Annotations
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when <paramref name="json"/> is null.
+    /// </remarks>
     /// <param name="json">Json Annotations Array</param>
     /// <returns>SPDX Annotations</returns>
     public static SpdxAnnotation[] DeserializeAnnotations(JsonArray? json)
@@ -375,6 +453,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize SPDX Annotation
     /// </summary>
+    /// <remarks>
+    ///     The annotation type string is converted to <see cref="SpdxAnnotationType"/> via
+    ///     <see cref="SpdxAnnotationTypeExtensions.FromText"/>.
+    /// </remarks>
     /// <param name="json">Json Annotation Node</param>
     /// <returns>SPDX Annotation</returns>
     public static SpdxAnnotation DeserializeAnnotation(JsonNode? json)
@@ -392,6 +474,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize JSON String
     /// </summary>
+    /// <remarks>
+    ///     Returns <see cref="string.Empty"/> when the node or the named property is absent.
+    /// </remarks>
     /// <param name="node">Json Node</param>
     /// <param name="name">String Name</param>
     /// <returns>String Value</returns>
@@ -403,6 +488,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize JSON Optional String
     /// </summary>
+    /// <remarks>
+    ///     Returns null when the node or the named property is absent, distinguishing an absent
+    ///     optional field from an empty-string field.
+    /// </remarks>
     /// <param name="node">Json Node</param>
     /// <param name="name">String Name</param>
     /// <returns>String Value or null</returns>
@@ -414,6 +503,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize Json String Array
     /// </summary>
+    /// <remarks>
+    ///     Returns an empty array when the node or the named property is absent.
+    /// </remarks>
     /// <param name="node">Json Node</param>
     /// <param name="name">Strings Name</param>
     /// <returns>String Array</returns>
@@ -425,6 +517,9 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Deserialize Json Boolean
     /// </summary>
+    /// <remarks>
+    ///     Returns null when the named property is absent or cannot be parsed as a boolean.
+    /// </remarks>
     /// <param name="node">Json Node</param>
     /// <param name="name">Bool Name</param>
     /// <returns>Bool value or null</returns>
@@ -436,6 +531,10 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Find a node
     /// </summary>
+    /// <remarks>
+    ///     Delegates to the recursive <see cref="Find(JsonNode?, int, IReadOnlyList{string})"/>
+    ///     overload starting at index 0.
+    /// </remarks>
     /// <param name="node">Starting node</param>
     /// <param name="names">Node search path</param>
     /// <returns>JsonNode or null</returns>
@@ -447,13 +546,18 @@ public static class Spdx2JsonDeserializer
     /// <summary>
     ///     Find a named node
     /// </summary>
+    /// <remarks>
+    ///     Recursively descends through named properties. When an intermediate node is a
+    ///     <see cref="System.Text.Json.Nodes.JsonArray"/>, the method searches each element in
+    ///     order and returns the first non-null match, enabling path traversal through arrays.
+    /// </remarks>
     /// <param name="node">Starting node</param>
     /// <param name="idx">Name index</param>
     /// <param name="names">Names list</param>
     /// <returns>JsonNode if found, else null</returns>
     private static JsonNode? Find(JsonNode? node, int idx, IReadOnlyList<string> names)
     {
-        // Fail if at end
+        // All path segments traversed — return the current node (found)
         if (node == null || idx >= names.Count)
         {
             return node;

@@ -26,14 +26,13 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxDocument" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeDocument
 {
     /// <summary>
     ///     Tests serializing a document to JSON.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeDocument_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeDocument_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
         var document = new SpdxDocument
@@ -87,13 +86,20 @@ public class Spdx2JsonSerializeDocument
         SpdxJsonHelpers.AssertEqual(
             "http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             json["documentNamespace"]);
+
+        // Assert: Verify creationInfo fields
+        SpdxJsonHelpers.AssertEqual("2010-01-29T18:30:22Z", json["creationInfo"]?["created"]);
+        SpdxJsonHelpers.AssertEqual("Tool: LicenseFind-1.0", json["creationInfo"]?["creators"]?[0]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect ()", json["creationInfo"]?["creators"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe ()", json["creationInfo"]?["creators"]?[2]);
+        SpdxJsonHelpers.AssertEqual("3.17", json["creationInfo"]?["licenseListVersion"]);
     }
 
     /// <summary>
     ///     Tests serializing a document to text
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_Serialize_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_Serialize_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxDocument object
         var document = new SpdxDocument
@@ -136,7 +142,7 @@ public class Spdx2JsonSerializeDocument
         var json = JsonNode.Parse(jsonText) as JsonObject;
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
+        Assert.NotNull(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DOCUMENT", json["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("SPDX-2.3", json["spdxVersion"]);
         SpdxJsonHelpers.AssertEqual("SPDX-Tools-v2.0", json["name"]);
@@ -149,5 +155,12 @@ public class Spdx2JsonSerializeDocument
         SpdxJsonHelpers.AssertEqual(
             "http://spdx.org/spdxdocs/spdx-example-json-2.3-444504E0-4F89-41D3-9A0C-0305E82C3301",
             json["documentNamespace"]);
+
+        // Assert: Verify creationInfo fields
+        SpdxJsonHelpers.AssertEqual("2010-01-29T18:30:22Z", json["creationInfo"]?["created"]);
+        SpdxJsonHelpers.AssertEqual("Tool: LicenseFind-1.0", json["creationInfo"]?["creators"]?[0]);
+        SpdxJsonHelpers.AssertEqual("Organization: ExampleCodeInspect ()", json["creationInfo"]?["creators"]?[1]);
+        SpdxJsonHelpers.AssertEqual("Person: Jane Doe ()", json["creationInfo"]?["creators"]?[2]);
+        SpdxJsonHelpers.AssertEqual("3.17", json["creationInfo"]?["licenseListVersion"]);
     }
 }

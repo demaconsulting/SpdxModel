@@ -25,14 +25,13 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxChecksum" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeChecksum
 {
     /// <summary>
     ///     Tests serializing a checksum.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeChecksum_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeChecksum_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample checksum
         var checksum = new SpdxChecksum
@@ -45,7 +44,7 @@ public class Spdx2JsonSerializeChecksum
         var json = Spdx2JsonSerializer.SerializeChecksum(checksum);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
+        Assert.NotNull(json);
         SpdxJsonHelpers.AssertEqual("SHA1", json["algorithm"]);
         SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json["checksumValue"]);
     }
@@ -53,8 +52,8 @@ public class Spdx2JsonSerializeChecksum
     /// <summary>
     ///     Tests serializing multiple checksums.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeChecksums_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeChecksums_ValidInput_CorrectResults()
     {
         // Arrange: Create sample checksums
         var checksums = new[]
@@ -75,8 +74,8 @@ public class Spdx2JsonSerializeChecksum
         var json = Spdx2JsonSerializer.SerializeChecksums(checksums);
 
         // Assert: Verify the JSON is not null and has the expected structure
-        Assert.IsNotNull(json);
-        Assert.AreEqual(2, json.Count);
+        Assert.NotNull(json);
+        Assert.Equal(2, json.Count);
         SpdxJsonHelpers.AssertEqual("SHA1", json[0]?["algorithm"]);
         SpdxJsonHelpers.AssertEqual("2fd4e1c67a2d28f123849ee1bb76e7391b93eb12", json[0]?["checksumValue"]);
         SpdxJsonHelpers.AssertEqual("MD5", json[1]?["algorithm"]);

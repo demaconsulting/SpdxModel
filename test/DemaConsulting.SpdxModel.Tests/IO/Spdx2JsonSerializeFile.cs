@@ -25,14 +25,13 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for serializing <see cref="SpdxFile" /> to JSON.
 /// </summary>
-[TestClass]
 public class Spdx2JsonSerializeFile
 {
     /// <summary>
     ///     Tests serializing a file.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeFile_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeFile_ValidInput_CorrectResults()
     {
         // Arrange: Create a sample SpdxFile object
         var file = new SpdxFile
@@ -111,10 +110,10 @@ public class Spdx2JsonSerializeFile
     /// <summary>
     ///     Tests serializing multiple files.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonSerializer_SerializeFiles_CorrectResults()
+    [Fact]
+    public void Spdx2JsonSerializer_SerializeFiles_ValidInput_CorrectResults()
     {
-        // Arrange
+        // Arrange: Create a sample array containing a single SpdxFile with all fields populated
         var file = new[]
         {
             new SpdxFile
@@ -161,12 +160,12 @@ public class Spdx2JsonSerializeFile
             }
         };
 
-        // Act
+        // Act: Serialize the array of files to JSON
         var json = Spdx2JsonSerializer.SerializeFiles(file);
 
-        // Assert
-        Assert.IsNotNull(json);
-        Assert.AreEqual(1, json.Count);
+        // Assert: Verify the JSON output has the expected structure and values
+        Assert.NotNull(json);
+        Assert.Single(json);
         SpdxJsonHelpers.AssertEqual("SPDXRef-DoapSource", json[0]?["SPDXID"]);
         SpdxJsonHelpers.AssertEqual("./src/org/spdx/parser/DOAPProject.java", json[0]?["fileName"]);
         SpdxJsonHelpers.AssertEqual("SOURCE", json[0]?["fileTypes"]?[0]);

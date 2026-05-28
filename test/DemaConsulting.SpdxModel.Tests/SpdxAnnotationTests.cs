@@ -23,13 +23,22 @@ namespace DemaConsulting.SpdxModel.Tests;
 /// <summary>
 ///     Tests for the <see cref="SpdxAnnotation" /> class.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Uses xUnit v3 as the test framework. Each test method is fully isolated:
+///     no shared state is maintained between tests and all test inputs are constructed
+///     inline within the method body.
+/// </remarks>
 public class SpdxAnnotationTests
 {
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Same" /> comparer compares annotations correctly.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Verifies reflexive equality (each annotation equals itself), cross-equality (two
+    ///     annotations with identical fields but different IDs are equal), and that hash codes
+    ///     match for equal annotations.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_SameComparer_ComparesCorrectly()
     {
         // Arrange: Create three annotations with different properties
@@ -55,27 +64,32 @@ public class SpdxAnnotationTests
             Type = SpdxAnnotationType.Other
         };
 
-        // Assert: Verify annotations compare to themselves
-        Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a1));
-        Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a2));
-        Assert.IsTrue(SpdxAnnotation.Same.Equals(a3, a3));
+        // Act / Assert: Verify annotations compare to themselves
+        Assert.True(SpdxAnnotation.Same.Equals(a1, a1));
+        Assert.True(SpdxAnnotation.Same.Equals(a2, a2));
+        Assert.True(SpdxAnnotation.Same.Equals(a3, a3));
 
-        // Assert: Verify annotations compare correctly
-        Assert.IsTrue(SpdxAnnotation.Same.Equals(a1, a2));
-        Assert.IsTrue(SpdxAnnotation.Same.Equals(a2, a1));
-        Assert.IsFalse(SpdxAnnotation.Same.Equals(a1, a3));
-        Assert.IsFalse(SpdxAnnotation.Same.Equals(a3, a1));
-        Assert.IsFalse(SpdxAnnotation.Same.Equals(a2, a3));
-        Assert.IsFalse(SpdxAnnotation.Same.Equals(a3, a2));
+        // Act / Assert: Verify annotations compare correctly
+        Assert.True(SpdxAnnotation.Same.Equals(a1, a2));
+        Assert.True(SpdxAnnotation.Same.Equals(a2, a1));
+        Assert.False(SpdxAnnotation.Same.Equals(a1, a3));
+        Assert.False(SpdxAnnotation.Same.Equals(a3, a1));
+        Assert.False(SpdxAnnotation.Same.Equals(a2, a3));
+        Assert.False(SpdxAnnotation.Same.Equals(a3, a2));
 
-        // Assert: Verify same annotations have identical hashes
-        Assert.AreEqual(SpdxAnnotation.Same.GetHashCode(a1), SpdxAnnotation.Same.GetHashCode(a2));
+        // Act / Assert: Verify same annotations have identical hashes
+        Assert.Equal(SpdxAnnotation.Same.GetHashCode(a1), SpdxAnnotation.Same.GetHashCode(a2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.DeepCopy" /> method successfully creates a deep copy.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Verifies that the deep copy is logically equal (all fields match) but is a distinct
+    ///     object (not reference-equal), confirming no shared mutable references exist between
+    ///     original and copy.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_DeepCopy_CreatesEqualButDistinctInstance()
     {
         // Arrange: Create an original SpdxAnnotation object
@@ -91,21 +105,27 @@ public class SpdxAnnotationTests
         var a2 = a1.DeepCopy();
 
         // Assert: Verify deep-copy is equal to original
-        Assert.AreEqual(a1, a2, SpdxAnnotation.Same);
-        Assert.AreEqual(a1.Annotator, a2.Annotator);
-        Assert.AreEqual(a1.Date, a2.Date);
-        Assert.AreEqual(a1.Type, a2.Type);
-        Assert.AreEqual(a1.Comment, a2.Comment);
+        Assert.Equal(a1, a2, SpdxAnnotation.Same);
+        Assert.Equal(a1.Annotator, a2.Annotator);
+        Assert.Equal(a1.Date, a2.Date);
+        Assert.Equal(a1.Type, a2.Type);
+        Assert.Equal(a1.Comment, a2.Comment);
 
         // Assert: Verify deep-copy has distinct instance
-        Assert.IsFalse(ReferenceEquals(a1, a2));
+        Assert.False(ReferenceEquals(a1, a2));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Enhance(SpdxAnnotation[], SpdxAnnotation[])" /> method adds or updates
     ///     information correctly
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Verifies two sub-scenarios in one test: (1) an existing annotation is enhanced with
+    ///     additional field values from a matching entry (Id is populated), and (2) a new
+    ///     annotation is appended when no match exists. Both sub-scenarios use the
+    ///     <see cref="SpdxAnnotation.Same"/> comparer for matching.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_Enhance_AddsOrUpdatesInformationCorrectly()
     {
         // Arrange: Create an array of annotations with one annotation
@@ -142,21 +162,26 @@ public class SpdxAnnotationTests
             ]);
 
         // Assert: Verify the annotations array has correct information
-        Assert.HasCount(2, annotations);
-        Assert.AreEqual("SPDXRef-Annotation1", annotations[0].Id);
-        Assert.AreEqual("Person: Malcolm Nixon", annotations[0].Annotator);
-        Assert.AreEqual("2024-05-28T01:30:00Z", annotations[0].Date);
-        Assert.AreEqual(SpdxAnnotationType.Review, annotations[0].Type);
-        Assert.AreEqual("Looks good", annotations[0].Comment);
-        Assert.AreEqual("Person: John Doe", annotations[1].Annotator);
-        Assert.AreEqual("2023-11-20T12:34:23Z", annotations[1].Date);
-        Assert.AreEqual(SpdxAnnotationType.Other, annotations[1].Type);
+        Assert.Equal(2, annotations.Length);
+        Assert.Equal("SPDXRef-Annotation1", annotations[0].Id);
+        Assert.Equal("Person: Malcolm Nixon", annotations[0].Annotator);
+        Assert.Equal("2024-05-28T01:30:00Z", annotations[0].Date);
+        Assert.Equal(SpdxAnnotationType.Review, annotations[0].Type);
+        Assert.Equal("Looks good", annotations[0].Comment);
+        Assert.Equal("Person: John Doe", annotations[1].Annotator);
+        Assert.Equal("2023-11-20T12:34:23Z", annotations[1].Date);
+        Assert.Equal(SpdxAnnotationType.Other, annotations[1].Type);
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotators.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: an empty <see cref="SpdxAnnotation.Annotator"/> string is the only invalid
+    ///     field; all other fields are valid so that the issue list contains exactly one entry
+    ///     for the annotator.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_Validate_InvalidAnnotator()
     {
         // Arrange: Create a bad annotation
@@ -173,13 +198,17 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Annotator Field - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Annotator Field - Empty"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad dates.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: a non-ISO-8601 date string is the only invalid field; all other fields are
+    ///     valid so that the issue list contains exactly one entry for the date.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_Validate_InvalidDate()
     {
         // Arrange: Create a bad annotation
@@ -196,13 +225,17 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Date Field 'BadDate'"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Annotation Date Field 'BadDate'"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad annotation types.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: <see cref="SpdxAnnotationType.Missing"/> is the only invalid field; all
+    ///     other fields are valid so that the issue list contains exactly one entry for the type.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_Validate_InvalidType()
     {
         // Arrange: Create a bad annotation
@@ -219,13 +252,19 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Type Field - Missing"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Annotation Type Field - Missing"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotation.Validate" /> method reports bad comments.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: an empty <see cref="SpdxAnnotation.Comment"/> string is the only invalid
+    ///     field; <see cref="SpdxAnnotation.Type"/> is set to
+    ///     <see cref="SpdxAnnotationType.Review"/> (valid) so that the issue list contains
+    ///     exactly one entry for the comment.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotation_Validate_InvalidComment()
     {
         // Arrange: Create a bad annotation
@@ -233,7 +272,7 @@ public class SpdxAnnotationTests
         {
             Annotator = "Person: Malcolm Nixon",
             Date = "2024-05-28T01:30:00Z",
-            Type = SpdxAnnotationType.Missing,
+            Type = SpdxAnnotationType.Review,
             Comment = ""
         };
 
@@ -242,53 +281,104 @@ public class SpdxAnnotationTests
         annotation.Validate("Test", issues);
 
         // Assert: Verify that the validation fails and the error message includes the description
-        Assert.Contains(issue => issue.Contains("Test Invalid Annotation Comment - Empty"), issues);
+        Assert.Contains(issues, issue => issue.Contains("Test Invalid Annotation Comment - Empty"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for valid annotation types.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Verifies case-insensitive mapping: "REVIEW", "review", and "Review" all map to
+    ///     <see cref="SpdxAnnotationType.Review"/>; similarly for "OTHER". An empty string maps
+    ///     to <see cref="SpdxAnnotationType.Missing"/>.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotationTypeExtensions_FromText_Valid()
     {
-        Assert.AreEqual(SpdxAnnotationType.Missing, SpdxAnnotationTypeExtensions.FromText(""));
-        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
-        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
-        Assert.AreEqual(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("Review"));
-        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("OTHER"));
-        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("other"));
-        Assert.AreEqual(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("Other"));
+        // Arrange: no setup needed - testing pure string-to-enum conversion
+
+        // Act / Assert: each recognized text converts to the correct enum value
+        Assert.Equal(SpdxAnnotationType.Missing, SpdxAnnotationTypeExtensions.FromText(""));
+        Assert.Equal(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("REVIEW"));
+        Assert.Equal(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("review"));
+        Assert.Equal(SpdxAnnotationType.Review, SpdxAnnotationTypeExtensions.FromText("Review"));
+        Assert.Equal(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("OTHER"));
+        Assert.Equal(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("other"));
+        Assert.Equal(SpdxAnnotationType.Other, SpdxAnnotationTypeExtensions.FromText("Other"));
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.FromText(string)" /> method for an invalid annotation type.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: an unrecognized string causes <see cref="InvalidOperationException"/> with
+    ///     the expected message, confirming the error path is not silently swallowed.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotationTypeExtensions_FromText_Invalid()
     {
+        // Arrange: no setup needed — testing pure string-to-enum conversion error path
+
+        // Act / Assert:
         var exception =
-            Assert.ThrowsExactly<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
-        Assert.AreEqual("Unsupported SPDX Annotation Type 'invalid'", exception.Message);
+            Assert.Throws<InvalidOperationException>(() => SpdxAnnotationTypeExtensions.FromText("invalid"));
+        Assert.Equal("Unsupported SPDX Annotation Type 'invalid'", exception.Message);
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for valid annotation types.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Verifies that <see cref="SpdxAnnotationType.Review"/> produces <c>"REVIEW"</c> and
+    ///     <see cref="SpdxAnnotationType.Other"/> produces <c>"OTHER"</c>.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotationTypeExtensions_ToText_Valid()
     {
-        Assert.AreEqual("REVIEW", SpdxAnnotationType.Review.ToText());
-        Assert.AreEqual("OTHER", SpdxAnnotationType.Other.ToText());
+        // Arrange: no setup needed - testing pure enum-to-string conversion
+
+        // Act / Assert: each recognized enum value converts to the expected text
+        Assert.Equal("REVIEW", SpdxAnnotationType.Review.ToText());
+        Assert.Equal("OTHER", SpdxAnnotationType.Other.ToText());
     }
 
     /// <summary>
     ///     Tests the <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> method for an invalid annotation
     ///     type.
     /// </summary>
-    [TestMethod]
+    /// <remarks>
+    ///     Boundary: an unrecognized numeric enum value (1000, which is not a defined
+    ///     <see cref="SpdxAnnotationType"/> member) causes <see cref="InvalidOperationException"/>
+    ///     with the expected message.
+    /// </remarks>
+    [Fact]
     public void SpdxAnnotationTypeExtensions_ToText_Invalid()
     {
-        var exception = Assert.ThrowsExactly<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
-        Assert.AreEqual("Unsupported SPDX Annotation Type '1000'", exception.Message);
+        // Arrange: no setup needed - testing pure enum-to-string conversion error path
+
+        // Act / Assert: an unknown numeric enum value throws
+        var exception = Assert.Throws<InvalidOperationException>(() => ((SpdxAnnotationType)1000).ToText());
+        Assert.Equal("Unsupported SPDX Annotation Type '1000'", exception.Message);
+    }
+
+    /// <summary>
+    ///     Tests that <see cref="SpdxAnnotationTypeExtensions.ToText(SpdxAnnotationType)" /> throws for the
+    ///     <see cref="SpdxAnnotationType.Missing" /> sentinel value.
+    /// </summary>
+    /// <remarks>
+    ///     Boundary: <see cref="SpdxAnnotationType.Missing"/> is a sentinel value that must
+    ///     never be serialized. Calling <c>ToText</c> with it throws
+    ///     <see cref="InvalidOperationException"/> with the expected "Attempt to serialize
+    ///     missing SPDX Annotation Type" message.
+    /// </remarks>
+    [Fact]
+    public void SpdxAnnotationTypeExtensions_ToText_Missing()
+    {
+        // Arrange: no setup needed - testing the Missing sentinel value error path
+
+        // Act / Assert: Missing throws with the expected message
+        var exception = Assert.Throws<InvalidOperationException>(
+            () => SpdxAnnotationType.Missing.ToText());
+        Assert.Equal("Attempt to serialize missing SPDX Annotation Type", exception.Message);
     }
 }

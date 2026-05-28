@@ -43,4 +43,27 @@ internal static class SpdxTestHelpers
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd().ReplaceLineEndings();
     }
+
+    /// <summary>
+    ///     Asserts that two collections contain the same elements in any order,
+    ///     using the provided equality comparer for element matching.
+    /// </summary>
+    public static void AssertEquivalent<T>(
+        IEnumerable<T> expected,
+        IEnumerable<T> actual,
+        IEqualityComparer<T> comparer)
+    {
+        var expectedList = expected.ToList();
+        var actualList = actual.ToList();
+        Assert.Equal(expectedList.Count, actualList.Count);
+        foreach (var item in expectedList)
+        {
+            Assert.Contains(actualList, x => comparer.Equals(x, item));
+        }
+
+        foreach (var item in actualList)
+        {
+            Assert.Contains(expectedList, x => comparer.Equals(x, item));
+        }
+    }
 }

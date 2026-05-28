@@ -19,6 +19,9 @@ comprehensive in-memory model for reading, manipulating, and writing SPDX Softwa
 - 🔄 **JSON Serialization** - Read and write SPDX documents in JSON format
 - 🎯 **Type-Safe** - Strongly-typed C# API with nullable reference types
 - 🔍 **Transform Support** - Built-in utilities for manipulating SPDX relationships
+- 🔁 **Deep Copy Support** - Deep copy any SPDX element or entire documents
+- ⚖️ **Comparison Utilities** - Compare and check equality of SPDX elements
+- ✅ **Validation Support** - Validate SPDX documents and elements against the specification
 - ⚡ **Multi-Target** - Supports .NET Standard 2.0, .NET 8, 9, and 10
 - 🖥️ **Multi-Platform** - Builds and runs on Windows, Linux, and macOS
 - 🧪 **Well-Tested** - Comprehensive test suite with high code coverage
@@ -70,6 +73,7 @@ var document = new SpdxDocument
     Id = "SPDXRef-DOCUMENT",
     Name = "My Software",
     Version = "SPDX-2.3",
+    DataLicense = "CC0-1.0",
     DocumentNamespace = "https://example.com/my-software",
     CreationInformation = new SpdxCreationInformation
     {
@@ -127,6 +131,12 @@ var rootPackages = document.GetRootPackages();
 - **`SpdxSnippet`** - Represents a code snippet
 - **`SpdxRelationship`** - Represents relationships between elements
 - **`SpdxCreationInformation`** - Document creation metadata
+- **`SpdxAnnotation`** - Represents document annotations
+- **`SpdxChecksum`** - Represents element checksums
+- **`SpdxExternalDocumentReference`** - Represents external document references
+- **`SpdxExternalReference`** - Represents external references on packages
+- **`SpdxExtractedLicensingInfo`** - Represents extracted licensing information
+- **`SpdxPackageVerificationCode`** - Represents package verification codes
 
 ### Serialization
 

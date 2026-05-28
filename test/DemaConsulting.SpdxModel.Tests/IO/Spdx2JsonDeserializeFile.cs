@@ -26,14 +26,24 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX files to <see cref="SpdxFile" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX file elements using xUnit v3 as the test
+///     framework. Each test constructs inline JSON and verifies the
+///     resulting <see cref="SpdxFile"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeFile
 {
     /// <summary>
     ///     Tests deserializing a file.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeFile_CorrectResults()
+    /// <remarks>
+    ///     Verifies that all standard file fields (SPDXID, fileName, fileTypes, checksums,
+    ///     licenseConcluded, licenseInfoInFiles, licenseComments, comment, noticeText) are
+    ///     correctly mapped to <see cref="SpdxFile"/> properties when a single file JSON
+    ///     object is deserialized.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeFile_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing a file
         var json = new JsonObject
@@ -60,26 +70,30 @@ public class Spdx2JsonDeserializeFile
         var file = Spdx2JsonDeserializer.DeserializeFile(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual("SPDXRef-File", file.Id);
-        Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", file.FileName);
-        Assert.HasCount(1, file.FileTypes);
-        Assert.AreEqual(SpdxFileType.Source, file.FileTypes[0]);
-        Assert.HasCount(1, file.Checksums);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, file.Checksums[0].Algorithm);
-        Assert.AreEqual("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", file.Checksums[0].Value);
-        Assert.AreEqual("MIT", file.ConcludedLicense);
-        Assert.HasCount(1, file.LicenseInfoInFiles);
-        Assert.AreEqual("MIT", file.LicenseInfoInFiles[0]);
-        Assert.AreEqual("This is the MIT license", file.LicenseComments);
-        Assert.AreEqual("This is a comment", file.Comment);
-        Assert.AreEqual("This is a notice", file.Notice);
+        Assert.Equal("SPDXRef-File", file.Id);
+        Assert.Equal("src/DemaConsulting.SpdxModel/SpdxFile.cs", file.FileName);
+        Assert.Single(file.FileTypes);
+        Assert.Equal(SpdxFileType.Source, file.FileTypes[0]);
+        Assert.Single(file.Checksums);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, file.Checksums[0].Algorithm);
+        Assert.Equal("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", file.Checksums[0].Value);
+        Assert.Equal("MIT", file.ConcludedLicense);
+        Assert.Single(file.LicenseInfoInFiles);
+        Assert.Equal("MIT", file.LicenseInfoInFiles[0]);
+        Assert.Equal("This is the MIT license", file.LicenseComments);
+        Assert.Equal("This is a comment", file.Comment);
+        Assert.Equal("This is a notice", file.Notice);
     }
 
     /// <summary>
     ///     Tests deserializing multiple files.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeFiles_CorrectResults()
+    /// <remarks>
+    ///     Verifies that a JSON array containing one file object is deserialized to a
+    ///     single-element array with all fields correctly populated.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeFiles_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON array representing multiple files
         var json = new JsonArray
@@ -109,19 +123,19 @@ public class Spdx2JsonDeserializeFile
         var files = Spdx2JsonDeserializer.DeserializeFiles(json);
 
         // Assert: Verify the deserialized array has the expected properties
-        Assert.HasCount(1, files);
-        Assert.AreEqual("SPDXRef-File", files[0].Id);
-        Assert.AreEqual("src/DemaConsulting.SpdxModel/SpdxFile.cs", files[0].FileName);
-        Assert.HasCount(1, files[0].FileTypes);
-        Assert.AreEqual(SpdxFileType.Source, files[0].FileTypes[0]);
-        Assert.HasCount(1, files[0].Checksums);
-        Assert.AreEqual(SpdxChecksumAlgorithm.Sha1, files[0].Checksums[0].Algorithm);
-        Assert.AreEqual("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", files[0].Checksums[0].Value);
-        Assert.AreEqual("MIT", files[0].ConcludedLicense);
-        Assert.HasCount(1, files[0].LicenseInfoInFiles);
-        Assert.AreEqual("MIT", files[0].LicenseInfoInFiles[0]);
-        Assert.AreEqual("This is the MIT license", files[0].LicenseComments);
-        Assert.AreEqual("This is a comment", files[0].Comment);
-        Assert.AreEqual("This is a notice", files[0].Notice);
+        Assert.Single(files);
+        Assert.Equal("SPDXRef-File", files[0].Id);
+        Assert.Equal("src/DemaConsulting.SpdxModel/SpdxFile.cs", files[0].FileName);
+        Assert.Single(files[0].FileTypes);
+        Assert.Equal(SpdxFileType.Source, files[0].FileTypes[0]);
+        Assert.Single(files[0].Checksums);
+        Assert.Equal(SpdxChecksumAlgorithm.Sha1, files[0].Checksums[0].Algorithm);
+        Assert.Equal("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12", files[0].Checksums[0].Value);
+        Assert.Equal("MIT", files[0].ConcludedLicense);
+        Assert.Single(files[0].LicenseInfoInFiles);
+        Assert.Equal("MIT", files[0].LicenseInfoInFiles[0]);
+        Assert.Equal("This is the MIT license", files[0].LicenseComments);
+        Assert.Equal("This is a comment", files[0].Comment);
+        Assert.Equal("This is a notice", files[0].Notice);
     }
 }

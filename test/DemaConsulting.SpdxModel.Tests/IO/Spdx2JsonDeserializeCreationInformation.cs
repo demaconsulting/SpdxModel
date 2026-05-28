@@ -26,14 +26,23 @@ namespace DemaConsulting.SpdxModel.Tests.IO;
 /// <summary>
 ///     Tests for deserializing SPDX creation information to <see cref="SpdxCreationInformation" /> classes.
 /// </summary>
-[TestClass]
+/// <remarks>
+///     Exercises deserialization of SPDX creation information using xUnit v3 as the test
+///     framework. Constructs inline JSON and verifies the resulting
+///     <see cref="SpdxCreationInformation"/> fields.
+/// </remarks>
 public class Spdx2JsonDeserializeCreationInformation
 {
     /// <summary>
     ///     Tests deserializing creation information.
     /// </summary>
-    [TestMethod]
-    public void Spdx2JsonDeserializer_DeserializeCreationInformation_CorrectResults()
+    /// <remarks>
+    ///     Verifies that all creation information fields (comment, created, creators array,
+    ///     licenseListVersion) are correctly mapped to the
+    ///     <see cref="SpdxCreationInformation"/> properties.
+    /// </remarks>
+    [Fact]
+    public void Spdx2JsonDeserializer_DeserializeCreationInformation_ValidInput_CorrectResults()
     {
         // Arrange: Create a JSON object representing creation information
         var json = new JsonObject
@@ -54,14 +63,14 @@ public class Spdx2JsonDeserializeCreationInformation
         var creationInformation = Spdx2JsonDeserializer.DeserializeCreationInformation(json);
 
         // Assert: Verify the deserialized object has the expected properties
-        Assert.AreEqual(
+        Assert.Equal(
             "This package has been shipped in source and binary form.\nThe binaries were created with gcc 4.5.1 and expect to link to\ncompatible system run time libraries.",
             creationInformation.Comment);
-        Assert.AreEqual("2010-01-29T18:30:22Z", creationInformation.Created);
-        Assert.HasCount(3, creationInformation.Creators);
-        Assert.AreEqual("Tool: LicenseFind-1.0", creationInformation.Creators[0]);
-        Assert.AreEqual("Organization: ExampleCodeInspect ()", creationInformation.Creators[1]);
-        Assert.AreEqual("Person: Jane Doe ()", creationInformation.Creators[2]);
-        Assert.AreEqual("3.17", creationInformation.LicenseListVersion);
+        Assert.Equal("2010-01-29T18:30:22Z", creationInformation.Created);
+        Assert.Equal(3, creationInformation.Creators.Length);
+        Assert.Equal("Tool: LicenseFind-1.0", creationInformation.Creators[0]);
+        Assert.Equal("Organization: ExampleCodeInspect ()", creationInformation.Creators[1]);
+        Assert.Equal("Person: Jane Doe ()", creationInformation.Creators[2]);
+        Assert.Equal("3.17", creationInformation.LicenseListVersion);
     }
 }

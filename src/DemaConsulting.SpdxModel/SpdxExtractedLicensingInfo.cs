@@ -34,8 +34,7 @@ public sealed class SpdxExtractedLicensingInfo
     ///     Equality comparer for the same extracted licensing info
     /// </summary>
     /// <remarks>
-    ///     This considers packages as being the same if they have the same
-    ///     extracted text.
+    ///     This considers extracted licensing infos as being the same if they have the same extracted text.
     /// </remarks>
     public static readonly IEqualityComparer<SpdxExtractedLicensingInfo> Same = new SpdxExtractedLicensingInfoSame();
 
@@ -60,21 +59,34 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     License Name Field
     /// </summary>
+    /// <remarks>
+    ///     Null when no name is present.
+    /// </remarks>
     public string? Name { get; set; }
 
     /// <summary>
     ///     License Cross-Reference Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     An empty array when no cross-references are present.
+    /// </remarks>
     public string[] CrossReferences { get; set; } = [];
 
     /// <summary>
     ///     License Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Null when no comment is present. An empty string is not used.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     Used by the static Enhance merge to add new entries without aliasing the source array; also used by callers
+    ///     that need an independent snapshot.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxExtractedLicensingInfo DeepCopy()
     {
@@ -91,6 +103,10 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Enhance missing fields in the extracted licensing info
     /// </summary>
+    /// <remarks>
+    ///     Populates LicenseId, ExtractedText, Name, and Comment using fitness-based selection.
+    ///     CrossReferences are merged by concatenation and deduplication.
+    /// </remarks>
     /// <param name="other">Other extracted licensing info to enhance with</param>
     public void Enhance(SpdxExtractedLicensingInfo other)
     {
@@ -113,6 +129,10 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Enhance missing extracted licensing info in array
     /// </summary>
+    /// <remarks>
+    ///     Matches existing entries by ExtractedText (via the Same comparer) and enhances them;
+    ///     entries with no match are appended as deep copies.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -146,10 +166,14 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Validates that LicenseId is non-empty and ExtractedText is non-empty.
+    ///     Issues are appended to <paramref name="issues"/>; no exceptions are thrown.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
     {
-        // Validate Extracted License ID ID Field
+        // Validate Extracted License ID Field
         if (LicenseId.Length == 0)
         {
             issues.Add("Extracted License Information Invalid License ID Field - Empty");
@@ -165,9 +189,22 @@ public sealed class SpdxExtractedLicensingInfo
     /// <summary>
     ///     Equality Comparer to test for the same extracted licensing info
     /// </summary>
+    /// <remarks>
+    ///     Instantiated once and held in the <see cref="Same"/> field. Comparison is solely by
+    ///     <see cref="SpdxExtractedLicensingInfo.ExtractedText"/>; other fields such as
+    ///     <see cref="SpdxExtractedLicensingInfo.LicenseId"/> and
+    ///     <see cref="SpdxExtractedLicensingInfo.Comment"/> are intentionally excluded so that
+    ///     two entries carrying the same license text but different metadata are still recognized
+    ///     as the same entry during merge operations.
+    /// </remarks>
     private sealed class SpdxExtractedLicensingInfoSame : IEqualityComparer<SpdxExtractedLicensingInfo>
     {
         /// <inheritdoc />
+        /// <remarks>
+        ///     Evaluation order: reference equality is checked first (returns <c>true</c>
+        ///     immediately), then null-safety (either null returns <c>false</c>), then
+        ///     <see cref="SpdxExtractedLicensingInfo.ExtractedText"/> string equality.
+        /// </remarks>
         public bool Equals(SpdxExtractedLicensingInfo? l1, SpdxExtractedLicensingInfo? l2)
         {
             if (ReferenceEquals(l1, l2))
@@ -184,6 +221,9 @@ public sealed class SpdxExtractedLicensingInfo
         }
 
         /// <inheritdoc />
+        /// <remarks>
+        ///     The hash code is derived solely from <see cref="SpdxExtractedLicensingInfo.ExtractedText"/>.
+        /// </remarks>
         public int GetHashCode(SpdxExtractedLicensingInfo obj)
         {
             return obj.ExtractedText.GetHashCode();

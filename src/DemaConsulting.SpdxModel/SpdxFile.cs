@@ -23,6 +23,13 @@ namespace DemaConsulting.SpdxModel;
 /// <summary>
 ///     SPDX File Information Element
 /// </summary>
+/// <remarks>
+///     Represents the SPDX File element, capturing per-file license, checksum, and contributor
+///     information as defined by the SPDX specification. The class is <c>sealed</c> because the
+///     SPDX data model does not define any further subtypes of a file element, and sealing
+///     prevents unintended subclassing that could introduce inconsistent behavior. Not thread-safe
+///     for concurrent mutation of the same instance.
+/// </remarks>
 public sealed class SpdxFile : SpdxLicenseElement
 {
     /// <summary>
@@ -73,6 +80,9 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     File Comment Field (optional)
     /// </summary>
+    /// <remarks>
+    ///     Null when no comment is present. An empty string is not used.
+    /// </remarks>
     public string? Comment { get; set; }
 
     /// <summary>
@@ -99,6 +109,13 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Make a deep-copy of this object
     /// </summary>
+    /// <remarks>
+    ///     All arrays (<see cref="FileTypes"/>, <see cref="Checksums"/>,
+    ///     <see cref="LicenseInfoInFiles"/>, <see cref="Contributors"/>,
+    ///     <see cref="SpdxLicenseElement.AttributionText"/>, and
+    ///     <see cref="SpdxLicenseElement.Annotations"/>) are independently deep-copied; the
+    ///     returned instance shares no mutable state with the original.
+    /// </remarks>
     /// <returns>Deep copy of this object</returns>
     public SpdxFile DeepCopy()
     {
@@ -123,6 +140,14 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Enhance missing fields in the file
     /// </summary>
+    /// <remarks>
+    ///     Non-destructive merge: existing non-empty fields are preserved. String fields use
+    ///     fitness-based selection (concrete value > NOASSERTION > empty > null).
+    ///     <see cref="FileTypes"/>, <see cref="LicenseInfoInFiles"/>, and
+    ///     <see cref="Contributors"/> are merged by concatenation and deduplication.
+    ///     <see cref="Checksums"/> are merged by identity-match and enhance via
+    ///     <see cref="SpdxChecksum.Enhance(SpdxChecksum[], SpdxChecksum[])"/>.
+    /// </remarks>
     /// <param name="other">Other file to enhance with</param>
     public void Enhance(SpdxFile other)
     {
@@ -154,6 +179,12 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Enhance missing files in array
     /// </summary>
+    /// <remarks>
+    ///     Matching uses the <see cref="Same"/> comparer, which is keyed on
+    ///     <see cref="FileName"/> with a SHA1 checksum tiebreaker: two entries with the same
+    ///     file name but differing SHA1 digests are treated as distinct. Entries in
+    ///     <paramref name="others"/> that have no match are appended as independent deep copies.
+    /// </remarks>
     /// <param name="array">Array to enhance</param>
     /// <param name="others">Other array to enhance with</param>
     /// <returns>Updated array</returns>
@@ -186,6 +217,11 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Perform validation of information
     /// </summary>
+    /// <remarks>
+    ///     Issues are appended to <paramref name="issues"/> rather than thrown. Nested
+    ///     <see cref="Checksums"/> and <see cref="SpdxLicenseElement.Annotations"/> are also
+    ///     validated by delegating to their respective <c>Validate</c> methods.
+    /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     public void Validate(List<string> issues)
     {
@@ -222,6 +258,10 @@ public sealed class SpdxFile : SpdxLicenseElement
     /// <summary>
     ///     Equality Comparer to test for the same file
     /// </summary>
+    /// <remarks>
+    ///     Equality is based on <see cref="SpdxFile.FileName"/> with a SHA1 checksum tiebreaker:
+    ///     two entries with the same file name but differing SHA1 digests are treated as distinct.
+    /// </remarks>
     private sealed class SpdxFileSame : IEqualityComparer<SpdxFile>
     {
         /// <inheritdoc />

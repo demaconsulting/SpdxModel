@@ -1,16 +1,14 @@
 ---
-title: SpdxModel
-subtitle: Build Notes
-author: DEMA Consulting
-description: Build notes for the SpdxModel library for SPDX SBOM manipulation
+title: "SpdxModel Build Notes"
+subtitle: "SPDX document model for .NET"
+author: "DEMA Consulting"
+description: "Build Notes for SpdxModel"
 lang: en-US
 keywords:
-  - SpdxModel
   - Build Notes
-  - Release Notes
+  - SpdxModel
   - SPDX
   - SBOM
   - C#
   - .NET
-  - Documentation
 ---

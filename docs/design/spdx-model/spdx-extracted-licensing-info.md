@@ -1,33 +1,69 @@
-# SpdxExtractedLicensingInfo Unit Design
+## SpdxExtractedLicensingInfo
 
-## Purpose
+### Purpose
 
 `SpdxExtractedLicensingInfo` records the full text and metadata of a non-standard license found
 within a software package. It is used when the license does not appear on the SPDX License List
 and must be captured verbatim for compliance purposes.
 
-## Design
+### Data Model
 
-`SpdxExtractedLicensingInfo` is a sealed class with no base class.
+**LicenseId**: `string` — Local identifier in `LicenseRef-…` format, unique within the document.
 
-Data members:
+**ExtractedText**: `string` — Full verbatim text of the license as found in the software.
 
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| `LicenseId` | `string` | Local identifier in `LicenseRef-…` format |
-| `ExtractedText` | `string` | Full verbatim text of the license |
-| `Name` | `string?` | Optional human-readable license name |
-| `CrossReferences` | `string[]` | Optional URIs to the license text elsewhere |
-| `Comment` | `string?` | Optional explanatory comment |
+**Name**: `string?` — Optional human-readable license name.
 
-Key methods:
+**CrossReferences**: `string[]` — Optional URIs pointing to the license text at canonical
+external locations.
 
-- `DeepCopy()` — returns a new instance with all fields deep-copied
-- `Enhance(SpdxExtractedLicensingInfo)` — fills in missing fields from another instance
-- `Enhance(array, array)` — static method merging two arrays by matching on `LicenseId`
-- `Validate(List<string>)` — appends validation issues to the supplied list
-- `Same` — static `IEqualityComparer` comparing by `ExtractedText`
+**Comment**: `string?` — Optional explanatory comment.
 
-## Dependencies
+### Key Methods
 
-- No external dependencies beyond base .NET BCL types
+**DeepCopy**: Returns a new instance with all fields deep-copied.
+
+- *Parameters*: none.
+- *Returns*: `SpdxExtractedLicensingInfo` — independent copy.
+- *Preconditions*: none.
+- *Postconditions*: The returned instance shares no mutable references with the original.
+
+**Enhance**: Fills in missing fields from another instance.
+
+- *Parameters*: `SpdxExtractedLicensingInfo other` — source of additional field values.
+- *Returns*: `void`
+- *Preconditions*: none.
+- *Postconditions*: Empty or null fields are populated from `other`; CrossReferences are merged by
+  concatenation and deduplication.
+
+**Enhance (static array merge)**: Merges two extracted licensing info arrays by matching on
+`ExtractedText`.
+
+- *Parameters*: `SpdxExtractedLicensingInfo[] base`, `SpdxExtractedLicensingInfo[] additions`.
+- *Returns*: `SpdxExtractedLicensingInfo[]` — merged array.
+- *Preconditions*: none.
+- *Postconditions*: Matching entries are enhanced; new entries are appended.
+
+**Validate**: Appends validation issues to the supplied list.
+
+- *Parameters*: `List<string> issues` — list to append issues to.
+- *Returns*: `void`
+- *Preconditions*: none.
+- *Postconditions*: Missing required fields are recorded in `issues`.
+
+**Same**: `static IEqualityComparer<SpdxExtractedLicensingInfo>` — compares by `ExtractedText`.
+
+### Error Handling
+
+Validation errors are collected into the `List<string>` passed to `Validate`. No exceptions are
+thrown by `DeepCopy`, `Enhance`, or the static merge method.
+
+### Dependencies
+
+- **SpdxHelpers** — `EnhanceString` used in `Enhance`.
+
+### Callers
+
+- **SpdxDocument** — holds the `ExtractedLicensingInfo` array.
+- **Spdx2JsonDeserializer** — constructs `SpdxExtractedLicensingInfo` instances during deserialization.
+- **Spdx2JsonSerializer** — serializes `SpdxExtractedLicensingInfo` instances to JSON.
