@@ -39,9 +39,11 @@ public sealed class SpdxDocument : SpdxElement
     ///     Initializes a new instance of the <see cref="SpdxDocument"/> class with default values.
     /// </summary>
     /// <remarks>
-    ///     All collection properties are initialized to empty arrays and all scalar string properties
-    ///     to <see cref="string.Empty"/>. <see cref="CreationInformation"/> is initialized to a new
-    ///     default <see cref="SpdxCreationInformation"/> instance. The default constructor is provided
+    ///     All collection properties are initialized to empty arrays and all non-nullable scalar string
+    ///     properties to <see cref="string.Empty"/>; nullable string properties (such as
+    ///     <see cref="Comment"/>) remain <see langword="null"/> unless explicitly set.
+    ///     <see cref="CreationInformation"/> is initialized to a new default
+    ///     <see cref="SpdxCreationInformation"/> instance. The default constructor is provided
     ///     explicitly so that consumers can document and discover it through the API reference.
     /// </remarks>
     public SpdxDocument()
