@@ -121,35 +121,13 @@ SpdxRelationships.Add(document, relationship);
 var rootPackages = document.GetRootPackages();
 ```
 
-## API Overview
+## API Documentation
 
-### Core Classes
-
-- **`SpdxDocument`** - Represents an SPDX document
-- **`SpdxPackage`** - Represents a software package
-- **`SpdxFile`** - Represents a file
-- **`SpdxSnippet`** - Represents a code snippet
-- **`SpdxRelationship`** - Represents relationships between elements
-- **`SpdxCreationInformation`** - Document creation metadata
-- **`SpdxAnnotation`** - Represents document annotations
-- **`SpdxChecksum`** - Represents element checksums
-- **`SpdxExternalDocumentReference`** - Represents external document references
-- **`SpdxExternalReference`** - Represents external references on packages
-- **`SpdxExtractedLicensingInfo`** - Represents extracted licensing information
-- **`SpdxPackageVerificationCode`** - Represents package verification codes
-
-### Serialization
-
-- **`Spdx2JsonSerializer`** - Serialize SPDX documents to JSON
-- **`Spdx2JsonDeserializer`** - Deserialize SPDX documents from JSON
-
-### Transforms
-
-- **`SpdxRelationships`** - Utilities for managing relationships
+Detailed API documentation for all public types and members is distributed in the `api/` folder
+of the NuGet package.
 
 ## Documentation
 
-- [API Documentation](https://github.com/demaconsulting/SpdxModel/wiki) - Detailed API reference
 - [Contributing Guide][contributing] - How to contribute to the project
 - [Code of Conduct][code-of-conduct] - Community guidelines
 - [Security Policy][security] - Security vulnerability reporting
