@@ -36,6 +36,19 @@ namespace DemaConsulting.SpdxModel;
 public sealed class SpdxDocument : SpdxElement
 {
     /// <summary>
+    ///     Initializes a new instance of the <see cref="SpdxDocument"/> class with default values.
+    /// </summary>
+    /// <remarks>
+    ///     All collection properties are initialized to empty arrays and all scalar string properties
+    ///     to <see cref="string.Empty"/>. <see cref="CreationInformation"/> is initialized to a new
+    ///     default <see cref="SpdxCreationInformation"/> instance. The default constructor is provided
+    ///     explicitly so that consumers can document and discover it through the API reference.
+    /// </remarks>
+    public SpdxDocument()
+    {
+    }
+
+    /// <summary>
     ///     Regular expression for checking SPDX version fields
     /// </summary>
     /// <remarks>
@@ -151,7 +164,7 @@ public sealed class SpdxDocument : SpdxElement
     public SpdxAnnotation[] Annotations { get; set; } = [];
 
     /// <summary>
-    ///     Files
+    ///     SPDX file elements described in this document
     /// </summary>
     /// <remarks>
     ///     All file elements described in this SPDX document as defined in SPDX 2.x §4.
@@ -159,7 +172,7 @@ public sealed class SpdxDocument : SpdxElement
     public SpdxFile[] Files { get; set; } = [];
 
     /// <summary>
-    ///     Packages
+    ///     SPDX package elements described in this document
     /// </summary>
     /// <remarks>
     ///     Packages referenced in the SPDX document.
@@ -167,7 +180,7 @@ public sealed class SpdxDocument : SpdxElement
     public SpdxPackage[] Packages { get; set; } = [];
 
     /// <summary>
-    ///     Snippets
+    ///     SPDX snippet elements described in this document
     /// </summary>
     /// <remarks>
     ///     All snippet elements described in this SPDX document as defined in SPDX 2.x §5.
@@ -234,6 +247,14 @@ public sealed class SpdxDocument : SpdxElement
     /// </remarks>
     /// <param name="issues">List to populate with issues</param>
     /// <param name="ntia">Perform NTIA validation</param>
+    /// <example>
+    ///     <code>
+    ///     var issues = new List&lt;string&gt;();
+    ///     document.Validate(issues, ntia: true);
+    ///     if (issues.Count > 0)
+    ///         Console.WriteLine(string.Join("\n", issues));
+    ///     </code>
+    /// </example>
     public void Validate(List<string> issues, bool ntia = false)
     {
         // Validate SPDX Identifier Field
@@ -336,6 +357,12 @@ public sealed class SpdxDocument : SpdxElement
     ///     are unioned.
     /// </remarks>
     /// <returns>Array of packages described by this document</returns>
+    /// <example>
+    ///     <code>
+    ///     foreach (var package in document.GetRootPackages())
+    ///         Console.WriteLine($"{package.Name} {package.Version}");
+    ///     </code>
+    /// </example>
     public SpdxPackage[] GetRootPackages()
     {
         // Get the root packages this document claims to describe (by describes field)

@@ -42,6 +42,12 @@ public static class Spdx2JsonDeserializer
     /// <param name="json">Json string</param>
     /// <returns>SPDX Document</returns>
     /// <exception cref="JsonException">Thrown when <paramref name="json"/> is not valid JSON text or does not represent a JSON object.</exception>
+    /// <example>
+    ///     <code>
+    ///     string json = File.ReadAllText("sbom.spdx.json");
+    ///     SpdxDocument document = Spdx2JsonDeserializer.Deserialize(json);
+    ///     </code>
+    /// </example>
     public static SpdxDocument Deserialize(string json)
     {
         // Deserialize the Json

@@ -58,6 +58,19 @@ public static class SpdxRelationships
     ///     neither <c>NOASSERTION</c> nor prefixed with <c>DocumentRef-</c>.
     ///     When this exception is thrown, the document is left unmodified.
     /// </exception>
+    /// <example>
+    ///     <code>
+    ///     SpdxRelationships.Add(document, new[]
+    ///     {
+    ///         new SpdxRelationship
+    ///         {
+    ///             Id = "SPDXRef-DOCUMENT",
+    ///             RelationshipType = SpdxRelationshipType.Describes,
+    ///             RelatedSpdxElement = "SPDXRef-Package"
+    ///         }
+    ///     });
+    ///     </code>
+    /// </example>
     public static void Add(SpdxDocument document, IEnumerable<SpdxRelationship> relationships, bool replace = false)
     {
         // Materialize the enumerable so it can be iterated multiple times

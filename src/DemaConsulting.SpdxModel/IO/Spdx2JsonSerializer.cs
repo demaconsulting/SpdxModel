@@ -48,6 +48,12 @@ public static class Spdx2JsonSerializer
     ///     Indented JSON string conforming to the SPDX 2.3 schema. All optional fields
     ///     absent from the model are omitted from the output.
     /// </returns>
+    /// <example>
+    ///     <code>
+    ///     string json = Spdx2JsonSerializer.Serialize(document);
+    ///     File.WriteAllText("sbom.spdx.json", json);
+    ///     </code>
+    /// </example>
     public static string Serialize(SpdxDocument document)
     {
         // Serialize the document
