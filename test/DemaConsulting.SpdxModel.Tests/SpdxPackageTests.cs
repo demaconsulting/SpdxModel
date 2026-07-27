@@ -148,7 +148,7 @@ public class SpdxPackageTests
         Assert.Equal(p1.AttributionText, p2.AttributionText);
         SpdxTestHelpers.AssertEquivalent(p1.Annotations, p2.Annotations, SpdxAnnotation.Same);
         Assert.NotNull(p2.VerificationCode);
-        Assert.Equal(p1.VerificationCode!.Value, p2.VerificationCode.Value);
+        Assert.Equal(p1.VerificationCode.Value, p2.VerificationCode.Value);
 
         // Assert: Verify deep-copy has distinct instances
         Assert.False(ReferenceEquals(p1, p2));
