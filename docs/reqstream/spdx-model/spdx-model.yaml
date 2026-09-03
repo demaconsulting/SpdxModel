@@ -9,6 +9,7 @@ sections:
           - id: SpdxModel-Data-Elements
             title: The library shall provide an in-memory model for all SPDX 2.x element types.
             tags:
+              - system
               - data-model
             justification: |
               Supporting all SPDX 2.x element types ensures complete coverage of the specification
@@ -28,6 +29,7 @@ sections:
           - id: SpdxModel-Data-Helpers
             title: The library shall provide helper utilities for SPDX data processing.
             tags:
+              - system
               - data-model
             justification: |
               Helper utilities provide shared functionality used across the data model, including
@@ -49,6 +51,7 @@ sections:
           - id: SpdxModel-Data-RootPackages
             title: The library shall support retrieving root packages from an SPDX document.
             tags:
+              - system
               - data-model
             justification: |
               Retrieving root packages helps identify top-level components in an SBOM. This is essential
@@ -62,6 +65,7 @@ sections:
           - id: SpdxModel-Data-DeepCopy
             title: The library shall support deep copying of SPDX elements.
             tags:
+              - system
               - data-model
             justification: |
               Deep copying enables creating independent copies of SPDX elements for modification without
@@ -81,6 +85,7 @@ sections:
           - id: SpdxModel-Data-FieldOptionality
             title: The library API shall explicitly express whether each field is required or optional.
             tags:
+              - system
               - data-model
             justification: |
               Explicitly expressing field optionality in the API improves type safety, reduces
@@ -95,6 +100,7 @@ sections:
           - id: SpdxModel-Data-ComparisonUtilities
             title: The library shall provide comparison utilities for SPDX elements.
             tags:
+              - system
               - data-model
             justification: |
               Comparison utilities enable applications to determine equality and equivalence between
@@ -116,6 +122,7 @@ sections:
           - id: SpdxModel-Validation-ElementValidation
             title: The library shall support validation of SPDX elements.
             tags:
+              - system
               - validation
             justification: |
               Validation ensures SPDX documents and elements conform to the specification requirements.
@@ -142,6 +149,7 @@ sections:
           - id: SpdxModel-IO-ReadSpdxJson
             title: The library shall support reading SPDX 2.x documents from JSON format.
             tags:
+              - system
               - io
               - serialization
             justification: |
@@ -157,6 +165,7 @@ sections:
           - id: SpdxModel-IO-WriteSpdxJson
             title: The library shall support writing SPDX 2.x documents to JSON format.
             tags:
+              - system
               - io
               - serialization
             justification: |
@@ -173,6 +182,7 @@ sections:
           - id: SpdxModel-Transform
             title: The library shall provide utilities for transforming SPDX documents.
             tags:
+              - system
               - transform
             justification: |
               Transform utilities enable programmatic modification of SPDX documents, supporting

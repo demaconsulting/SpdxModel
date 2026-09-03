@@ -1,0 +1,67 @@
+---
+# Quality/process requirements grouping SpdxModel's use of off-the-shelf (OTS) test,
+# build, and documentation tooling. These requirements exist so that OTS-derived
+# requirements (which describe capabilities SpdxModel relies on from third-party or
+# sibling-repository tools, not user-visible SpdxModel functionality) are not reported
+# as orphans by `dotnet reqstream --requirements requirements.yaml --enforce`.
+sections:
+  - title: Quality Requirements
+    requirements:
+      - id: SpdxModel-Quality-TestInfrastructure
+        title: The repository shall rely on xUnit, ReqStream, and FileAssert to execute and verify tests.
+        tags: [quality]
+        justification: |
+          Automated testing depends on xUnit's execution/reporting capabilities,
+          requirements traceability depends on ReqStream enforcing that every
+          requirement links to passing test evidence, and validating generated
+          documents depends on FileAssert. This grouping requirement links those OTS
+          requirements to the quality root so they participate in orphan detection
+          without being falsely reported as disconnected from SpdxModel
+          functionality.
+        children:
+          - SpdxModel-OTS-xUnit
+          - SpdxModel-OTS-ReqStream
+          - SpdxModel-OTS-FileAssert
+
+      - id: SpdxModel-Quality-BuildAndVersionTooling
+        title: The repository shall rely on BuildMark and VersionMark to document build metadata and tool versions.
+        tags: [quality]
+        justification: |
+          Release documentation depends on BuildMark generating build notes from
+          GitHub Actions metadata, and on VersionMark publishing captured
+          dotnet-tool version information. This grouping requirement links those
+          OTS requirements to the quality root so they participate in orphan
+          detection without being falsely reported as disconnected from SpdxModel
+          functionality.
+        children:
+          - SpdxModel-OTS-BuildMark
+          - SpdxModel-OTS-VersionMark
+
+      - id: SpdxModel-Quality-AnalysisTooling
+        title: The repository shall rely on SarifMark, SonarMark, and ReviewMark to document quality results.
+        tags: [quality]
+        justification: |
+          Release documentation depends on SarifMark converting CodeQL SARIF
+          results into a markdown report, SonarMark generating a SonarCloud
+          quality report, and ReviewMark generating a review plan and review
+          report from the review configuration. This grouping requirement links
+          those OTS requirements to the quality root so they participate in
+          orphan detection without being falsely reported as disconnected from
+          SpdxModel functionality.
+        children:
+          - SpdxModel-OTS-SarifMark
+          - SpdxModel-OTS-SonarMark
+          - SpdxModel-OTS-ReviewMark
+
+      - id: SpdxModel-Quality-DocumentationTooling
+        title: The repository shall rely on Pandoc and WeasyPrint to convert documentation to HTML and PDF.
+        tags: [quality]
+        justification: |
+          The documentation build pipeline depends on Pandoc converting Markdown
+          documents to HTML, and on WeasyPrint converting HTML documents to PDF.
+          This grouping requirement links those OTS requirements to the quality
+          root so they participate in orphan detection without being falsely
+          reported as disconnected from SpdxModel functionality.
+        children:
+          - SpdxModel-OTS-Pandoc
+          - SpdxModel-OTS-WeasyPrint

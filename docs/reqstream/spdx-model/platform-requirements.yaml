@@ -9,6 +9,7 @@ sections:
           - id: SpdxModel-Platform-MacOS
             title: The library shall build and run on macOS platforms.
             tags:
+              - system
               - platform
             justification: |
               DEMA Consulting libraries must support macOS for developers using Apple platforms.
@@ -20,6 +21,7 @@ sections:
           - id: SpdxModel-Platform-Windows
             title: The library shall build and run on Windows platforms.
             tags:
+              - system
               - platform
             justification: |
               DEMA Consulting libraries must support Windows as the primary development and
@@ -31,6 +33,7 @@ sections:
           - id: SpdxModel-Platform-Linux
             title: The library shall build and run on Linux platforms.
             tags:
+              - system
               - platform
             justification: |
               DEMA Consulting libraries must support Linux for CI/CD pipelines and server
@@ -42,6 +45,7 @@ sections:
           - id: SpdxModel-Platform-Net8
             title: The library shall support .NET 8 runtime.
             tags:
+              - system
               - platform
             justification: |
               .NET 8 is a long-term support (LTS) release and provides a stable foundation for
@@ -54,6 +58,7 @@ sections:
           - id: SpdxModel-Platform-Net9
             title: The library shall support .NET 9 runtime.
             tags:
+              - system
               - platform
             justification: |
               .NET 9 is a standard-term support (STS) release providing newer features and performance
@@ -66,6 +71,7 @@ sections:
           - id: SpdxModel-Platform-Net10
             title: The library shall support .NET 10 runtime.
             tags:
+              - system
               - platform
             justification: |
               .NET 10 represents the latest .NET platform release. Supporting .NET 10 ensures users
@@ -78,6 +84,7 @@ sections:
           - id: SpdxModel-Platform-NetStd20
             title: The library shall support the .NET Standard 2.0 target framework.
             tags:
+              - system
               - platform
             justification: |
               .NET Standard 2.0 is a widely-supported target framework that enables the library to
