@@ -155,7 +155,7 @@ public class SpdxRelationshipsTests
     ///     Tests that adding a duplicate relationship enhances the existing entry rather than duplicating it.
     /// </summary>
     /// <remarks>
-    ///     Verifies the deduplication behaviour: a second call with an identical relationship
+    ///     Verifies the deduplication behavior: a second call with an identical relationship
     ///     must not create a second entry. A fresh document is deserialized to isolate the
     ///     count assertion; the final count of one proves that the second add merged into the
     ///     existing entry rather than appending a new one.

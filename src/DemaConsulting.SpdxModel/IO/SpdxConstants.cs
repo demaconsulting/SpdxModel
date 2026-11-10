@@ -24,7 +24,7 @@ namespace DemaConsulting.SpdxModel.IO;
 ///     SPDX 2.x constants.
 /// </summary>
 /// <remarks>
-///     All SPDX 2.x JSON field name strings are centralised here to provide a single
+///     All SPDX 2.x JSON field name strings are centralized here to provide a single
 ///     maintenance point. Both <see cref="Spdx2JsonDeserializer"/> and
 ///     <see cref="Spdx2JsonSerializer"/> consume these constants, ensuring that any
 ///     SPDX schema field name change requires an update in exactly one place.

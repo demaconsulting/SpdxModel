@@ -28,7 +28,7 @@ namespace DemaConsulting.SpdxModel.IO;
 /// </summary>
 /// <remarks>
 ///     This class is stateless: all methods are static and carry no instance state, making
-///     it safe for concurrent calls from multiple threads. Unrecognised JSON fields are
+///     it safe for concurrent calls from multiple threads. Unrecognized JSON fields are
 ///     silently ignored during deserialization.
 /// </remarks>
 public static class Spdx2JsonDeserializer

@@ -68,7 +68,7 @@ when `DESCRIBES` relationships are not present).
 - *Returns*: `SpdxPackage[]` — packages whose SPDX ID appears in the `Describes` array, is the
   target of a `DESCRIBES` relationship from the document element, or is the source of a
   `DESCRIBED_BY` relationship pointing at the document element. All three mechanisms are checked
-  and the results are unioned.
+  and the results are merged.
 - *Preconditions*: none.
 - *Postconditions*: none.
 

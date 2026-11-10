@@ -65,7 +65,7 @@ public abstract class SpdxLicenseElement : SpdxElement
     /// </summary>
     /// <remarks>
     ///     This field provides a place for the SPDX data creator to record
-    ///     acknowledgements that may be required to be communicated in some
+    ///     acknowledgments that may be required to be communicated in some
     ///     contexts.
     /// </remarks>
     public string[] AttributionText { get; set; } = [];

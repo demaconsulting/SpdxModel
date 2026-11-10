@@ -12,6 +12,8 @@
 A modern C# library for working with SPDX (Software Package Data Exchange) documents. This library provides a
 comprehensive in-memory model for reading, manipulating, and writing SPDX Software Bill of Materials (SBOM) files.
 
+![Architecture: an application using the SpdxModel data model, the IO subsystem and the Transform subsystem][architecture]
+
 ## Features
 
 - 🚀 **Full SPDX 2.2 and 2.3 Support** - Complete implementation of SPDX specifications
@@ -199,3 +201,4 @@ Made with ❤️ by [DEMA Consulting](https://github.com/demaconsulting)
 [security]: https://github.com/demaconsulting/SpdxModel/blob/main/SECURITY.md
 [agents]: https://github.com/demaconsulting/SpdxModel/blob/main/AGENTS.md
 [license]: https://github.com/demaconsulting/SpdxModel/blob/main/LICENSE
+[architecture]: https://raw.githubusercontent.com/demaconsulting/SpdxModel/main/docs/images/architecture.png
