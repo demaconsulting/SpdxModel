@@ -14,7 +14,7 @@ sections:
                   - data-model
                 justification: |
                   Adding a single relationship is the fundamental mutation operation. Atomic requirements
-                  allow each behaviour to be verified and traced independently.
+                  allow each behavior to be verified and traced independently.
                 tests:
                   - SpdxRelationships_AddSingle_ValidRelationship_AddsRelationship
                   - SpdxRelationships_AddSingle_DuplicateRelationship_EnhancesExistingRelationship

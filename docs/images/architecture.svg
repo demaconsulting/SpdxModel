@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="690" viewBox="0 0 900 690" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <!-- Transparent canvas; a white rounded card keeps the diagram readable in light and dark themes -->
+  <rect x="14" y="16" width="875" height="660" rx="28" fill="#d5dce6"/>
+  <rect x="10" y="10" width="875" height="660" rx="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+  <g transform="translate(30,30)">
+    <!-- Library frame -->
+    <rect x="0" y="112" width="835" height="500" rx="14" fill="#f8fafc" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 5"/>
+    <text x="330" y="138" font-size="14" font-weight="600" fill="#2563eb">DemaConsulting.SpdxModel - one NuGet package</text>
+    <!-- SPDX JSON file -->
+    <rect x="20" y="0" width="220" height="60" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="130" y="26" font-size="15" font-weight="600" fill="#334155" text-anchor="middle">SPDX JSON file</text>
+    <text x="130" y="46" font-size="12" fill="#475569" text-anchor="middle">SPDX 2.2 or 2.3</text>
+    <line x1="130" y1="64" x2="130" y2="154" stroke="#475569" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <text x="142" y="84" font-size="12" fill="#334155">read</text>
+    <text x="142" y="98" font-size="12" fill="#334155">and write</text>
+
+    <!-- Caller -->
+    <rect x="470" y="0" width="345" height="60" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="642" y="26" font-size="16" font-weight="600" fill="#92400e" text-anchor="middle">Your application</text>
+    <text x="642" y="46" font-size="13" fill="#92400e" text-anchor="middle">SBOM tools, generators and CI/CD pipelines</text>
+    <polyline points="468,30 285,30 285,170 244,170" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+    <text x="376" y="22" font-size="12" fill="#334155" text-anchor="middle">Deserialize / Serialize</text>
+    <line x1="780" y1="64" x2="780" y2="154" stroke="#475569" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <text x="768" y="84" font-size="12" fill="#334155" text-anchor="end">build, inspect,</text>
+    <text x="768" y="98" font-size="12" fill="#334155" text-anchor="end">validate, copy</text>
+
+
+    <!-- IO -->
+    <rect x="20" y="156" width="220" height="286" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="130" y="182" font-size="16" font-weight="600" fill="#166534" text-anchor="middle">IO subsystem</text>
+    <rect x="34" y="196" width="192" height="50" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="130" y="217" font-size="13" font-family="Consolas, monospace" fill="#14532d" text-anchor="middle">Spdx2JsonDeserializer</text>
+    <text x="130" y="236" font-size="11.5" fill="#166534" text-anchor="middle">JSON text to SpdxDocument</text>
+    <rect x="34" y="256" width="192" height="50" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="130" y="277" font-size="13" font-family="Consolas, monospace" fill="#14532d" text-anchor="middle">Spdx2JsonSerializer</text>
+    <text x="130" y="296" font-size="11.5" fill="#166534" text-anchor="middle">SpdxDocument to JSON text</text>
+    <rect x="34" y="316" width="192" height="50" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="130" y="337" font-size="14" font-family="Consolas, monospace" fill="#14532d" text-anchor="middle">SpdxConstants</text>
+    <text x="130" y="356" font-size="11.5" fill="#166534" text-anchor="middle">JSON property names</text>
+    <rect x="34" y="376" width="192" height="50" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="130" y="397" font-size="14" font-family="Consolas, monospace" fill="#14532d" text-anchor="middle">SpdxHelpers</text>
+    <text x="130" y="416" font-size="11.5" fill="#166534" text-anchor="middle">shared internal helpers</text>
+
+    <!-- Transform -->
+    <rect x="20" y="462" width="220" height="100" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="130" y="488" font-size="16" font-weight="600" fill="#4c1d95" text-anchor="middle">Transform subsystem</text>
+    <rect x="34" y="502" width="192" height="46" rx="6" fill="#ffffff" stroke="#7c3aed"/>
+    <text x="130" y="522" font-size="14" font-family="Consolas, monospace" fill="#4c1d95" text-anchor="middle">SpdxRelationships</text>
+    <text x="130" y="539" font-size="11.5" fill="#5b21b6" text-anchor="middle">add relationships, no duplicates</text>
+
+    <!-- Data model -->
+    <rect x="330" y="156" width="485" height="440" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="572" y="182" font-size="16" font-weight="600" fill="#1e3a8a" text-anchor="middle">Data model</text>
+    <rect x="350" y="196" width="445" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="572" y="217" font-size="14" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxDocument</text>
+    <text x="572" y="236" font-size="11.5" fill="#1e40af" text-anchor="middle">root container: aggregates every element and the document-level metadata</text>
+
+    <rect x="350" y="262" width="445" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-dasharray="5 3"/>
+    <text x="364" y="280" font-size="12" font-weight="600" fill="#1e3a8a">Elements, all derived from SpdxElement</text>
+    <rect x="364" y="290" width="135" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="431" y="311" font-size="13" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxPackage</text>
+    <text x="431" y="330" font-size="11" fill="#1e40af" text-anchor="middle">a software package</text>
+    <rect x="505" y="290" width="135" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="572" y="311" font-size="13" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxFile</text>
+    <text x="572" y="330" font-size="11" fill="#1e40af" text-anchor="middle">a file</text>
+    <rect x="646" y="290" width="135" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="713" y="311" font-size="13" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxSnippet</text>
+    <text x="713" y="330" font-size="11" fill="#1e40af" text-anchor="middle">part of a file</text>
+    <rect x="364" y="350" width="210" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="469" y="371" font-size="13" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxRelationship</text>
+    <text x="469" y="390" font-size="11" fill="#1e40af" text-anchor="middle">typed link between elements</text>
+    <rect x="585" y="350" width="196" height="50" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="683" y="371" font-size="13" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxAnnotation</text>
+    <text x="683" y="390" font-size="11" fill="#1e40af" text-anchor="middle">reviewer note</text>
+    <line x1="572" y1="246" x2="572" y2="260" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+
+    <rect x="350" y="428" width="445" height="152" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-dasharray="5 3"/>
+    <text x="364" y="446" font-size="12" font-weight="600" fill="#1e3a8a">Supporting types</text>
+    <rect x="364" y="456" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="466" y="476" font-size="12" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxCreationInformation</text>
+    <rect x="576" y="456" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="678" y="476" font-size="12" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxChecksum</text>
+    <rect x="364" y="494" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="466" y="514" font-size="12" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxExternalReference</text>
+    <rect x="576" y="494" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="678" y="514" font-size="12" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxPackageVerificationCode</text>
+    <rect x="364" y="532" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="466" y="552" font-size="12" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxExtractedLicensingInfo</text>
+    <rect x="576" y="532" width="205" height="30" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="678" y="552" font-size="11" font-family="Consolas, monospace" fill="#1e3a8a" text-anchor="middle">SpdxExternalDocumentReference</text>
+
+    <!-- IO and Transform use the data model -->
+    <line x1="244" y1="312" x2="328" y2="312" stroke="#475569" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <text x="287" y="290" font-size="11.5" fill="#334155" text-anchor="middle">builds and</text>
+    <text x="287" y="303" font-size="11.5" fill="#334155" text-anchor="middle">writes</text>
+    <line x1="244" y1="525" x2="328" y2="525" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+    <text x="287" y="504" font-size="11.5" fill="#334155" text-anchor="middle">adds</text>
+    <text x="287" y="517" font-size="11.5" fill="#334155" text-anchor="middle">relationships</text>
+  </g>
+</svg>

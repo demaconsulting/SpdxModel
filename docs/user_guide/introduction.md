@@ -13,6 +13,13 @@ files in JSON format, with full support for SPDX 2.2 and 2.3 specifications. It 
 2.0, .NET 8, 9, and 10, and builds and runs on Windows, Linux, and macOS. It is suitable for use in
 .NET applications, tools, and CI/CD pipelines.
 
+The figure below shows how the pieces fit together: your application builds and inspects an `SpdxDocument`, the
+root of the object model, directly or through the `IO` subsystem that reads and writes SPDX JSON files, and uses the
+`Transform` subsystem to add relationships without duplicates.
+
+![Architecture: an application using the SpdxModel data model, the IO subsystem that reads and writes SPDX JSON
+files, and the Transform subsystem](architecture.svg)
+
 ## Scope
 
 This guide covers installation of the SpdxModel NuGet package, basic and advanced usage of the library

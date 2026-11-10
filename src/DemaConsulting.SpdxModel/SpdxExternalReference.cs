@@ -164,7 +164,7 @@ public sealed class SpdxExternalReference
     ///     Perform validation of information
     /// </summary>
     /// <remarks>
-    ///     Issues are collected non-throwingly into the caller-supplied <paramref name="issues"/> list.
+    ///     Issues are collected without throwing into the caller-supplied <paramref name="issues"/> list.
     ///     The following fields are validated: <see cref="Category"/> (must not be
     ///     <see cref="SpdxReferenceCategory.Missing"/>), <see cref="Type"/> (must be non-empty), and
     ///     <see cref="Locator"/> (must be non-empty).

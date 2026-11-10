@@ -25,7 +25,7 @@ namespace DemaConsulting.SpdxModel;
 /// </summary>
 /// <remarks>
 ///     The <see cref="Missing"/> sentinel value (-1) indicates that no algorithm has been
-///     assigned. It is used as a default/uninitialised state and is not a valid SPDX
+///     assigned. It is used as a default/uninitialized state and is not a valid SPDX
 ///     algorithm name. All other members correspond to named SPDX algorithm identifiers.
 /// </remarks>
 public enum SpdxChecksumAlgorithm

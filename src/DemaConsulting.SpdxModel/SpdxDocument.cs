@@ -356,7 +356,7 @@ public sealed class SpdxDocument : SpdxElement
     ///     <see cref="Describes"/> array, is the target of a <c>DESCRIBES</c> relationship
     ///     from the document element, or is the source of a <c>DESCRIBED_BY</c> relationship
     ///     pointing at the document element. All three mechanisms are checked and the results
-    ///     are unioned.
+    ///     are merged.
     /// </remarks>
     /// <returns>Array of packages described by this document</returns>
     /// <example>
