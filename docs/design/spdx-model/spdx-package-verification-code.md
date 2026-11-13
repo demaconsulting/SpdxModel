@@ -1,5 +1,7 @@
 ## SpdxPackageVerificationCode
 
+![SpdxPackageVerificationCode Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxPackageVerificationCode` represents an SPDX package verification code — a SHA1 digest

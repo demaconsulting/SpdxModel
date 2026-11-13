@@ -1,5 +1,7 @@
 ## SpdxCreationInformation
 
+![SpdxCreationInformation Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxCreationInformation` captures the metadata about who created an SPDX document and when.

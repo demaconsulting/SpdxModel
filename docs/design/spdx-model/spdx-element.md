@@ -1,5 +1,7 @@
 ## SpdxElement
 
+![SpdxElement Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxElement` is the abstract base class for all identifiable SPDX elements. It defines the

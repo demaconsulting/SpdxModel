@@ -1,5 +1,7 @@
 # SpdxModel
 
+![SpdxModel Structure](SpdxModelView.svg)
+
 DemaConsulting.SpdxModel is a .NET library providing a complete implementation of the SPDX
 (Software Package Data Exchange) data model. The library exposes an in-memory object model
 representing all SPDX document elements, with serialization and transformation capabilities.
@@ -104,7 +106,7 @@ flowchart TD
 - *Role*: Provider
 - *Contract*: Exposes `SpdxDocument` and all data model classes, `Spdx2JsonDeserializer`,
   `Spdx2JsonSerializer`, and `SpdxRelationships` as public types.
-- *Constraints*: Targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0`.
+- *Constraints*: Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0`.
 
 **Error Handling**:
 
@@ -144,7 +146,7 @@ flowchart LR
 
 ## Design Constraints
 
-- Targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0` simultaneously.
+- Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0` simultaneously.
 - Minimal runtime dependencies: relies on BCL/framework APIs where possible; compatibility NuGet
   packages used on older targets.
 - Nullable reference types enabled: all public API members declare nullability explicitly.

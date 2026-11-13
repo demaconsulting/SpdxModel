@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Verification Design
+title: SpdxModel Verification Design Document
 subtitle: SPDX document model for .NET
 author: DEMA Consulting
 description: Verification Design Document for SpdxModel

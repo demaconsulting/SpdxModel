@@ -1,5 +1,7 @@
 ## SpdxSnippet
 
+![SpdxSnippet Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxSnippet` represents a portion of a file in an SPDX document. Snippets are used when a

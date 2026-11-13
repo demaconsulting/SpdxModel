@@ -1,5 +1,7 @@
 ## SpdxHelpers
 
+![SpdxHelpers Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxHelpers` is an internal static utility class providing shared helper methods used across

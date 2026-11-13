@@ -1,5 +1,7 @@
 ### SpdxConstants
 
+![SpdxConstants Structure](IOView.svg)
+
 #### Purpose
 
 `SpdxConstants` is a static class that centralizes all JSON property-name strings used when

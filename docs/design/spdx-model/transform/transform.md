@@ -1,5 +1,7 @@
 ### Transform
 
+![Transform Structure](TransformView.svg)
+
 The Transform subsystem provides utilities for manipulating SPDX documents in memory, enabling
 consumers to programmatically build and modify SPDX relationship graphs.
 

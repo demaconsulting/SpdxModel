@@ -1,5 +1,7 @@
 ### Spdx2JsonSerializer
 
+![Spdx2JsonSerializer Structure](IOView.svg)
+
 #### Purpose
 
 `Spdx2JsonSerializer` converts an in-memory `SpdxDocument` object model to an SPDX 2.3 JSON

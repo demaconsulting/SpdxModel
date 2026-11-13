@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Requirements
+title: SpdxModel Requirements Document
 subtitle: SPDX document model for .NET
 author: DEMA Consulting
 description: "Requirements Document for SpdxModel"

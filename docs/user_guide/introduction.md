@@ -10,7 +10,7 @@ components, licenses, copyrights, and security references.
 
 The library provides a comprehensive in-memory model for reading, manipulating, and writing SPDX SBOM
 files in JSON format, with full support for SPDX 2.2 and 2.3 specifications. It targets .NET Standard
-2.0, .NET 8, 9, and 10, and builds and runs on Windows, Linux, and macOS. It is suitable for use in
+2.0, .NET 8, 9, 10, and 11, and builds and runs on Windows, Linux, and macOS. It is suitable for use in
 .NET applications, tools, and CI/CD pipelines.
 
 The figure below shows how the pieces fit together: your application builds and inspects an `SpdxDocument`, the
@@ -28,7 +28,7 @@ working with packages, files, snippets, relationships, and custom license refere
 
 Prerequisites for using SpdxModel:
 
-- .NET Standard 2.0, .NET 8.0, 9.0, or 10.0
+- .NET Standard 2.0, .NET 8.0, 9.0, 10.0, or 11.0
 - C# 12 or later
 
 ## References

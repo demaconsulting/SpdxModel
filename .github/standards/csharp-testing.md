@@ -64,11 +64,6 @@ These are non-obvious v3 behaviors that differ from v2 or common assumptions:
 - **`[Collection]` without `[CollectionDefinition]`**: Silently disables parallelism
   without providing any shared fixture - always pair them or remove `[Collection]`
 
-# Repository-Specific Exceptions
-
-No active exceptions. The `DemaConsulting.SpdxModel.Tests` project was migrated from MSTest
-to xUnit v3 and now follows this standard.
-
 # Quality Checks
 
 - [ ] All tests follow AAA pattern with clear section comments

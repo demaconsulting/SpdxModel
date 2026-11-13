@@ -13,6 +13,7 @@ needs-review:
   - "docs/design/**/*.md"         # Design documentation files
   - "docs/verification/**/*.md"   # Verification documentation files
   - "docs/user_guide/**/*.md"     # User guide documentation
+  - "docs/sysml2/**/*.sysml"      # SysML2 architecture model
   - "!**/obj/**"                  # Exclude build output
   - "!**/bin/**"                  # Exclude build output
   - "!node_modules/**"            # Exclude npm dependencies
@@ -37,6 +38,14 @@ reviews:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
       - "docs/design/spdx-model/spdx-model.md"
+
+  - id: Decomposition
+    title: Review that SpdxModel Decomposition Addresses the Stated Purpose
+    paths:
+      - "requirements.yaml"
+      - "docs/reqstream/quality.yaml"
+      - "docs/design/introduction.md"
+      - "docs/sysml2/**/*.sysml"
 
   - id: SpdxModel-Architecture
     title: Review that SpdxModel Architecture Satisfies Requirements
@@ -251,3 +260,9 @@ reviews:
       - "docs/verification/spdx-model/spdx-snippet.md"
       - "src/DemaConsulting.SpdxModel/SpdxSnippet.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs"
+
+  - id: OTS-SysML2Tools
+    title: Review that SysML2Tools Provides Required Functionality
+    paths:
+      - "docs/reqstream/ots/sysml2tools.yaml"
+      - "docs/verification/ots/sysml2tools.md"
