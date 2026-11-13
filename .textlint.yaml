@@ -27,7 +27,6 @@ words:
   - Cyper
   - DEMA
   - demaconsulting
-  - DEMACONSULTINGNUGETKEY
   - Doap
   - ncipollo
   - Neko
@@ -37,6 +36,7 @@ words:
   - Protecode
   - Sarif
   - Setext
+  - shopt
   - snupkg
   - sonarscanner
   - SPDXID

@@ -4,7 +4,7 @@
 
 Using SpdxModel requires:
 
-- .NET Standard 2.0, .NET 8.0, 9.0, or 10.0
+- .NET Standard 2.0, .NET 8.0, 9.0, 10.0, or 11.0
 - C# 12 or later
 
 ## Installing via NuGet

@@ -13,6 +13,7 @@ needs-review:
   - "docs/design/**/*.md"         # Design documentation files
   - "docs/verification/**/*.md"   # Verification documentation files
   - "docs/user_guide/**/*.md"     # User guide documentation
+  - "docs/sysml2/**/*.sysml"      # SysML2 architecture model
   - "!**/obj/**"                  # Exclude build output
   - "!**/bin/**"                  # Exclude build output
   - "!node_modules/**"            # Exclude npm dependencies
@@ -36,17 +37,30 @@ reviews:
       - "docs/user_guide/**/*.md"
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
-      - "docs/design/spdx-model/spdx-model.md"
+      - "docs/design/spdx-model.md"
+
+  - id: Decomposition
+    title: Review that SpdxModel Decomposition Addresses the Stated Purpose
+    context:
+      - "README.md"
+      - "docs/user_guide/**/*.md"
+    paths:
+      - "requirements.yaml"
+      - "docs/reqstream/quality.yaml"
+      - "docs/design/introduction.md"
+      - "docs/sysml2/**/*.sysml"
 
   - id: SpdxModel-Architecture
     title: Review that SpdxModel Architecture Satisfies Requirements
     paths:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
-      - "docs/design/spdx-model/spdx-model.md"
+      - "docs/design/spdx-model.md"
       - "docs/verification/introduction.md"
-      - "docs/verification/spdx-model/spdx-model.md"
+      - "docs/verification/spdx-model.md"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxModelTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/TestHelpers.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/AssemblyInfo.cs"
 
   - id: SpdxModel-Design
     title: Review that SpdxModel Design is Consistent and Complete
@@ -96,6 +110,7 @@ reviews:
       - "src/DemaConsulting.SpdxModel/IO/Spdx2JsonSerializer.cs"
       - "src/DemaConsulting.SpdxModel/IO/SpdxConstants.cs"
       - "test/DemaConsulting.SpdxModel.Tests/IO/Spdx2JsonSerialize*.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/IO/SpdxJsonHelpers.cs"
 
   - id: SpdxModel-Transform
     title: Review that SpdxModel Transform Satisfies Subsystem Requirements
@@ -103,7 +118,7 @@ reviews:
       - "docs/reqstream/spdx-model/transform/transform.yaml"
       - "docs/design/spdx-model/transform/transform.md"
       - "docs/verification/spdx-model/transform/transform.md"
-      - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxModelTransformTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/Transform/SpdxModelTransformTests.cs"
 
   - id: SpdxModel-Transform-SpdxRelationships
     title: Review that SpdxModel Transform SpdxRelationships Implementation is Correct
@@ -112,7 +127,7 @@ reviews:
       - "docs/design/spdx-model/transform/spdx-relationships.md"
       - "docs/verification/spdx-model/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
-      - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/Transform/SpdxRelationshipsTests.cs"
 
   - id: SpdxModel-SpdxAnnotation
     title: Review that SpdxModel SpdxAnnotation Implementation is Correct
@@ -206,6 +221,7 @@ reviews:
       - "docs/design/spdx-model/spdx-helpers.md"
       - "docs/verification/spdx-model/spdx-helpers.md"
       - "src/DemaConsulting.SpdxModel/SpdxHelpers.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxHelpersTests.cs"
 
   - id: SpdxModel-SpdxLicenseElement
     title: Review that SpdxModel SpdxLicenseElement Implementation is Correct
@@ -214,6 +230,7 @@ reviews:
       - "docs/design/spdx-model/spdx-license-element.md"
       - "docs/verification/spdx-model/spdx-license-element.md"
       - "src/DemaConsulting.SpdxModel/SpdxLicenseElement.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/SpdxLicenseElementTests.cs"
 
   - id: SpdxModel-SpdxPackage
     title: Review that SpdxModel SpdxPackage Implementation is Correct
@@ -251,3 +268,9 @@ reviews:
       - "docs/verification/spdx-model/spdx-snippet.md"
       - "src/DemaConsulting.SpdxModel/SpdxSnippet.cs"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxSnippetTests.cs"
+
+  - id: OTS-SysML2Tools
+    title: Review that SysML2Tools Provides Required Functionality
+    paths:
+      - "docs/reqstream/ots/sysml2tools.yaml"
+      - "docs/verification/ots/sysml2tools.md"

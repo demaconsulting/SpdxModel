@@ -1,5 +1,7 @@
 ## SpdxChecksum
 
+![SpdxChecksum Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxChecksum` represents an SPDX checksum — an algorithm-value pair used to verify the

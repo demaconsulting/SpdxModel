@@ -1,5 +1,7 @@
 ## SpdxFile
 
+![SpdxFile Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxFile` represents an individual file within an SPDX document, enabling fine-grained tracking

@@ -1,5 +1,7 @@
 ## SpdxPackage
 
+![SpdxPackage Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxPackage` represents an SPDX package — the primary building block of a Software Bill of

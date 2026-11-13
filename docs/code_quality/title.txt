@@ -1,5 +1,5 @@
 ---
-title: SpdxModel Code Quality
+title: SpdxModel Code Quality Report
 subtitle: SPDX document model for .NET
 author: DEMA Consulting
 description: Code Quality Report for SpdxModel

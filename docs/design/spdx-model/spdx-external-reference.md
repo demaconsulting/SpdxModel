@@ -1,5 +1,7 @@
 ## SpdxExternalReference
 
+![SpdxExternalReference Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxExternalReference` represents a link from an SPDX package to an external resource, such as

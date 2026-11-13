@@ -26,30 +26,22 @@ Out of scope:
 
 ## Software Structure
 
-```text
-DemaConsulting.SpdxModel (System)
-├── IO (Subsystem)
-│   ├── Spdx2JsonDeserializer (Unit)
-│   ├── Spdx2JsonSerializer (Unit)
-│   └── SpdxConstants (Unit)
-├── Transform (Subsystem)
-│   └── SpdxRelationships (Unit)
-├── SpdxAnnotation (Unit)
-├── SpdxChecksum (Unit)
-├── SpdxCreationInformation (Unit)
-├── SpdxDocument (Unit)
-├── SpdxElement (Unit)
-├── SpdxExternalDocumentReference (Unit)
-├── SpdxExternalReference (Unit)
-├── SpdxExtractedLicensingInfo (Unit)
-├── SpdxFile (Unit)
-├── SpdxHelpers (Unit)
-├── SpdxLicenseElement (Unit)
-├── SpdxPackage (Unit)
-├── SpdxPackageVerificationCode (Unit)
-├── SpdxRelationship (Unit)
-└── SpdxSnippet (Unit)
-```
+The software structure is modeled in SysML2 under `docs/sysml2/` (see
+`docs/sysml2/model/**/*.sysml`) and rendered to the diagram below by SysML2Tools as part
+of the build pipeline. The SysML2 model — not this diagram or prose — is the authoritative,
+machine-queryable source of structure. AI agents should query the SysML2 model directly
+(see the `sysml2tools-query` skill) rather than parsing this diagram before deep-diving into
+source code.
+
+![Software Structure](SoftwareStructureView.svg)
+
+The diagram below complements the structure view by showing the library in its run-time
+context: the calling application builds and inspects an `SpdxDocument` through the data
+model, the IO subsystem reads and writes SPDX 2.2/2.3 JSON files, and the Transform
+subsystem adds relationships to a document.
+
+![SpdxModel architecture: an application using the SpdxModel data model, the IO subsystem
+that reads and writes SPDX JSON files, and the Transform subsystem](architecture.svg)
 
 ## Folder Layout
 
@@ -89,7 +81,7 @@ test/DemaConsulting.SpdxModel.Tests/
 │   ├── Spdx2JsonSerialize*.cs       — Serializer unit tests
 │   ├── SpdxJsonHelpers.cs          — IO test utility helpers
 │   └── SpdxModelIOTests.cs          — IO subsystem integration tests
-├── Transforms/
+├── Transform/
 │   ├── SpdxModelTransformTests.cs  — Transform subsystem integration tests
 │   └── SpdxRelationshipsTests.cs   — Relationship utilities tests
 ├── SpdxModelTests.cs               — System-level integration tests
@@ -122,6 +114,8 @@ Each local software item has corresponding artifacts in parallel directory trees
   `docs/verification/spdx-model[/{subsystem-name}...]/{item}.md`
 - Source: `src/DemaConsulting.SpdxModel[/{SubsystemName}...]/{Item}.cs`
 - Tests: `test/DemaConsulting.SpdxModel.Tests[/{SubsystemName}...]/{Item}Tests.cs`
+- Architecture model: `docs/sysml2/model/spdx-model.sysml`,
+  `docs/sysml2/model/spdx-model[/{subsystem-name}...]/{item}.sysml`
 
 Review-sets: defined in `.reviewmark.yaml`
 

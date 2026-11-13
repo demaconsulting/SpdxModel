@@ -1,5 +1,7 @@
 ## SpdxExternalDocumentReference
 
+![SpdxExternalDocumentReference Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxExternalDocumentReference` represents a reference from one SPDX document to another,

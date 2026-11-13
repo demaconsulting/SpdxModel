@@ -17,6 +17,7 @@ The following items are in scope for this document:
 - IO subsystem and unit verification
 - Transform subsystem and unit verification
 - All software unit verifications within the SpdxModel system
+- SysML2Tools OTS item verification
 
 The following items are out of scope:
 

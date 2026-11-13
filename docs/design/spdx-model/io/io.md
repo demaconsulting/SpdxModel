@@ -1,5 +1,7 @@
 ### IO
 
+![IO Structure](IOView.svg)
+
 The IO subsystem provides JSON serialization and deserialization for SPDX 2.x documents,
 converting between the in-memory `SpdxDocument` object model and SPDX JSON files conforming
 to the SPDX 2.2 and 2.3 specifications.

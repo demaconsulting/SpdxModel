@@ -1,5 +1,7 @@
 ## SpdxExtractedLicensingInfo
 
+![SpdxExtractedLicensingInfo Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxExtractedLicensingInfo` records the full text and metadata of a non-standard license found

@@ -1,5 +1,7 @@
 ## SpdxRelationship
 
+![SpdxRelationship Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxRelationship` represents a directed relationship between two SPDX elements. Relationships

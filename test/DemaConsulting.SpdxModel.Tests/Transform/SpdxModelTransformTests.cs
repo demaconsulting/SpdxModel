@@ -21,7 +21,7 @@
 using DemaConsulting.SpdxModel.IO;
 using DemaConsulting.SpdxModel.Transform;
 
-namespace DemaConsulting.SpdxModel.Tests.Transforms;
+namespace DemaConsulting.SpdxModel.Tests.Transform;
 
 /// <summary>
 ///     Integration tests for the SpdxModel Transform subsystem.

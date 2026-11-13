@@ -25,6 +25,7 @@ input-files:
   - docs/verification/spdx-model/io/spdx-2-json-deserializer.md
   - docs/verification/spdx-model/transform/transform.md
   - docs/verification/spdx-model/transform/spdx-relationships.md
+  - docs/verification/ots/sysml2tools.md
 template: template.html
 table-of-contents: true
 number-sections: true

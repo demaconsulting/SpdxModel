@@ -1,5 +1,7 @@
 ## SpdxLicenseElement
 
+![SpdxLicenseElement Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxLicenseElement` is an abstract intermediate base class that adds license-related fields to

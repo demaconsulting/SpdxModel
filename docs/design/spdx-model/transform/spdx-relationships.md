@@ -1,5 +1,7 @@
 ### SpdxRelationships
 
+![SpdxRelationships Structure](TransformView.svg)
+
 #### Purpose
 
 `SpdxRelationships` provides utility methods for adding SPDX relationships to an `SpdxDocument`

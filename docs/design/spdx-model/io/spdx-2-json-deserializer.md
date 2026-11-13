@@ -1,5 +1,7 @@
 ### Spdx2JsonDeserializer
 
+![Spdx2JsonDeserializer Structure](IOView.svg)
+
 #### Purpose
 
 `Spdx2JsonDeserializer` reads SPDX 2.x JSON documents and populates the in-memory `SpdxDocument`

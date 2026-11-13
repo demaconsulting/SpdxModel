@@ -1,5 +1,7 @@
 ## SpdxAnnotation
 
+![SpdxAnnotation Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxAnnotation` represents an SPDX annotation — a comment or review note attached to any SPDX

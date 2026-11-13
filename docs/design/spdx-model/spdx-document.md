@@ -1,5 +1,7 @@
 ## SpdxDocument
 
+![SpdxDocument Structure](SpdxModelView.svg)
+
 ### Purpose
 
 `SpdxDocument` is the root container of the SPDX object model. It aggregates all SPDX elements

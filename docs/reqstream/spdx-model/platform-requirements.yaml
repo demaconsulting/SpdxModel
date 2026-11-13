@@ -48,9 +48,10 @@ sections:
               - system
               - platform
             justification: |
-              .NET 8 is a long-term support (LTS) release and provides a stable foundation for
-              enterprise applications. Supporting .NET 8 ensures the library can be used in production
-              environments requiring long-term stability and support.
+              .NET 8 is a Long-Term Support (LTS) release that reached end of support in November 2026.
+              The library continues to support this runtime so that users who have not yet migrated to
+              a newer release, such as enterprise environments with slow upgrade cycles, can keep
+              using it.
             tests:
               - net8.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
               - net8.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
@@ -61,9 +62,9 @@ sections:
               - system
               - platform
             justification: |
-              .NET 9 is a standard-term support (STS) release providing newer features and performance
-              improvements. Supporting .NET 9 allows users to leverage the latest .NET capabilities while
-              the framework is current.
+              .NET 9 is a Standard-Term Support (STS) release that has reached end of support. The
+              library continues to support this runtime so that users who have not yet migrated to a
+              newer release can keep using it.
             tests:
               - net9.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
               - net9.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
@@ -74,12 +75,23 @@ sections:
               - system
               - platform
             justification: |
-              .NET 10 represents the latest .NET platform release. Supporting .NET 10 ensures users
-              can adopt the most recent framework version and benefit from the latest performance,
-              security, and feature improvements.
+              .NET 10 is the current Long-Term Support (LTS) release. Supporting this runtime provides
+              a stable, long-term supported target for users who prefer LTS releases.
             tests:
               - net10.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
               - net10.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
+
+          - id: SpdxModel-Platform-Net11
+            title: The library shall support .NET 11 runtime.
+            tags:
+              - system
+              - platform
+            justification: |
+              .NET 11 is the latest release in the .NET platform roadmap. Supporting this runtime
+              ensures the library works for users as they adopt the newest .NET version.
+            tests:
+              - net11.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
+              - net11.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
 
           - id: SpdxModel-Platform-NetStd20
             title: The library shall support the .NET Standard 2.0 target framework.
