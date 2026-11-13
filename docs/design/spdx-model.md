@@ -93,7 +93,7 @@ flowchart TD
 - *Role*: Provider
 - *Contract*: Exposes `SpdxDocument` and all data model classes, `Spdx2JsonDeserializer`,
   `Spdx2JsonSerializer`, and `SpdxRelationships` as public types.
-- *Constraints*: Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0`.
+- *Constraints*: Targets `netstandard2.0`, `net10.0`, and `net11.0`.
 
 **Error Handling**:
 
@@ -106,7 +106,7 @@ flowchart TD
 ## Dependencies
 
 - **System.Text.Json**: used by the IO subsystem for JSON DOM parsing and serialization;
-  available in-box on modern .NET targets and via NuGet for .NET Standard 2.0.
+  available in-box on the `net10.0` and `net11.0` targets and via NuGet for .NET Standard 2.0.
 
 ## Risk Control Measures
 
@@ -133,8 +133,8 @@ flowchart LR
 
 ## Design Constraints
 
-- Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0` simultaneously; the library
-  builds and runs on Windows, Linux, and macOS.
+- Targets `netstandard2.0`, `net10.0`, and `net11.0` simultaneously; the library builds and runs on
+  Windows, Linux, and macOS. Consumers on older runtimes use the `netstandard2.0` build.
 - Minimal runtime dependencies: relies on BCL/framework APIs where possible; compatibility NuGet
   packages used on older targets.
 - Nullable reference types enabled: all public API members declare nullability explicitly.

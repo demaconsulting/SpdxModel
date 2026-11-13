@@ -24,7 +24,7 @@ comprehensive in-memory model for reading, manipulating, and writing SPDX Softwa
 - 🔁 **Deep Copy Support** - Deep copy any SPDX element or entire documents
 - ⚖️ **Comparison Utilities** - Compare and check equality of SPDX elements
 - ✅ **Validation Support** - Validate SPDX documents and elements against the specification
-- ⚡ **Multi-Target** - Supports .NET Standard 2.0, .NET 8, 9, 10, and 11
+- ⚡ **Multi-Target** - Supports .NET Standard 2.0, .NET 10, and .NET 11; older runtimes use the .NET Standard 2.0 build
 - 🖥️ **Multi-Platform** - Builds and runs on Windows, Linux, and macOS
 - 🧪 **Well-Tested** - Comprehensive test suite with high code coverage
 - 📚 **Well-Documented** - XML documentation for all public APIs
@@ -137,7 +137,8 @@ of the NuGet package.
 
 ## Requirements
 
-- .NET Standard 2.0, .NET 8.0, 9.0, 10.0, or 11.0
+- .NET Standard 2.0, .NET 10.0, or .NET 11.0 (older runtimes, such as .NET Framework and
+  .NET 8/9, use the .NET Standard 2.0 build)
 - C# 12 or later
 
 ## Development
