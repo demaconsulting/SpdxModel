@@ -42,33 +42,6 @@ sections:
               - "ubuntu@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully"
               - "ubuntu@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds"
 
-          - id: SpdxModel-Platform-Net8
-            title: The library shall support .NET 8 runtime.
-            tags:
-              - system
-              - platform
-            justification: |
-              .NET 8 is a Long-Term Support (LTS) release that reached end of support in November 2026.
-              The library continues to support this runtime so that users who have not yet migrated to
-              a newer release, such as enterprise environments with slow upgrade cycles, can keep
-              using it.
-            tests:
-              - net8.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
-              - net8.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
-
-          - id: SpdxModel-Platform-Net9
-            title: The library shall support .NET 9 runtime.
-            tags:
-              - system
-              - platform
-            justification: |
-              .NET 9 is a Standard-Term Support (STS) release that has reached end of support. The
-              library continues to support this runtime so that users who have not yet migrated to a
-              newer release can keep using it.
-            tests:
-              - net9.0@SpdxModel_ReadSpdxJson_Spdx22Example_ParsesSuccessfully
-              - net9.0@SpdxModel_WriteReadSpdxJson_Spdx23Example_RoundTripSucceeds
-
           - id: SpdxModel-Platform-Net10
             title: The library shall support .NET 10 runtime.
             tags:
@@ -102,7 +75,8 @@ sections:
               .NET Standard 2.0 is a widely-supported target framework that enables the library to
               be used in MSBuild extensions and other tooling that requires .NET Standard compatibility.
               Supporting this target framework ensures the library can be integrated into a broader
-              range of .NET projects, including those targeting .NET Framework and older .NET Core versions.
+              range of .NET projects, including those targeting .NET Framework and older .NET (Core) runtimes
+              such as .NET 8 and .NET 9, which consume the netstandard2.0 build.
               The net481 test target on Windows provides direct runtime evidence of .NET Standard 2.0
               compatibility, as .NET Framework 4.8.1 fully implements the .NET Standard 2.0 API surface.
             tests:

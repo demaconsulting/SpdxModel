@@ -8,7 +8,7 @@
   writing SPDX Software Bill of Materials (SBOM) files in JSON format, with full support for SPDX
   2.2 and 2.3 specifications.
 - **languages**: `C#`
-- **technologies**: `.NET` (netstandard2.0, net8.0, net9.0, net10.0, net11.0), `NuGet`
+- **technologies**: `.NET` (netstandard2.0, net10.0, net11.0), `NuGet`
 
 # Project Structure
 
