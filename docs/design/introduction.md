@@ -81,7 +81,7 @@ test/DemaConsulting.SpdxModel.Tests/
 │   ├── Spdx2JsonSerialize*.cs       — Serializer unit tests
 │   ├── SpdxJsonHelpers.cs          — IO test utility helpers
 │   └── SpdxModelIOTests.cs          — IO subsystem integration tests
-├── Transforms/
+├── Transform/
 │   ├── SpdxModelTransformTests.cs  — Transform subsystem integration tests
 │   └── SpdxRelationshipsTests.cs   — Relationship utilities tests
 ├── SpdxModelTests.cs               — System-level integration tests

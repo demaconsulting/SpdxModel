@@ -3,7 +3,7 @@
 #### Verification Approach
 
 SpdxRelationships is verified through automated unit tests using the xUnit v3 framework. Tests
-are located in `test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs`.
+are located in `test/DemaConsulting.SpdxModel.Tests/Transform/SpdxRelationshipsTests.cs`.
 Each test constructs an SpdxDocument with a known set of relationships and exercises the
 SpdxRelationships methods directly with no mocked dependencies.
 

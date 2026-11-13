@@ -37,7 +37,7 @@ reviews:
       - "docs/user_guide/**/*.md"
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
-      - "docs/design/spdx-model/spdx-model.md"
+      - "docs/design/spdx-model.md"
 
   - id: Decomposition
     title: Review that SpdxModel Decomposition Addresses the Stated Purpose
@@ -52,9 +52,9 @@ reviews:
     paths:
       - "docs/reqstream/spdx-model/spdx-model.yaml"
       - "docs/design/introduction.md"
-      - "docs/design/spdx-model/spdx-model.md"
+      - "docs/design/spdx-model.md"
       - "docs/verification/introduction.md"
-      - "docs/verification/spdx-model/spdx-model.md"
+      - "docs/verification/spdx-model.md"
       - "test/DemaConsulting.SpdxModel.Tests/SpdxModelTests.cs"
 
   - id: SpdxModel-Design
@@ -112,7 +112,7 @@ reviews:
       - "docs/reqstream/spdx-model/transform/transform.yaml"
       - "docs/design/spdx-model/transform/transform.md"
       - "docs/verification/spdx-model/transform/transform.md"
-      - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxModelTransformTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/Transform/SpdxModelTransformTests.cs"
 
   - id: SpdxModel-Transform-SpdxRelationships
     title: Review that SpdxModel Transform SpdxRelationships Implementation is Correct
@@ -121,7 +121,7 @@ reviews:
       - "docs/design/spdx-model/transform/spdx-relationships.md"
       - "docs/verification/spdx-model/transform/spdx-relationships.md"
       - "src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs"
-      - "test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs"
+      - "test/DemaConsulting.SpdxModel.Tests/Transform/SpdxRelationshipsTests.cs"
 
   - id: SpdxModel-SpdxAnnotation
     title: Review that SpdxModel SpdxAnnotation Implementation is Correct

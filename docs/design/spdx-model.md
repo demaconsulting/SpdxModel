@@ -61,23 +61,10 @@ flowchart TD
     SpdxPackage --> SpdxExternalReference
     SpdxPackage --> SpdxPackageVerificationCode
     SpdxExternalDocumentReference --> SpdxChecksum
-    Spdx2JsonDeserializer --> SpdxHelpers
-    Spdx2JsonSerializer --> SpdxHelpers
-    SpdxDocument --> SpdxPackage
-    SpdxDocument --> SpdxFile
-    SpdxDocument --> SpdxSnippet
-    SpdxDocument --> SpdxRelationship
-    SpdxDocument --> SpdxAnnotation
-    SpdxDocument --> SpdxExternalDocumentReference
-    SpdxDocument --> SpdxCreationInformation
-    SpdxDocument --> SpdxExtractedLicensingInfo
-    SpdxFile --> SpdxChecksum
-    SpdxPackage --> SpdxChecksum
-    SpdxPackage --> SpdxExternalReference
-    SpdxPackage --> SpdxPackageVerificationCode
-    SpdxExternalDocumentReference --> SpdxChecksum
-    Spdx2JsonDeserializer --> SpdxHelpers
-    Spdx2JsonSerializer --> SpdxHelpers
+    SpdxElement & SpdxLicenseElement & SpdxPackage & SpdxFile & SpdxSnippet --> SpdxHelpers
+    SpdxRelationship & SpdxAnnotation & SpdxChecksum & SpdxCreationInformation --> SpdxHelpers
+    SpdxExternalDocumentReference & SpdxExternalReference --> SpdxHelpers
+    SpdxExtractedLicensingInfo & SpdxPackageVerificationCode --> SpdxHelpers
 ```
 
 ## External Interfaces
@@ -146,7 +133,8 @@ flowchart LR
 
 ## Design Constraints
 
-- Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0` simultaneously.
+- Targets `netstandard2.0`, `net8.0`, `net9.0`, `net10.0`, and `net11.0` simultaneously; the library
+  builds and runs on Windows, Linux, and macOS.
 - Minimal runtime dependencies: relies on BCL/framework APIs where possible; compatibility NuGet
   packages used on older targets.
 - Nullable reference types enabled: all public API members declare nullability explicitly.

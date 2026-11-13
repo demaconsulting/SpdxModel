@@ -1,7 +1,7 @@
 using DemaConsulting.SpdxModel.IO;
 using DemaConsulting.SpdxModel.Transform;
 
-namespace DemaConsulting.SpdxModel.Tests.Transforms;
+namespace DemaConsulting.SpdxModel.Tests.Transform;
 
 /// <summary>
 ///     Tests for the <see cref="SpdxRelationships" /> transforms.

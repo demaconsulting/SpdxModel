@@ -6,7 +6,7 @@ package SpdxModel {
 
         metadata info : SoftwareInfo {
             sourceFiles = ("src/DemaConsulting.SpdxModel/Transform/SpdxRelationships.cs");
-            testFiles = ("test/DemaConsulting.SpdxModel.Tests/Transforms/SpdxRelationshipsTests.cs");
+            testFiles = ("test/DemaConsulting.SpdxModel.Tests/Transform/SpdxRelationshipsTests.cs");
             designFiles = ("docs/design/spdx-model/transform/spdx-relationships.md");
             verificationFiles = ("docs/verification/spdx-model/transform/spdx-relationships.md");
             requirementFiles = ("docs/reqstream/spdx-model/transform/spdx-relationships.yaml");
