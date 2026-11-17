@@ -62,10 +62,9 @@ Verifies that FromText correctly parses all recognized checksum algorithm string
 (case-insensitive) to their corresponding enum values.
 This scenario is tested by `SpdxChecksumAlgorithmExtensions_FromText_KnownAlgorithmStrings_ReturnsCorrectEnumValues`.
 
-**SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException**:
-Verifies that FromText throws `InvalidOperationException` when given an unrecognized checksum
-algorithm string.
-This scenario is tested by `SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException`.
+**SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException**: Verifies that
+FromText throws `InvalidOperationException` when given an unrecognized checksum algorithm string. This scenario is
+tested by `SpdxChecksumAlgorithmExtensions_FromText_UnknownAlgorithmString_ThrowsInvalidOperationException`.
 
 **SpdxChecksumAlgorithmExtensions_FromText_EmptyString_ReturnsMissing**: Verifies that FromText
 returns `Missing` when given an empty string.

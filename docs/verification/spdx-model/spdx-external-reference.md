@@ -49,10 +49,10 @@ This scenario is tested by `SpdxExternalReference_Validate_InvalidLocator_Report
 recognized reference category string to its corresponding enum value.
 This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_ValidInput_ParsesCorrectly`.
 
-**SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException**: Verifies that `FromText` throws
-`InvalidOperationException` with a message identifying the unsupported value when given an
-unrecognized reference category string.
-This scenario is tested by `SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException`.
+**SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException**: Verifies that `FromText`
+throws `InvalidOperationException` with a message identifying the unsupported value when given an unrecognized reference
+category string. This scenario is tested by
+`SpdxReferenceCategoryExtensions_FromText_InvalidInput_ThrowsInvalidOperationException`.
 
 **SpdxReferenceCategoryExtensions_ToText_ValidReference_FormatsCorrectly**: Verifies that ToText correctly converts a
 recognized reference category enum value to its SPDX text representation.
@@ -63,6 +63,6 @@ This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_ValidReferenc
 unrecognized enum value.
 This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_InvalidCategory_ThrowsInvalidOperationException`.
 
-**SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException**: Verifies that `ToText` throws
-`InvalidOperationException` with a specific message when called with `SpdxReferenceCategory.Missing`.
-This scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException`.
+**SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException**: Verifies that `ToText`
+throws `InvalidOperationException` with a specific message when called with `SpdxReferenceCategory.Missing`. This
+scenario is tested by `SpdxReferenceCategoryExtensions_ToText_MissingCategory_ThrowsInvalidOperationException`.

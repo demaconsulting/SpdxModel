@@ -84,11 +84,11 @@ representation used in the in-memory model and the text representation used in S
 
 #### SpdxAnnotationType Data Model
 
-| Enum Value | Integer | SPDX Text Form                                  |
-|------------|---------|-------------------------------------------------|
-| `Missing`  | -1      | `""` (sentinel; indicates no type has been set) |
-| `Review`   | 0       | `REVIEW`                                        |
-| `Other`    | 1       | `OTHER`                                         |
+| Enum Value | Integer | SPDX Text Form |
+| --- | --- | --- |
+| `Missing` | -1 | `""` (sentinel; indicates no type has been set) |
+| `Review` | 0 | `REVIEW` |
+| `Other` | 1 | `OTHER` |
 
 #### SpdxAnnotationType Key Methods
 

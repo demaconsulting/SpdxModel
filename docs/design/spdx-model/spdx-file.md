@@ -94,19 +94,19 @@ are also validated. No exceptions are thrown by `DeepCopy`, `Enhance`, or the st
 
 #### Enum Values
 
-| Value           | Description                                           |
-|-----------------|-------------------------------------------------------|
-| `Source`        | Human-readable source code.                           |
-| `Binary`        | Compiled object, target image, or binary executable.  |
-| `Archive`       | Archive file (e.g., zip, tar).                        |
-| `Application`   | Application file.                                     |
-| `Audio`         | Audio file.                                           |
-| `Image`         | Image file.                                           |
-| `Text`          | Human-readable text file.                             |
-| `Video`         | Video file.                                           |
-| `Documentation` | Documentation file.                                   |
-| `Spdx`          | SPDX document.                                        |
-| `Other`         | Other type not matching standard categories.          |
+| Value | Description |
+| --- | --- |
+| `Source` | Human-readable source code. |
+| `Binary` | Compiled object, target image, or binary executable. |
+| `Archive` | Archive file (e.g., zip, tar). |
+| `Application` | Application file. |
+| `Audio` | Audio file. |
+| `Image` | Image file. |
+| `Text` | Human-readable text file. |
+| `Video` | Video file. |
+| `Documentation` | Documentation file. |
+| `Spdx` | SPDX document. |
+| `Other` | Other type not matching standard categories. |
 
 #### FromText
 

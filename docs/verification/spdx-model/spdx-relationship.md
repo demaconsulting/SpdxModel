@@ -71,10 +71,9 @@ This scenario is tested by `SpdxRelationship_Validate_MissingRelationshipType_Re
 recognized relationship type string to its corresponding enum value.
 This scenario is tested by `SpdxRelationshipTypeExtensions_FromText_KnownText_ReturnsMappedEnum`.
 
-**SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException**: Verifies that FromText throws an
-InvalidOperationException with a descriptive message when given an unrecognized relationship
-type string.
-This scenario is tested by `SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException`.
+**SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException**: Verifies that FromText throws
+an InvalidOperationException with a descriptive message when given an unrecognized relationship type string. This
+scenario is tested by `SpdxRelationshipTypeExtensions_FromText_UnknownText_ThrowsInvalidOperationException`.
 
 **SpdxRelationshipTypeExtensions_ToText_KnownEnum_ReturnsMappedText**: Verifies that ToText correctly converts a
 recognized relationship type enum value to its SPDX text representation.
