@@ -72,13 +72,13 @@ specification.
 
 #### Enum Values
 
-| Value            | Integer | Description                                     |
-|------------------|---------|-------------------------------------------------|
-| `Missing`        | -1      | Sentinel indicating no category has been set.   |
-| `Security`       | 0       | References to security-related information.     |
-| `PackageManager` | 1       | References to package management systems.       |
-| `PersistentId`   | 2       | References to software-heritage persistent IDs. |
-| `Other`          | 3       | References that do not fit other categories.    |
+| Value | Integer | Description |
+| --- | --- | --- |
+| `Missing` | -1 | Sentinel indicating no category has been set. |
+| `Security` | 0 | References to security-related information. |
+| `PackageManager` | 1 | References to package management systems. |
+| `PersistentId` | 2 | References to software-heritage persistent IDs. |
+| `Other` | 3 | References that do not fit other categories. |
 
 #### FromText
 

@@ -94,14 +94,14 @@ values and their canonical SPDX string representations.
 The enumeration defines 45 relationship type values plus the sentinel value `Missing` (= -1).
 Key values include:
 
-| Enum Value      | SPDX String                   |
-|-----------------|-------------------------------|
-| `Missing`       | (sentinel — not serializable) |
-| `Describes`     | `DESCRIBES`                   |
-| `Contains`      | `CONTAINS`                    |
-| `DependsOn`     | `DEPENDS_ON`                  |
-| `GeneratedFrom` | `GENERATED_FROM`              |
-| …               | … (45 values total)           |
+| Enum Value | SPDX String |
+| --- | --- |
+| `Missing` | (sentinel — not serializable) |
+| `Describes` | `DESCRIBES` |
+| `Contains` | `CONTAINS` |
+| `DependsOn` | `DEPENDS_ON` |
+| `GeneratedFrom` | `GENERATED_FROM` |
+| … | … (45 values total) |
 
 #### Conversion Methods
 

@@ -19,26 +19,26 @@ different security policies and tooling ecosystems.
 
 `SpdxChecksumAlgorithm` is an enumeration with a sentinel value and 17 named algorithm values:
 
-| Enum Value     | SPDX Text Form          |
-|----------------|-------------------------|
-| `Missing`      | `""` (empty string)     |
-| `Sha1`         | `SHA1`                  |
-| `Sha224`       | `SHA224`                |
-| `Sha256`       | `SHA256`                |
-| `Sha384`       | `SHA384`                |
-| `Sha512`       | `SHA512`                |
-| `Md2`          | `MD2`                   |
-| `Md4`          | `MD4`                   |
-| `Md5`          | `MD5`                   |
-| `Md6`          | `MD6`                   |
-| `Sha3256`      | `SHA3-256`              |
-| `Sha3384`      | `SHA3-384`              |
-| `Sha3512`      | `SHA3-512`              |
-| `Blake2B256`   | `BLAKE2b-256`           |
-| `Blake2B384`   | `BLAKE2b-384`           |
-| `Blake2B512`   | `BLAKE2b-512`           |
-| `Blake3`       | `BLAKE3`                |
-| `Adler32`      | `ADLER32`               |
+| Enum Value | SPDX Text Form |
+| --- | --- |
+| `Missing` | `""` (empty string) |
+| `Sha1` | `SHA1` |
+| `Sha224` | `SHA224` |
+| `Sha256` | `SHA256` |
+| `Sha384` | `SHA384` |
+| `Sha512` | `SHA512` |
+| `Md2` | `MD2` |
+| `Md4` | `MD4` |
+| `Md5` | `MD5` |
+| `Md6` | `MD6` |
+| `Sha3256` | `SHA3-256` |
+| `Sha3384` | `SHA3-384` |
+| `Sha3512` | `SHA3-512` |
+| `Blake2B256` | `BLAKE2b-256` |
+| `Blake2B384` | `BLAKE2b-384` |
+| `Blake2B512` | `BLAKE2b-512` |
+| `Blake3` | `BLAKE3` |
+| `Adler32` | `ADLER32` |
 
 `SpdxChecksumAlgorithmExtensions` provides two static helper methods:
 

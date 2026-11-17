@@ -36,9 +36,9 @@ This scenario is tested by `SpdxSnippet_Enhance_MatchingAndNewSnippets_MergesCor
 when the snippet SPDX-ID does not conform to the required SPDXRef- prefix format.
 This scenario is tested by `SpdxSnippet_Validate_InvalidSnippetId_ReportsIssue`.
 
-**SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues**: Verifies that a fully populated valid SpdxSnippet passes
-all validation checks without reporting any issues.
-This scenario is tested by `SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues`.
+**SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues**: Verifies that a fully populated valid SpdxSnippet
+passes all validation checks without reporting any issues. This scenario is tested by
+`SpdxSnippet_Validate_AllRequiredFieldsPresent_ReturnsNoIssues`.
 
 **SpdxSnippet_Validate_InvalidAnnotation_ReportsIssue**: Verifies that validation reports an issue when an
 annotation within the snippet contains invalid fields.
