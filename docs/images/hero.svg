@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640">
+  <!-- The README hero banner. SPDX JSON documents, packages and files built in code, relationships, and
+       license expressions flow into the SpdxModel library and come out as a typed in-memory SBOM model, SPDX
+       JSON written back, validation issues, and relationship queries such as the root packages.
+       The definitions and the left panel follow the shared DEMA Consulting hero (CanvasNet and BuildMark).
+       This file is docs/images/hero.svg, beside its rendered docs/images/hero.png (matching base names, per the
+       diagram documentation standard); the files it embeds are in docs/images/hero/. -->
+  <defs>
+    <style>
+      .word { font: bold 92px sans-serif; fill: #ffffff; }
+      .eyebrow { font: bold 25px sans-serif; fill: #a5b4fc; }
+      .tag { font: bold 40px sans-serif; fill: #f8fafc; }
+      .body { font: 25px sans-serif; fill: #cbd5e1; }
+      .cmd { font: 25px monospace; fill: #e2e8f0; }
+      .prompt { fill: #5eead4; }
+      .file { fill: #f9a8d4; }
+      .brandText { fill: url(#brand); }
+      .note { font: italic 25px sans-serif; fill: #94a3b8; }
+      .label { font: bold 25px sans-serif; fill: #f1f5f9; text-anchor: middle; }
+      .engine { font: bold 32px monospace; fill: #ffffff; }
+      .api { font: bold 25px sans-serif; fill: #c4b5fd; }
+      .card { fill: url(#glass); stroke: url(#rim); stroke-width: 1.5; filter: url(#shadow); }
+      .panel { fill: #0a1022; stroke: #ffffff; stroke-opacity: 0.06; }
+      .flow { fill: none; stroke-width: 3; stroke-linecap: round; }
+      .page { fill: #ffffff; filter: url(#paper); }
+    </style>
+
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b1f"/>
+      <stop offset="0.55" stop-color="#130f3b"/>
+      <stop offset="1" stop-color="#071a2e"/>
+    </linearGradient>
+    <radialGradient id="glowViolet" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowPink" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#db2777" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#db2777" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.2" fill="#a5b4fc" fill-opacity="0.16"/>
+    </pattern>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="engineFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e1b4b"/>
+      <stop offset="1" stop-color="#0b1022"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="paper" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="blur" x="-30%" y="-150%" width="160%" height="400%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="heat" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+    <marker id="headPink" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#f472b6"/>
+    </marker>
+    <marker id="headAmber" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="headCyan" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#22d3ee"/>
+    </marker>
+    <marker id="headViolet" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#a78bfa"/>
+    </marker>
+    <marker id="headBlue" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#60a5fa"/>
+    </marker>
+    <marker id="headMint" viewBox="0 0 10 10" refX="2.5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+      <path d="M0,0 L10,5 L0,10 L2.5,5 z" fill="#5eead4"/>
+    </marker>
+
+    <!-- The text and shapes inside the mini illustrations -->
+    <style>
+      .mini { font: bold 22px sans-serif; }
+      .miniMono { font: bold 22px monospace; }
+      .bar { fill: #cbd5e1; }
+      .ink { fill: #1e293b; }
+    </style>
+  </defs>
+
+  <!-- Background: deep gradient, soft glows, and a dot grid -->
+  <rect width="1600" height="640" fill="url(#bg)"/>
+  <ellipse cx="250" cy="170" rx="420" ry="300" fill="url(#glowViolet)"/>
+  <ellipse cx="1070" cy="294" rx="420" ry="220" fill="url(#glowCyan)"/>
+  <ellipse cx="1480" cy="620" rx="380" ry="260" fill="url(#glowPink)"/>
+  <rect width="1600" height="640" fill="url(#dots)"/>
+
+  <!-- Wordmark and tagline -->
+  <image href="hero/dc-logo-dark.svg" x="46" y="54" width="50" height="50"/>
+  <text class="eyebrow" x="100" y="90">DEMA Consulting</text>
+  <!-- "SpdxModel" (5334 units) exceeds the 92px wordmark budget, so both words are 91px;
+       the second word starts at x = 52 + 0.091 * 2445 = 274.5 -->
+  <text class="word" x="52" y="176" style="font-size: 91px">Spdx</text>
+  <text class="word brandText" x="274.5" y="176" style="font-size: 91px">Model</text>
+  <rect x="58" y="200" width="132" height="6" rx="3" fill="url(#brand)"/>
+  <text class="tag" x="56" y="266">Every SBOM, modeled.</text>
+  <text class="tag brandText" x="56" y="316">Every package, linked.</text>
+  <text class="body" x="58" y="368">A .NET library that reads, edits,</text>
+  <text class="body" x="58" y="402">validates, and writes SPDX 2.2 and</text>
+  <text class="body" x="58" y="436">2.3 JSON software bills of materials.</text>
+  <!-- The command box: a typical C# call, on two lines -->
+  <rect x="56" y="468" width="480" height="90" rx="12" fill="#0a1022" fill-opacity="0.8" stroke="#a78bfa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text class="cmd" x="78" y="503">var d = Spdx2JsonDeserializer</text>
+  <text class="cmd" x="108" y="539">.Deserialize(</text>
+  <text class="cmd file" x="303" y="539">json</text>
+  <text class="cmd" x="363" y="539">);</text>
+  <text class="note" x="58" y="604">The SBOM model behind SpdxTool.</text>
+
+  <!-- Input cards -->
+  <g>
+    <!-- Input one: an SPDX JSON document -->
+    <rect class="card" x="580" y="40" width="236" height="160" rx="16"/>
+    <rect x="642" y="40" width="112" height="3" rx="1.5" fill="#fbbf24"/>
+    <rect class="panel" x="588" y="48" width="220" height="112" rx="10"/>
+    <g transform="translate(588 48)">
+      <path class="page" d="M24 12 L68 12 L84 28 L84 100 L24 100 Z"/>
+      <path d="M68 12 L68 28 L84 28 Z" fill="#cbd5e1"/>
+      <rect x="34" y="40" width="40" height="5" rx="2.5" fill="#fbbf24"/>
+      <rect class="bar" x="34" y="52" width="40" height="5" rx="2.5"/>
+      <rect class="bar" x="34" y="64" width="30" height="5" rx="2.5"/>
+      <rect class="bar" x="34" y="76" width="36" height="5" rx="2.5"/>
+      <rect x="100" y="18" width="100" height="32" rx="7" fill="#fbbf24" fill-opacity="0.16" stroke="#fbbf24" stroke-width="1.5"/>
+      <text class="mini" x="150" y="42" fill="#fde68a" text-anchor="middle">.json</text>
+      <text class="miniMono" x="104" y="84" fill="#fde68a">SPDX-2.3</text>
+    </g>
+    <text class="label" x="698" y="190">SPDX JSON</text>
+
+    <!-- Input two: packages and files built in code -->
+    <rect class="card" x="828" y="40" width="236" height="160" rx="16"/>
+    <rect x="890" y="40" width="112" height="3" rx="1.5" fill="#22d3ee"/>
+    <rect class="panel" x="836" y="48" width="220" height="112" rx="10"/>
+    <g transform="translate(836 48)">
+      <text class="miniMono" x="12" y="36" fill="#67e8f9">new</text>
+      <text class="miniMono" x="62" y="36" fill="#f8fafc">SpdxPackage</text>
+      <text class="miniMono" x="12" y="68" fill="#67e8f9">new</text>
+      <text class="miniMono" x="62" y="68" fill="#f8fafc">SpdxFile</text>
+      <rect class="bar" x="12" y="86" width="150" height="8" rx="4" fill-opacity="0.6"/>
+    </g>
+    <text class="label" x="946" y="190">Built in code</text>
+
+    <!-- Input three: relationships between elements -->
+    <rect class="card" x="1076" y="40" width="236" height="160" rx="16"/>
+    <rect x="1138" y="40" width="112" height="3" rx="1.5" fill="#f472b6"/>
+    <rect class="panel" x="1084" y="48" width="220" height="112" rx="10"/>
+    <g transform="translate(1084 48)">
+      <rect x="16" y="14" width="44" height="30" rx="7" fill="#f472b6" fill-opacity="0.2" stroke="#f472b6" stroke-width="1.5"/>
+      <rect x="160" y="14" width="44" height="30" rx="7" fill="#ffffff" fill-opacity="0.08" stroke="#cbd5e1" stroke-width="1.5"/>
+      <line x1="64" y1="29" x2="148" y2="29" stroke="#f472b6" stroke-width="3" marker-end="url(#headPink)"/>
+      <text class="miniMono" x="110" y="80" fill="#fbcfe8" text-anchor="middle">CONTAINS</text>
+      <rect class="bar" x="50" y="92" width="120" height="6" rx="3" fill-opacity="0.6"/>
+    </g>
+    <text class="label" x="1194" y="190">Relationships</text>
+
+    <!-- Input four: license expressions on packages and files -->
+    <rect class="card" x="1324" y="40" width="236" height="160" rx="16"/>
+    <rect x="1386" y="40" width="112" height="3" rx="1.5" fill="#60a5fa"/>
+    <rect class="panel" x="1332" y="48" width="220" height="112" rx="10"/>
+    <g transform="translate(1332 48)">
+      <text class="miniMono" x="110" y="40" fill="#bfdbfe" text-anchor="middle">MIT OR</text>
+      <text class="miniMono" x="110" y="72" fill="#bfdbfe" text-anchor="middle">Apache-2.0</text>
+      <rect class="bar" x="50" y="88" width="120" height="6" rx="3" fill-opacity="0.6"/>
+    </g>
+    <text class="label" x="1442" y="190">Licenses</text>
+  </g>
+
+  <!-- Flows into the engine -->
+  <g class="flow">
+    <path d="M698,206 C698,236 950,226 950,253" stroke="#fbbf24" marker-end="url(#headAmber)"/>
+    <path d="M946,206 C946,236 1030,226 1030,253" stroke="#22d3ee" marker-end="url(#headCyan)"/>
+    <path d="M1194,206 C1194,236 1110,226 1110,253" stroke="#f472b6" marker-end="url(#headPink)"/>
+    <path d="M1442,206 C1442,236 1190,226 1190,253" stroke="#60a5fa" marker-end="url(#headBlue)"/>
+  </g>
+  <g stroke="#0a1022" stroke-width="2">
+    <circle cx="698" cy="206" r="5" fill="#fbbf24"/>
+    <circle cx="946" cy="206" r="5" fill="#22d3ee"/>
+    <circle cx="1194" cy="206" r="5" fill="#f472b6"/>
+    <circle cx="1442" cy="206" r="5" fill="#60a5fa"/>
+  </g>
+  <!-- The engine: the SpdxModel library -->
+  <rect x="848" y="262" width="444" height="64" rx="32" fill="url(#brand)" opacity="0.55" filter="url(#blur)"/>
+  <rect x="848" y="262" width="444" height="64" rx="32" fill="url(#engineFill)" stroke="url(#brand)" stroke-width="2.5"/>
+  <rect x="872" y="276" width="36" height="36" rx="9" fill="url(#brand)"/>
+  <path d="M881 282 L894 282 L900 288 L900 306 L881 306 Z" fill="#ffffff"/>
+  <g fill="#7c3aed">
+    <rect x="885" y="290" width="11" height="2.5" rx="1.2"/>
+    <rect x="885" y="295" width="11" height="2.5" rx="1.2"/>
+    <rect x="885" y="300" width="7" height="2.5" rx="1.2"/>
+  </g>
+  <text class="engine" x="924" y="305">SpdxModel</text>
+  <line x1="1108" y1="278" x2="1108" y2="310" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5"/>
+  <text class="api" x="1128" y="303">.NET library</text>
+
+  <!-- Flows out of the engine -->
+  <g class="flow" stroke="#5eead4">
+    <path d="M980,330 C980,356 728,356 728,381" marker-end="url(#headMint)"/>
+    <path d="M1040,330 C1040,356 999,356 999,381" marker-end="url(#headMint)"/>
+    <path d="M1100,330 C1100,356 1232,356 1232,381" marker-end="url(#headMint)"/>
+    <path d="M1160,330 C1160,356 1457,356 1457,381" marker-end="url(#headMint)"/>
+  </g>
+  <g fill="#5eead4" stroke="#0a1022" stroke-width="2">
+    <circle cx="980" cy="330" r="5"/>
+    <circle cx="1040" cy="330" r="5"/>
+    <circle cx="1100" cy="330" r="5"/>
+    <circle cx="1160" cy="330" r="5"/>
+  </g>
+
+  <!-- Output tiles -->
+  <g>
+    <!-- Output one: the typed in-memory SpdxDocument with its packages, files, and relationships -->
+    <rect class="card" x="580" y="390" width="296" height="210" rx="16"/>
+    <rect class="panel" x="588" y="398" width="280" height="152" rx="10"/>
+    <path class="page" d="M604 406 L834 406 L852 424 L852 542 L604 542 Z"/>
+    <path d="M834 406 L834 424 L852 424 Z" fill="#cbd5e1"/>
+    <text class="miniMono" x="616" y="433" fill="#7c3aed">SpdxDocument</text>
+    <line x1="626" y1="442" x2="626" y2="516" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="626" y1="469" x2="644" y2="469" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="626" y1="492" x2="644" y2="492" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="626" y1="516" x2="644" y2="516" stroke="#94a3b8" stroke-width="2"/>
+    <text class="mini ink" x="652" y="477">Packages</text>
+    <text class="mini ink" x="652" y="500">Files</text>
+    <text class="mini ink" x="652" y="524">Relationships</text>
+    <circle cx="828" cy="470" r="6" fill="#fbbf24"/>
+    <circle cx="828" cy="493" r="6" fill="#22d3ee"/>
+    <circle cx="828" cy="517" r="6" fill="#f472b6"/>
+    <text class="label" x="728" y="585">Typed SBOM model</text>
+
+    <!-- Output two: the document serialized back to SPDX JSON -->
+    <rect class="card" x="889" y="390" width="220" height="210" rx="16"/>
+    <rect class="panel" x="897" y="398" width="204" height="152" rx="10"/>
+    <path class="page" d="M952 408 L1034 408 L1050 424 L1050 542 L952 542 Z"/>
+    <path d="M1034 408 L1034 424 L1050 424 Z" fill="#cbd5e1"/>
+    <text class="miniMono" x="964" y="440" fill="#4f46e5">{</text>
+    <rect class="bar" x="976" y="452" width="58" height="5" rx="2.5"/>
+    <rect class="bar" x="976" y="464" width="46" height="5" rx="2.5"/>
+    <rect class="bar" x="976" y="476" width="54" height="5" rx="2.5"/>
+    <rect class="bar" x="976" y="488" width="40" height="5" rx="2.5"/>
+    <rect class="bar" x="976" y="500" width="50" height="5" rx="2.5"/>
+    <text class="miniMono" x="964" y="530" fill="#4f46e5">}</text>
+    <text class="label" x="999" y="585">SPDX JSON</text>
+
+    <!-- Output three: the issues found by Validate -->
+    <rect class="card" x="1122" y="390" width="220" height="210" rx="16"/>
+    <rect class="panel" x="1130" y="398" width="204" height="152" rx="10"/>
+    <text class="miniMono" x="1146" y="436" fill="#f8fafc">issues</text>
+    <rect x="1250" y="414" width="70" height="30" rx="15" fill="#4ade80" fill-opacity="0.18" stroke="#4ade80" stroke-width="1.5"/>
+    <text class="mini" x="1285" y="436" fill="#bbf7d0" text-anchor="middle">0</text>
+    <line x1="1146" y1="456" x2="1318" y2="456" stroke="#ffffff" stroke-opacity="0.15"/>
+    <circle cx="1152" cy="478" r="5" fill="#4ade80"/>
+    <text class="mini" x="1166" y="486" fill="#e2e8f0">SPDX 2.3</text>
+    <circle cx="1152" cy="516" r="5" fill="#4ade80"/>
+    <text class="mini" x="1166" y="524" fill="#e2e8f0">NTIA</text>
+    <text class="label" x="1232" y="585">Validation</text>
+
+    <!-- Output four: relationship queries such as the root packages -->
+    <rect class="card" x="1355" y="390" width="205" height="210" rx="16"/>
+    <rect class="panel" x="1363" y="398" width="189" height="152" rx="10"/>
+    <circle cx="1457" cy="428" r="16" fill="url(#brand)"/>
+    <path d="M1451 420 L1460 420 L1464 424 L1464 436 L1451 436 Z" fill="#ffffff"/>
+    <g stroke="#5eead4" stroke-width="2.5" fill="none">
+      <path d="M1450,444 L1412,486"/>
+      <path d="M1457,444 L1457,486"/>
+      <path d="M1464,444 L1502,486"/>
+    </g>
+    <rect x="1390" y="488" width="44" height="30" rx="7" fill="#5eead4" fill-opacity="0.22" stroke="#5eead4" stroke-width="2"/>
+    <rect x="1435" y="488" width="44" height="30" rx="7" fill="#ffffff" fill-opacity="0.08" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="1480" y="488" width="44" height="30" rx="7" fill="#ffffff" fill-opacity="0.08" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text class="mini" x="1412" y="540" fill="#99f6e4" text-anchor="middle">root</text>
+    <text class="label" x="1457" y="585">Queries</text>
+  </g>
+</svg>

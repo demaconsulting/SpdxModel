@@ -26,3 +26,5 @@ ignore:
   # SpdxModel-specific: agent report files and build artifacts
   - '**/AGENT_REPORT_*.md'
   - 'artifacts/**'
+  - '**/bin/**'
+  - '**/obj/**'
