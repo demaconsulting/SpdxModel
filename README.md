@@ -1,4 +1,4 @@
-# SPDX Model
+# ![SpdxModel: SPDX SBOMs as a .NET object model][hero]
 
 ![GitHub forks](https://img.shields.io/github/forks/demaconsulting/SpdxModel?style=plastic)
 ![GitHub Repo stars](https://img.shields.io/github/stars/demaconsulting/SpdxModel?style=plastic)
@@ -8,8 +8,6 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=demaconsulting_SpdxModel&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=demaconsulting_SpdxModel)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=demaconsulting_SpdxModel&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=demaconsulting_SpdxModel)
 [![NuGet](https://img.shields.io/nuget/v/DemaConsulting.SpdxModel.svg)](https://www.nuget.org/packages/DemaConsulting.SpdxModel/)
-
-![SpdxModel banner: the SpdxModel name with the tagline 'Every SBOM, modeled. Every package, linked.' and the C# call 'var d = Spdx2JsonDeserializer.Deserialize(json);'. SPDX JSON documents, packages and files built in code, relationships such as CONTAINS, and license expressions such as 'MIT OR Apache-2.0' flow on curved arrows into the SpdxModel .NET library, and arrows lead out to what it produces: a typed in-memory SpdxDocument model with packages, files, and relationships, SPDX JSON written back, validation issues against SPDX 2.3 and NTIA, and relationship queries such as the root packages. A footnote names SpdxTool as the downstream tool built on this model][hero]
 
 A modern C# library for working with SPDX (Software Package Data Exchange) documents. This library provides a
 comprehensive in-memory model for reading, manipulating, and writing SPDX Software Bill of Materials (SBOM) files.
