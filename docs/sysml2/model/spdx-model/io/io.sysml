@@ -1,4 +1,7 @@
-package SpdxModel {
+package SpdxModel_IOSubsystem {
+    public import SpdxModel_Spdx2JsonDeserializer::*;
+    public import SpdxModel_Spdx2JsonSerializer::*;
+    public import SpdxModel_SpdxConstants::*;
     private import SoftwareItemMetadata::*;
 
     part def IOSubsystem {

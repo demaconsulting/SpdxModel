@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxPackageVerificationCode {
     private import SoftwareItemMetadata::*;
 
     part def SpdxPackageVerificationCode {

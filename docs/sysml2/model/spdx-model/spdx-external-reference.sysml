@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxExternalReference {
     private import SoftwareItemMetadata::*;
 
     part def SpdxExternalReference {
