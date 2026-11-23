@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxConstants {
     private import SoftwareItemMetadata::*;
 
     part def SpdxConstants {

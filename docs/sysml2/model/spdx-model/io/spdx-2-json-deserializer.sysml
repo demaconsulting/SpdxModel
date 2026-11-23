@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_Spdx2JsonDeserializer {
     private import SoftwareItemMetadata::*;
 
     part def Spdx2JsonDeserializer {

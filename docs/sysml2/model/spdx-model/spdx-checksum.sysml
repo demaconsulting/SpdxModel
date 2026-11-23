@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxChecksum {
     private import SoftwareItemMetadata::*;
 
     part def SpdxChecksum {

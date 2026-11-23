@@ -1,7 +1,23 @@
 package SpdxModel {
+    public import SpdxModel_SpdxAnnotation::*;
+    public import SpdxModel_SpdxChecksum::*;
+    public import SpdxModel_SpdxCreationInformation::*;
+    public import SpdxModel_SpdxDocument::*;
+    public import SpdxModel_SpdxElement::*;
+    public import SpdxModel_SpdxExternalDocumentReference::*;
+    public import SpdxModel_SpdxExternalReference::*;
+    public import SpdxModel_SpdxExtractedLicensingInfo::*;
+    public import SpdxModel_SpdxFile::*;
+    public import SpdxModel_SpdxHelpers::*;
+    public import SpdxModel_SpdxLicenseElement::*;
+    public import SpdxModel_SpdxPackage::*;
+    public import SpdxModel_SpdxPackageVerificationCode::*;
+    public import SpdxModel_SpdxRelationship::*;
+    public import SpdxModel_SpdxSnippet::*;
+    public import SpdxModel_IOSubsystem::*;
+    public import SpdxModel_TransformSubsystem::*;
+    private import OtsDependencies::*;
     private import SoftwareItemMetadata::*;
-
-    import OtsDependencies::*;
 
     doc
     /*

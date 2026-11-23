@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxPackage {
     private import SoftwareItemMetadata::*;
 
     part def SpdxPackage {

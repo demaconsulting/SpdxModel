@@ -1,4 +1,5 @@
-package SpdxModel {
+package SpdxModel_TransformSubsystem {
+    public import SpdxModel_SpdxRelationships::*;
     private import SoftwareItemMetadata::*;
 
     part def TransformSubsystem {

@@ -1,4 +1,4 @@
-package SpdxModel {
+package SpdxModel_SpdxExtractedLicensingInfo {
     private import SoftwareItemMetadata::*;
 
     part def SpdxExtractedLicensingInfo {
