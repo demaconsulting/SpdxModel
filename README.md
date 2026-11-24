@@ -160,6 +160,16 @@ dotnet build
 dotnet test
 ```
 
+The project scripts wrap the same steps. Each requires an explicit scope; with no arguments it prints its usage
+and exits 1. Run `pwsh ./build.ps1 -Help` (likewise `lint.ps1` and `fix.ps1`) for the switches:
+
+```pwsh
+pwsh ./build.ps1 -All       # full build and all tests
+pwsh ./build.ps1 -Changed   # only what your changes affect, while iterating
+pwsh ./lint.ps1 -All        # all lint checks (what CI runs)
+pwsh ./fix.ps1 -Changed     # auto-fix the changed file types
+```
+
 ### Running Tests with Coverage
 
 ```bash
