@@ -199,7 +199,8 @@ including uncommitted files). Each script requires a scope and prints its usage 
 `-All` checks below before submitting:
 
 ```pwsh
-pwsh ./build.ps1 -Changed    # build and test only when the changes affect the build
+pwsh ./build.ps1 -Changed    # build and test only the projects the changes affect
+pwsh ./build.ps1 -Project SpdxModel   # or the projects affected by one project (SpdxModel or Tests)
 pwsh ./fix.ps1 -Changed      # auto-fix only the changed file types
 pwsh ./lint.ps1 -Changed     # run only the lint checks whose inputs changed
 ```

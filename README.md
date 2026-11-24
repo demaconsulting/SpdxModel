@@ -166,6 +166,7 @@ and exits 1. Run `pwsh ./build.ps1 -Help` (likewise `lint.ps1` and `fix.ps1`) fo
 ```pwsh
 pwsh ./build.ps1 -All       # full build and all tests
 pwsh ./build.ps1 -Changed   # only what your changes affect, while iterating
+pwsh ./build.ps1 -Project SpdxModel   # or name a project (SpdxModel or Tests)
 pwsh ./lint.ps1 -All        # all lint checks (what CI runs)
 pwsh ./fix.ps1 -Changed     # auto-fix the changed file types
 ```
